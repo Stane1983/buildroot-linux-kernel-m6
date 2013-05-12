@@ -13,5 +13,12 @@ config MACH_MESON6_REF
 	default y 
 	help
           Support for Amlogic Meson6 reference development platform.
+          
+config MACH_MESON6_REFG18_ATV103
+	depends on ARCH_MESON6
+	bool "Visson ATV-103 board"
+	default y 
+	help
+          Support for Visson ATV-103 MX device
 
 endif # ARCH_MESON6

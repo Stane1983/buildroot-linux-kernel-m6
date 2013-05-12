@@ -1,5 +1,11 @@
 if ARCH_MESON6
 
+config XBMC_BUILD
+	bool "XBMC support"
+	default n
+	help
+	  Compile kernel with Linux XBMC support
+
 config CLKTREE_DEBUG
 	bool "New clock tree debug support"
 	default y
