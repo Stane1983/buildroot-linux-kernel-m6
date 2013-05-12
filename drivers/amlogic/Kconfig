@@ -112,9 +112,6 @@ source "drivers/amlogic/load_deferred_module/Kconfig"
 comment "ARM Mali"
 isource "drivers/amlogic/ump/Kconfig"
 isource "drivers/amlogic/mali/Kconfig"
-comment "ARM Mali (external)"
-isource "../hardware/arm/gpu/ump/Kconfig"
-isource "../hardware/arm/gpu/mali/Kconfig"
 source "drivers/amlogic/spi/Kconfig"
 
 #
