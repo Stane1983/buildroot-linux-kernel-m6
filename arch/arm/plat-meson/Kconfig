@@ -1,0 +1,138 @@
+if PLAT_MESON
+
+menu "Amlogic Meson platform"
+	depends on PLAT_MESON
+choice 
+	prompt "Meson SoC"
+	default ARCH_MESON3
+
+config ARCH_MESON1
+	bool "Meson1 series"
+	help
+	  Enable support for Amlogic Meson1 based system
+
+config ARCH_MESON2
+	bool "Meson2 series"
+	help
+	  Enable support for Amlogic Meson2 based system
+
+config ARCH_MESON3
+	bool "Meson3 series"
+	help
+	  Enable support for Amlogic Meson3 based system
+
+config ARCH_MESON6
+    bool "Meson6 series"
+    help
+        Enable support for Amlogic Meson6 based system
+
+config ARCH_MESON6TV
+    bool "Meson6TV series"
+    help
+        Enable support for Amlogic Meson6TV based system
+endchoice
+
+choice 
+	depends on !SMP
+	prompt "Meson Interrupt Controller Selector"
+	default MESON_IRQ if (!ARCH_MESON6 || !ARCH_MESON6TV)
+	default MESON_ARM_GIC
+config MESON_IRQ
+	bool "Meson Interrupt controller"
+    help
+        If SMP is opend , you should not Enable it 
+config MESON_ARM_GIC
+	bool "ARM Generic Interrupt Controller"
+    select ARM_GIC
+    help
+        Interrupt Controller from ARM Company 
+endchoice
+config MESON_CLOCK_TICK_RATE
+	int "Clock Tick Rate"
+	default 25000000
+
+config MESON_ARM_GIC_FIQ
+	bool "ARM Generic Interrupt Controller FIQ"
+	depends on ARM_GIC
+	help
+	 	enable ARM GIC FIQ	 
+	 default n
+	 
+config MESON_SUSPEND
+	bool "Support Meson A9 domain power down"
+	depends on SUSPEND 
+	default n
+
+config MESON_SUSPEND_FIRMWARE_BASE
+	hex
+	default 0x1ff00000
+	depends on MESON_SUSPEND
+	help
+	  The base address of 1MB of memory reserved for suspend firmware.
+
+config SUSPEND_WATCHDOG
+	bool "Enable hardware watchdog while system halt in suspend or resume process"
+	depends on MESON_SUSPEND
+	default n
+	
+config MESON_SUSPEND_TEST
+	bool "Enable suspend/resume test"
+	depends on MESON_SUSPEND
+	default n
+	
+config SCREEN_ON_EARLY
+	bool "Turn on screen early"
+	depends on MESON_SUSPEND 
+	default n
+	
+config CLK81_DFS
+	bool "Scale clk81 freqence in dynamic mode"
+	default n
+
+config MESON_LEGACY_REGISTER_API
+	bool "Support legacy Meson regiser operation API"
+	default n
+    help
+	  Enable support for legacy Meson register operation API.
+
+config MESON_PLATFORM_API
+	bool "New Meson platform structure API (EXPERIMENTAL)"
+	depends on EXPERIMENTAL
+	default n
+	help
+	  This is the new Meson platform structure API
+
+source "arch/arm/mach-meson1/Kconfig"
+source "arch/arm/mach-meson2/Kconfig"
+source "arch/arm/mach-meson3/Kconfig"
+source "arch/arm/mach-meson6/Kconfig"
+source "arch/arm/mach-meson6tv/Kconfig"
+
+config MESON_CUSTOM_BOARD_SUPPORT
+	bool "Support customer board"
+	default n
+	help
+	  This enables board definition from external customer directory
+
+menu "Meson development boards"
+
+source "arch/arm/mach-meson1/Kconfig.boards"
+source "arch/arm/mach-meson2/Kconfig.boards"
+source "arch/arm/mach-meson3/Kconfig.boards"
+source "arch/arm/mach-meson6/Kconfig.boards"
+source "arch/arm/mach-meson6tv/Kconfig.boards"
+
+if MESON_CUSTOM_BOARD_SUPPORT
+isource "customer/boards/Kconfig"
+endif # MESON_CUSTOM_BOARD_SUPPORT
+
+endmenu # "Meson reference boards"
+
+menu "Meson customer board drivers"
+depends on MESON_CUSTOM_BOARD_SUPPORT
+isource "customer/drivers/Kconfig"
+endmenu # "Customer drivers"
+
+endmenu # "Amlogic Meson platform"
+
+endif # PLAT_MESON

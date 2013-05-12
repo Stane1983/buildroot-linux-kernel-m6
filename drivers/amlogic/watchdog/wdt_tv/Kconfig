@@ -1,0 +1,10 @@
+#
+# AMLOGIC TV Watchdog
+#
+
+config AML_WATCHDOG_TV
+	bool "Amlogic TV Watchdog"
+	default n
+	help
+	  Amlogic tv watchdog timer embedded in chip.
+

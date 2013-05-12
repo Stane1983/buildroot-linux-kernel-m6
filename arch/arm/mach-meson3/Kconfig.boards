@@ -1,0 +1,23 @@
+if ARCH_MESON3
+
+config MACH_M3_SKT
+	depends on ARCH_MESON3=y
+	bool "Meson3 socket board"
+	default y
+	select I2C_AML
+	select AML_HDMI_TX
+	select FB_AM
+	select FB_OSD2_CURSOR
+	select SND_AML_M3
+	select USB_DWC_OTG_HCD
+	help
+	  Support for Amlogic Meson3 socket board.
+
+config MACH_M3_REF
+	depends on ARCH_MESON3=y
+	bool "Meson3 reference board"
+	default y
+	help
+	  Support for Amlogic Meson3 reference development platform.
+
+endif # ARCH_MESON3

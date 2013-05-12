@@ -1,0 +1,19 @@
+menuconfig AML_PMU
+    bool    "Amlogic PMU drivers"
+    select  I2C
+    select  REGULATOR
+    default n
+    ---help---
+        say yes if you want add Amlogic power management unit support
+if AML_PMU
+choice 
+    prompt "AML PMU type"
+    default AML1212
+config AML1212
+    bool "AML1212 driver"
+    ---help---
+        drivers for AML1212
+
+endchoice
+
+endif #AML_PMU

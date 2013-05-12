@@ -1,0 +1,72 @@
+menu "AMLOGIC DEMOD Support"
+
+menuconfig AM_DEMOD
+	tristate "Amlogic demod driver"
+	default n
+	depends on AM_DVB
+	help
+		m1 internal Demod DVB-T/C suport
+
+if AM_DEMOD
+
+config AM_DEMOD_DVBAPI
+       bool "Amlogic Demod DVBAPI Interface"
+	default y
+       depends on AM_DEMOD
+       help
+               m1 internal Demod DVBAPI Interface
+
+config AM_DEMOD_DEBUG
+	bool "Amlogic Demod Debug Interface"
+	default n
+	depends on AM_DEMOD
+	help
+		m1 internal Demod debug interface
+
+config AM_AMDEMOD_DVBC
+	bool "AML DVBC demod driver"
+	default y
+	depends on AM_DEMOD
+	help
+		m1 internal Demod DVB-C Driver
+
+config AM_AMDEMOD_DVBT
+	bool "AML DVBT demod driver"
+	default y
+	depends on AM_DEMOD
+	help
+		m1 internal Demod DVB-T Driver
+
+config AM_AMDEMOD_ISDBT
+	bool "AML ISDBT demod driver"
+	default y
+	depends on AM_DEMOD
+	help
+		m1 internal Demod ISDB-T Driver
+		
+config AM_AMDEMOD_DTMB
+	bool "AML DTMB demod driver"
+	default y
+	depends on AM_DEMOD
+	help
+		m1 internal Demod DTMB Driver
+		
+config AM_AMDEMOD_ATSC
+	bool "AML ATSC demod driver"
+	default y
+	depends on AM_DEMOD
+	help
+		m1 internal Demod ATSC Driver
+		
+
+config AM_AMDEMOD_FPGA_VER
+	bool "AML Demod FPGA VERSION"
+	default y
+	depends on AM_DEMOD 
+#	depends on !SDIO
+	help
+		m1 Demod FPGA Version
+
+endif	# AM_DEMOD
+		
+endmenu

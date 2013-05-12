@@ -1,0 +1,13 @@
+config MACH_M2_SKT
+    depends on ARCH_MESON2=y
+	bool "Amlogic Meson2 socket board"
+	default y
+	help
+	  Support Amlogic Meson2 socket development platform.
+
+config MACH_M2_REF
+    depends on ARCH_MESON2=y
+	bool "Amlogic Meson2 reference board"
+	default y
+	help
+	  Support Amlogic Meson2 reference development platform

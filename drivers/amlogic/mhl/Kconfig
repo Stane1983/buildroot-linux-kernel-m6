@@ -1,0 +1,15 @@
+#
+# MHL devices configuration
+#
+
+menuconfig AML_MHL
+	tristate "Amlogic MHL Support"
+	default n
+
+if AML_MHL
+
+source "drivers/amlogic/mhl/sii1292/Kconfig"
+source "drivers/amlogic/mhl/ep94m3/Kconfig"
+
+endif
+

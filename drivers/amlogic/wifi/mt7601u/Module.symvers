@@ -1,0 +1,2 @@
+0x00000000	rausb_autopm_get_interface	drivers/amlogic/wifi/mt7601u/mt7601Usta	EXPORT_SYMBOL
+0x00000000	rausb_autopm_put_interface	drivers/amlogic/wifi/mt7601u/mt7601Usta	EXPORT_SYMBOL

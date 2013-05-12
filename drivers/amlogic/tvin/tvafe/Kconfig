@@ -1,0 +1,11 @@
+#
+# TVAFE Device Driver Configuration
+#
+
+
+config TVIN_AFE
+	tristate "Amlogic AFE device driver"
+	default n
+	help
+	  AFE device driver.
+

@@ -1,0 +1,35 @@
+#
+# Amlogic tvin devices configuration
+#
+
+menuconfig TVIN_TUNER
+	bool "Amlogic TVIN Tuner Support"
+	default n
+	help
+		TVIN Tuner Driver.
+
+choice
+	prompt "Tuner Type"
+	depends on TVIN_TUNER
+	default TVIN_TUNER_FQ1216ME
+	help
+	  Select the tuner device type.
+
+	config TVIN_TUNER_FQ1216ME
+		bool "Philips FQ1216ME"
+		help
+			PHILIPS FQ1216ME tuner driver.
+
+	config TVIN_TUNER_HTM9AW125
+		bool "Xuguang HTM-9A/W125"
+		help
+			Xuguang HTM-9A/W125 tuner driver.
+
+	config TVIN_TUNER_SI2176
+		bool "Silicon Labs si2176"
+		help
+			Silicon Labs si2176 tuner driver.
+
+endchoice
+
+

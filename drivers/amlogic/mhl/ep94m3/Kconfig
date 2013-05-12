@@ -1,0 +1,12 @@
+#
+# EP94M3 devices configuration
+#
+
+config MHL_EP94M3
+	tristate "EP94M3 MHL/HDMI Support"
+	default n
+	help
+	  EP94M3 is a 3-Port MHL/HDMI Dual Mode Switcher.
+	  The chip supports 3 MHL/HDMI input ports working in dual mode
+	  and 1 HDMI output port.
+

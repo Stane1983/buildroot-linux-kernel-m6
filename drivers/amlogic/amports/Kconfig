@@ -1,0 +1,123 @@
+#
+# Amlogic streaming device configuration
+#
+config  AM_PTSSERVER
+	bool 
+	default n
+config AM_VIDEO
+	bool "Amlogic Video management"
+	default n
+	select AM_CANVAS
+	select AM_PTSMGR
+	select AM_TIMESYNC
+	select AM_PTSSERVER
+	help
+	  Driver for video display.
+
+config AM_VIDEO2
+	bool "AMLOGIC Video2 management"
+	default n
+	select AM_VIDEO
+	help
+	  Driver for video2 display.
+
+config KEEP_FRAME_RESERVED
+	bool "Amlogic Video keep frame used reserved buffer"
+	default n
+	depends on  AM_VIDEO
+	help
+	  Select to enable reserved buffer for last frame keeep.
+	
+menu "Video Decoders"
+	depends on AM_VIDEO
+config AM_VDEC_MPEG12
+	tristate "Amlogic MPEG1/2 Video Decoder"
+	default y
+	
+	select AM_PTSSERVER
+	help
+	  Driver for mpeg1/2 video decoder.
+
+config AM_VDEC_MPEG4
+	tristate "Amlogic MPEG4 Video Decoder"
+	default y
+	
+	select AM_PTSSERVER
+	help
+	  Driver for mpeg4 video decoder.
+
+config AM_VDEC_VC1
+	tristate "Amlogic VC1 Video Decoder"
+	default y
+	
+	select AM_PTSSERVER
+	help
+	  Driver for vc1 video decoder.
+
+config AM_VDEC_H264
+	tristate "Amlogic H264 Video Decoder"
+	default y
+	
+	select AM_PTSSERVER
+	help
+	  Driver for h264 video decoder.
+
+config AM_VDEC_H264MVC
+	tristate "Amlogic H264MVC Video Decoder"
+	default n
+	
+	select AM_PTSSERVER
+	help
+	  Driver for h264mvc video decoder.
+
+config AM_VDEC_MJPEG
+	tristate "Amlogic Motion JPEG Video Decoder"
+	default y
+	
+	select AM_PTSSERVER
+	help
+	  Driver for motion jpeg video decoder.
+
+config AM_ENCODER
+	tristate "Amlogic AVC encoder"
+	default n
+	
+	select AM_PTSSERVER
+	help
+	  Driver for avc encoder.
+config AM_VDEC_REAL
+	tristate "Amlogic Real Video Decoder"
+    default y
+    
+	select AM_PTSSERVER
+    help
+      Driver for real video decoder.
+
+config AM_JPEGDEC
+    tristate "Amlogic HW jpeg decoder"
+    default y
+    
+	select AM_PTSSERVER
+	help
+	  Select to enable HW jpeg decoder.
+
+config AM_TIMESYNC
+	bool "Amlogic Time sync driver"
+	default y
+	help
+	  AV sync and play rate control management.
+
+config AM_STREAMING
+	bool "Amlogic AV Streaming support"
+	default y
+	select AM_PTSSERVER
+	help
+	  Driver for the AV streaming ports.
+
+config AM_SUBTITLE
+	bool "Amlogic SubTitle support"
+	default y
+	help 
+		Internal Sub Title support driver
+endmenu
+

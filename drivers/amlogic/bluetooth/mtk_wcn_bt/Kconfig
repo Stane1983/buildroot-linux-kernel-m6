@@ -1,0 +1,14 @@
+menu "MediaTek Bluetooth Chip Config"
+
+config MTK_DISCRETE_BT
+	bool "MediaTek Discrete Bluetooth Chip Support"
+	help
+	  MTK discrete Bluetooth chip support (MT6622, MT6626)
+
+config MTK_DISCRETE_BT_HW_CTL
+	bool "MediaTek Bluetooth Hardware Control driver"
+	depends on MTK_DISCRETE_BT
+	help
+	  MTK BT hardware control driver for discrete Bluetooth chip
+
+endmenu

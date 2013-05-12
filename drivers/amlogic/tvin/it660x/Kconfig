@@ -1,0 +1,8 @@
+#
+#Hdmirx It660xin Device Driver Configuration
+#
+config TVIN_IT660X
+    tristate "Amlogic IT660XIN device driver" 
+    default  n
+    help
+         Amlogic IT660XIN device driver.

@@ -1,0 +1,11 @@
+
+menu "Amlogic BOOT MONITOR SYSFS"
+
+config BOOT_MONITOR
+	bool "BOOT MONITOR SYSFS"
+	depends on ARCH_MESON6
+	default n
+	---help---
+	  This module adds support for boot monitor sysfs.
+
+endmenu

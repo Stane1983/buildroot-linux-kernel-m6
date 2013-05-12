@@ -1,0 +1,39 @@
+
+menu "Amlogic intenal modem  Support"
+
+config AMLOGIC_MODEM
+	bool "Amlogic intenal modem  support"
+	select IN_3G_SUPPLY
+	default n
+	help
+	  Say Y here if you want to use the amlogic intenal modem management.
+
+config AMLOGIC_MODEM_PM
+	bool "Amlogic intenal modem power on/off when system suspend/resume"
+	depends on AMLOGIC_MODEM
+	---help---
+	  Say Y here if you want to control intenal modem power
+	  when system suspends/resumes.
+
+	  If unsure, say N.
+
+choice
+    depends on AMLOGIC_MODEM_PM
+    prompt "intenal modem power management type"
+
+config AMLOGIC_MODEM_PM_OFF_MODE
+    bool "modem off when system suspend"
+    
+config AMLOGIC_MODEM_PM_SLEEP_MODE
+    bool "modem suspend when system suspend"
+
+endchoice	  
+
+config USE_EARLYSUSPEND
+	depends on AMLOGIC_MODEM_PM && HAS_EARLYSUSPEND
+	bool "use earlysuspend"
+	---help---
+	  Say Y here if you want to use earlysuspend to control intenal modem power,
+	  N means using normal suspend.
+
+endmenu

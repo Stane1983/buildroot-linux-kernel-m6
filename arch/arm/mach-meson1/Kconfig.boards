@@ -1,0 +1,11 @@
+config MACH_M1_8626M_REFC02
+    depends on ARCH_MESON1=y
+	bool "Support M1 8626(MBOX_8626M1_V1.0) platform"
+	help
+	  Include support for the AMLOGIC M1 8626M Emulation Baseboard platform.
+
+config MACH_M1_8726M_REFC03
+    depends on ARCH_MESON1=y
+	bool "Support M1 8726(DVBC_8726M1_V1.0) platform"
+	help
+	  Include support for the AMLOGIC M1 8726M DVBC Emulation Baseboard platform.

@@ -1,0 +1,30 @@
+#
+# SiI1292 devices configuration
+#
+
+config MHL_SII1292
+	tristate "SiI1292 MHL/HDMI-to-HDMI Bridge Support"
+	default n
+	help
+	  SiI1292 MHL/HDMI-to-HDMI Bridge Device Driver
+
+choice
+	prompt "SiI1292 CI2CA Pin"
+	depends on MHL_SII1292
+	default MHL_SII1292_CI2CA_PULLDOWN
+	help
+	  "SiI1292 CI2CA Pin Pull Down/Up"
+
+config MHL_SII1292_CI2CA_PULLDOWN
+	bool "Pull Down"
+
+config MHL_SII1292_CI2CA_PULLUP
+	bool "Pull Up"
+
+endchoice
+
+config MHL_SII1292_CEC
+	bool "Support CEC"
+	depends on MHL_SII1292
+	default n
+

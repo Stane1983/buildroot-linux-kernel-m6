@@ -1,0 +1,2 @@
+if ARCH_MESON3
+endif # ARCH_MESON3

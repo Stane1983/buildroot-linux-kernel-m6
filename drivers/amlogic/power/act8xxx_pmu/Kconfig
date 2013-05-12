@@ -1,0 +1,22 @@
+config PMU_ACT8xxx
+	bool "PMU ACT driver support "
+	select POWER_SUPPLY
+	select I2C
+	help
+	  pmu act8942(with charging management).
+
+choice 
+	prompt "Select ACT driver"
+	depends on PMU_ACT8xxx
+	default PMU_ACT8862
+config PMU_ACT8942
+	bool "PMU ACT8942(with charging management)"
+	help
+	  pmu act8942(with charging management).
+
+config PMU_ACT8862
+	bool "PMU ACT8862(without charging management)"
+	help
+	  pmu act8862(without charging management).
+
+endchoice

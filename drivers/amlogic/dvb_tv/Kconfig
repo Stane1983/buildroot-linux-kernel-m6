@@ -1,0 +1,122 @@
+#
+# Smart card driver configuration
+#
+
+menu "AMLOGIC DVB driver"
+
+config AM_DVB
+	tristate "AMLOGIC DVB driver"
+	default n
+	select DVB_CORE
+	help
+		Select to enable AMLogic DVB driver.
+
+menu "AMLOGIC CI Driver"
+
+config AM_CI
+	tristate "Amlogic Common Interface driver"
+	default n
+	depends on AM_DVB
+	select AM_PCMCIA
+	select AM_IOBUS
+	help
+		Select to enable Amlogic CI driver.
+
+config AM_PCMCIA
+	tristate "Amlogic PCMCIA driver"
+	default n
+	help
+		Select to enable Amlogic PCMCIA driver.
+	
+config AM_IOBUS
+	tristate "Amlogic IOBUS driver"
+	default n
+	help
+		Select to enable Amlogic IOBUS driver.
+
+endmenu
+
+config AMLOGIC_TS0
+	bool "Enable TS0"
+	default n
+	depends on AM_DVB
+	help
+		Enable TS0.
+
+config AMLOGIC_TS1
+	bool "Enable TS1"
+	default n
+	depends on AM_DVB
+	help
+		Enable TS1.
+
+config AMLOGIC_TS2
+	bool "Enable TS2"
+	default n
+	depends on AM_DVB
+	help
+		Enable TS2.
+
+config AMLOGIC_S_TS0
+	bool "Serial TS0"
+	default n
+	depends on AM_DVB
+	help
+		TS0 in serial mode.
+
+config AMLOGIC_S_TS1
+	bool "Serial TS1"
+	default n
+	depends on AM_DVB
+	help
+		TS1 in serial mode.
+
+config AMLOGIC_S_TS2
+	bool "Serial TS2"
+	default n
+	depends on AM_DVB
+	help
+		TS0 in serial mode.
+
+config AM_MXL101
+	tristate "MXL101 demod driver"
+	default n
+	depends on AM_DVB
+	help
+		Select to enable MXL101 demod driver.
+
+config AM_AVL6211
+	tristate "AVL6211 demod driver"
+	default n
+	depends on AM_DVB
+	help
+		Select to enable AVL6211 demod driver.	
+		
+config AM_M6_DEMOD
+	tristate "M6 demod driver"
+	default y
+	depends on AM_DVB
+	help
+		Select to enable M6 demod driver.
+
+config AM_SI2176
+    tristate "SI2176 tuner driver"
+    default n
+    depends on AM_DVB
+	help
+		Select to enable SI2176 driver.
+config AM_SI2196
+    tristate "SI2196 tuner driver"
+    default n
+    depends on AM_DVB
+	help
+		Select to enable SI2196 driver.
+config AM_CTC703
+	tristate "CRESTA tuner driver"
+	default n
+	depends on AM_DVB
+	help
+		select the cresta tuner.		
+		
+endmenu
+

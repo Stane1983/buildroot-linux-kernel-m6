@@ -1,0 +1,15 @@
+#
+# watchdog configuration
+#
+
+menuconfig AML_WDT
+	tristate "Amlogic Watchdog Support"
+	default n
+
+if AML_WDT
+
+source "drivers/amlogic/watchdog/wdt/Kconfig"
+source "drivers/amlogic/watchdog/wdt_tv/Kconfig"
+
+endif
+

@@ -1,0 +1,27 @@
+#
+# MMC/SD host controller drivers
+#
+
+comment "MMC/SD/SDIO Host Controller Drivers"
+
+menu "Amlogic Multimedia Card support"
+
+config MMC_AML
+	bool "Amlogic Multimedia Card support"
+	default y
+	select MMC
+	select MMC_BLOCK
+	select MMC_BLOCK_BOUNCE
+	select EXT2_FS
+	select EXT3_FS
+	select EXFAT_FS
+	select FAT_FS
+	select MSDOS_FS
+	select VFAT_FS
+	select NTFS_FS
+	select NLS
+	select NLS_CODEPAGE_437
+	select NLS_ISO8859_1
+	select NLS_UTF8
+	
+endmenu

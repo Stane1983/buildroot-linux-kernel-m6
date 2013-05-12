@@ -1,0 +1,19 @@
+#
+# Amlogic display driver configuration
+#
+menu "Amlogic debug support"
+config AM_DEBUG
+    bool "Debug enable" 
+    default n
+    help 
+	"we have many debug part log,kprobe etc. this item will enable or disable all "
+config AM_KPROBE_MODULE
+    depends on AM_DEBUG
+    tristate "Enable aml kprobe module"
+	default n
+	select KPROBES
+	select KALLSYMS_ALL
+	select DEBUG_FS
+	help 
+	"aml kprobe module for debug"
+endmenu

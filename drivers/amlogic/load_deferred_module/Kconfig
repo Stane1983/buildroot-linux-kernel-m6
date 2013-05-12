@@ -1,0 +1,10 @@
+menu  "Amlogic deferred module support"
+    depends on DEFERRED_MODULE_INIT
+config DEFERRED_DRIVERINIT
+        tristate "Amlogic deferred Driver init call"
+	default m
+	help
+          deferred driver init call for saving time of bootup kernel
+
+endmenu
+

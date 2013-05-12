@@ -1,0 +1,12 @@
+
+menu "Amlogic HDMI TX Support"
+
+
+config AML_HDMI_TX
+        bool "HDMI Output Enable"
+        default y
+        select SWITCH
+        select AM_DISPLAY_MODULE
+        help  
+                hdmi output enable,It should be enalbe if board have hdmi out interface
+endmenu

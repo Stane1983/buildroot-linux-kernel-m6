@@ -1,0 +1,11 @@
+if AMLOGIC_Gsnesor
+menu "Amlogic GSensor Support"
+
+config AML_SENSORS_MMA845X
+    bool "Freescale mma8451/8452/8453"
+    depends on AMLOGIC_Gsnesor
+    help
+    	Say Y here if you want to use the amlogic Gsensor drivers for mma845x.
+	  
+endmenu
+endif #AMLOGIC_Gsnesor

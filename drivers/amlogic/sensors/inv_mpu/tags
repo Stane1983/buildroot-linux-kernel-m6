@@ -1,0 +1,1839 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ACCEL_KIONIX_CTRL_MASK	accel/kxsd9.c	66;"	d	file:
+ACCEL_KIONIX_CTRL_MASK	accel/kxtf9.c	378;"	d	file:
+ACCEL_KIONIX_CTRL_REG	accel/kxsd9.c	65;"	d	file:
+ACCEL_KIONIX_CTRL_REG	accel/kxtf9.c	377;"	d	file:
+ACCEL_MMA8450_CTRL_MASK	accel/mma8450.c	56;"	d	file:
+ACCEL_MMA8450_CTRL_REG	accel/mma8450.c	55;"	d	file:
+ACCEL_MMA8450_CTRL_REG1	accel/mma8450.c	50;"	d	file:
+ACCEL_MMA8450_CTRL_REG2	accel/mma8450.c	51;"	d	file:
+ACCEL_MMA8450_CTRL_REG4	accel/mma8450.c	52;"	d	file:
+ACCEL_MMA8450_CTRL_REG5	accel/mma8450.c	53;"	d	file:
+ACCEL_MMA8450_SLEEP_MASK	accel/mma8450.c	58;"	d	file:
+ACCEL_MMA8450_XYZ_DATA_CFG	accel/mma8450.c	48;"	d	file:
+ACCEL_MMA845X_CFG_REG	accel/mma845x.c	55;"	d	file:
+ACCEL_MMA845X_CTRL_MASK	accel/mma845x.c	56;"	d	file:
+ACCEL_MMA845X_CTRL_REG1	accel/mma845x.c	48;"	d	file:
+ACCEL_MMA845X_CTRL_REG4	accel/mma845x.c	49;"	d	file:
+ACCEL_MMA845X_CTRL_REG5	accel/mma845x.c	50;"	d	file:
+ACCEL_MMA845X_SLEEP_MASK	accel/mma845x.c	52;"	d	file:
+ACCEL_MMA845X_XYZ_DATA_CFG	accel/mma845x.c	47;"	d	file:
+ADXL34X_DATAFORMAT_FSR_MASK	accel/adxl34x.c	62;"	d	file:
+ADXL34X_DATAFORMAT_JUSTIFY_MASK	accel/adxl34x.c	61;"	d	file:
+ADXL34X_DATAFORMAT_REG	accel/adxl34x.c	55;"	d	file:
+ADXL34X_ODR_MASK	accel/adxl34x.c	58;"	d	file:
+ADXL34X_ODR_REG	accel/adxl34x.c	53;"	d	file:
+ADXL34X_ODR_REG	accel/bma222.c	50;"	d	file:
+ADXL34X_PWR_MEAS_MASK	accel/adxl34x.c	60;"	d	file:
+ADXL34X_PWR_REG	accel/adxl34x.c	54;"	d	file:
+ADXL34X_PWR_SLEEP_MASK	accel/adxl34x.c	59;"	d	file:
+AK8972_CNTL_MODE_FUSE_ROM_ACCESS	compass/ak8972.c	58;"	d	file:
+AK8972_CNTL_MODE_POWER_DOWN	compass/ak8972.c	56;"	d	file:
+AK8972_CNTL_MODE_SINGLE_MEASUREMENT	compass/ak8972.c	57;"	d	file:
+AK8972_REG_ASAX	compass/ak8972.c	52;"	d	file:
+AK8972_REG_ASAY	compass/ak8972.c	53;"	d	file:
+AK8972_REG_ASAZ	compass/ak8972.c	54;"	d	file:
+AK8972_REG_CNTL	compass/ak8972.c	51;"	d	file:
+AK8972_REG_HXL	compass/ak8972.c	48;"	d	file:
+AK8972_REG_ST1	compass/ak8972.c	47;"	d	file:
+AK8972_REG_ST2	compass/ak8972.c	49;"	d	file:
+AK8975_CNTL_MODE_FUSE_ROM_ACCESS	compass/ak8975.c	59;"	d	file:
+AK8975_CNTL_MODE_POWER_DOWN	compass/ak8975.c	57;"	d	file:
+AK8975_CNTL_MODE_SINGLE_MEASUREMENT	compass/ak8975.c	58;"	d	file:
+AK8975_REG_ASAX	compass/ak8975.c	53;"	d	file:
+AK8975_REG_ASAY	compass/ak8975.c	54;"	d	file:
+AK8975_REG_ASAZ	compass/ak8975.c	55;"	d	file:
+AK8975_REG_CNTL	compass/ak8975.c	52;"	d	file:
+AK8975_REG_HXL	compass/ak8975.c	49;"	d	file:
+AK8975_REG_ST1	compass/ak8975.c	48;"	d	file:
+AK8975_REG_ST2	compass/ak8975.c	50;"	d	file:
+AMI306_BIT_CNTL1_FS1	compass/ami306.c	61;"	d	file:
+AMI306_BIT_CNTL1_ODR1	compass/ami306.c	60;"	d	file:
+AMI306_BIT_CNTL1_PC1	compass/ami306.c	59;"	d	file:
+AMI306_BIT_CNTL2_DREN	compass/ami306.c	64;"	d	file:
+AMI306_BIT_CNTL2_DRP	compass/ami306.c	65;"	d	file:
+AMI306_BIT_CNTL2_IEN	compass/ami306.c	63;"	d	file:
+AMI306_BIT_CNTL3_F0RCE	compass/ami306.c	66;"	d	file:
+AMI306_REG_CNTL1	compass/ami306.c	53;"	d	file:
+AMI306_REG_CNTL2	compass/ami306.c	54;"	d	file:
+AMI306_REG_CNTL3	compass/ami306.c	55;"	d	file:
+AMI306_REG_CNTL4_1	compass/ami306.c	56;"	d	file:
+AMI306_REG_CNTL4_2	compass/ami306.c	57;"	d	file:
+AMI306_REG_DATAX	compass/ami306.c	51;"	d	file:
+AMI306_REG_STAT1	compass/ami306.c	52;"	d	file:
+AMI30X_BIT_CNTL1_FS1	compass/ami30x.c	56;"	d	file:
+AMI30X_BIT_CNTL1_ODR1	compass/ami30x.c	55;"	d	file:
+AMI30X_BIT_CNTL1_PC1	compass/ami30x.c	54;"	d	file:
+AMI30X_BIT_CNTL2_DREN	compass/ami30x.c	59;"	d	file:
+AMI30X_BIT_CNTL2_DRP	compass/ami30x.c	60;"	d	file:
+AMI30X_BIT_CNTL2_IEN	compass/ami30x.c	58;"	d	file:
+AMI30X_BIT_CNTL3_F0RCE	compass/ami30x.c	61;"	d	file:
+AMI30X_REG_CNTL1	compass/ami30x.c	50;"	d	file:
+AMI30X_REG_CNTL2	compass/ami30x.c	51;"	d	file:
+AMI30X_REG_CNTL3	compass/ami30x.c	52;"	d	file:
+AMI30X_REG_DATAX	compass/ami30x.c	48;"	d	file:
+AMI30X_REG_STAT1	compass/ami30x.c	49;"	d	file:
+AMI_BLOCK_ERR	compass/ami_sensor_def.h	30;"	d
+AMI_CTRL1_FS1_FORCE	compass/ami_hw.h	75;"	d
+AMI_CTRL1_ODR1	compass/ami_hw.h	76;"	d
+AMI_CTRL1_PC1	compass/ami_hw.h	74;"	d
+AMI_CTRL2_DREN	compass/ami_hw.h	77;"	d
+AMI_CTRL2_DRP	compass/ami_hw.h	78;"	d
+AMI_CTRL3_B0_LO_BIT	compass/ami_hw.h	80;"	d
+AMI_CTRL3_FORCE_BIT	compass/ami_hw.h	79;"	d
+AMI_CTRL3_SRST_BIT	compass/ami_hw.h	81;"	d
+AMI_CTRL4_AB	compass/ami_hw.h	83;"	d
+AMI_CTRL4_HS	compass/ami_hw.h	82;"	d
+AMI_DRDYWAIT	compass/ami306.c	146;"	d	file:
+AMI_ERROR	compass/ami_sensor_def.h	31;"	d
+AMI_FINEOUTPUT_X	compass/ami_hw.h	55;"	d
+AMI_FINEOUTPUT_Y	compass/ami_hw.h	56;"	d
+AMI_FINEOUTPUT_Z	compass/ami_hw.h	57;"	d
+AMI_FINE_MAX	compass/ami306.c	68;"	d	file:
+AMI_GAIN_COR_DEFAULT	compass/ami306.c	70;"	d	file:
+AMI_GETVERSION_CMDCODE	compass/ami_hw.h	64;"	d
+AMI_GPIO_DRDY	compass/ami_hw.h	29;"	d
+AMI_GPIO_INT	compass/ami_hw.h	28;"	d
+AMI_HW_H	compass/ami_hw.h	18;"	d
+AMI_I2C_ADDRESS	compass/ami_hw.h	23;"	d
+AMI_I2C_ADDRESS	compass/ami_hw.h	25;"	d
+AMI_I2C_BUS_NUM	compass/ami_hw.h	20;"	d
+AMI_MOREINFO_CMDCODE	compass/ami_hw.h	34;"	d
+AMI_OK	compass/ami_sensor_def.h	26;"	d
+AMI_PARAM_ERR	compass/ami_sensor_def.h	27;"	d
+AMI_REG_B0OTPX	compass/ami_hw.h	66;"	d
+AMI_REG_B0OTPY	compass/ami_hw.h	67;"	d
+AMI_REG_B0OTPZ	compass/ami_hw.h	68;"	d
+AMI_REG_B0X	compass/ami_hw.h	43;"	d
+AMI_REG_B0Y	compass/ami_hw.h	44;"	d
+AMI_REG_B0Z	compass/ami_hw.h	45;"	d
+AMI_REG_CTRL1	compass/ami_hw.h	40;"	d
+AMI_REG_CTRL2	compass/ami_hw.h	41;"	d
+AMI_REG_CTRL3	compass/ami_hw.h	42;"	d
+AMI_REG_CTRL4	compass/ami_hw.h	47;"	d
+AMI_REG_CTRL5	compass/ami_hw.h	46;"	d
+AMI_REG_DATAX	compass/ami_hw.h	36;"	d
+AMI_REG_DATAY	compass/ami_hw.h	37;"	d
+AMI_REG_DATAZ	compass/ami_hw.h	38;"	d
+AMI_REG_DELAYX	compass/ami_hw.h	49;"	d
+AMI_REG_DELAYY	compass/ami_hw.h	50;"	d
+AMI_REG_DELAYZ	compass/ami_hw.h	51;"	d
+AMI_REG_GAINX	compass/ami_hw.h	61;"	d
+AMI_REG_GAINY	compass/ami_hw.h	62;"	d
+AMI_REG_GAINZ	compass/ami_hw.h	63;"	d
+AMI_REG_OFFOTPX	compass/ami_hw.h	69;"	d
+AMI_REG_OFFOTPY	compass/ami_hw.h	70;"	d
+AMI_REG_OFFOTPZ	compass/ami_hw.h	71;"	d
+AMI_REG_OFFX	compass/ami_hw.h	52;"	d
+AMI_REG_OFFY	compass/ami_hw.h	53;"	d
+AMI_REG_OFFZ	compass/ami_hw.h	54;"	d
+AMI_REG_SENX	compass/ami_hw.h	58;"	d
+AMI_REG_SENY	compass/ami_hw.h	59;"	d
+AMI_REG_SENZ	compass/ami_hw.h	60;"	d
+AMI_REG_STA1	compass/ami_hw.h	39;"	d
+AMI_REG_TEMP	compass/ami_hw.h	48;"	d
+AMI_SENSOR_DEF_H	compass/ami_sensor_def.h	21;"	d
+AMI_SEQ_ERR	compass/ami_sensor_def.h	28;"	d
+AMI_SERIALNUMBER_CMDCODE	compass/ami_hw.h	65;"	d
+AMI_STA1_DOR_BIT	compass/ami_hw.h	85;"	d
+AMI_STA1_DRDY_BIT	compass/ami_hw.h	84;"	d
+AMI_STANDARD_OFFSET	compass/ami306.c	69;"	d	file:
+AMI_SYSTEM_ERR	compass/ami_sensor_def.h	29;"	d
+AMI_WAIT_DATAREADY_RETRY	compass/ami306.c	145;"	d	file:
+AMI_WHOIAM_CMDCODE	compass/ami_hw.h	35;"	d
+BITS_CLKSEL	mpu3050.h	178;"	d
+BITS_DLPF_CFG_10HZ	mpu3050.h	136;"	d
+BITS_DLPF_CFG_188HZ	mpu3050.h	132;"	d
+BITS_DLPF_CFG_20HZ	mpu3050.h	135;"	d
+BITS_DLPF_CFG_2100HZ_NOLPF	mpu3050.h	138;"	d
+BITS_DLPF_CFG_256HZ_NOLPF2	mpu3050.h	131;"	d
+BITS_DLPF_CFG_42HZ	mpu3050.h	134;"	d
+BITS_DLPF_CFG_5HZ	mpu3050.h	137;"	d
+BITS_DLPF_CFG_98HZ	mpu3050.h	133;"	d
+BITS_DLPF_CFG_MASK	mpu3050.h	139;"	d
+BITS_EXT_SYNC_ACCELX	mpu3050.h	122;"	d
+BITS_EXT_SYNC_ACCELY	mpu3050.h	123;"	d
+BITS_EXT_SYNC_ACCELZ	mpu3050.h	124;"	d
+BITS_EXT_SYNC_GYROX	mpu3050.h	119;"	d
+BITS_EXT_SYNC_GYROY	mpu3050.h	120;"	d
+BITS_EXT_SYNC_GYROZ	mpu3050.h	121;"	d
+BITS_EXT_SYNC_MASK	mpu3050.h	125;"	d
+BITS_EXT_SYNC_NONE	mpu3050.h	117;"	d
+BITS_EXT_SYNC_TEMP	mpu3050.h	118;"	d
+BITS_FS_1000DPS	mpu3050.h	128;"	d
+BITS_FS_2000DPS	mpu3050.h	129;"	d
+BITS_FS_250DPS	mpu3050.h	126;"	d
+BITS_FS_500DPS	mpu3050.h	127;"	d
+BITS_FS_MASK	mpu3050.h	130;"	d
+BITS_MEM_SEL	mpu3050.h	162;"	d
+BIT_ACCEL_XOUT	mpu3050.h	109;"	d
+BIT_ACCEL_YOUT	mpu3050.h	110;"	d
+BIT_ACCEL_ZOUT	mpu3050.h	111;"	d
+BIT_ACTL	mpu3050.h	141;"	d
+BIT_ACTL_HIGH	mpu3050.h	143;"	d
+BIT_ACTL_LOW	mpu3050.h	142;"	d
+BIT_AUX_1OUT	mpu3050.h	112;"	d
+BIT_AUX_2OUT	mpu3050.h	114;"	d
+BIT_AUX_3OUT	mpu3050.h	115;"	d
+BIT_AUX_IF_EN	mpu3050.h	166;"	d
+BIT_AUX_IF_RST	mpu3050.h	168;"	d
+BIT_AUX_RD_LENG	mpu3050.h	167;"	d
+BIT_CFG_USER_BANK	mpu3050.h	161;"	d
+BIT_DMP_EN	mpu3050.h	164;"	d
+BIT_DMP_INT	mpu3050.h	157;"	d
+BIT_DMP_INT_EN	mpu3050.h	152;"	d
+BIT_DMP_RST	mpu3050.h	169;"	d
+BIT_FIFO_EN	mpu3050.h	165;"	d
+BIT_FIFO_RST	mpu3050.h	170;"	d
+BIT_GYRO_RST	mpu3050.h	171;"	d
+BIT_GYRO_XOUT	mpu3050.h	106;"	d
+BIT_GYRO_YOUT	mpu3050.h	107;"	d
+BIT_GYRO_ZOUT	mpu3050.h	108;"	d
+BIT_H_RESET	mpu3050.h	173;"	d
+BIT_INT_ANYRD_2CLEAR	mpu3050.h	149;"	d
+BIT_INT_PULSE_WIDTH_50US	mpu3050.h	148;"	d
+BIT_INT_STATUS_FIFO_OVERLOW	mpu3050.h	155;"	d
+BIT_INT_STAT_READ_2CLEAR	mpu3050.h	150;"	d
+BIT_LATCH_INT_EN	mpu3050.h	147;"	d
+BIT_MPU_RDY	mpu3050.h	156;"	d
+BIT_MPU_RDY_EN	mpu3050.h	151;"	d
+BIT_OPEN	mpu3050.h	144;"	d
+BIT_OPEN_DRAIN	mpu3050.h	145;"	d
+BIT_PRFTCH_EN	mpu3050.h	160;"	d
+BIT_PUSH_PULL	mpu3050.h	146;"	d
+BIT_RAW_RDY	mpu3050.h	158;"	d
+BIT_RAW_RDY_EN	mpu3050.h	153;"	d
+BIT_SLEEP	mpu3050.h	174;"	d
+BIT_STBY_XG	mpu3050.h	175;"	d
+BIT_STBY_YG	mpu3050.h	176;"	d
+BIT_STBY_ZG	mpu3050.h	177;"	d
+BIT_TEMP_OUT	mpu3050.h	105;"	d
+BMA150_CTRL_MASK	accel/bma150.c	50;"	d	file:
+BMA150_CTRL_MASK_FSR	accel/bma150.c	52;"	d	file:
+BMA150_CTRL_MASK_ODR	accel/bma150.c	51;"	d	file:
+BMA150_CTRL_REG	accel/bma150.c	45;"	d	file:
+BMA150_INT_MASK_IRQ	accel/bma150.c	54;"	d	file:
+BMA150_INT_MASK_WUP	accel/bma150.c	53;"	d	file:
+BMA150_INT_REG	accel/bma150.c	46;"	d	file:
+BMA150_PWR_MASK_SLEEP	accel/bma150.c	55;"	d	file:
+BMA150_PWR_MASK_SOFT_RESET	accel/bma150.c	56;"	d	file:
+BMA150_PWR_REG	accel/bma150.c	47;"	d	file:
+BMA222_FSR_MASK	accel/bma222.c	55;"	d	file:
+BMA222_FSR_REG	accel/bma222.c	49;"	d	file:
+BMA222_ODR_MASK	accel/bma222.c	56;"	d	file:
+BMA222_PWR_AWAKE_MASK	accel/bma222.c	58;"	d	file:
+BMA222_PWR_REG	accel/bma222.c	51;"	d	file:
+BMA222_PWR_SLEEP_MASK	accel/bma222.c	57;"	d	file:
+BMA222_SOFTRESET_MASK	accel/bma222.c	59;"	d	file:
+BMA222_SOFTRESET_MASK	accel/bma222.c	60;"	d	file:
+BMA222_SOFTRESET_REG	accel/bma222.c	52;"	d	file:
+BMA222_STATUS_RDY_MASK	accel/bma222.c	54;"	d	file:
+BMA222_STATUS_REG	accel/bma222.c	48;"	d	file:
+BMA250_FSR_MASK	accel/bma250.c	58;"	d	file:
+BMA250_FSR_REG	accel/bma250.c	48;"	d	file:
+BMA250_INT_DST_1_MASK	accel/bma250.c	64;"	d	file:
+BMA250_INT_DST_2_MASK	accel/bma250.c	65;"	d	file:
+BMA250_INT_DST_REG	accel/bma250.c	53;"	d	file:
+BMA250_INT_SRC_MASK	accel/bma250.c	66;"	d	file:
+BMA250_INT_SRC_REG	accel/bma250.c	54;"	d	file:
+BMA250_INT_TYPE_MASK	accel/bma250.c	63;"	d	file:
+BMA250_INT_TYPE_REG	accel/bma250.c	52;"	d	file:
+BMA250_ODR_MASK	accel/bma250.c	59;"	d	file:
+BMA250_ODR_REG	accel/bma250.c	49;"	d	file:
+BMA250_PWR_AWAKE_MASK	accel/bma250.c	61;"	d	file:
+BMA250_PWR_REG	accel/bma250.c	50;"	d	file:
+BMA250_PWR_SLEEP_MASK	accel/bma250.c	60;"	d	file:
+BMA250_SOFTRESET_MASK	accel/bma250.c	62;"	d	file:
+BMA250_SOFTRESET_REG	accel/bma250.c	51;"	d	file:
+BMA250_STATUS_RDY_MASK	accel/bma250.c	57;"	d	file:
+BMA250_STATUS_REG	accel/bma250.c	47;"	d	file:
+COMPASS_HSCDTD002B_CTRL1	compass/hscdtd002b.c	49;"	d	file:
+COMPASS_HSCDTD002B_CTRL2	compass/hscdtd002b.c	50;"	d	file:
+COMPASS_HSCDTD002B_CTRL3	compass/hscdtd002b.c	51;"	d	file:
+COMPASS_HSCDTD002B_DATAX	compass/hscdtd002b.c	52;"	d	file:
+COMPASS_HSCDTD002B_STAT	compass/hscdtd002b.c	48;"	d	file:
+COMPASS_HSCDTD004A_CTRL1	compass/hscdtd004a.c	49;"	d	file:
+COMPASS_HSCDTD004A_CTRL2	compass/hscdtd004a.c	50;"	d	file:
+COMPASS_HSCDTD004A_CTRL3	compass/hscdtd004a.c	51;"	d	file:
+COMPASS_HSCDTD004A_DATAX	compass/hscdtd004a.c	52;"	d	file:
+COMPASS_HSCDTD004A_STAT	compass/hscdtd004a.c	48;"	d	file:
+CONDITION	log.h	113;"	d
+Cx	compass/yas530.c	/^static int Cx, Cy1, Cy2;$/;"	v	file:
+Cy1	compass/yas530.c	/^static int Cx, Cy1, Cy2;$/;"	v	file:
+Cy2	compass/yas530.c	/^static int Cx, Cy1, Cy2;$/;"	v	file:
+DEFAULT_MPU_SLAVEADDR	mpu3050.h	31;"	d
+DLPF_FS_SYNC_VALUE	mpu3050.h	248;"	d
+ERROR_CHECK_FIRST	mltypes.h	104;"	d
+ERROR_NAME	mltypes.h	103;"	d
+FIFO_HW_SIZE	mpu3050.h	188;"	d
+HMC_CONF_A	compass/hmc5883.c	/^enum HMC_CONF_A {$/;"	g	file:
+HMC_CONF_A_DRATE_0_75	compass/hmc5883.c	/^	HMC_CONF_A_DRATE_0_75 = 0x00,$/;"	e	enum:HMC_CONF_A	file:
+HMC_CONF_A_DRATE_15	compass/hmc5883.c	/^	HMC_CONF_A_DRATE_15 = 0x10,$/;"	e	enum:HMC_CONF_A	file:
+HMC_CONF_A_DRATE_1_5	compass/hmc5883.c	/^	HMC_CONF_A_DRATE_1_5 = 0x04,$/;"	e	enum:HMC_CONF_A	file:
+HMC_CONF_A_DRATE_3	compass/hmc5883.c	/^	HMC_CONF_A_DRATE_3 = 0x08,$/;"	e	enum:HMC_CONF_A	file:
+HMC_CONF_A_DRATE_30	compass/hmc5883.c	/^	HMC_CONF_A_DRATE_30 = 0x14,$/;"	e	enum:HMC_CONF_A	file:
+HMC_CONF_A_DRATE_75	compass/hmc5883.c	/^	HMC_CONF_A_DRATE_75 = 0x18,$/;"	e	enum:HMC_CONF_A	file:
+HMC_CONF_A_DRATE_7_5	compass/hmc5883.c	/^	HMC_CONF_A_DRATE_7_5 = 0x0C,$/;"	e	enum:HMC_CONF_A	file:
+HMC_CONF_A_DRATE_MASK	compass/hmc5883.c	/^	HMC_CONF_A_DRATE_MASK = 0x1C,$/;"	e	enum:HMC_CONF_A	file:
+HMC_CONF_A_MEAS_MASK	compass/hmc5883.c	/^	HMC_CONF_A_MEAS_MASK = 0x3,$/;"	e	enum:HMC_CONF_A	file:
+HMC_CONF_A_MEAS_NEG	compass/hmc5883.c	/^	HMC_CONF_A_MEAS_NEG = 0x2$/;"	e	enum:HMC_CONF_A	file:
+HMC_CONF_A_MEAS_NORM	compass/hmc5883.c	/^	HMC_CONF_A_MEAS_NORM = 0x0,$/;"	e	enum:HMC_CONF_A	file:
+HMC_CONF_A_MEAS_POS	compass/hmc5883.c	/^	HMC_CONF_A_MEAS_POS = 0x1,$/;"	e	enum:HMC_CONF_A	file:
+HMC_CONF_B	compass/hmc5883.c	/^enum HMC_CONF_B {$/;"	g	file:
+HMC_CONF_B_GAIN_0_9	compass/hmc5883.c	/^	HMC_CONF_B_GAIN_0_9 = 0x00,$/;"	e	enum:HMC_CONF_B	file:
+HMC_CONF_B_GAIN_1_2	compass/hmc5883.c	/^	HMC_CONF_B_GAIN_1_2 = 0x20,$/;"	e	enum:HMC_CONF_B	file:
+HMC_CONF_B_GAIN_1_9	compass/hmc5883.c	/^	HMC_CONF_B_GAIN_1_9 = 0x40,$/;"	e	enum:HMC_CONF_B	file:
+HMC_CONF_B_GAIN_2_5	compass/hmc5883.c	/^	HMC_CONF_B_GAIN_2_5 = 0x60,$/;"	e	enum:HMC_CONF_B	file:
+HMC_CONF_B_GAIN_4_0	compass/hmc5883.c	/^	HMC_CONF_B_GAIN_4_0 = 0x80,$/;"	e	enum:HMC_CONF_B	file:
+HMC_CONF_B_GAIN_4_6	compass/hmc5883.c	/^	HMC_CONF_B_GAIN_4_6 = 0xA0,$/;"	e	enum:HMC_CONF_B	file:
+HMC_CONF_B_GAIN_5_5	compass/hmc5883.c	/^	HMC_CONF_B_GAIN_5_5 = 0xC0,$/;"	e	enum:HMC_CONF_B	file:
+HMC_CONF_B_GAIN_7_9	compass/hmc5883.c	/^	HMC_CONF_B_GAIN_7_9 = 0xE0$/;"	e	enum:HMC_CONF_B	file:
+HMC_CONF_B_GAIN_MASK	compass/hmc5883.c	/^	HMC_CONF_B_GAIN_MASK = 0xE0,$/;"	e	enum:HMC_CONF_B	file:
+HMC_MODE	compass/hmc5883.c	/^enum HMC_MODE {$/;"	g	file:
+HMC_MODE_CONT	compass/hmc5883.c	/^	HMC_MODE_CONT = 0x0,$/;"	e	enum:HMC_MODE	file:
+HMC_MODE_IDLE	compass/hmc5883.c	/^	HMC_MODE_IDLE = 0x2,$/;"	e	enum:HMC_MODE	file:
+HMC_MODE_MASK	compass/hmc5883.c	/^	HMC_MODE_MASK = 0x3,$/;"	e	enum:HMC_MODE	file:
+HMC_MODE_SINGLE	compass/hmc5883.c	/^	HMC_MODE_SINGLE = 0x1,$/;"	e	enum:HMC_MODE	file:
+HMC_MODE_SLEEP	compass/hmc5883.c	/^	HMC_MODE_SLEEP = 0x3$/;"	e	enum:HMC_MODE	file:
+HMC_REG	compass/hmc5883.c	/^enum HMC_REG {$/;"	g	file:
+HMC_REG_CONF_A	compass/hmc5883.c	/^	HMC_REG_CONF_A = 0x0,$/;"	e	enum:HMC_REG	file:
+HMC_REG_CONF_B	compass/hmc5883.c	/^	HMC_REG_CONF_B = 0x1,$/;"	e	enum:HMC_REG	file:
+HMC_REG_ID_A	compass/hmc5883.c	/^	HMC_REG_ID_A = 0xA,$/;"	e	enum:HMC_REG	file:
+HMC_REG_ID_B	compass/hmc5883.c	/^	HMC_REG_ID_B = 0xB,$/;"	e	enum:HMC_REG	file:
+HMC_REG_ID_C	compass/hmc5883.c	/^	HMC_REG_ID_C = 0xC$/;"	e	enum:HMC_REG	file:
+HMC_REG_MODE	compass/hmc5883.c	/^	HMC_REG_MODE = 0x2,$/;"	e	enum:HMC_REG	file:
+HMC_REG_STATUS	compass/hmc5883.c	/^	HMC_REG_STATUS = 0x9,$/;"	e	enum:HMC_REG	file:
+HMC_REG_X_L	compass/hmc5883.c	/^	HMC_REG_X_L = 0x4,$/;"	e	enum:HMC_REG	file:
+HMC_REG_X_M	compass/hmc5883.c	/^	HMC_REG_X_M = 0x3,$/;"	e	enum:HMC_REG	file:
+HMC_REG_Y_L	compass/hmc5883.c	/^	HMC_REG_Y_L = 0x8,$/;"	e	enum:HMC_REG	file:
+HMC_REG_Y_M	compass/hmc5883.c	/^	HMC_REG_Y_M = 0x7,$/;"	e	enum:HMC_REG	file:
+HMC_REG_Z_L	compass/hmc5883.c	/^	HMC_REG_Z_L = 0x6,$/;"	e	enum:HMC_REG	file:
+HMC_REG_Z_M	compass/hmc5883.c	/^	HMC_REG_Z_M = 0x5,$/;"	e	enum:HMC_REG	file:
+INV_ALL_SENSORS	mldl_cfg.h	71;"	d
+INV_DMP_PROCESSOR	mldl_cfg.h	45;"	d
+INV_ERROR	mltypes.h	110;"	d
+INV_ERROR_ACCEL_DATA_ERROR	mltypes.h	174;"	d
+INV_ERROR_ACCEL_DATA_NOT_READY	mltypes.h	173;"	d
+INV_ERROR_ACCEL_DATA_OVERFLOW	mltypes.h	171;"	d
+INV_ERROR_ACCEL_DATA_UNDERFLOW	mltypes.h	172;"	d
+INV_ERROR_ASSERTION_FAILURE	mltypes.h	123;"	d
+INV_ERROR_BASE	mltypes.h	109;"	d
+INV_ERROR_CALIBRATION_CHECKSUM	mltypes.h	168;"	d
+INV_ERROR_CALIBRATION_LEN	mltypes.h	167;"	d
+INV_ERROR_CALIBRATION_LOAD	mltypes.h	165;"	d
+INV_ERROR_CALIBRATION_STORE	mltypes.h	166;"	d
+INV_ERROR_COMPASS_DATA_ERROR	mltypes.h	162;"	d
+INV_ERROR_COMPASS_DATA_NOT_READY	mltypes.h	161;"	d
+INV_ERROR_COMPASS_DATA_OVERFLOW	mltypes.h	159;"	d
+INV_ERROR_COMPASS_DATA_UNDERFLOW	mltypes.h	160;"	d
+INV_ERROR_DIVIDE_BY_ZERO	mltypes.h	122;"	d
+INV_ERROR_DMP_NOT_STARTED	mltypes.h	116;"	d
+INV_ERROR_DMP_STARTED	mltypes.h	117;"	d
+INV_ERROR_FEATURE_NOT_ENABLED	mltypes.h	114;"	d
+INV_ERROR_FEATURE_NOT_IMPLEMENTED	mltypes.h	115;"	d
+INV_ERROR_FIFO_FOOTER	mltypes.h	142;"	d
+INV_ERROR_FIFO_OVERFLOW	mltypes.h	141;"	d
+INV_ERROR_FIFO_READ_COUNT	mltypes.h	143;"	d
+INV_ERROR_FIFO_READ_DATA	mltypes.h	144;"	d
+INV_ERROR_FILE_OPEN	mltypes.h	124;"	d
+INV_ERROR_FILE_READ	mltypes.h	125;"	d
+INV_ERROR_FILE_WRITE	mltypes.h	126;"	d
+INV_ERROR_INVALID_CONFIGURATION	mltypes.h	127;"	d
+INV_ERROR_INVALID_MODULE	mltypes.h	120;"	d
+INV_ERROR_INVALID_PARAMETER	mltypes.h	113;"	d
+INV_ERROR_LOG_MEMORY_ERROR	mltypes.h	149;"	d
+INV_ERROR_LOG_OUTPUT_ERROR	mltypes.h	150;"	d
+INV_ERROR_MEMORY_EXAUSTED	mltypes.h	121;"	d
+INV_ERROR_MEMORY_SET	mltypes.h	147;"	d
+INV_ERROR_NOT_OPENED	mltypes.h	118;"	d
+INV_ERROR_OPENED	mltypes.h	119;"	d
+INV_ERROR_OS_BAD_HANDLE	mltypes.h	154;"	d
+INV_ERROR_OS_BAD_PTR	mltypes.h	153;"	d
+INV_ERROR_OS_CREATE_FAILED	mltypes.h	155;"	d
+INV_ERROR_OS_LOCK_FAILED	mltypes.h	156;"	d
+INV_ERROR_SERIAL_CLOSED	mltypes.h	130;"	d
+INV_ERROR_SERIAL_DEVICE_NOT_RECOGNIZED	mltypes.h	134;"	d
+INV_ERROR_SERIAL_OPEN_ERROR	mltypes.h	131;"	d
+INV_ERROR_SERIAL_READ	mltypes.h	132;"	d
+INV_ERROR_SERIAL_WRITE	mltypes.h	133;"	d
+INV_ERROR_SM_IMPROPER_STATE	mltypes.h	138;"	d
+INV_ERROR_SM_TRANSITION	mltypes.h	137;"	d
+INV_FIVE_AXIS	mldl_cfg.h	67;"	d
+INV_MODULE_NAME	Makefile	/^INV_MODULE_NAME := mpu3050$/;"	m
+INV_MODULE_NAME	Makefile	/^INV_MODULE_NAME := mpu6050$/;"	m
+INV_NINE_AXIS	mldl_cfg.h	70;"	d
+INV_SIX_AXIS_ACCEL_COMPASS	mldl_cfg.h	69;"	d
+INV_SIX_AXIS_GYRO_ACCEL	mldl_cfg.h	68;"	d
+INV_SUCCESS	mltypes.h	107;"	d
+INV_TEMPERATURE	mldl_cfg.h	59;"	d
+INV_THREE_AXIS_ACCEL	mldl_cfg.h	63;"	d
+INV_THREE_AXIS_COMPASS	mldl_cfg.h	64;"	d
+INV_THREE_AXIS_GYRO	mldl_cfg.h	62;"	d
+INV_THREE_AXIS_PRESSURE	mldl_cfg.h	65;"	d
+INV_TIME	mldl_cfg.h	60;"	d
+INV_WARNING_GYRO_MAG	mltypes.h	179;"	d
+INV_WARNING_MOTION_RACE	mltypes.h	177;"	d
+INV_WARNING_QUAT_TRASHED	mltypes.h	178;"	d
+INV_X_ACCEL	mldl_cfg.h	47;"	d
+INV_X_COMPASS	mldl_cfg.h	51;"	d
+INV_X_GYRO	mldl_cfg.h	42;"	d
+INV_X_PRESSURE	mldl_cfg.h	55;"	d
+INV_Y_ACCEL	mldl_cfg.h	48;"	d
+INV_Y_COMPASS	mldl_cfg.h	52;"	d
+INV_Y_GYRO	mldl_cfg.h	43;"	d
+INV_Y_PRESSURE	mldl_cfg.h	56;"	d
+INV_Z_ACCEL	mldl_cfg.h	49;"	d
+INV_Z_COMPASS	mldl_cfg.h	53;"	d
+INV_Z_GYRO	mldl_cfg.h	44;"	d
+INV_Z_PRESSURE	mldl_cfg.h	57;"	d
+KXTF9_CTRL_REG1	accel/kxtf9.c	70;"	d	file:
+KXTF9_CTRL_REG2	accel/kxtf9.c	71;"	d	file:
+KXTF9_CTRL_REG3	accel/kxtf9.c	72;"	d	file:
+KXTF9_DATA_CTRL_REG	accel/kxtf9.c	76;"	d	file:
+KXTF9_HYST_SET	accel/kxtf9.c	88;"	d	file:
+KXTF9_INT_CTRL_REG1	accel/kxtf9.c	73;"	d	file:
+KXTF9_INT_CTRL_REG2	accel/kxtf9.c	74;"	d	file:
+KXTF9_INT_CTRL_REG3	accel/kxtf9.c	75;"	d	file:
+KXTF9_INT_REL	accel/kxtf9.c	69;"	d	file:
+KXTF9_INT_SRC_REG1	accel/kxtf9.c	66;"	d	file:
+KXTF9_INT_SRC_REG2	accel/kxtf9.c	67;"	d	file:
+KXTF9_MAX_DUR	accel/kxtf9.c	90;"	d	file:
+KXTF9_MAX_THS	accel/kxtf9.c	91;"	d	file:
+KXTF9_STATUS_REG	accel/kxtf9.c	68;"	d	file:
+KXTF9_ST_RESP	accel/kxtf9.c	62;"	d	file:
+KXTF9_TDT_H_THRESH	accel/kxtf9.c	80;"	d	file:
+KXTF9_TDT_LATENCY_TIMER	accel/kxtf9.c	84;"	d	file:
+KXTF9_TDT_L_THRESH	accel/kxtf9.c	81;"	d	file:
+KXTF9_TDT_TAP_TIMER	accel/kxtf9.c	82;"	d	file:
+KXTF9_TDT_TIMER	accel/kxtf9.c	79;"	d	file:
+KXTF9_TDT_TOTAL_TIMER	accel/kxtf9.c	83;"	d	file:
+KXTF9_TDT_WINDOW_TIMER	accel/kxtf9.c	85;"	d	file:
+KXTF9_THS_COUNTS_P_G	accel/kxtf9.c	92;"	d	file:
+KXTF9_TILT_ANGLE	accel/kxtf9.c	87;"	d	file:
+KXTF9_TILT_POS_CUR	accel/kxtf9.c	64;"	d	file:
+KXTF9_TILT_POS_PRE	accel/kxtf9.c	65;"	d	file:
+KXTF9_TILT_TIMER	accel/kxtf9.c	77;"	d	file:
+KXTF9_WHO_AM_I	accel/kxtf9.c	63;"	d	file:
+KXTF9_WUF_THRESH	accel/kxtf9.c	86;"	d	file:
+KXTF9_WUF_TIMER	accel/kxtf9.c	78;"	d	file:
+KXTF9_XOUT_H	accel/kxtf9.c	57;"	d	file:
+KXTF9_XOUT_HPF_H	accel/kxtf9.c	51;"	d	file:
+KXTF9_XOUT_HPF_L	accel/kxtf9.c	50;"	d	file:
+KXTF9_XOUT_L	accel/kxtf9.c	56;"	d	file:
+KXTF9_YOUT_H	accel/kxtf9.c	59;"	d	file:
+KXTF9_YOUT_HPF_H	accel/kxtf9.c	53;"	d	file:
+KXTF9_YOUT_HPF_L	accel/kxtf9.c	52;"	d	file:
+KXTF9_YOUT_L	accel/kxtf9.c	58;"	d	file:
+KXTF9_ZOUT_H	accel/kxtf9.c	61;"	d	file:
+KXTF9_ZOUT_HPF_H	accel/kxtf9.c	55;"	d	file:
+KXTF9_ZOUT_HPF_L	accel/kxtf9.c	54;"	d	file:
+KXTF9_ZOUT_L	accel/kxtf9.c	60;"	d	file:
+LIS331DLH_CTRL_MASK	accel/lis331.c	77;"	d	file:
+LIS331DLH_CTRL_REG1	accel/lis331.c	51;"	d	file:
+LIS331DLH_CTRL_REG2	accel/lis331.c	52;"	d	file:
+LIS331DLH_CTRL_REG3	accel/lis331.c	53;"	d	file:
+LIS331DLH_CTRL_REG4	accel/lis331.c	54;"	d	file:
+LIS331DLH_CTRL_REG5	accel/lis331.c	55;"	d	file:
+LIS331DLH_HP_FILTER_RESET	accel/lis331.c	56;"	d	file:
+LIS331DLH_INT1_CFG	accel/lis331.c	66;"	d	file:
+LIS331DLH_INT1_DURATION	accel/lis331.c	69;"	d	file:
+LIS331DLH_INT1_SRC	accel/lis331.c	67;"	d	file:
+LIS331DLH_INT1_THS	accel/lis331.c	68;"	d	file:
+LIS331DLH_INT2_CFG	accel/lis331.c	71;"	d	file:
+LIS331DLH_INT2_DURATION	accel/lis331.c	74;"	d	file:
+LIS331DLH_INT2_SRC	accel/lis331.c	72;"	d	file:
+LIS331DLH_INT2_THS	accel/lis331.c	73;"	d	file:
+LIS331DLH_MAX_DUR	accel/lis331.c	81;"	d	file:
+LIS331DLH_OUT_X_H	accel/lis331.c	60;"	d	file:
+LIS331DLH_OUT_X_L	accel/lis331.c	59;"	d	file:
+LIS331DLH_OUT_Y_H	accel/lis331.c	62;"	d	file:
+LIS331DLH_OUT_Y_L	accel/lis331.c	61;"	d	file:
+LIS331DLH_OUT_Z_H	accel/lis331.c	64;"	d	file:
+LIS331DLH_OUT_Z_L	accel/lis331.c	63;"	d	file:
+LIS331DLH_PWR_MODE_NORMAL	accel/lis331.c	79;"	d	file:
+LIS331DLH_REFERENCE	accel/lis331.c	57;"	d	file:
+LIS331DLH_SLEEP_MASK	accel/lis331.c	78;"	d	file:
+LIS331DLH_STATUS_REG	accel/lis331.c	58;"	d	file:
+LIS3DH_CTRL_REG1	accel/lis3dh.c	51;"	d	file:
+LIS3DH_CTRL_REG2	accel/lis3dh.c	52;"	d	file:
+LIS3DH_CTRL_REG3	accel/lis3dh.c	53;"	d	file:
+LIS3DH_CTRL_REG4	accel/lis3dh.c	54;"	d	file:
+LIS3DH_CTRL_REG5	accel/lis3dh.c	55;"	d	file:
+LIS3DH_CTRL_REG6	accel/lis3dh.c	56;"	d	file:
+LIS3DH_INT1_CFG	accel/lis3dh.c	66;"	d	file:
+LIS3DH_INT1_DURATION	accel/lis3dh.c	69;"	d	file:
+LIS3DH_INT1_SRC	accel/lis3dh.c	67;"	d	file:
+LIS3DH_INT1_THS	accel/lis3dh.c	68;"	d	file:
+LIS3DH_MAX_DUR	accel/lis3dh.c	71;"	d	file:
+LIS3DH_OUT_X_H	accel/lis3dh.c	60;"	d	file:
+LIS3DH_OUT_X_L	accel/lis3dh.c	59;"	d	file:
+LIS3DH_OUT_Y_H	accel/lis3dh.c	62;"	d	file:
+LIS3DH_OUT_Y_L	accel/lis3dh.c	61;"	d	file:
+LIS3DH_OUT_Z_H	accel/lis3dh.c	64;"	d	file:
+LIS3DH_OUT_Z_L	accel/lis3dh.c	63;"	d	file:
+LIS3DH_REFERENCE	accel/lis3dh.c	57;"	d	file:
+LIS3DH_STATUS_REG	accel/lis3dh.c	58;"	d	file:
+LOG_RESULT_LOCATION	log.h	280;"	d
+LSM303DLx_CTRL_MASK	accel/lsm303dlx_a.c	76;"	d	file:
+LSM303DLx_CTRL_REG1	accel/lsm303dlx_a.c	51;"	d	file:
+LSM303DLx_CTRL_REG2	accel/lsm303dlx_a.c	52;"	d	file:
+LSM303DLx_CTRL_REG3	accel/lsm303dlx_a.c	53;"	d	file:
+LSM303DLx_CTRL_REG4	accel/lsm303dlx_a.c	54;"	d	file:
+LSM303DLx_CTRL_REG5	accel/lsm303dlx_a.c	55;"	d	file:
+LSM303DLx_HP_FILTER_RESET	accel/lsm303dlx_a.c	56;"	d	file:
+LSM303DLx_INT1_CFG	accel/lsm303dlx_a.c	66;"	d	file:
+LSM303DLx_INT1_DURATION	accel/lsm303dlx_a.c	69;"	d	file:
+LSM303DLx_INT1_SRC	accel/lsm303dlx_a.c	67;"	d	file:
+LSM303DLx_INT1_THS	accel/lsm303dlx_a.c	68;"	d	file:
+LSM303DLx_INT2_CFG	accel/lsm303dlx_a.c	71;"	d	file:
+LSM303DLx_INT2_DURATION	accel/lsm303dlx_a.c	74;"	d	file:
+LSM303DLx_INT2_SRC	accel/lsm303dlx_a.c	72;"	d	file:
+LSM303DLx_INT2_THS	accel/lsm303dlx_a.c	73;"	d	file:
+LSM303DLx_MAX_DUR	accel/lsm303dlx_a.c	80;"	d	file:
+LSM303DLx_OUT_X_H	accel/lsm303dlx_a.c	60;"	d	file:
+LSM303DLx_OUT_X_L	accel/lsm303dlx_a.c	59;"	d	file:
+LSM303DLx_OUT_Y_H	accel/lsm303dlx_a.c	62;"	d	file:
+LSM303DLx_OUT_Y_L	accel/lsm303dlx_a.c	61;"	d	file:
+LSM303DLx_OUT_Z_H	accel/lsm303dlx_a.c	64;"	d	file:
+LSM303DLx_OUT_Z_L	accel/lsm303dlx_a.c	63;"	d	file:
+LSM303DLx_PWR_MODE_NORMAL	accel/lsm303dlx_a.c	78;"	d	file:
+LSM303DLx_REFERENCE	accel/lsm303dlx_a.c	57;"	d	file:
+LSM303DLx_SLEEP_MASK	accel/lsm303dlx_a.c	77;"	d	file:
+LSM303DLx_STATUS_REG	accel/lsm303dlx_a.c	58;"	d	file:
+LSM_CONF_A	compass/lsm303dlx_m.c	/^enum LSM_CONF_A {$/;"	g	file:
+LSM_CONF_A_DRATE_0_75	compass/lsm303dlx_m.c	/^	LSM_CONF_A_DRATE_0_75 = 0x00,$/;"	e	enum:LSM_CONF_A	file:
+LSM_CONF_A_DRATE_15	compass/lsm303dlx_m.c	/^	LSM_CONF_A_DRATE_15 = 0x10,$/;"	e	enum:LSM_CONF_A	file:
+LSM_CONF_A_DRATE_1_5	compass/lsm303dlx_m.c	/^	LSM_CONF_A_DRATE_1_5 = 0x04,$/;"	e	enum:LSM_CONF_A	file:
+LSM_CONF_A_DRATE_3	compass/lsm303dlx_m.c	/^	LSM_CONF_A_DRATE_3 = 0x08,$/;"	e	enum:LSM_CONF_A	file:
+LSM_CONF_A_DRATE_30	compass/lsm303dlx_m.c	/^	LSM_CONF_A_DRATE_30 = 0x14,$/;"	e	enum:LSM_CONF_A	file:
+LSM_CONF_A_DRATE_75	compass/lsm303dlx_m.c	/^	LSM_CONF_A_DRATE_75 = 0x18,$/;"	e	enum:LSM_CONF_A	file:
+LSM_CONF_A_DRATE_7_5	compass/lsm303dlx_m.c	/^	LSM_CONF_A_DRATE_7_5 = 0x0C,$/;"	e	enum:LSM_CONF_A	file:
+LSM_CONF_A_DRATE_MASK	compass/lsm303dlx_m.c	/^	LSM_CONF_A_DRATE_MASK = 0x1C,$/;"	e	enum:LSM_CONF_A	file:
+LSM_CONF_A_MEAS_MASK	compass/lsm303dlx_m.c	/^	LSM_CONF_A_MEAS_MASK = 0x3,$/;"	e	enum:LSM_CONF_A	file:
+LSM_CONF_A_MEAS_NEG	compass/lsm303dlx_m.c	/^	LSM_CONF_A_MEAS_NEG = 0x2$/;"	e	enum:LSM_CONF_A	file:
+LSM_CONF_A_MEAS_NORM	compass/lsm303dlx_m.c	/^	LSM_CONF_A_MEAS_NORM = 0x0,$/;"	e	enum:LSM_CONF_A	file:
+LSM_CONF_A_MEAS_POS	compass/lsm303dlx_m.c	/^	LSM_CONF_A_MEAS_POS = 0x1,$/;"	e	enum:LSM_CONF_A	file:
+LSM_CONF_B	compass/lsm303dlx_m.c	/^enum LSM_CONF_B {$/;"	g	file:
+LSM_CONF_B_GAIN_0_9	compass/lsm303dlx_m.c	/^	LSM_CONF_B_GAIN_0_9 = 0x00,$/;"	e	enum:LSM_CONF_B	file:
+LSM_CONF_B_GAIN_1_2	compass/lsm303dlx_m.c	/^	LSM_CONF_B_GAIN_1_2 = 0x20,$/;"	e	enum:LSM_CONF_B	file:
+LSM_CONF_B_GAIN_1_9	compass/lsm303dlx_m.c	/^	LSM_CONF_B_GAIN_1_9 = 0x40,$/;"	e	enum:LSM_CONF_B	file:
+LSM_CONF_B_GAIN_2_5	compass/lsm303dlx_m.c	/^	LSM_CONF_B_GAIN_2_5 = 0x60,$/;"	e	enum:LSM_CONF_B	file:
+LSM_CONF_B_GAIN_4_0	compass/lsm303dlx_m.c	/^	LSM_CONF_B_GAIN_4_0 = 0x80,$/;"	e	enum:LSM_CONF_B	file:
+LSM_CONF_B_GAIN_4_6	compass/lsm303dlx_m.c	/^	LSM_CONF_B_GAIN_4_6 = 0xA0,$/;"	e	enum:LSM_CONF_B	file:
+LSM_CONF_B_GAIN_5_5	compass/lsm303dlx_m.c	/^	LSM_CONF_B_GAIN_5_5 = 0xC0,$/;"	e	enum:LSM_CONF_B	file:
+LSM_CONF_B_GAIN_7_9	compass/lsm303dlx_m.c	/^	LSM_CONF_B_GAIN_7_9 = 0xE0$/;"	e	enum:LSM_CONF_B	file:
+LSM_CONF_B_GAIN_MASK	compass/lsm303dlx_m.c	/^	LSM_CONF_B_GAIN_MASK = 0xE0,$/;"	e	enum:LSM_CONF_B	file:
+LSM_MODE	compass/lsm303dlx_m.c	/^enum LSM_MODE {$/;"	g	file:
+LSM_MODE_CONT	compass/lsm303dlx_m.c	/^	LSM_MODE_CONT = 0x0,$/;"	e	enum:LSM_MODE	file:
+LSM_MODE_IDLE	compass/lsm303dlx_m.c	/^	LSM_MODE_IDLE = 0x2,$/;"	e	enum:LSM_MODE	file:
+LSM_MODE_MASK	compass/lsm303dlx_m.c	/^	LSM_MODE_MASK = 0x3,$/;"	e	enum:LSM_MODE	file:
+LSM_MODE_SINGLE	compass/lsm303dlx_m.c	/^	LSM_MODE_SINGLE = 0x1,$/;"	e	enum:LSM_MODE	file:
+LSM_MODE_SLEEP	compass/lsm303dlx_m.c	/^	LSM_MODE_SLEEP = 0x3$/;"	e	enum:LSM_MODE	file:
+LSM_REG	compass/lsm303dlx_m.c	/^enum LSM_REG {$/;"	g	file:
+LSM_REG_CONF_A	compass/lsm303dlx_m.c	/^	LSM_REG_CONF_A = 0x0,$/;"	e	enum:LSM_REG	file:
+LSM_REG_CONF_B	compass/lsm303dlx_m.c	/^	LSM_REG_CONF_B = 0x1,$/;"	e	enum:LSM_REG	file:
+LSM_REG_ID_A	compass/lsm303dlx_m.c	/^	LSM_REG_ID_A = 0xA,$/;"	e	enum:LSM_REG	file:
+LSM_REG_ID_B	compass/lsm303dlx_m.c	/^	LSM_REG_ID_B = 0xB,$/;"	e	enum:LSM_REG	file:
+LSM_REG_ID_C	compass/lsm303dlx_m.c	/^	LSM_REG_ID_C = 0xC$/;"	e	enum:LSM_REG	file:
+LSM_REG_MODE	compass/lsm303dlx_m.c	/^	LSM_REG_MODE = 0x2,$/;"	e	enum:LSM_REG	file:
+LSM_REG_STATUS	compass/lsm303dlx_m.c	/^	LSM_REG_STATUS = 0x9,$/;"	e	enum:LSM_REG	file:
+LSM_REG_X_L	compass/lsm303dlx_m.c	/^	LSM_REG_X_L = 0x4,$/;"	e	enum:LSM_REG	file:
+LSM_REG_X_M	compass/lsm303dlx_m.c	/^	LSM_REG_X_M = 0x3,$/;"	e	enum:LSM_REG	file:
+LSM_REG_Y_L	compass/lsm303dlx_m.c	/^	LSM_REG_Y_L = 0x8,$/;"	e	enum:LSM_REG	file:
+LSM_REG_Y_M	compass/lsm303dlx_m.c	/^	LSM_REG_Y_M = 0x7,$/;"	e	enum:LSM_REG	file:
+LSM_REG_Z_L	compass/lsm303dlx_m.c	/^	LSM_REG_Z_L = 0x6,$/;"	e	enum:LSM_REG	file:
+LSM_REG_Z_M	compass/lsm303dlx_m.c	/^	LSM_REG_Z_M = 0x5,$/;"	e	enum:LSM_REG	file:
+MLTYPES_H	mltypes.h	86;"	d
+ML_ERROR	mltypes.h	183;"	d
+ML_ERROR_ACCEL_DATA_ERROR	mltypes.h	229;"	d
+ML_ERROR_ACCEL_DATA_NOT_READY	mltypes.h	228;"	d
+ML_ERROR_ACCEL_DATA_OVERFLOW	mltypes.h	226;"	d
+ML_ERROR_ACCEL_DATA_UNDERFLOW	mltypes.h	227;"	d
+ML_ERROR_ASSERTION_FAILURE	mltypes.h	194;"	d
+ML_ERROR_CALIBRATION_CHECKSUM	mltypes.h	225;"	d
+ML_ERROR_CALIBRATION_LEN	mltypes.h	224;"	d
+ML_ERROR_CALIBRATION_LOAD	mltypes.h	222;"	d
+ML_ERROR_CALIBRATION_STORE	mltypes.h	223;"	d
+ML_ERROR_COMPASS_DATA_ERROR	mltypes.h	221;"	d
+ML_ERROR_COMPASS_DATA_NOT_READY	mltypes.h	220;"	d
+ML_ERROR_COMPASS_DATA_OVERFLOW	mltypes.h	218;"	d
+ML_ERROR_COMPASS_DATA_UNDERFLOW	mltypes.h	219;"	d
+ML_ERROR_DIVIDE_BY_ZERO	mltypes.h	193;"	d
+ML_ERROR_DMP_NOT_STARTED	mltypes.h	187;"	d
+ML_ERROR_DMP_STARTED	mltypes.h	188;"	d
+ML_ERROR_FEATURE_NOT_ENABLED	mltypes.h	185;"	d
+ML_ERROR_FEATURE_NOT_IMPLEMENTED	mltypes.h	186;"	d
+ML_ERROR_FIFO_FOOTER	mltypes.h	208;"	d
+ML_ERROR_FIFO_OVERFLOW	mltypes.h	207;"	d
+ML_ERROR_FIFO_READ_COUNT	mltypes.h	209;"	d
+ML_ERROR_FIFO_READ_DATA	mltypes.h	210;"	d
+ML_ERROR_FILE_OPEN	mltypes.h	195;"	d
+ML_ERROR_FILE_READ	mltypes.h	196;"	d
+ML_ERROR_FILE_WRITE	mltypes.h	197;"	d
+ML_ERROR_INVALID_CONFIGURATION	mltypes.h	198;"	d
+ML_ERROR_INVALID_MODULE	mltypes.h	191;"	d
+ML_ERROR_INVALID_PARAMETER	mltypes.h	184;"	d
+ML_ERROR_LOG_MEMORY_ERROR	mltypes.h	212;"	d
+ML_ERROR_LOG_OUTPUT_ERROR	mltypes.h	213;"	d
+ML_ERROR_MEMORY_EXAUSTED	mltypes.h	192;"	d
+ML_ERROR_MEMORY_SET	mltypes.h	211;"	d
+ML_ERROR_NOT_OPENED	mltypes.h	189;"	d
+ML_ERROR_OPENED	mltypes.h	190;"	d
+ML_ERROR_OS_BAD_HANDLE	mltypes.h	215;"	d
+ML_ERROR_OS_BAD_PTR	mltypes.h	214;"	d
+ML_ERROR_OS_CREATE_FAILED	mltypes.h	216;"	d
+ML_ERROR_OS_LOCK_FAILED	mltypes.h	217;"	d
+ML_ERROR_SERIAL_CLOSED	mltypes.h	199;"	d
+ML_ERROR_SERIAL_DEVICE_NOT_RECOGNIZED	mltypes.h	203;"	d
+ML_ERROR_SERIAL_OPEN_ERROR	mltypes.h	200;"	d
+ML_ERROR_SERIAL_READ	mltypes.h	201;"	d
+ML_ERROR_SERIAL_WRITE	mltypes.h	202;"	d
+ML_ERROR_SM_IMPROPER_STATE	mltypes.h	206;"	d
+ML_ERROR_SM_TRANSITION	mltypes.h	205;"	d
+ML_SKIP_CHECK	mldl_cfg.c	879;"	d	file:
+ML_SUCCESS	mltypes.h	182;"	d
+MMC314X_CNTL_MODE_RESET	compass/mmc314x.c	59;"	d	file:
+MMC314X_CNTL_MODE_SET	compass/mmc314x.c	58;"	d	file:
+MMC314X_CNTL_MODE_WAKE_UP	compass/mmc314x.c	57;"	d	file:
+MMC314X_REG_ST	compass/mmc314x.c	54;"	d	file:
+MMC314X_REG_X_MSB	compass/mmc314x.c	55;"	d	file:
+MPL_LOG	log.h	241;"	d
+MPL_LOGD	log.h	132;"	d
+MPL_LOGD_IF	log.h	136;"	d
+MPL_LOGE	log.h	174;"	d
+MPL_LOGE_IF	log.h	178;"	d
+MPL_LOGI	log.h	146;"	d
+MPL_LOGI_IF	log.h	150;"	d
+MPL_LOGV	log.h	102;"	d
+MPL_LOGV	log.h	108;"	d
+MPL_LOGV_IF	log.h	118;"	d
+MPL_LOGV_IF	log.h	121;"	d
+MPL_LOGW	log.h	160;"	d
+MPL_LOGW_IF	log.h	164;"	d
+MPL_LOG_ALWAYS_FATAL	log.h	198;"	d
+MPL_LOG_ALWAYS_FATAL_IF	log.h	192;"	d
+MPL_LOG_ASSERT	log.h	227;"	d
+MPL_LOG_DEBUG	log.h	78;"	d
+MPL_LOG_DEFAULT	log.h	76;"	d
+MPL_LOG_ERROR	log.h	81;"	d
+MPL_LOG_FATAL	log.h	211;"	d
+MPL_LOG_FATAL	log.h	219;"	d
+MPL_LOG_FATAL_IF	log.h	206;"	d
+MPL_LOG_FATAL_IF	log.h	217;"	d
+MPL_LOG_INFO	log.h	79;"	d
+MPL_LOG_NDEBUG	accel/kxtf9.c	31;"	d	file:
+MPL_LOG_NDEBUG	accel/kxtf9.c	32;"	d	file:
+MPL_LOG_NDEBUG	accel/lis331.c	31;"	d	file:
+MPL_LOG_NDEBUG	accel/lis331.c	32;"	d	file:
+MPL_LOG_NDEBUG	accel/lis3dh.c	31;"	d	file:
+MPL_LOG_NDEBUG	accel/lis3dh.c	32;"	d	file:
+MPL_LOG_NDEBUG	log.h	69;"	d
+MPL_LOG_NDEBUG	log.h	71;"	d
+MPL_LOG_NDEBUG	mldl_print_cfg.c	37;"	d	file:
+MPL_LOG_NDEBUG	mldl_print_cfg.c	38;"	d	file:
+MPL_LOG_PRI	log.h	249;"	d
+MPL_LOG_SILENT	log.h	82;"	d
+MPL_LOG_TAG	accel/adxl34x.c	47;"	d	file:
+MPL_LOG_TAG	accel/adxl34x.c	48;"	d	file:
+MPL_LOG_TAG	accel/cma3000.c	44;"	d	file:
+MPL_LOG_TAG	accel/cma3000.c	45;"	d	file:
+MPL_LOG_TAG	accel/kxsd9.c	44;"	d	file:
+MPL_LOG_TAG	accel/kxsd9.c	45;"	d	file:
+MPL_LOG_TAG	accel/kxtf9.c	47;"	d	file:
+MPL_LOG_TAG	accel/kxtf9.c	48;"	d	file:
+MPL_LOG_TAG	accel/lis331.c	47;"	d	file:
+MPL_LOG_TAG	accel/lis331.c	48;"	d	file:
+MPL_LOG_TAG	accel/lis3dh.c	47;"	d	file:
+MPL_LOG_TAG	accel/lis3dh.c	48;"	d	file:
+MPL_LOG_TAG	accel/lsm303dlx_a.c	45;"	d	file:
+MPL_LOG_TAG	accel/lsm303dlx_a.c	46;"	d	file:
+MPL_LOG_TAG	accel/mma8450.c	44;"	d	file:
+MPL_LOG_TAG	accel/mma8450.c	45;"	d	file:
+MPL_LOG_TAG	accel/mma845x.c	44;"	d	file:
+MPL_LOG_TAG	accel/mma845x.c	45;"	d	file:
+MPL_LOG_TAG	compass/ak8972.c	43;"	d	file:
+MPL_LOG_TAG	compass/ak8972.c	44;"	d	file:
+MPL_LOG_TAG	compass/ak8975.c	44;"	d	file:
+MPL_LOG_TAG	compass/ak8975.c	45;"	d	file:
+MPL_LOG_TAG	compass/ami306.c	47;"	d	file:
+MPL_LOG_TAG	compass/ami306.c	48;"	d	file:
+MPL_LOG_TAG	compass/ami30x.c	44;"	d	file:
+MPL_LOG_TAG	compass/ami30x.c	45;"	d	file:
+MPL_LOG_TAG	compass/hmc5883.c	44;"	d	file:
+MPL_LOG_TAG	compass/hmc5883.c	45;"	d	file:
+MPL_LOG_TAG	compass/hscdtd002b.c	44;"	d	file:
+MPL_LOG_TAG	compass/hscdtd002b.c	45;"	d	file:
+MPL_LOG_TAG	compass/hscdtd004a.c	44;"	d	file:
+MPL_LOG_TAG	compass/hscdtd004a.c	45;"	d	file:
+MPL_LOG_TAG	compass/lsm303dlx_m.c	47;"	d	file:
+MPL_LOG_TAG	compass/lsm303dlx_m.c	48;"	d	file:
+MPL_LOG_TAG	compass/mmc314x.c	44;"	d	file:
+MPL_LOG_TAG	compass/mmc314x.c	45;"	d	file:
+MPL_LOG_TAG	compass/yas529-kernel.c	35;"	d	file:
+MPL_LOG_TAG	compass/yas529-kernel.c	36;"	d	file:
+MPL_LOG_TAG	compass/yas530.c	46;"	d	file:
+MPL_LOG_TAG	compass/yas530.c	47;"	d	file:
+MPL_LOG_TAG	log.h	92;"	d
+MPL_LOG_TAG	mldl_cfg.c	41;"	d	file:
+MPL_LOG_TAG	mldl_cfg.c	42;"	d	file:
+MPL_LOG_TAG	mldl_print_cfg.c	34;"	d	file:
+MPL_LOG_TAG	mldl_print_cfg.c	35;"	d	file:
+MPL_LOG_UNKNOWN	log.h	75;"	d
+MPL_LOG_VERBOSE	log.h	77;"	d
+MPL_LOG_WARN	log.h	80;"	d
+MPL_PROD_KEY	mldl_cfg.h	73;"	d
+MPUIRQ_GET_INTERRUPT_CNT	mpuirq.h	29;"	d
+MPUIRQ_GET_IRQ_TIME	mpuirq.h	30;"	d
+MPUIRQ_NAME	mpuirq.c	44;"	d	file:
+MPUIRQ_SET_FREQUENCY_DIVIDER	mpuirq.h	31;"	d
+MPUIRQ_SET_TIMEOUT	mpuirq.h	28;"	d
+MPUREG_02_RSVD	mpu3050.h	/^	MPUREG_02_RSVD,		\/* 02 0x02 *\/$/;"	e	enum:mpu_register
+MPUREG_03_RSVD	mpu3050.h	/^	MPUREG_03_RSVD,		\/* 03 0x03 *\/$/;"	e	enum:mpu_register
+MPUREG_04_RSVD	mpu3050.h	/^	MPUREG_04_RSVD,		\/* 04 0x04 *\/$/;"	e	enum:mpu_register
+MPUREG_06_RSVD	mpu3050.h	/^	MPUREG_06_RSVD,		\/* 06 0x06 *\/$/;"	e	enum:mpu_register
+MPUREG_07_RSVD	mpu3050.h	/^	MPUREG_07_RSVD,		\/* 07 0x07 *\/$/;"	e	enum:mpu_register
+MPUREG_09_RSVD	mpu3050.h	/^	MPUREG_09_RSVD,		\/* 09 0x09 *\/$/;"	e	enum:mpu_register
+MPUREG_0A_RSVD	mpu3050.h	/^	MPUREG_0A_RSVD,		\/* 10 0x0a *\/$/;"	e	enum:mpu_register
+MPUREG_19_RSVD	mpu3050.h	/^	MPUREG_19_RSVD,		\/* 25 0x19 *\/$/;"	e	enum:mpu_register
+MPUREG_23_RSVD	mpu3050.h	/^	MPUREG_23_RSVD,		\/* 35 0x23 *\/$/;"	e	enum:mpu_register
+MPUREG_24_RSVD	mpu3050.h	/^	MPUREG_24_RSVD,		\/* 36 0x24 *\/$/;"	e	enum:mpu_register
+MPUREG_25_RSVD	mpu3050.h	/^	MPUREG_25_RSVD,		\/* 37 0x25 *\/$/;"	e	enum:mpu_register
+MPUREG_26_RSVD	mpu3050.h	/^	MPUREG_26_RSVD,		\/* 38 0x26 *\/$/;"	e	enum:mpu_register
+MPUREG_27_RSVD	mpu3050.h	/^	MPUREG_27_RSVD,		\/* 39 0x27 *\/$/;"	e	enum:mpu_register
+MPUREG_28_RSVD	mpu3050.h	/^	MPUREG_28_RSVD,		\/* 40 0x28 *\/$/;"	e	enum:mpu_register
+MPUREG_29_RSVD	mpu3050.h	/^	MPUREG_29_RSVD,		\/* 41 0x29 *\/$/;"	e	enum:mpu_register
+MPUREG_2A_RSVD	mpu3050.h	/^	MPUREG_2A_RSVD,		\/* 42 0x2a *\/$/;"	e	enum:mpu_register
+MPUREG_2B_RSVD	mpu3050.h	/^	MPUREG_2B_RSVD,		\/* 43 0x2b *\/$/;"	e	enum:mpu_register
+MPUREG_2C_RSVD	mpu3050.h	/^	MPUREG_2C_RSVD,		\/* 44 0x2c *\/$/;"	e	enum:mpu_register
+MPUREG_2D_RSVD	mpu3050.h	/^	MPUREG_2D_RSVD,		\/* 45 0x2d *\/$/;"	e	enum:mpu_register
+MPUREG_2E_RSVD	mpu3050.h	/^	MPUREG_2E_RSVD,		\/* 46 0x2e *\/$/;"	e	enum:mpu_register
+MPUREG_2F_RSVD	mpu3050.h	/^	MPUREG_2F_RSVD,		\/* 47 0x2f *\/$/;"	e	enum:mpu_register
+MPUREG_30_RSVD	mpu3050.h	/^	MPUREG_30_RSVD,		\/* 48 0x30 *\/$/;"	e	enum:mpu_register
+MPUREG_31_RSVD	mpu3050.h	/^	MPUREG_31_RSVD,		\/* 49 0x31 *\/$/;"	e	enum:mpu_register
+MPUREG_32_RSVD	mpu3050.h	/^	MPUREG_32_RSVD,		\/* 50 0x32 *\/$/;"	e	enum:mpu_register
+MPUREG_33_RSVD	mpu3050.h	/^	MPUREG_33_RSVD,		\/* 51 0x33 *\/$/;"	e	enum:mpu_register
+MPUREG_34_RSVD	mpu3050.h	/^	MPUREG_34_RSVD,		\/* 52 0x34 *\/$/;"	e	enum:mpu_register
+MPUREG_3F_RSVD	mpu3050.h	/^	MPUREG_3F_RSVD,		\/* 63 0x3f *\/$/;"	e	enum:mpu_register
+MPUREG_ACCEL_BURST_ADDR	mpu3050.h	/^	MPUREG_ACCEL_BURST_ADDR,\/* 24 0x18 *\/$/;"	e	enum:mpu_register
+MPUREG_AUX_SLV_ADDR	mpu3050.h	/^	MPUREG_AUX_SLV_ADDR,	\/* 20 0x14 *\/$/;"	e	enum:mpu_register
+MPUREG_BANK_SEL	mpu3050.h	/^	MPUREG_BANK_SEL,	\/* 55 0x37 *\/$/;"	e	enum:mpu_register
+MPUREG_DLPF_FS_SYNC	mpu3050.h	/^	MPUREG_DLPF_FS_SYNC,	\/* 22 0x16 *\/$/;"	e	enum:mpu_register
+MPUREG_DMP_CFG_1	mpu3050.h	/^	MPUREG_DMP_CFG_1,	\/* 53 0x35 *\/$/;"	e	enum:mpu_register
+MPUREG_DMP_CFG_2	mpu3050.h	/^	MPUREG_DMP_CFG_2,	\/* 54 0x36 *\/$/;"	e	enum:mpu_register
+MPUREG_FIFO_COUNTH	mpu3050.h	/^	MPUREG_FIFO_COUNTH,	\/* 58 0x3a *\/$/;"	e	enum:mpu_register
+MPUREG_FIFO_COUNTL	mpu3050.h	/^	MPUREG_FIFO_COUNTL,	\/* 59 0x3b *\/$/;"	e	enum:mpu_register
+MPUREG_FIFO_EN1	mpu3050.h	/^	MPUREG_FIFO_EN1,	\/* 18 0x12 *\/$/;"	e	enum:mpu_register
+MPUREG_FIFO_EN2	mpu3050.h	/^	MPUREG_FIFO_EN2,	\/* 19 0x13 *\/$/;"	e	enum:mpu_register
+MPUREG_FIFO_R_W	mpu3050.h	/^	MPUREG_FIFO_R_W,	\/* 60 0x3c *\/$/;"	e	enum:mpu_register
+MPUREG_GYRO_XOUT_H	mpu3050.h	/^	MPUREG_GYRO_XOUT_H,	\/* 29 0x1d *\/$/;"	e	enum:mpu_register
+MPUREG_GYRO_XOUT_L	mpu3050.h	/^	MPUREG_GYRO_XOUT_L,	\/* 30 0x1e *\/$/;"	e	enum:mpu_register
+MPUREG_GYRO_YOUT_H	mpu3050.h	/^	MPUREG_GYRO_YOUT_H,	\/* 31 0x1f *\/$/;"	e	enum:mpu_register
+MPUREG_GYRO_YOUT_L	mpu3050.h	/^	MPUREG_GYRO_YOUT_L,	\/* 32 0x20 *\/$/;"	e	enum:mpu_register
+MPUREG_GYRO_ZOUT_H	mpu3050.h	/^	MPUREG_GYRO_ZOUT_H,	\/* 33 0x21 *\/$/;"	e	enum:mpu_register
+MPUREG_GYRO_ZOUT_L	mpu3050.h	/^	MPUREG_GYRO_ZOUT_L,	\/* 34 0x22 *\/$/;"	e	enum:mpu_register
+MPUREG_INT_CFG	mpu3050.h	/^	MPUREG_INT_CFG,		\/* 23 0x17 *\/$/;"	e	enum:mpu_register
+MPUREG_INT_STATUS	mpu3050.h	/^	MPUREG_INT_STATUS,	\/* 26 0x1a *\/$/;"	e	enum:mpu_register
+MPUREG_MEM_R_W	mpu3050.h	/^	MPUREG_MEM_R_W,		\/* 57 0x39 *\/$/;"	e	enum:mpu_register
+MPUREG_MEM_START_ADDR	mpu3050.h	/^	MPUREG_MEM_START_ADDR,	\/* 56 0x38 *\/$/;"	e	enum:mpu_register
+MPUREG_PRODUCT_ID	mpu3050.h	/^	MPUREG_PRODUCT_ID,	\/* 01 0x01 *\/$/;"	e	enum:mpu_register
+MPUREG_PWR_MGM	mpu3050.h	/^	MPUREG_PWR_MGM,		\/* 62 0x3e *\/$/;"	e	enum:mpu_register
+MPUREG_SMPLRT_DIV	mpu3050.h	/^	MPUREG_SMPLRT_DIV,	\/* 21 0x15 *\/$/;"	e	enum:mpu_register
+MPUREG_TEMP_OUT_H	mpu3050.h	/^	MPUREG_TEMP_OUT_H,	\/* 27 0x1b *\/$/;"	e	enum:mpu_register
+MPUREG_TEMP_OUT_L	mpu3050.h	/^	MPUREG_TEMP_OUT_L,	\/* 28 0x1c *\/$/;"	e	enum:mpu_register
+MPUREG_USER_CTRL	mpu3050.h	/^	MPUREG_USER_CTRL,	\/* 61 0x3d *\/$/;"	e	enum:mpu_register
+MPUREG_WHO_AM_I	mpu3050.h	/^	MPUREG_WHO_AM_I = 0,	\/* 00 0x00 *\/$/;"	e	enum:mpu_register
+MPUREG_XG_OFFS_TC	mpu3050.h	/^	MPUREG_XG_OFFS_TC,	\/* 05 0x05 *\/$/;"	e	enum:mpu_register
+MPUREG_X_OFFS_USRH	mpu3050.h	/^	MPUREG_X_OFFS_USRH,	\/* 12 0x0c *\/$/;"	e	enum:mpu_register
+MPUREG_X_OFFS_USRL	mpu3050.h	/^	MPUREG_X_OFFS_USRL,	\/* 13 0x0d *\/$/;"	e	enum:mpu_register
+MPUREG_YG_OFFS_TC	mpu3050.h	/^	MPUREG_YG_OFFS_TC,	\/* 08 0x08 *\/$/;"	e	enum:mpu_register
+MPUREG_Y_OFFS_USRH	mpu3050.h	/^	MPUREG_Y_OFFS_USRH,	\/* 14 0x0e *\/$/;"	e	enum:mpu_register
+MPUREG_Y_OFFS_USRL	mpu3050.h	/^	MPUREG_Y_OFFS_USRL,	\/* 15 0x0f *\/$/;"	e	enum:mpu_register
+MPUREG_ZG_OFFS_TC	mpu3050.h	/^	MPUREG_ZG_OFFS_TC,	\/* 11 0x0b *\/$/;"	e	enum:mpu_register
+MPUREG_Z_OFFS_USRH	mpu3050.h	/^	MPUREG_Z_OFFS_USRH,	\/* 16 0x10 *\/$/;"	e	enum:mpu_register
+MPUREG_Z_OFFS_USRL	mpu3050.h	/^	MPUREG_Z_OFFS_USRL,	\/* 17 0x11 *\/$/;"	e	enum:mpu_register
+MPU_ACCEL_IS_SUSPENDED	mldl_cfg.h	120;"	d
+MPU_CLK_SEL_INTERNAL	mpu3050.h	/^	MPU_CLK_SEL_INTERNAL = 0,$/;"	e	enum:mpu_clock_sel
+MPU_CLK_SEL_PLLEXT19M	mpu3050.h	/^	MPU_CLK_SEL_PLLEXT19M,$/;"	e	enum:mpu_clock_sel
+MPU_CLK_SEL_PLLEXT32K	mpu3050.h	/^	MPU_CLK_SEL_PLLEXT32K,$/;"	e	enum:mpu_clock_sel
+MPU_CLK_SEL_PLLGYROX	mpu3050.h	/^	MPU_CLK_SEL_PLLGYROX,$/;"	e	enum:mpu_clock_sel
+MPU_CLK_SEL_PLLGYROY	mpu3050.h	/^	MPU_CLK_SEL_PLLGYROY,$/;"	e	enum:mpu_clock_sel
+MPU_CLK_SEL_PLLGYROZ	mpu3050.h	/^	MPU_CLK_SEL_PLLGYROZ,$/;"	e	enum:mpu_clock_sel
+MPU_CLK_SEL_RESERVED	mpu3050.h	/^	MPU_CLK_SEL_RESERVED,$/;"	e	enum:mpu_clock_sel
+MPU_CLK_SEL_STOP	mpu3050.h	/^	MPU_CLK_SEL_STOP,$/;"	e	enum:mpu_clock_sel
+MPU_COMPASS_IS_SUSPENDED	mldl_cfg.h	121;"	d
+MPU_DEVICE_IS_SUSPENDED	mldl_cfg.h	126;"	d
+MPU_DMP_IS_SUSPENDED	mldl_cfg.h	124;"	d
+MPU_EXT_SYNC_ACCELX	mpu3050.h	/^	MPU_EXT_SYNC_ACCELX,$/;"	e	enum:mpu_ext_sync
+MPU_EXT_SYNC_ACCELY	mpu3050.h	/^	MPU_EXT_SYNC_ACCELY,$/;"	e	enum:mpu_ext_sync
+MPU_EXT_SYNC_ACCELZ	mpu3050.h	/^	MPU_EXT_SYNC_ACCELZ,$/;"	e	enum:mpu_ext_sync
+MPU_EXT_SYNC_GYROX	mpu3050.h	/^	MPU_EXT_SYNC_GYROX,$/;"	e	enum:mpu_ext_sync
+MPU_EXT_SYNC_GYROY	mpu3050.h	/^	MPU_EXT_SYNC_GYROY,$/;"	e	enum:mpu_ext_sync
+MPU_EXT_SYNC_GYROZ	mpu3050.h	/^	MPU_EXT_SYNC_GYROZ,$/;"	e	enum:mpu_ext_sync
+MPU_EXT_SYNC_NONE	mpu3050.h	/^	MPU_EXT_SYNC_NONE = 0,$/;"	e	enum:mpu_ext_sync
+MPU_EXT_SYNC_TEMP	mpu3050.h	/^	MPU_EXT_SYNC_TEMP,$/;"	e	enum:mpu_ext_sync
+MPU_FILTER_10HZ	mpu3050.h	/^	MPU_FILTER_10HZ,$/;"	e	enum:mpu_filter
+MPU_FILTER_188HZ	mpu3050.h	/^	MPU_FILTER_188HZ,$/;"	e	enum:mpu_filter
+MPU_FILTER_20HZ	mpu3050.h	/^	MPU_FILTER_20HZ,$/;"	e	enum:mpu_filter
+MPU_FILTER_2100HZ_NOLPF	mpu3050.h	/^	MPU_FILTER_2100HZ_NOLPF,$/;"	e	enum:mpu_filter
+MPU_FILTER_256HZ_NOLPF2	mpu3050.h	/^	MPU_FILTER_256HZ_NOLPF2 = 0,$/;"	e	enum:mpu_filter
+MPU_FILTER_42HZ	mpu3050.h	/^	MPU_FILTER_42HZ,$/;"	e	enum:mpu_filter
+MPU_FILTER_5HZ	mpu3050.h	/^	MPU_FILTER_5HZ,$/;"	e	enum:mpu_filter
+MPU_FILTER_98HZ	mpu3050.h	/^	MPU_FILTER_98HZ,$/;"	e	enum:mpu_filter
+MPU_FS_1000DPS	mpu3050.h	/^	MPU_FS_1000DPS,$/;"	e	enum:mpu_fullscale
+MPU_FS_2000DPS	mpu3050.h	/^	MPU_FS_2000DPS,$/;"	e	enum:mpu_fullscale
+MPU_FS_250DPS	mpu3050.h	/^	MPU_FS_250DPS = 0,$/;"	e	enum:mpu_fullscale
+MPU_FS_500DPS	mpu3050.h	/^	MPU_FS_500DPS,$/;"	e	enum:mpu_fullscale
+MPU_GYRO_IS_BYPASSED	mldl_cfg.h	123;"	d
+MPU_GYRO_IS_SUSPENDED	mldl_cfg.h	119;"	d
+MPU_GYRO_NEEDS_CONFIG	mldl_cfg.h	125;"	d
+MPU_MEMORY_BANKS	mpu3050.h	/^enum MPU_MEMORY_BANKS {$/;"	g
+MPU_MEM_BANK_SIZE	mpu3050.h	187;"	d
+MPU_MEM_NUM_BANKS	mpu3050.h	/^	MPU_MEM_NUM_BANKS$/;"	e	enum:MPU_MEMORY_BANKS
+MPU_MEM_NUM_RAM_BANKS	mpu3050.h	/^	MPU_MEM_NUM_RAM_BANKS,$/;"	e	enum:MPU_MEMORY_BANKS
+MPU_MEM_OTP_BANK_0	mpu3050.h	/^	MPU_MEM_OTP_BANK_0 = MPU_MEM_NUM_RAM_BANKS,$/;"	e	enum:MPU_MEMORY_BANKS
+MPU_MEM_RAM_BANK_0	mpu3050.h	/^	MPU_MEM_RAM_BANK_0 = 0,$/;"	e	enum:MPU_MEMORY_BANKS
+MPU_MEM_RAM_BANK_1	mpu3050.h	/^	MPU_MEM_RAM_BANK_1,$/;"	e	enum:MPU_MEMORY_BANKS
+MPU_MEM_RAM_BANK_2	mpu3050.h	/^	MPU_MEM_RAM_BANK_2,$/;"	e	enum:MPU_MEMORY_BANKS
+MPU_MEM_RAM_BANK_3	mpu3050.h	/^	MPU_MEM_RAM_BANK_3,$/;"	e	enum:MPU_MEMORY_BANKS
+MPU_NAME	mpu-dev.c	/^MODULE_ALIAS(MPU_NAME);$/;"	v
+MPU_NAME	mpu3050.h	30;"	d
+MPU_PRESSURE_IS_SUSPENDED	mldl_cfg.h	122;"	d
+MPU_SILICON_REV_A4	mpu3050.h	181;"	d
+MPU_SILICON_REV_B1	mpu3050.h	182;"	d
+MPU_SILICON_REV_B4	mpu3050.h	183;"	d
+MPU_SILICON_REV_B6	mpu3050.h	184;"	d
+NULL	mltypes.h	99;"	d
+NUM_CLK_SEL	mpu3050.h	/^	NUM_CLK_SEL$/;"	e	enum:mpu_clock_sel
+NUM_MPU_EXT_SYNC	mpu3050.h	/^	NUM_MPU_EXT_SYNC$/;"	e	enum:mpu_ext_sync
+NUM_MPU_FILTER	mpu3050.h	/^	NUM_MPU_FILTER$/;"	e	enum:mpu_filter
+NUM_MPU_FS	mpu3050.h	/^	NUM_MPU_FS$/;"	e	enum:mpu_fullscale
+NUM_OF_MPU_REGISTERS	mpu3050.h	/^	NUM_OF_MPU_REGISTERS	\/* 64 0x40 *\/$/;"	e	enum:mpu_register
+NUM_OF_PROD_REVS	mldl_cfg.c	273;"	d	file:
+OLDEST_PROD_REV_SUPPORTED	mldl_cfg.c	283;"	d	file:
+PRESSURE_BMA085_PARAM_MG	pressure/bma085.c	67;"	d	file:
+PRESSURE_BMA085_PARAM_MH	pressure/bma085.c	68;"	d	file:
+PRESSURE_BMA085_PARAM_MI	pressure/bma085.c	69;"	d	file:
+PRESSURE_BMA085_PROM_DATA_LEN	pressure/bma085.c	84;"	d	file:
+PRESSURE_BMA085_PROM_START_ADDR	pressure/bma085.c	83;"	d	file:
+PRESSURE_BMP085_ADC_OUT_LSB_REG	pressure/bma085.c	94;"	d	file:
+PRESSURE_BMP085_ADC_OUT_MSB_REG	pressure/bma085.c	93;"	d	file:
+PRESSURE_BMP085_CTRL_MEAS_REG	pressure/bma085.c	85;"	d	file:
+PRESSURE_BMP085_P_MEAS_OSS_0	pressure/bma085.c	89;"	d	file:
+PRESSURE_BMP085_P_MEAS_OSS_1	pressure/bma085.c	90;"	d	file:
+PRESSURE_BMP085_P_MEAS_OSS_2	pressure/bma085.c	91;"	d	file:
+PRESSURE_BMP085_P_MEAS_OSS_3	pressure/bma085.c	92;"	d	file:
+PRESSURE_BMP085_T_MEAS	pressure/bma085.c	87;"	d	file:
+RESET	mldl_cfg.c	48;"	d	file:
+SEH_RANGE_MAX	compass/ami306.c	378;"	d	file:
+SEH_RANGE_MIN	compass/ami306.c	377;"	d	file:
+SERIAL_MAX_TRANSFER_SIZE	mlsl.h	64;"	d
+SLAVEIRQ_GET_INTERRUPT_CNT	slaveirq.h	29;"	d
+SLAVEIRQ_GET_IRQ_TIME	slaveirq.h	30;"	d
+SLAVEIRQ_SET_TIMEOUT	slaveirq.h	28;"	d
+SLEEP	mldl_cfg.c	46;"	d	file:
+STANDBY	mldl_cfg.c	49;"	d	file:
+TIMERIRQ_GET_INTERRUPT_CNT	timerirq.h	26;"	d
+TIMERIRQ_SET_TIMEOUT	timerirq.h	25;"	d
+TIMERIRQ_START	timerirq.h	27;"	d
+TIMERIRQ_STOP	timerirq.h	28;"	d
+WAKE_UP	mldl_cfg.c	47;"	d	file:
+YAS530_REGADDR_ACTUATE_INIT_COIL	compass/yas530.c	51;"	d	file:
+YAS530_REGADDR_CAL	compass/yas530.c	60;"	d	file:
+YAS530_REGADDR_CONFIG	compass/yas530.c	53;"	d	file:
+YAS530_REGADDR_DEVICE_ID	compass/yas530.c	50;"	d	file:
+YAS530_REGADDR_MEASURE_COMMAND	compass/yas530.c	52;"	d	file:
+YAS530_REGADDR_MEASURE_DATA	compass/yas530.c	61;"	d	file:
+YAS530_REGADDR_MEASURE_INTERVAL	compass/yas530.c	54;"	d	file:
+YAS530_REGADDR_OFFSET_X	compass/yas530.c	55;"	d	file:
+YAS530_REGADDR_OFFSET_Y1	compass/yas530.c	56;"	d	file:
+YAS530_REGADDR_OFFSET_Y2	compass/yas530.c	57;"	d	file:
+YAS530_REGADDR_TEST1	compass/yas530.c	58;"	d	file:
+YAS530_REGADDR_TEST2	compass/yas530.c	59;"	d	file:
+YAS_REG	compass/yas529-kernel.c	/^enum YAS_REG {$/;"	g	file:
+YAS_REG_CAL	compass/yas529-kernel.c	/^	YAS_REG_CAL		= 0xA0,	\/* 101 < 5 *\/$/;"	e	enum:YAS_REG	file:
+YAS_REG_CMDR	compass/yas529-kernel.c	/^	YAS_REG_CMDR		= 0x00,	\/* 000 < 5 *\/$/;"	e	enum:YAS_REG	file:
+YAS_REG_CONFR	compass/yas529-kernel.c	/^	YAS_REG_CONFR		= 0xC0,	\/* 110 < 5 *\/$/;"	e	enum:YAS_REG	file:
+YAS_REG_DOUTR	compass/yas529-kernel.c	/^	YAS_REG_DOUTR		= 0xE0	\/* 111 < 5 *\/$/;"	e	enum:YAS_REG	file:
+YAS_REG_ICOILR	compass/yas529-kernel.c	/^	YAS_REG_ICOILR		= 0x80,	\/* 100 < 5 *\/$/;"	e	enum:YAS_REG	file:
+YAS_REG_XOFFSETR	compass/yas529-kernel.c	/^	YAS_REG_XOFFSETR	= 0x20,	\/* 001 < 5 *\/$/;"	e	enum:YAS_REG	file:
+YAS_REG_Y1OFFSETR	compass/yas529-kernel.c	/^	YAS_REG_Y1OFFSETR	= 0x40,	\/* 010 < 5 *\/$/;"	e	enum:YAS_REG	file:
+YAS_REG_Y2OFFSETR	compass/yas529-kernel.c	/^	YAS_REG_Y2OFFSETR	= 0x60,	\/* 011 < 5 *\/$/;"	e	enum:YAS_REG	file:
+_LIBS_CUTILS_MPL_LOG_H	log.h	51;"	d
+__MLDL_CFG_H__	mldl_cfg.h	29;"	d
+__MLDL_PRINT_CFG__	mldl_print_cfg.h	31;"	d
+__MLSL_H__	mlsl.h	21;"	d
+__MPU3050_H_	mpu3050.h	25;"	d
+__MPU6050_H__	accel/mpu6050.h	22;"	d
+__MPUIRQ__	mpuirq.h	21;"	d
+__MPU_DEV_H__	mpu-dev.h	22;"	d
+__SLAVEIRQ__	slaveirq.h	21;"	d
+__TIMERIRQ__	timerirq.h	21;"	d
+__print_result_location	log.h	/^static inline void __print_result_location(int result,$/;"	f
+a1	compass/yas529-kernel.c	/^static long a1;$/;"	v	file:
+a2	compass/yas529-kernel.c	/^static long a2;$/;"	v	file:
+a2	compass/yas530.c	/^static int \/*a1, *\/ a2, a3, a4, a5, a6, a7, a8, a9;$/;"	v	file:
+a3	compass/yas529-kernel.c	/^static long a3;$/;"	v	file:
+a3	compass/yas530.c	/^static int \/*a1, *\/ a2, a3, a4, a5, a6, a7, a8, a9;$/;"	v	file:
+a4	compass/yas529-kernel.c	/^static long a4;$/;"	v	file:
+a4	compass/yas530.c	/^static int \/*a1, *\/ a2, a3, a4, a5, a6, a7, a8, a9;$/;"	v	file:
+a5	compass/yas529-kernel.c	/^static long a5;$/;"	v	file:
+a5	compass/yas530.c	/^static int \/*a1, *\/ a2, a3, a4, a5, a6, a7, a8, a9;$/;"	v	file:
+a6	compass/yas529-kernel.c	/^static long a6;$/;"	v	file:
+a6	compass/yas530.c	/^static int \/*a1, *\/ a2, a3, a4, a5, a6, a7, a8, a9;$/;"	v	file:
+a7	compass/yas529-kernel.c	/^static long a7;$/;"	v	file:
+a7	compass/yas530.c	/^static int \/*a1, *\/ a2, a3, a4, a5, a6, a7, a8, a9;$/;"	v	file:
+a8	compass/yas529-kernel.c	/^static long a8;$/;"	v	file:
+a8	compass/yas530.c	/^static int \/*a1, *\/ a2, a3, a4, a5, a6, a7, a8, a9;$/;"	v	file:
+a9	compass/yas529-kernel.c	/^static long a9;$/;"	v	file:
+a9	compass/yas530.c	/^static int \/*a1, *\/ a2, a3, a4, a5, a6, a7, a8, a9;$/;"	v	file:
+a_deviation	compass/ami_sensor_def.h	/^	signed short a_deviation;$/;"	m	struct:ami_sensor_parametor
+a_gain	compass/ami_sensor_def.h	/^	struct ami_vector3d a_gain;$/;"	m	struct:ami_sensor_parametor	typeref:struct:ami_sensor_parametor::ami_vector3d
+a_offset	compass/ami_sensor_def.h	/^	struct ami_vector3d a_offset;$/;"	m	struct:ami_sensor_parametor	typeref:struct:ami_sensor_parametor::ami_vector3d
+ac1	pressure/bma085.c	/^	short ac1;$/;"	m	struct:bmp085_calibration_param_t	file:
+ac2	pressure/bma085.c	/^	short ac2;$/;"	m	struct:bmp085_calibration_param_t	file:
+ac3	pressure/bma085.c	/^	short ac3;$/;"	m	struct:bmp085_calibration_param_t	file:
+ac4	pressure/bma085.c	/^	unsigned short ac4;$/;"	m	struct:bmp085_calibration_param_t	file:
+ac5	pressure/bma085.c	/^	unsigned short ac5;$/;"	m	struct:bmp085_calibration_param_t	file:
+ac6	pressure/bma085.c	/^	unsigned short ac6;$/;"	m	struct:bmp085_calibration_param_t	file:
+accel_divider	mpuirq.c	/^	int accel_divider;$/;"	m	struct:mpuirq_dev_data	file:
+accel_sens_trim	mldl_cfg.h	/^	__u16 accel_sens_trim;$/;"	m	struct:mpu_chip_info
+addr	mldl_cfg.h	/^	__u8 addr;$/;"	m	struct:mpu_chip_info
+adxl34x_config	accel/adxl34x.c	/^static int adxl34x_config(void *mlsl_handle,$/;"	f	file:
+adxl34x_config	accel/adxl34x.c	/^struct adxl34x_config {$/;"	s	file:
+adxl34x_descr	accel/adxl34x.c	/^static struct ext_slave_descr adxl34x_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+adxl34x_exit	accel/adxl34x.c	/^static int adxl34x_exit(void *mlsl_handle,$/;"	f	file:
+adxl34x_get_config	accel/adxl34x.c	/^static int adxl34x_get_config(void *mlsl_handle,$/;"	f	file:
+adxl34x_get_slave_descr	accel/adxl34x.c	/^struct ext_slave_descr *adxl34x_get_slave_descr(void)$/;"	f	file:
+adxl34x_init	accel/adxl34x.c	/^static int adxl34x_init(void *mlsl_handle,$/;"	f	file:
+adxl34x_mod_driver	accel/adxl34x.c	/^static struct i2c_driver adxl34x_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+adxl34x_mod_exit	accel/adxl34x.c	/^module_exit(adxl34x_mod_exit);$/;"	v
+adxl34x_mod_exit	accel/adxl34x.c	/^static void __exit adxl34x_mod_exit(void)$/;"	f	file:
+adxl34x_mod_id	accel/adxl34x.c	/^static const struct i2c_device_id adxl34x_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+adxl34x_mod_init	accel/adxl34x.c	/^module_init(adxl34x_mod_init);$/;"	v
+adxl34x_mod_init	accel/adxl34x.c	/^static int __init adxl34x_mod_init(void)$/;"	f	file:
+adxl34x_mod_private_data	accel/adxl34x.c	/^struct adxl34x_mod_private_data {$/;"	s	file:
+adxl34x_mod_probe	accel/adxl34x.c	/^static int adxl34x_mod_probe(struct i2c_client *client,$/;"	f	file:
+adxl34x_mod_remove	accel/adxl34x.c	/^static int adxl34x_mod_remove(struct i2c_client *client)$/;"	f	file:
+adxl34x_private_data	accel/adxl34x.c	/^struct adxl34x_private_data {$/;"	s	file:
+adxl34x_read	accel/adxl34x.c	/^static int adxl34x_read(void *mlsl_handle,$/;"	f	file:
+adxl34x_resume	accel/adxl34x.c	/^static int adxl34x_resume(void *mlsl_handle,$/;"	f	file:
+adxl34x_set_fsr	accel/adxl34x.c	/^static int adxl34x_set_fsr(void *mlsl_handle,$/;"	f	file:
+adxl34x_set_odr	accel/adxl34x.c	/^static int adxl34x_set_odr(void *mlsl_handle,$/;"	f	file:
+adxl34x_suspend	accel/adxl34x.c	/^static int adxl34x_suspend(void *mlsl_handle,$/;"	f	file:
+ak8972_config	compass/ak8972.c	/^static int ak8972_config(void *mlsl_handle,$/;"	f	file:
+ak8972_config	compass/ak8972.c	/^struct ak8972_config {$/;"	s	file:
+ak8972_descr	compass/ak8972.c	/^static struct ext_slave_descr ak8972_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+ak8972_exit	compass/ak8972.c	/^static int ak8972_exit(void *mlsl_handle,$/;"	f	file:
+ak8972_get_config	compass/ak8972.c	/^static int ak8972_get_config(void *mlsl_handle,$/;"	f	file:
+ak8972_get_slave_descr	compass/ak8972.c	/^struct ext_slave_descr *ak8972_get_slave_descr(void)$/;"	f	file:
+ak8972_init	compass/ak8972.c	/^static int ak8972_init(void *mlsl_handle,$/;"	f	file:
+ak8972_mod_driver	compass/ak8972.c	/^static struct i2c_driver ak8972_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+ak8972_mod_exit	compass/ak8972.c	/^module_exit(ak8972_mod_exit);$/;"	v
+ak8972_mod_exit	compass/ak8972.c	/^static void __exit ak8972_mod_exit(void)$/;"	f	file:
+ak8972_mod_id	compass/ak8972.c	/^static const struct i2c_device_id ak8972_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+ak8972_mod_init	compass/ak8972.c	/^module_init(ak8972_mod_init);$/;"	v
+ak8972_mod_init	compass/ak8972.c	/^static int __init ak8972_mod_init(void)$/;"	f	file:
+ak8972_mod_private_data	compass/ak8972.c	/^struct ak8972_mod_private_data {$/;"	s	file:
+ak8972_mod_probe	compass/ak8972.c	/^static int ak8972_mod_probe(struct i2c_client *client,$/;"	f	file:
+ak8972_mod_remove	compass/ak8972.c	/^static int ak8972_mod_remove(struct i2c_client *client)$/;"	f	file:
+ak8972_private_data	compass/ak8972.c	/^struct ak8972_private_data {$/;"	s	file:
+ak8972_read	compass/ak8972.c	/^static int ak8972_read(void *mlsl_handle,$/;"	f	file:
+ak8972_read_trigger	compass/ak8972.c	/^static struct ext_slave_read_trigger ak8972_read_trigger = {$/;"	v	typeref:struct:ext_slave_read_trigger	file:
+ak8972_resume	compass/ak8972.c	/^static int ak8972_resume(void *mlsl_handle,$/;"	f	file:
+ak8972_suspend	compass/ak8972.c	/^static int ak8972_suspend(void *mlsl_handle,$/;"	f	file:
+ak8975_config	compass/ak8975.c	/^static int ak8975_config(void *mlsl_handle,$/;"	f	file:
+ak8975_config	compass/ak8975.c	/^struct ak8975_config {$/;"	s	file:
+ak8975_descr	compass/ak8975.c	/^static struct ext_slave_descr ak8975_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+ak8975_exit	compass/ak8975.c	/^static int ak8975_exit(void *mlsl_handle,$/;"	f	file:
+ak8975_get_config	compass/ak8975.c	/^static int ak8975_get_config(void *mlsl_handle,$/;"	f	file:
+ak8975_get_slave_descr	compass/ak8975.c	/^struct ext_slave_descr *ak8975_get_slave_descr(void)$/;"	f	file:
+ak8975_init	compass/ak8975.c	/^static int ak8975_init(void *mlsl_handle,$/;"	f	file:
+ak8975_mod_driver	compass/ak8975.c	/^static struct i2c_driver ak8975_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+ak8975_mod_exit	compass/ak8975.c	/^module_exit(ak8975_mod_exit);$/;"	v
+ak8975_mod_exit	compass/ak8975.c	/^static void __exit ak8975_mod_exit(void)$/;"	f	file:
+ak8975_mod_id	compass/ak8975.c	/^static const struct i2c_device_id ak8975_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+ak8975_mod_init	compass/ak8975.c	/^module_init(ak8975_mod_init);$/;"	v
+ak8975_mod_init	compass/ak8975.c	/^static int __init ak8975_mod_init(void)$/;"	f	file:
+ak8975_mod_private_data	compass/ak8975.c	/^struct ak8975_mod_private_data {$/;"	s	file:
+ak8975_mod_probe	compass/ak8975.c	/^static int ak8975_mod_probe(struct i2c_client *client,$/;"	f	file:
+ak8975_mod_remove	compass/ak8975.c	/^static int ak8975_mod_remove(struct i2c_client *client)$/;"	f	file:
+ak8975_private_data	compass/ak8975.c	/^struct ak8975_private_data {$/;"	s	file:
+ak8975_read	compass/ak8975.c	/^static int ak8975_read(void *mlsl_handle,$/;"	f	file:
+ak8975_read_trigger	compass/ak8975.c	/^static struct ext_slave_read_trigger ak8975_read_trigger = {$/;"	v	typeref:struct:ext_slave_read_trigger	file:
+ak8975_resume	compass/ak8975.c	/^static int ak8975_resume(void *mlsl_handle,$/;"	f	file:
+ak8975_suspend	compass/ak8975.c	/^static int ak8975_suspend(void *mlsl_handle,$/;"	f	file:
+ami306_config	compass/ami306.c	/^static int ami306_config(void *mlsl_handle,$/;"	f	file:
+ami306_descr	compass/ami306.c	/^static struct ext_slave_descr ami306_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+ami306_exit	compass/ami306.c	/^static int ami306_exit(void *mlsl_handle,$/;"	f	file:
+ami306_force_mesurement	compass/ami306.c	/^static int ami306_force_mesurement(void *mlsl_handle,$/;"	f	file:
+ami306_get_config	compass/ami306.c	/^static int ami306_get_config(void *mlsl_handle,$/;"	f	file:
+ami306_get_slave_descr	compass/ami306.c	/^struct ext_slave_descr *ami306_get_slave_descr(void)$/;"	f	file:
+ami306_init	compass/ami306.c	/^static int ami306_init(void *mlsl_handle,$/;"	f	file:
+ami306_initial_b0_adjust	compass/ami306.c	/^static int ami306_initial_b0_adjust(void *mlsl_handle,$/;"	f	file:
+ami306_mea	compass/ami306.c	/^static int ami306_mea(void *mlsl_handle,$/;"	f	file:
+ami306_mod_driver	compass/ami306.c	/^static struct i2c_driver ami306_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+ami306_mod_exit	compass/ami306.c	/^module_exit(ami306_mod_exit);$/;"	v
+ami306_mod_exit	compass/ami306.c	/^static void __exit ami306_mod_exit(void)$/;"	f	file:
+ami306_mod_id	compass/ami306.c	/^static const struct i2c_device_id ami306_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+ami306_mod_init	compass/ami306.c	/^module_init(ami306_mod_init);$/;"	v
+ami306_mod_init	compass/ami306.c	/^static int __init ami306_mod_init(void)$/;"	f	file:
+ami306_mod_private_data	compass/ami306.c	/^struct ami306_mod_private_data {$/;"	s	file:
+ami306_mod_probe	compass/ami306.c	/^static int ami306_mod_probe(struct i2c_client *client,$/;"	f	file:
+ami306_mod_remove	compass/ami306.c	/^static int ami306_mod_remove(struct i2c_client *client)$/;"	f	file:
+ami306_private_data	compass/ami306.c	/^struct ami306_private_data {$/;"	s	file:
+ami306_read	compass/ami306.c	/^static int ami306_read(void *mlsl_handle,$/;"	f	file:
+ami306_read_param	compass/ami306.c	/^static int ami306_read_param(void *mlsl_handle,$/;"	f	file:
+ami306_read_raw_data	compass/ami306.c	/^static int ami306_read_raw_data(void *mlsl_handle,$/;"	f	file:
+ami306_read_trigger	compass/ami306.c	/^static struct ext_slave_read_trigger ami306_read_trigger = {$/;"	v	typeref:struct:ext_slave_read_trigger	file:
+ami306_read_win	compass/ami306.c	/^static int ami306_read_win(void *mlsl_handle,$/;"	f	file:
+ami306_resume	compass/ami306.c	/^static int ami306_resume(void *mlsl_handle,$/;"	f	file:
+ami306_search_offset	compass/ami306.c	/^static int ami306_search_offset(void *mlsl_handle,$/;"	f	file:
+ami306_set_bits8	compass/ami306.c	/^static int ami306_set_bits8(void *mlsl_handle,$/;"	f	file:
+ami306_start_sensor	compass/ami306.c	/^static int ami306_start_sensor(void *mlsl_handle,$/;"	f	file:
+ami306_suspend	compass/ami306.c	/^static int ami306_suspend(void *mlsl_handle,$/;"	f	file:
+ami306_wait_data_ready	compass/ami306.c	/^static int ami306_wait_data_ready(void *mlsl_handle,$/;"	f	file:
+ami306_write_offset	compass/ami306.c	/^static int ami306_write_offset(void *mlsl_handle,$/;"	f	file:
+ami30x_descr	compass/ami30x.c	/^static struct ext_slave_descr ami30x_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+ami30x_get_slave_descr	compass/ami30x.c	/^struct ext_slave_descr *ami30x_get_slave_descr(void)$/;"	f	file:
+ami30x_mod_driver	compass/ami30x.c	/^static struct i2c_driver ami30x_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+ami30x_mod_exit	compass/ami30x.c	/^module_exit(ami30x_mod_exit);$/;"	v
+ami30x_mod_exit	compass/ami30x.c	/^static void __exit ami30x_mod_exit(void)$/;"	f	file:
+ami30x_mod_id	compass/ami30x.c	/^static const struct i2c_device_id ami30x_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+ami30x_mod_init	compass/ami30x.c	/^module_init(ami30x_mod_init);$/;"	v
+ami30x_mod_init	compass/ami30x.c	/^static int __init ami30x_mod_init(void)$/;"	f	file:
+ami30x_mod_private_data	compass/ami30x.c	/^struct ami30x_mod_private_data {$/;"	s	file:
+ami30x_mod_probe	compass/ami30x.c	/^static int ami30x_mod_probe(struct i2c_client *client,$/;"	f	file:
+ami30x_mod_remove	compass/ami30x.c	/^static int ami30x_mod_remove(struct i2c_client *client)$/;"	f	file:
+ami30x_read	compass/ami30x.c	/^static int ami30x_read(void *mlsl_handle,$/;"	f	file:
+ami30x_resume	compass/ami30x.c	/^static int ami30x_resume(void *mlsl_handle,$/;"	f	file:
+ami30x_suspend	compass/ami30x.c	/^static int ami30x_suspend(void *mlsl_handle,$/;"	f	file:
+ami_chipinfo	compass/ami_sensor_def.h	/^struct ami_chipinfo {$/;"	s
+ami_driverinfo	compass/ami_sensor_def.h	/^struct ami_driverinfo {$/;"	s
+ami_interference	compass/ami_sensor_def.h	/^struct ami_interference {$/;"	s
+ami_sensor_parametor	compass/ami_sensor_def.h	/^struct ami_sensor_parametor {$/;"	s
+ami_sensor_rawvalue	compass/ami_sensor_def.h	/^struct ami_sensor_rawvalue {$/;"	s
+ami_vector3d	compass/ami_sensor_def.h	/^struct ami_vector3d {$/;"	s
+ami_win_parameter	compass/ami_sensor_def.h	/^struct ami_win_parameter {$/;"	s
+asa	compass/ak8972.c	/^	char asa[COMPASS_NUM_AXES];	\/* axis sensitivity adjustment *\/$/;"	m	struct:ak8972_config	file:
+asa	compass/ak8975.c	/^	char asa[COMPASS_NUM_AXES];	\/* axis sensitivity adjustment *\/$/;"	m	struct:ak8975_config	file:
+ax	compass/ami_sensor_def.h	/^	unsigned short ax;$/;"	m	struct:ami_sensor_rawvalue
+ay	compass/ami_sensor_def.h	/^	unsigned short ay;$/;"	m	struct:ami_sensor_rawvalue
+az	compass/ami_sensor_def.h	/^	unsigned short az;$/;"	m	struct:ami_sensor_rawvalue
+b1	pressure/bma085.c	/^	short b1;$/;"	m	struct:bmp085_calibration_param_t	file:
+b2	pressure/bma085.c	/^	short b2;$/;"	m	struct:bmp085_calibration_param_t	file:
+bma085_descr	pressure/bma085.c	/^static struct ext_slave_descr bma085_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+bma085_get_slave_descr	pressure/bma085.c	/^struct ext_slave_descr *bma085_get_slave_descr(void)$/;"	f	file:
+bma085_mod_driver	pressure/bma085.c	/^static struct i2c_driver bma085_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+bma085_mod_exit	pressure/bma085.c	/^module_exit(bma085_mod_exit);$/;"	v
+bma085_mod_exit	pressure/bma085.c	/^static void __exit bma085_mod_exit(void)$/;"	f	file:
+bma085_mod_id	pressure/bma085.c	/^static const struct i2c_device_id bma085_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+bma085_mod_init	pressure/bma085.c	/^module_init(bma085_mod_init);$/;"	v
+bma085_mod_init	pressure/bma085.c	/^static int __init bma085_mod_init(void)$/;"	f	file:
+bma085_mod_private_data	pressure/bma085.c	/^struct bma085_mod_private_data {$/;"	s	file:
+bma085_mod_probe	pressure/bma085.c	/^static int bma085_mod_probe(struct i2c_client *client,$/;"	f	file:
+bma085_mod_remove	pressure/bma085.c	/^static int bma085_mod_remove(struct i2c_client *client)$/;"	f	file:
+bma085_read	pressure/bma085.c	/^static int bma085_read(void *mlsl_handle,$/;"	f	file:
+bma085_resume	pressure/bma085.c	/^static int bma085_resume(void *mlsl_handle,$/;"	f	file:
+bma085_suspend	pressure/bma085.c	/^static int bma085_suspend(void *mlsl_handle,$/;"	f	file:
+bma150_config	accel/bma150.c	/^static int bma150_config(void *mlsl_handle,$/;"	f	file:
+bma150_config	accel/bma150.c	/^struct bma150_config {$/;"	s	file:
+bma150_descr	accel/bma150.c	/^static struct ext_slave_descr bma150_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+bma150_exit	accel/bma150.c	/^static int bma150_exit(void *mlsl_handle,$/;"	f	file:
+bma150_get_config	accel/bma150.c	/^static int bma150_get_config(void *mlsl_handle,$/;"	f	file:
+bma150_get_slave_descr	accel/bma150.c	/^struct ext_slave_descr *bma150_get_slave_descr(void)$/;"	f	file:
+bma150_init	accel/bma150.c	/^static int bma150_init(void *mlsl_handle,$/;"	f	file:
+bma150_mod_driver	accel/bma150.c	/^static struct i2c_driver bma150_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+bma150_mod_exit	accel/bma150.c	/^module_exit(bma150_mod_exit);$/;"	v
+bma150_mod_exit	accel/bma150.c	/^static void __exit bma150_mod_exit(void)$/;"	f	file:
+bma150_mod_id	accel/bma150.c	/^static const struct i2c_device_id bma150_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+bma150_mod_init	accel/bma150.c	/^module_init(bma150_mod_init);$/;"	v
+bma150_mod_init	accel/bma150.c	/^static int __init bma150_mod_init(void)$/;"	f	file:
+bma150_mod_private_data	accel/bma150.c	/^struct bma150_mod_private_data {$/;"	s	file:
+bma150_mod_probe	accel/bma150.c	/^static int bma150_mod_probe(struct i2c_client *client,$/;"	f	file:
+bma150_mod_remove	accel/bma150.c	/^static int bma150_mod_remove(struct i2c_client *client)$/;"	f	file:
+bma150_private_data	accel/bma150.c	/^struct bma150_private_data {$/;"	s	file:
+bma150_read	accel/bma150.c	/^static int bma150_read(void *mlsl_handle,$/;"	f	file:
+bma150_resume	accel/bma150.c	/^static int bma150_resume(void *mlsl_handle,$/;"	f	file:
+bma150_set_fsr	accel/bma150.c	/^static int bma150_set_fsr(void *mlsl_handle,$/;"	f	file:
+bma150_set_irq	accel/bma150.c	/^static int bma150_set_irq(void *mlsl_handle,$/;"	f	file:
+bma150_set_odr	accel/bma150.c	/^static int bma150_set_odr(void *mlsl_handle,$/;"	f	file:
+bma150_suspend	accel/bma150.c	/^static int bma150_suspend(void *mlsl_handle,$/;"	f	file:
+bma222_config	accel/bma222.c	/^static int bma222_config(void *mlsl_handle,$/;"	f	file:
+bma222_config	accel/bma222.c	/^struct bma222_config {$/;"	s	file:
+bma222_descr	accel/bma222.c	/^static struct ext_slave_descr bma222_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+bma222_exit	accel/bma222.c	/^static int bma222_exit(void *mlsl_handle,$/;"	f	file:
+bma222_get_config	accel/bma222.c	/^static int bma222_get_config(void *mlsl_handle,$/;"	f	file:
+bma222_get_slave_descr	accel/bma222.c	/^struct ext_slave_descr *bma222_get_slave_descr(void)$/;"	f	file:
+bma222_init	accel/bma222.c	/^static int bma222_init(void *mlsl_handle,$/;"	f	file:
+bma222_mod_driver	accel/bma222.c	/^static struct i2c_driver bma222_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+bma222_mod_exit	accel/bma222.c	/^module_exit(bma222_mod_exit);$/;"	v
+bma222_mod_exit	accel/bma222.c	/^static void __exit bma222_mod_exit(void)$/;"	f	file:
+bma222_mod_id	accel/bma222.c	/^static const struct i2c_device_id bma222_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+bma222_mod_init	accel/bma222.c	/^module_init(bma222_mod_init);$/;"	v
+bma222_mod_init	accel/bma222.c	/^static int __init bma222_mod_init(void)$/;"	f	file:
+bma222_mod_private_data	accel/bma222.c	/^struct bma222_mod_private_data {$/;"	s	file:
+bma222_mod_probe	accel/bma222.c	/^static int bma222_mod_probe(struct i2c_client *client,$/;"	f	file:
+bma222_mod_remove	accel/bma222.c	/^static int bma222_mod_remove(struct i2c_client *client)$/;"	f	file:
+bma222_private_data	accel/bma222.c	/^struct bma222_private_data {$/;"	s	file:
+bma222_read	accel/bma222.c	/^static int bma222_read(void *mlsl_handle,$/;"	f	file:
+bma222_resume	accel/bma222.c	/^static int bma222_resume(void *mlsl_handle,$/;"	f	file:
+bma222_set_fsr	accel/bma222.c	/^static int bma222_set_fsr(void *mlsl_handle,$/;"	f	file:
+bma222_set_odr	accel/bma222.c	/^static int bma222_set_odr(void *mlsl_handle,$/;"	f	file:
+bma222_suspend	accel/bma222.c	/^static int bma222_suspend(void *mlsl_handle,$/;"	f	file:
+bma250_config	accel/bma250.c	/^static int bma250_config(void *mlsl_handle,$/;"	f	file:
+bma250_config	accel/bma250.c	/^struct bma250_config {$/;"	s	file:
+bma250_descr	accel/bma250.c	/^static struct ext_slave_descr bma250_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+bma250_exit	accel/bma250.c	/^static int bma250_exit(void *mlsl_handle,$/;"	f	file:
+bma250_get_config	accel/bma250.c	/^static int bma250_get_config(void *mlsl_handle,$/;"	f	file:
+bma250_get_slave_descr	accel/bma250.c	/^struct ext_slave_descr *bma250_get_slave_descr(void)$/;"	f	file:
+bma250_init	accel/bma250.c	/^static int bma250_init(void *mlsl_handle,$/;"	f	file:
+bma250_mod_driver	accel/bma250.c	/^static struct i2c_driver bma250_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+bma250_mod_exit	accel/bma250.c	/^module_exit(bma250_mod_exit);$/;"	v
+bma250_mod_exit	accel/bma250.c	/^static void __exit bma250_mod_exit(void)$/;"	f	file:
+bma250_mod_id	accel/bma250.c	/^static const struct i2c_device_id bma250_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+bma250_mod_init	accel/bma250.c	/^module_init(bma250_mod_init);$/;"	v
+bma250_mod_init	accel/bma250.c	/^static int __init bma250_mod_init(void)$/;"	f	file:
+bma250_mod_private_data	accel/bma250.c	/^struct bma250_mod_private_data {$/;"	s	file:
+bma250_mod_probe	accel/bma250.c	/^static int bma250_mod_probe(struct i2c_client *client,$/;"	f	file:
+bma250_mod_remove	accel/bma250.c	/^static int bma250_mod_remove(struct i2c_client *client)$/;"	f	file:
+bma250_private_data	accel/bma250.c	/^struct bma250_private_data {$/;"	s	file:
+bma250_read	accel/bma250.c	/^static int bma250_read(void *mlsl_handle,$/;"	f	file:
+bma250_resume	accel/bma250.c	/^static int bma250_resume(void *mlsl_handle,$/;"	f	file:
+bma250_set_fsr	accel/bma250.c	/^static int bma250_set_fsr(void *mlsl_handle,$/;"	f	file:
+bma250_set_irq	accel/bma250.c	/^static int bma250_set_irq(void *mlsl_handle,$/;"	f	file:
+bma250_set_odr	accel/bma250.c	/^static int bma250_set_odr(void *mlsl_handle,$/;"	f	file:
+bma250_suspend	accel/bma250.c	/^static int bma250_suspend(void *mlsl_handle,$/;"	f	file:
+bmp085_calibration_param_t	pressure/bma085.c	/^struct bmp085_calibration_param_t {$/;"	s	file:
+cal_param	pressure/bma085.c	/^struct bmp085_calibration_param_t cal_param;$/;"	v	typeref:struct:bmp085_calibration_param_t
+check_offset	compass/yas530.c	/^static int check_offset(void *mlsl_handle,$/;"	f	file:
+client	accel/adxl34x.c	/^	struct i2c_client *client;$/;"	m	struct:adxl34x_mod_private_data	typeref:struct:adxl34x_mod_private_data::i2c_client	file:
+client	accel/bma150.c	/^	struct i2c_client *client;$/;"	m	struct:bma150_mod_private_data	typeref:struct:bma150_mod_private_data::i2c_client	file:
+client	accel/bma222.c	/^	struct i2c_client *client;$/;"	m	struct:bma222_mod_private_data	typeref:struct:bma222_mod_private_data::i2c_client	file:
+client	accel/bma250.c	/^	struct i2c_client *client;$/;"	m	struct:bma250_mod_private_data	typeref:struct:bma250_mod_private_data::i2c_client	file:
+client	accel/cma3000.c	/^	struct i2c_client *client;$/;"	m	struct:cma3000_mod_private_data	typeref:struct:cma3000_mod_private_data::i2c_client	file:
+client	accel/kxsd9.c	/^	struct i2c_client *client;$/;"	m	struct:kxsd9_mod_private_data	typeref:struct:kxsd9_mod_private_data::i2c_client	file:
+client	accel/kxtf9.c	/^	struct i2c_client *client;$/;"	m	struct:kxtf9_mod_private_data	typeref:struct:kxtf9_mod_private_data::i2c_client	file:
+client	accel/lis331.c	/^	struct i2c_client *client;$/;"	m	struct:lis331_mod_private_data	typeref:struct:lis331_mod_private_data::i2c_client	file:
+client	accel/lis3dh.c	/^	struct i2c_client *client;$/;"	m	struct:lis3dh_mod_private_data	typeref:struct:lis3dh_mod_private_data::i2c_client	file:
+client	accel/lsm303dlx_a.c	/^	struct i2c_client *client;$/;"	m	struct:lsm303dlx_a_mod_private_data	typeref:struct:lsm303dlx_a_mod_private_data::i2c_client	file:
+client	accel/mma8450.c	/^	struct i2c_client *client;$/;"	m	struct:mma8450_mod_private_data	typeref:struct:mma8450_mod_private_data::i2c_client	file:
+client	accel/mma845x.c	/^	struct i2c_client *client;$/;"	m	struct:mma845x_mod_private_data	typeref:struct:mma845x_mod_private_data::i2c_client	file:
+client	compass/ak8972.c	/^	struct i2c_client *client;$/;"	m	struct:ak8972_mod_private_data	typeref:struct:ak8972_mod_private_data::i2c_client	file:
+client	compass/ak8975.c	/^	struct i2c_client *client;$/;"	m	struct:ak8975_mod_private_data	typeref:struct:ak8975_mod_private_data::i2c_client	file:
+client	compass/ami306.c	/^	struct i2c_client *client;$/;"	m	struct:ami306_mod_private_data	typeref:struct:ami306_mod_private_data::i2c_client	file:
+client	compass/ami30x.c	/^	struct i2c_client *client;$/;"	m	struct:ami30x_mod_private_data	typeref:struct:ami30x_mod_private_data::i2c_client	file:
+client	compass/hmc5883.c	/^	struct i2c_client *client;$/;"	m	struct:hmc5883_mod_private_data	typeref:struct:hmc5883_mod_private_data::i2c_client	file:
+client	compass/hscdtd002b.c	/^	struct i2c_client *client;$/;"	m	struct:hscdtd002b_mod_private_data	typeref:struct:hscdtd002b_mod_private_data::i2c_client	file:
+client	compass/hscdtd004a.c	/^	struct i2c_client *client;$/;"	m	struct:hscdtd004a_mod_private_data	typeref:struct:hscdtd004a_mod_private_data::i2c_client	file:
+client	compass/lsm303dlx_m.c	/^	struct i2c_client *client;$/;"	m	struct:lsm303dlx_m_mod_private_data	typeref:struct:lsm303dlx_m_mod_private_data::i2c_client	file:
+client	compass/mmc314x.c	/^	struct i2c_client *client;$/;"	m	struct:mmc314x_mod_private_data	typeref:struct:mmc314x_mod_private_data::i2c_client	file:
+client	compass/yas529-kernel.c	/^	struct i2c_client *client;$/;"	m	struct:yas529_mod_private_data	typeref:struct:yas529_mod_private_data::i2c_client	file:
+client	compass/yas530.c	/^	struct i2c_client *client;$/;"	m	struct:yas530_mod_private_data	typeref:struct:yas530_mod_private_data::i2c_client	file:
+client	mpu-dev.c	/^	struct i2c_client *client;$/;"	m	struct:mpu_private_data	typeref:struct:mpu_private_data::i2c_client	file:
+client	pressure/bma085.c	/^	struct i2c_client *client;$/;"	m	struct:bma085_mod_private_data	typeref:struct:bma085_mod_private_data::i2c_client	file:
+clk_src	mldl_cfg.h	/^	__u8 clk_src;$/;"	m	struct:mpu_gyro_cfg
+cma3000_descr	accel/cma3000.c	/^static struct ext_slave_descr cma3000_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+cma3000_get_slave_descr	accel/cma3000.c	/^struct ext_slave_descr *cma3000_get_slave_descr(void)$/;"	f	file:
+cma3000_mod_driver	accel/cma3000.c	/^static struct i2c_driver cma3000_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+cma3000_mod_exit	accel/cma3000.c	/^module_exit(cma3000_mod_exit);$/;"	v
+cma3000_mod_exit	accel/cma3000.c	/^static void __exit cma3000_mod_exit(void)$/;"	f	file:
+cma3000_mod_id	accel/cma3000.c	/^static const struct i2c_device_id cma3000_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+cma3000_mod_init	accel/cma3000.c	/^module_init(cma3000_mod_init);$/;"	v
+cma3000_mod_init	accel/cma3000.c	/^static int __init cma3000_mod_init(void)$/;"	f	file:
+cma3000_mod_private_data	accel/cma3000.c	/^struct cma3000_mod_private_data {$/;"	s	file:
+cma3000_mod_probe	accel/cma3000.c	/^static int cma3000_mod_probe(struct i2c_client *client,$/;"	f	file:
+cma3000_mod_remove	accel/cma3000.c	/^static int cma3000_mod_remove(struct i2c_client *client)$/;"	f	file:
+cma3000_read	accel/cma3000.c	/^static int cma3000_read(void *mlsl_handle,$/;"	f	file:
+cma3000_resume	accel/cma3000.c	/^static int cma3000_resume(void *mlsl_handle,$/;"	f	file:
+cma3000_suspend	accel/cma3000.c	/^static int cma3000_suspend(void *mlsl_handle,$/;"	f	file:
+completion	mpu-dev.c	/^	struct completion completion;$/;"	m	struct:mpu_private_data	typeref:struct:mpu_private_data::completion	file:
+coordinate_conversion	compass/yas530.c	/^static void coordinate_conversion(short x, short y1, short y2, short t,$/;"	f	file:
+ctrl_reg	accel/bma150.c	/^	unsigned char ctrl_reg;	\/** < control register value *\/$/;"	m	struct:bma150_config	file:
+ctrl_reg1	accel/kxtf9.c	/^	unsigned char ctrl_reg1;$/;"	m	struct:kxtf9_config	file:
+ctrl_reg1	accel/lis331.c	/^	unsigned char ctrl_reg1;$/;"	m	struct:lis331dlh_config	file:
+ctrl_reg1	accel/lis3dh.c	/^	unsigned char ctrl_reg1;$/;"	m	struct:lis3dh_config	file:
+ctrl_reg1	accel/lsm303dlx_a.c	/^	unsigned char ctrl_reg1;$/;"	m	struct:lsm303dlx_a_config	file:
+ctrl_reg1	accel/mma8450.c	/^	unsigned char ctrl_reg1;$/;"	m	struct:mma8450_config	file:
+ctrl_reg1	accel/mma845x.c	/^	unsigned char ctrl_reg1;$/;"	m	struct:mma845x_config	file:
+d0	compass/yas530.c	/^static unsigned char d2, d3, d4, d5, d6, d7, d8, d9, d0;$/;"	v	file:
+d2	compass/yas530.c	/^static unsigned char d2, d3, d4, d5, d6, d7, d8, d9, d0;$/;"	v	file:
+d3	compass/yas530.c	/^static unsigned char d2, d3, d4, d5, d6, d7, d8, d9, d0;$/;"	v	file:
+d4	compass/yas530.c	/^static unsigned char d2, d3, d4, d5, d6, d7, d8, d9, d0;$/;"	v	file:
+d5	compass/yas530.c	/^static unsigned char d2, d3, d4, d5, d6, d7, d8, d9, d0;$/;"	v	file:
+d6	compass/yas530.c	/^static unsigned char d2, d3, d4, d5, d6, d7, d8, d9, d0;$/;"	v	file:
+d7	compass/yas530.c	/^static unsigned char d2, d3, d4, d5, d6, d7, d8, d9, d0;$/;"	v	file:
+d8	compass/yas530.c	/^static unsigned char d2, d3, d4, d5, d6, d7, d8, d9, d0;$/;"	v	file:
+d9	compass/yas530.c	/^static unsigned char d2, d3, d4, d5, d6, d7, d8, d9, d0;$/;"	v	file:
+data	slaveirq.c	/^	struct mpuirq_data data;$/;"	m	struct:slaveirq_dev_data	typeref:struct:slaveirq_dev_data::mpuirq_data	file:
+data	timerirq.c	/^	struct mpuirq_data data;$/;"	m	struct:timerirq_data	typeref:struct:timerirq_data::mpuirq_data	file:
+data_ready	mpuirq.c	/^	int data_ready;$/;"	m	struct:mpuirq_dev_data	file:
+data_ready	slaveirq.c	/^	int data_ready;$/;"	m	struct:slaveirq_dev_data	file:
+data_ready	timerirq.c	/^	int data_ready;$/;"	m	struct:timerirq_data	file:
+datetime	compass/ami_sensor_def.h	/^	unsigned char datetime[30];	\/* compiled date&time *\/$/;"	m	struct:ami_driverinfo
+dck	compass/yas530.c	/^static unsigned char dck;$/;"	v	file:
+dev	mpu-dev.c	/^	struct miscdevice dev;$/;"	m	struct:mpu_private_data	typeref:struct:mpu_private_data::miscdevice	file:
+dev	mpuirq.c	/^	struct miscdevice *dev;$/;"	m	struct:mpuirq_dev_data	typeref:struct:mpuirq_dev_data::miscdevice	file:
+dev	slaveirq.c	/^	struct miscdevice dev;$/;"	m	struct:slaveirq_dev_data	typeref:struct:slaveirq_dev_data::miscdevice	file:
+dev	timerirq.c	/^	struct miscdevice *dev;$/;"	m	struct:timerirq_data	typeref:struct:timerirq_data::miscdevice	file:
+divider	mldl_cfg.h	/^	__u8 divider;$/;"	m	struct:mpu_gyro_cfg
+dmp_cfg1	mldl_cfg.h	/^	__u8 dmp_cfg1;$/;"	m	struct:mpu_gyro_cfg
+dmp_cfg2	mldl_cfg.h	/^	__u8 dmp_cfg2;$/;"	m	struct:mpu_gyro_cfg
+dmp_enable	mldl_cfg.h	/^	__u8 dmp_enable;$/;"	m	struct:mpu_gyro_cfg
+dmp_start	mldl_cfg.c	/^static int dmp_start(struct mldl_cfg *mldl_cfg, void *mlsl_handle)$/;"	f	file:
+dmp_stop	mldl_cfg.c	/^static int dmp_stop(struct mldl_cfg *mldl_cfg, void *gyro_handle)$/;"	f	file:
+dur	accel/kxtf9.c	/^	unsigned int dur;	\/* Motion no-motion duration ms *\/$/;"	m	struct:kxtf9_config	file:
+dur	accel/lis331.c	/^	unsigned int dur;	\/* Motion no-motion duration ms *\/$/;"	m	struct:lis331dlh_config	file:
+dur	accel/lis3dh.c	/^	unsigned int dur;	\/* Motion no-motion duration ms *\/$/;"	m	struct:lis3dh_config	file:
+dur	accel/lsm303dlx_a.c	/^	unsigned int dur; \/** < Motion no-motion duration ms *\/$/;"	m	struct:lsm303dlx_a_config	file:
+dur	accel/mma8450.c	/^	unsigned int dur;	\/** < Motion no-motion duration ms *\/$/;"	m	struct:mma8450_config	file:
+dur	accel/mma845x.c	/^	unsigned int dur;		\/** < Motion no-motion duration ms *\/$/;"	m	struct:mma845x_config	file:
+dx	compass/yas530.c	/^static unsigned char dx, dy1, dy2;$/;"	v	file:
+dy1	compass/yas530.c	/^static unsigned char dx, dy1, dy2;$/;"	v	file:
+dy2	compass/yas530.c	/^static unsigned char dx, dy1, dy2;$/;"	v	file:
+event	mpu-dev.c	/^	unsigned long event;$/;"	m	struct:mpu_private_data	file:
+ext_sync	mldl_cfg.h	/^	__u8 ext_sync;$/;"	m	struct:mpu_gyro_cfg
+fifo_enable	mldl_cfg.h	/^	__u8 fifo_enable;$/;"	m	struct:mpu_gyro_cfg
+fine	compass/ami306.c	/^	unsigned char fine[3];$/;"	m	struct:ami306_private_data	file:
+fsr	accel/adxl34x.c	/^	unsigned int fsr;		\/** < full scale range mg *\/$/;"	m	struct:adxl34x_config	file:
+fsr	accel/bma150.c	/^	unsigned int fsr;	\/** < full scale range mgees *\/$/;"	m	struct:bma150_config	file:
+fsr	accel/bma222.c	/^	unsigned int fsr;		\/** < full scale range mg *\/$/;"	m	struct:bma222_config	file:
+fsr	accel/bma250.c	/^	unsigned int fsr;		\/** < full scale range mg *\/$/;"	m	struct:bma250_config	file:
+fsr	accel/kxtf9.c	/^	unsigned int fsr;	\/* full scale range mg *\/$/;"	m	struct:kxtf9_config	file:
+fsr	accel/lis331.c	/^	unsigned int fsr;	\/* full scale range mg *\/$/;"	m	struct:lis331dlh_config	file:
+fsr	accel/lis3dh.c	/^	unsigned int fsr;	\/* full scale range mg *\/$/;"	m	struct:lis3dh_config	file:
+fsr	accel/lsm303dlx_a.c	/^	unsigned int fsr; \/** < full scale range mg *\/$/;"	m	struct:lsm303dlx_a_config	file:
+fsr	accel/mma8450.c	/^	unsigned int fsr;	\/** < full scale range mg *\/$/;"	m	struct:mma8450_config	file:
+fsr	accel/mma845x.c	/^	unsigned int fsr;		\/** < full scale range mg *\/$/;"	m	struct:mma845x_config	file:
+fsr_reg_mask	accel/adxl34x.c	/^	unsigned int fsr_reg_mask;	\/** < register setting for fsr *\/$/;"	m	struct:adxl34x_config	file:
+full_scale	mldl_cfg.h	/^	__u8 full_scale;$/;"	m	struct:mpu_gyro_cfg
+gyro	mldl_cfg.h	/^	__u16	gyro[GYRO_NUM_AXES];$/;"	m	struct:mpu_offsets
+gyro_config	mldl_cfg.c	/^int gyro_config(void *mlsl_handle,$/;"	f
+gyro_get_config	mldl_cfg.c	/^int gyro_get_config(void *mlsl_handle,$/;"	f
+gyro_resume	mldl_cfg.c	/^static int gyro_resume(struct mldl_cfg *mldl_cfg, void *gyro_handle,$/;"	f	file:
+gyro_sens_trim	mldl_cfg.h	/^	__u16 gyro_sens_trim;$/;"	m	struct:mpu_chip_info
+gyro_trim	mldl_cfg.c	/^	unsigned short gyro_trim;$/;"	m	struct:prod_rev_map_t	file:
+hmc5883_descr	compass/hmc5883.c	/^static struct ext_slave_descr hmc5883_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+hmc5883_get_slave_descr	compass/hmc5883.c	/^struct ext_slave_descr *hmc5883_get_slave_descr(void)$/;"	f	file:
+hmc5883_mod_driver	compass/hmc5883.c	/^static struct i2c_driver hmc5883_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+hmc5883_mod_exit	compass/hmc5883.c	/^module_exit(hmc5883_mod_exit);$/;"	v
+hmc5883_mod_exit	compass/hmc5883.c	/^static void __exit hmc5883_mod_exit(void)$/;"	f	file:
+hmc5883_mod_id	compass/hmc5883.c	/^static const struct i2c_device_id hmc5883_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+hmc5883_mod_init	compass/hmc5883.c	/^module_init(hmc5883_mod_init);$/;"	v
+hmc5883_mod_init	compass/hmc5883.c	/^static int __init hmc5883_mod_init(void)$/;"	f	file:
+hmc5883_mod_private_data	compass/hmc5883.c	/^struct hmc5883_mod_private_data {$/;"	s	file:
+hmc5883_mod_probe	compass/hmc5883.c	/^static int hmc5883_mod_probe(struct i2c_client *client,$/;"	f	file:
+hmc5883_mod_remove	compass/hmc5883.c	/^static int hmc5883_mod_remove(struct i2c_client *client)$/;"	f	file:
+hmc5883_read	compass/hmc5883.c	/^static int hmc5883_read(void *mlsl_handle,$/;"	f	file:
+hmc5883_resume	compass/hmc5883.c	/^static int hmc5883_resume(void *mlsl_handle,$/;"	f	file:
+hmc5883_suspend	compass/hmc5883.c	/^static int hmc5883_suspend(void *mlsl_handle,$/;"	f	file:
+hscdtd002b_descr	compass/hscdtd002b.c	/^static struct ext_slave_descr hscdtd002b_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+hscdtd002b_get_slave_descr	compass/hscdtd002b.c	/^struct ext_slave_descr *hscdtd002b_get_slave_descr(void)$/;"	f	file:
+hscdtd002b_mod_driver	compass/hscdtd002b.c	/^static struct i2c_driver hscdtd002b_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+hscdtd002b_mod_exit	compass/hscdtd002b.c	/^module_exit(hscdtd002b_mod_exit);$/;"	v
+hscdtd002b_mod_exit	compass/hscdtd002b.c	/^static void __exit hscdtd002b_mod_exit(void)$/;"	f	file:
+hscdtd002b_mod_id	compass/hscdtd002b.c	/^static const struct i2c_device_id hscdtd002b_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+hscdtd002b_mod_init	compass/hscdtd002b.c	/^module_init(hscdtd002b_mod_init);$/;"	v
+hscdtd002b_mod_init	compass/hscdtd002b.c	/^static int __init hscdtd002b_mod_init(void)$/;"	f	file:
+hscdtd002b_mod_private_data	compass/hscdtd002b.c	/^struct hscdtd002b_mod_private_data {$/;"	s	file:
+hscdtd002b_mod_probe	compass/hscdtd002b.c	/^static int hscdtd002b_mod_probe(struct i2c_client *client,$/;"	f	file:
+hscdtd002b_mod_remove	compass/hscdtd002b.c	/^static int hscdtd002b_mod_remove(struct i2c_client *client)$/;"	f	file:
+hscdtd002b_read	compass/hscdtd002b.c	/^static int hscdtd002b_read(void *mlsl_handle,$/;"	f	file:
+hscdtd002b_resume	compass/hscdtd002b.c	/^static int hscdtd002b_resume(void *mlsl_handle,$/;"	f	file:
+hscdtd002b_suspend	compass/hscdtd002b.c	/^static int hscdtd002b_suspend(void *mlsl_handle,$/;"	f	file:
+hscdtd004a_descr	compass/hscdtd004a.c	/^static struct ext_slave_descr hscdtd004a_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+hscdtd004a_get_slave_descr	compass/hscdtd004a.c	/^struct ext_slave_descr *hscdtd004a_get_slave_descr(void)$/;"	f	file:
+hscdtd004a_init	compass/hscdtd004a.c	/^static int hscdtd004a_init(void *mlsl_handle,$/;"	f	file:
+hscdtd004a_mod_driver	compass/hscdtd004a.c	/^static struct i2c_driver hscdtd004a_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+hscdtd004a_mod_exit	compass/hscdtd004a.c	/^module_exit(hscdtd004a_mod_exit);$/;"	v
+hscdtd004a_mod_exit	compass/hscdtd004a.c	/^static void __exit hscdtd004a_mod_exit(void)$/;"	f	file:
+hscdtd004a_mod_id	compass/hscdtd004a.c	/^static const struct i2c_device_id hscdtd004a_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+hscdtd004a_mod_init	compass/hscdtd004a.c	/^module_init(hscdtd004a_mod_init);$/;"	v
+hscdtd004a_mod_init	compass/hscdtd004a.c	/^static int __init hscdtd004a_mod_init(void)$/;"	f	file:
+hscdtd004a_mod_private_data	compass/hscdtd004a.c	/^struct hscdtd004a_mod_private_data {$/;"	s	file:
+hscdtd004a_mod_probe	compass/hscdtd004a.c	/^static int hscdtd004a_mod_probe(struct i2c_client *client,$/;"	f	file:
+hscdtd004a_mod_remove	compass/hscdtd004a.c	/^static int hscdtd004a_mod_remove(struct i2c_client *client)$/;"	f	file:
+hscdtd004a_read	compass/hscdtd004a.c	/^static int hscdtd004a_read(void *mlsl_handle,$/;"	f	file:
+hscdtd004a_resume	compass/hscdtd004a.c	/^static int hscdtd004a_resume(void *mlsl_handle,$/;"	f	file:
+hscdtd004a_suspend	compass/hscdtd004a.c	/^static int hscdtd004a_suspend(void *mlsl_handle,$/;"	f	file:
+i2c_slaves_enabled	mldl_cfg.h	/^	__u8 i2c_slaves_enabled;$/;"	m	struct:inv_mpu_state
+ignore_system_suspend	mldl_cfg.h	/^	__u8 ignore_system_suspend;$/;"	m	struct:inv_mpu_cfg
+info	compass/ami_sensor_def.h	/^	unsigned short info;	\/* INFO 0x0d\/0x0e reg.  *\/$/;"	m	struct:ami_chipinfo
+init	compass/ak8972.c	/^	struct ak8972_config init;$/;"	m	struct:ak8972_private_data	typeref:struct:ak8972_private_data::ak8972_config	file:
+init	compass/ak8975.c	/^	struct ak8975_config init;$/;"	m	struct:ak8975_private_data	typeref:struct:ak8975_private_data::ak8975_config	file:
+int_config	mldl_cfg.h	/^	__u8 int_config;$/;"	m	struct:mpu_gyro_cfg
+int_reg	accel/bma150.c	/^	unsigned char int_reg;	\/** < interrupt control register value *\/$/;"	m	struct:bma150_config	file:
+interface	mpuirq.c	/^static char *interface = MPUIRQ_NAME;$/;"	v	file:
+inv_get_silicon_rev	mldl_cfg.c	383;"	d	file:
+inv_get_silicon_rev_mpu3050	mldl_cfg.c	/^static int inv_get_silicon_rev_mpu3050($/;"	f	file:
+inv_i2c_read	mlsl-kernel.c	/^static int inv_i2c_read(struct i2c_adapter *i2c_adap,$/;"	f	file:
+inv_i2c_write	mlsl-kernel.c	/^static int inv_i2c_write(struct i2c_adapter *i2c_adap,$/;"	f	file:
+inv_i2c_write_register	mlsl-kernel.c	/^static int inv_i2c_write_register(struct i2c_adapter *i2c_adap,$/;"	f	file:
+inv_mpu_cfg	mldl_cfg.h	/^	struct inv_mpu_cfg		*inv_mpu_cfg;$/;"	m	struct:mldl_cfg	typeref:struct:mldl_cfg::inv_mpu_cfg
+inv_mpu_cfg	mldl_cfg.h	/^struct inv_mpu_cfg {$/;"	s
+inv_mpu_cfg	mpu-dev.c	/^	struct inv_mpu_cfg	inv_mpu_cfg;$/;"	m	struct:mpu_private_data	typeref:struct:mpu_private_data::inv_mpu_cfg	file:
+inv_mpu_close	mldl_cfg.c	/^int inv_mpu_close(struct mldl_cfg *mldl_cfg,$/;"	f
+inv_mpu_config	mpu-dev.c	/^static int inv_mpu_config(struct mldl_cfg *mldl_cfg,$/;"	f	file:
+inv_mpu_config_accel	mldl_cfg.h	/^static inline int inv_mpu_config_accel(struct mldl_cfg *mldl_cfg,$/;"	f
+inv_mpu_config_compass	mldl_cfg.h	/^static inline int inv_mpu_config_compass(struct mldl_cfg *mldl_cfg,$/;"	f
+inv_mpu_config_pressure	mldl_cfg.h	/^static inline int inv_mpu_config_pressure(struct mldl_cfg *mldl_cfg,$/;"	f
+inv_mpu_get_accel_config	mldl_cfg.h	/^static inline int inv_mpu_get_accel_config(struct mldl_cfg *mldl_cfg,$/;"	f
+inv_mpu_get_compass_config	mldl_cfg.h	/^static inline int inv_mpu_get_compass_config(struct mldl_cfg *mldl_cfg,$/;"	f
+inv_mpu_get_config	mpu-dev.c	/^static int inv_mpu_get_config(struct mldl_cfg *mldl_cfg,$/;"	f	file:
+inv_mpu_get_pressure_config	mldl_cfg.h	/^static inline int inv_mpu_get_pressure_config(struct mldl_cfg *mldl_cfg,$/;"	f
+inv_mpu_get_sampling_period_us	mldl_cfg.h	/^long inv_mpu_get_sampling_period_us(struct mpu_gyro_cfg *gyro_cfg)$/;"	f
+inv_mpu_get_sampling_rate_hz	mldl_cfg.h	/^long inv_mpu_get_sampling_rate_hz(struct mpu_gyro_cfg *gyro_cfg)$/;"	f
+inv_mpu_get_slave_config	mldl_cfg.c	/^int inv_mpu_get_slave_config(struct mldl_cfg *mldl_cfg,$/;"	f
+inv_mpu_open	mldl_cfg.c	/^int inv_mpu_open(struct mldl_cfg *mldl_cfg,$/;"	f
+inv_mpu_read_accel	mldl_cfg.h	/^static inline int inv_mpu_read_accel(struct mldl_cfg *mldl_cfg,$/;"	f
+inv_mpu_read_compass	mldl_cfg.h	/^static inline int inv_mpu_read_compass(struct mldl_cfg *mldl_cfg,$/;"	f
+inv_mpu_read_pressure	mldl_cfg.h	/^static inline int inv_mpu_read_pressure(struct mldl_cfg *mldl_cfg,$/;"	f
+inv_mpu_register_slave	mpu-dev.c	/^EXPORT_SYMBOL(inv_mpu_register_slave);$/;"	v
+inv_mpu_register_slave	mpu-dev.c	/^int inv_mpu_register_slave(struct module *slave_module,$/;"	f
+inv_mpu_resume	mldl_cfg.c	/^int inv_mpu_resume(struct mldl_cfg *mldl_cfg,$/;"	f
+inv_mpu_set_firmware	mldl_cfg.c	/^int inv_mpu_set_firmware(struct mldl_cfg *mldl_cfg, void *mlsl_handle,$/;"	f
+inv_mpu_set_level_shifter_bit	mldl_cfg.c	/^static int inv_mpu_set_level_shifter_bit(struct mldl_cfg *mldl_cfg,$/;"	f	file:
+inv_mpu_slave_config	mldl_cfg.c	/^int inv_mpu_slave_config(struct mldl_cfg *mldl_cfg,$/;"	f
+inv_mpu_slave_read	mldl_cfg.c	/^int inv_mpu_slave_read(struct mldl_cfg *mldl_cfg,$/;"	f
+inv_mpu_state	mldl_cfg.h	/^	struct inv_mpu_state		*inv_mpu_state;$/;"	m	struct:mldl_cfg	typeref:struct:mldl_cfg::inv_mpu_state
+inv_mpu_state	mldl_cfg.h	/^struct inv_mpu_state {$/;"	s
+inv_mpu_state	mpu-dev.c	/^	struct inv_mpu_state	inv_mpu_state;$/;"	m	struct:mpu_private_data	typeref:struct:mpu_private_data::inv_mpu_state	file:
+inv_mpu_suspend	mldl_cfg.c	/^int inv_mpu_suspend(struct mldl_cfg *mldl_cfg,$/;"	f
+inv_mpu_unregister_slave	mpu-dev.c	/^EXPORT_SYMBOL(inv_mpu_unregister_slave);$/;"	v
+inv_mpu_unregister_slave	mpu-dev.c	/^void inv_mpu_unregister_slave(struct i2c_client *slave_client,$/;"	f
+inv_serial_read	mlsl-kernel.c	/^EXPORT_SYMBOL(inv_serial_read);$/;"	v
+inv_serial_read	mlsl-kernel.c	/^int inv_serial_read($/;"	f
+inv_serial_read_fifo	mlsl-kernel.c	/^EXPORT_SYMBOL(inv_serial_read_fifo);$/;"	v
+inv_serial_read_fifo	mlsl-kernel.c	/^int inv_serial_read_fifo($/;"	f
+inv_serial_read_mem	mlsl-kernel.c	/^EXPORT_SYMBOL(inv_serial_read_mem);$/;"	v
+inv_serial_read_mem	mlsl-kernel.c	/^int inv_serial_read_mem($/;"	f
+inv_serial_single_write	mlsl-kernel.c	/^EXPORT_SYMBOL(inv_serial_single_write);$/;"	v
+inv_serial_single_write	mlsl-kernel.c	/^int inv_serial_single_write($/;"	f
+inv_serial_write	mlsl-kernel.c	/^EXPORT_SYMBOL(inv_serial_write);$/;"	v
+inv_serial_write	mlsl-kernel.c	/^int inv_serial_write($/;"	f
+inv_serial_write_fifo	mlsl-kernel.c	/^EXPORT_SYMBOL(inv_serial_write_fifo);$/;"	v
+inv_serial_write_fifo	mlsl-kernel.c	/^int inv_serial_write_fifo($/;"	f
+inv_serial_write_mem	mlsl-kernel.c	/^EXPORT_SYMBOL(inv_serial_write_mem);$/;"	v
+inv_serial_write_mem	mlsl-kernel.c	/^int inv_serial_write_mem($/;"	f
+inv_slave_read	mpu-dev.c	/^static int inv_slave_read(struct mldl_cfg *mldl_cfg,$/;"	f	file:
+irq	mpuirq.c	/^	int irq;$/;"	m	struct:mpuirq_dev_data	file:
+irq	slaveirq.c	/^	int irq;$/;"	m	struct:slaveirq_dev_data	file:
+irq_type	accel/bma150.c	/^	unsigned int irq_type;	\/** < type of IRQ, see bma150_set_irq *\/$/;"	m	struct:bma150_config	file:
+irq_type	accel/bma250.c	/^	unsigned char irq_type;$/;"	m	struct:bma250_config	file:
+irq_type	accel/kxtf9.c	/^	unsigned int irq_type;$/;"	m	struct:kxtf9_config	file:
+irq_type	accel/lis331.c	/^	unsigned char irq_type;$/;"	m	struct:lis331dlh_config	file:
+irq_type	accel/lis3dh.c	/^	unsigned char irq_type;$/;"	m	struct:lis3dh_config	file:
+irq_type	accel/lsm303dlx_a.c	/^	unsigned char irq_type;$/;"	m	struct:lsm303dlx_a_config	file:
+irq_type	accel/mma8450.c	/^	unsigned char irq_type;$/;"	m	struct:mma8450_config	file:
+irq_type	accel/mma845x.c	/^	unsigned char irq_type;$/;"	m	struct:mma845x_config	file:
+isstandby	compass/ami306.c	/^	int isstandby;$/;"	m	struct:ami306_private_data	file:
+k	compass/yas530.c	/^static int k;$/;"	v	file:
+kxsd9_descr	accel/kxsd9.c	/^static struct ext_slave_descr kxsd9_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+kxsd9_get_slave_descr	accel/kxsd9.c	/^struct ext_slave_descr *kxsd9_get_slave_descr(void)$/;"	f	file:
+kxsd9_mod_driver	accel/kxsd9.c	/^static struct i2c_driver kxsd9_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+kxsd9_mod_exit	accel/kxsd9.c	/^module_exit(kxsd9_mod_exit);$/;"	v
+kxsd9_mod_exit	accel/kxsd9.c	/^static void __exit kxsd9_mod_exit(void)$/;"	f	file:
+kxsd9_mod_id	accel/kxsd9.c	/^static const struct i2c_device_id kxsd9_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+kxsd9_mod_init	accel/kxsd9.c	/^module_init(kxsd9_mod_init);$/;"	v
+kxsd9_mod_init	accel/kxsd9.c	/^static int __init kxsd9_mod_init(void)$/;"	f	file:
+kxsd9_mod_private_data	accel/kxsd9.c	/^struct kxsd9_mod_private_data {$/;"	s	file:
+kxsd9_mod_probe	accel/kxsd9.c	/^static int kxsd9_mod_probe(struct i2c_client *client,$/;"	f	file:
+kxsd9_mod_remove	accel/kxsd9.c	/^static int kxsd9_mod_remove(struct i2c_client *client)$/;"	f	file:
+kxsd9_read	accel/kxsd9.c	/^static int kxsd9_read(void *mlsl_handle,$/;"	f	file:
+kxsd9_resume	accel/kxsd9.c	/^static int kxsd9_resume(void *mlsl_handle,$/;"	f	file:
+kxsd9_suspend	accel/kxsd9.c	/^static int kxsd9_suspend(void *mlsl_handle,$/;"	f	file:
+kxtf9_config	accel/kxtf9.c	/^static int kxtf9_config(void *mlsl_handle,$/;"	f	file:
+kxtf9_config	accel/kxtf9.c	/^struct kxtf9_config {$/;"	s	file:
+kxtf9_descr	accel/kxtf9.c	/^static struct ext_slave_descr kxtf9_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+kxtf9_exit	accel/kxtf9.c	/^static int kxtf9_exit(void *mlsl_handle,$/;"	f	file:
+kxtf9_get_config	accel/kxtf9.c	/^static int kxtf9_get_config(void *mlsl_handle,$/;"	f	file:
+kxtf9_get_slave_descr	accel/kxtf9.c	/^struct ext_slave_descr *kxtf9_get_slave_descr(void)$/;"	f	file:
+kxtf9_init	accel/kxtf9.c	/^static int kxtf9_init(void *mlsl_handle,$/;"	f	file:
+kxtf9_mod_driver	accel/kxtf9.c	/^static struct i2c_driver kxtf9_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+kxtf9_mod_exit	accel/kxtf9.c	/^module_exit(kxtf9_mod_exit);$/;"	v
+kxtf9_mod_exit	accel/kxtf9.c	/^static void __exit kxtf9_mod_exit(void)$/;"	f	file:
+kxtf9_mod_id	accel/kxtf9.c	/^static const struct i2c_device_id kxtf9_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+kxtf9_mod_init	accel/kxtf9.c	/^module_init(kxtf9_mod_init);$/;"	v
+kxtf9_mod_init	accel/kxtf9.c	/^static int __init kxtf9_mod_init(void)$/;"	f	file:
+kxtf9_mod_private_data	accel/kxtf9.c	/^struct kxtf9_mod_private_data {$/;"	s	file:
+kxtf9_mod_probe	accel/kxtf9.c	/^static int kxtf9_mod_probe(struct i2c_client *client,$/;"	f	file:
+kxtf9_mod_remove	accel/kxtf9.c	/^static int kxtf9_mod_remove(struct i2c_client *client)$/;"	f	file:
+kxtf9_private_data	accel/kxtf9.c	/^struct kxtf9_private_data {$/;"	s	file:
+kxtf9_read	accel/kxtf9.c	/^static int kxtf9_read(void *mlsl_handle,$/;"	f	file:
+kxtf9_resume	accel/kxtf9.c	/^static int kxtf9_resume(void *mlsl_handle,$/;"	f	file:
+kxtf9_set_dur	accel/kxtf9.c	/^static int kxtf9_set_dur(void *mlsl_handle,$/;"	f	file:
+kxtf9_set_fsr	accel/kxtf9.c	/^static int kxtf9_set_fsr(void *mlsl_handle,$/;"	f	file:
+kxtf9_set_irq	accel/kxtf9.c	/^static int kxtf9_set_irq(void *mlsl_handle,$/;"	f	file:
+kxtf9_set_odr	accel/kxtf9.c	/^static int kxtf9_set_odr(void *mlsl_handle,$/;"	f	file:
+kxtf9_set_ths	accel/kxtf9.c	/^static int kxtf9_set_ths(void *mlsl_handle,$/;"	f	file:
+kxtf9_suspend	accel/kxtf9.c	/^static int kxtf9_suspend(void *mlsl_handle,$/;"	f	file:
+length	mldl_cfg.h	/^	__u16 length;$/;"	m	struct:mpu_ram
+lis331_get_slave_descr	accel/lis331.c	/^struct ext_slave_descr *lis331_get_slave_descr(void)$/;"	f	file:
+lis331_mod_driver	accel/lis331.c	/^static struct i2c_driver lis331_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+lis331_mod_exit	accel/lis331.c	/^module_exit(lis331_mod_exit);$/;"	v
+lis331_mod_exit	accel/lis331.c	/^static void __exit lis331_mod_exit(void)$/;"	f	file:
+lis331_mod_id	accel/lis331.c	/^static const struct i2c_device_id lis331_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+lis331_mod_init	accel/lis331.c	/^module_init(lis331_mod_init);$/;"	v
+lis331_mod_init	accel/lis331.c	/^static int __init lis331_mod_init(void)$/;"	f	file:
+lis331_mod_private_data	accel/lis331.c	/^struct lis331_mod_private_data {$/;"	s	file:
+lis331_mod_probe	accel/lis331.c	/^static int lis331_mod_probe(struct i2c_client *client,$/;"	f	file:
+lis331_mod_remove	accel/lis331.c	/^static int lis331_mod_remove(struct i2c_client *client)$/;"	f	file:
+lis331dlh_config	accel/lis331.c	/^static int lis331dlh_config(void *mlsl_handle,$/;"	f	file:
+lis331dlh_config	accel/lis331.c	/^struct lis331dlh_config {$/;"	s	file:
+lis331dlh_descr	accel/lis331.c	/^static struct ext_slave_descr lis331dlh_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+lis331dlh_exit	accel/lis331.c	/^static int lis331dlh_exit(void *mlsl_handle,$/;"	f	file:
+lis331dlh_get_config	accel/lis331.c	/^static int lis331dlh_get_config(void *mlsl_handle,$/;"	f	file:
+lis331dlh_init	accel/lis331.c	/^static int lis331dlh_init(void *mlsl_handle,$/;"	f	file:
+lis331dlh_private_data	accel/lis331.c	/^struct lis331dlh_private_data {$/;"	s	file:
+lis331dlh_read	accel/lis331.c	/^static int lis331dlh_read(void *mlsl_handle,$/;"	f	file:
+lis331dlh_resume	accel/lis331.c	/^static int lis331dlh_resume(void *mlsl_handle,$/;"	f	file:
+lis331dlh_set_dur	accel/lis331.c	/^static int lis331dlh_set_dur(void *mlsl_handle,$/;"	f	file:
+lis331dlh_set_fsr	accel/lis331.c	/^static int lis331dlh_set_fsr(void *mlsl_handle,$/;"	f	file:
+lis331dlh_set_irq	accel/lis331.c	/^static int lis331dlh_set_irq(void *mlsl_handle,$/;"	f	file:
+lis331dlh_set_odr	accel/lis331.c	/^static int lis331dlh_set_odr(void *mlsl_handle,$/;"	f	file:
+lis331dlh_set_ths	accel/lis331.c	/^static int lis331dlh_set_ths(void *mlsl_handle,$/;"	f	file:
+lis331dlh_suspend	accel/lis331.c	/^static int lis331dlh_suspend(void *mlsl_handle,$/;"	f	file:
+lis3dh_config	accel/lis3dh.c	/^static int lis3dh_config(void *mlsl_handle,$/;"	f	file:
+lis3dh_config	accel/lis3dh.c	/^struct lis3dh_config {$/;"	s	file:
+lis3dh_descr	accel/lis3dh.c	/^static struct ext_slave_descr lis3dh_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+lis3dh_exit	accel/lis3dh.c	/^static int lis3dh_exit(void *mlsl_handle,$/;"	f	file:
+lis3dh_get_config	accel/lis3dh.c	/^static int lis3dh_get_config(void *mlsl_handle,$/;"	f	file:
+lis3dh_get_slave_descr	accel/lis3dh.c	/^struct ext_slave_descr *lis3dh_get_slave_descr(void)$/;"	f	file:
+lis3dh_init	accel/lis3dh.c	/^static int lis3dh_init(void *mlsl_handle,$/;"	f	file:
+lis3dh_mod_driver	accel/lis3dh.c	/^static struct i2c_driver lis3dh_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+lis3dh_mod_exit	accel/lis3dh.c	/^module_exit(lis3dh_mod_exit);$/;"	v
+lis3dh_mod_exit	accel/lis3dh.c	/^static void __exit lis3dh_mod_exit(void)$/;"	f	file:
+lis3dh_mod_id	accel/lis3dh.c	/^static const struct i2c_device_id lis3dh_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+lis3dh_mod_init	accel/lis3dh.c	/^module_init(lis3dh_mod_init);$/;"	v
+lis3dh_mod_init	accel/lis3dh.c	/^static int __init lis3dh_mod_init(void)$/;"	f	file:
+lis3dh_mod_private_data	accel/lis3dh.c	/^struct lis3dh_mod_private_data {$/;"	s	file:
+lis3dh_mod_probe	accel/lis3dh.c	/^static int lis3dh_mod_probe(struct i2c_client *client,$/;"	f	file:
+lis3dh_mod_remove	accel/lis3dh.c	/^static int lis3dh_mod_remove(struct i2c_client *client)$/;"	f	file:
+lis3dh_private_data	accel/lis3dh.c	/^struct lis3dh_private_data {$/;"	s	file:
+lis3dh_read	accel/lis3dh.c	/^static int lis3dh_read(void *mlsl_handle,$/;"	f	file:
+lis3dh_resume	accel/lis3dh.c	/^static int lis3dh_resume(void *mlsl_handle,$/;"	f	file:
+lis3dh_set_dur	accel/lis3dh.c	/^static int lis3dh_set_dur(void *mlsl_handle,$/;"	f	file:
+lis3dh_set_fsr	accel/lis3dh.c	/^static int lis3dh_set_fsr(void *mlsl_handle,$/;"	f	file:
+lis3dh_set_irq	accel/lis3dh.c	/^static int lis3dh_set_irq(void *mlsl_handle,$/;"	f	file:
+lis3dh_set_odr	accel/lis3dh.c	/^static int lis3dh_set_odr(void *mlsl_handle,$/;"	f	file:
+lis3dh_set_ths	accel/lis3dh.c	/^static int lis3dh_set_ths(void *mlsl_handle,$/;"	f	file:
+lis3dh_suspend	accel/lis3dh.c	/^static int lis3dh_suspend(void *mlsl_handle,$/;"	f	file:
+little_u8_to_u16	compass/ami306.c	/^static inline unsigned short little_u8_to_u16(unsigned char *p_u8)$/;"	f	file:
+lpf	mldl_cfg.h	/^	__u8 lpf;$/;"	m	struct:mpu_gyro_cfg
+lsm303dlx_a_config	accel/lsm303dlx_a.c	/^static int lsm303dlx_a_config(void *mlsl_handle,$/;"	f	file:
+lsm303dlx_a_config	accel/lsm303dlx_a.c	/^struct lsm303dlx_a_config {$/;"	s	file:
+lsm303dlx_a_descr	accel/lsm303dlx_a.c	/^static struct ext_slave_descr lsm303dlx_a_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+lsm303dlx_a_exit	accel/lsm303dlx_a.c	/^static int lsm303dlx_a_exit(void *mlsl_handle,$/;"	f	file:
+lsm303dlx_a_get_config	accel/lsm303dlx_a.c	/^static int lsm303dlx_a_get_config(void *mlsl_handle,$/;"	f	file:
+lsm303dlx_a_get_slave_descr	accel/lsm303dlx_a.c	/^struct ext_slave_descr *lsm303dlx_a_get_slave_descr(void)$/;"	f	file:
+lsm303dlx_a_init	accel/lsm303dlx_a.c	/^static int lsm303dlx_a_init(void *mlsl_handle,$/;"	f	file:
+lsm303dlx_a_mod_driver	accel/lsm303dlx_a.c	/^static struct i2c_driver lsm303dlx_a_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+lsm303dlx_a_mod_exit	accel/lsm303dlx_a.c	/^module_exit(lsm303dlx_a_mod_exit);$/;"	v
+lsm303dlx_a_mod_exit	accel/lsm303dlx_a.c	/^static void __exit lsm303dlx_a_mod_exit(void)$/;"	f	file:
+lsm303dlx_a_mod_id	accel/lsm303dlx_a.c	/^static const struct i2c_device_id lsm303dlx_a_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+lsm303dlx_a_mod_init	accel/lsm303dlx_a.c	/^module_init(lsm303dlx_a_mod_init);$/;"	v
+lsm303dlx_a_mod_init	accel/lsm303dlx_a.c	/^static int __init lsm303dlx_a_mod_init(void)$/;"	f	file:
+lsm303dlx_a_mod_private_data	accel/lsm303dlx_a.c	/^struct lsm303dlx_a_mod_private_data {$/;"	s	file:
+lsm303dlx_a_mod_probe	accel/lsm303dlx_a.c	/^static int lsm303dlx_a_mod_probe(struct i2c_client *client,$/;"	f	file:
+lsm303dlx_a_mod_remove	accel/lsm303dlx_a.c	/^static int lsm303dlx_a_mod_remove(struct i2c_client *client)$/;"	f	file:
+lsm303dlx_a_private_data	accel/lsm303dlx_a.c	/^struct lsm303dlx_a_private_data {$/;"	s	file:
+lsm303dlx_a_read	accel/lsm303dlx_a.c	/^static int lsm303dlx_a_read(void *mlsl_handle,$/;"	f	file:
+lsm303dlx_a_resume	accel/lsm303dlx_a.c	/^static int lsm303dlx_a_resume(void *mlsl_handle,$/;"	f	file:
+lsm303dlx_a_set_dur	accel/lsm303dlx_a.c	/^static int lsm303dlx_a_set_dur(void *mlsl_handle,$/;"	f	file:
+lsm303dlx_a_set_fsr	accel/lsm303dlx_a.c	/^static int lsm303dlx_a_set_fsr(void *mlsl_handle,$/;"	f	file:
+lsm303dlx_a_set_irq	accel/lsm303dlx_a.c	/^static int lsm303dlx_a_set_irq(void *mlsl_handle,$/;"	f	file:
+lsm303dlx_a_set_odr	accel/lsm303dlx_a.c	/^static int lsm303dlx_a_set_odr(void *mlsl_handle,$/;"	f	file:
+lsm303dlx_a_set_ths	accel/lsm303dlx_a.c	/^static int lsm303dlx_a_set_ths(void *mlsl_handle,$/;"	f	file:
+lsm303dlx_a_suspend	accel/lsm303dlx_a.c	/^static int lsm303dlx_a_suspend(void *mlsl_handle,$/;"	f	file:
+lsm303dlx_m_descr	compass/lsm303dlx_m.c	/^static struct ext_slave_descr lsm303dlx_m_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+lsm303dlx_m_get_slave_descr	compass/lsm303dlx_m.c	/^struct ext_slave_descr *lsm303dlx_m_get_slave_descr(void)$/;"	f	file:
+lsm303dlx_m_mod_driver	compass/lsm303dlx_m.c	/^static struct i2c_driver lsm303dlx_m_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+lsm303dlx_m_mod_exit	compass/lsm303dlx_m.c	/^module_exit(lsm303dlx_m_mod_exit);$/;"	v
+lsm303dlx_m_mod_exit	compass/lsm303dlx_m.c	/^static void __exit lsm303dlx_m_mod_exit(void)$/;"	f	file:
+lsm303dlx_m_mod_id	compass/lsm303dlx_m.c	/^static const struct i2c_device_id lsm303dlx_m_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+lsm303dlx_m_mod_init	compass/lsm303dlx_m.c	/^module_init(lsm303dlx_m_mod_init);$/;"	v
+lsm303dlx_m_mod_init	compass/lsm303dlx_m.c	/^static int __init lsm303dlx_m_mod_init(void)$/;"	f	file:
+lsm303dlx_m_mod_private_data	compass/lsm303dlx_m.c	/^struct lsm303dlx_m_mod_private_data {$/;"	s	file:
+lsm303dlx_m_mod_probe	compass/lsm303dlx_m.c	/^static int lsm303dlx_m_mod_probe(struct i2c_client *client,$/;"	f	file:
+lsm303dlx_m_mod_remove	compass/lsm303dlx_m.c	/^static int lsm303dlx_m_mod_remove(struct i2c_client *client)$/;"	f	file:
+lsm303dlx_m_read	compass/lsm303dlx_m.c	/^static int lsm303dlx_m_read(void *mlsl_handle,$/;"	f	file:
+lsm303dlx_m_resume	compass/lsm303dlx_m.c	/^static int lsm303dlx_m_resume(void *mlsl_handle,$/;"	f	file:
+lsm303dlx_m_suspend	compass/lsm303dlx_m.c	/^static int lsm303dlx_m_suspend(void *mlsl_handle,$/;"	f	file:
+m_0Gauss_coar	compass/ami_sensor_def.h	/^	struct ami_vector3d m_0Gauss_coar;$/;"	m	struct:ami_win_parameter	typeref:struct:ami_win_parameter::ami_vector3d
+m_0Gauss_fine	compass/ami_sensor_def.h	/^	struct ami_vector3d m_0Gauss_fine;$/;"	m	struct:ami_win_parameter	typeref:struct:ami_win_parameter::ami_vector3d
+m_b0	compass/ami_sensor_def.h	/^	struct ami_vector3d m_b0;$/;"	m	struct:ami_win_parameter	typeref:struct:ami_win_parameter::ami_vector3d
+m_coar	compass/ami_sensor_def.h	/^	struct ami_vector3d m_coar;$/;"	m	struct:ami_win_parameter	typeref:struct:ami_win_parameter::ami_vector3d
+m_coar_output	compass/ami_sensor_def.h	/^	struct ami_vector3d m_coar_output;$/;"	m	struct:ami_win_parameter	typeref:struct:ami_win_parameter::ami_vector3d
+m_delay	compass/ami_sensor_def.h	/^	struct ami_vector3d m_delay;$/;"	m	struct:ami_win_parameter	typeref:struct:ami_win_parameter::ami_vector3d
+m_fine	compass/ami_sensor_def.h	/^	struct ami_vector3d m_fine;$/;"	m	struct:ami_win_parameter	typeref:struct:ami_win_parameter::ami_vector3d
+m_fine_output	compass/ami_sensor_def.h	/^	struct ami_vector3d m_fine_output;$/;"	m	struct:ami_win_parameter	typeref:struct:ami_win_parameter::ami_vector3d
+m_gain	compass/ami_sensor_def.h	/^	struct ami_vector3d m_gain;$/;"	m	struct:ami_sensor_parametor	typeref:struct:ami_sensor_parametor::ami_vector3d
+m_gain_cor	compass/ami_sensor_def.h	/^	struct ami_vector3d m_gain_cor;$/;"	m	struct:ami_sensor_parametor	typeref:struct:ami_sensor_parametor::ami_vector3d
+m_interference	compass/ami_sensor_def.h	/^	struct ami_interference m_interference;$/;"	m	struct:ami_sensor_parametor	typeref:struct:ami_sensor_parametor::ami_interference
+m_offset	compass/ami_sensor_def.h	/^	struct ami_vector3d m_offset;$/;"	m	struct:ami_sensor_parametor	typeref:struct:ami_sensor_parametor::ami_vector3d
+mb	pressure/bma085.c	/^	short mb;$/;"	m	struct:bmp085_calibration_param_t	file:
+mc	pressure/bma085.c	/^	short mc;$/;"	m	struct:bmp085_calibration_param_t	file:
+md	pressure/bma085.c	/^	short md;$/;"	m	struct:bmp085_calibration_param_t	file:
+measure_and_set_offset	compass/yas530.c	/^static int measure_and_set_offset(void *mlsl_handle,$/;"	f	file:
+measure_normal	compass/yas530.c	/^static int measure_normal(void *mlsl_handle,$/;"	f	file:
+mldl_cfg	mldl_cfg.h	/^struct mldl_cfg {$/;"	s
+mldl_cfg	mpu-dev.c	/^	struct mldl_cfg mldl_cfg;$/;"	m	struct:mpu_private_data	typeref:struct:mpu_private_data::mldl_cfg	file:
+mldl_print_cfg	mldl_print_cfg.c	/^void mldl_print_cfg(struct mldl_cfg *mldl_cfg)$/;"	f
+mma8450_config	accel/mma8450.c	/^static int mma8450_config(void *mlsl_handle,$/;"	f	file:
+mma8450_config	accel/mma8450.c	/^struct mma8450_config {$/;"	s	file:
+mma8450_descr	accel/mma8450.c	/^static struct ext_slave_descr mma8450_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+mma8450_exit	accel/mma8450.c	/^static int mma8450_exit(void *mlsl_handle,$/;"	f	file:
+mma8450_get_config	accel/mma8450.c	/^static int mma8450_get_config(void *mlsl_handle,$/;"	f	file:
+mma8450_get_slave_descr	accel/mma8450.c	/^struct ext_slave_descr *mma8450_get_slave_descr(void)$/;"	f	file:
+mma8450_init	accel/mma8450.c	/^static int mma8450_init(void *mlsl_handle,$/;"	f	file:
+mma8450_mod_driver	accel/mma8450.c	/^static struct i2c_driver mma8450_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+mma8450_mod_exit	accel/mma8450.c	/^module_exit(mma8450_mod_exit);$/;"	v
+mma8450_mod_exit	accel/mma8450.c	/^static void __exit mma8450_mod_exit(void)$/;"	f	file:
+mma8450_mod_id	accel/mma8450.c	/^static const struct i2c_device_id mma8450_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+mma8450_mod_init	accel/mma8450.c	/^module_init(mma8450_mod_init);$/;"	v
+mma8450_mod_init	accel/mma8450.c	/^static int __init mma8450_mod_init(void)$/;"	f	file:
+mma8450_mod_private_data	accel/mma8450.c	/^struct mma8450_mod_private_data {$/;"	s	file:
+mma8450_mod_probe	accel/mma8450.c	/^static int mma8450_mod_probe(struct i2c_client *client,$/;"	f	file:
+mma8450_mod_remove	accel/mma8450.c	/^static int mma8450_mod_remove(struct i2c_client *client)$/;"	f	file:
+mma8450_private_data	accel/mma8450.c	/^struct mma8450_private_data {$/;"	s	file:
+mma8450_read	accel/mma8450.c	/^static int mma8450_read(void *mlsl_handle,$/;"	f	file:
+mma8450_resume	accel/mma8450.c	/^static int mma8450_resume(void *mlsl_handle,$/;"	f	file:
+mma8450_set_dur	accel/mma8450.c	/^static int mma8450_set_dur(void *mlsl_handle,$/;"	f	file:
+mma8450_set_fsr	accel/mma8450.c	/^static int mma8450_set_fsr(void *mlsl_handle,$/;"	f	file:
+mma8450_set_irq	accel/mma8450.c	/^static int mma8450_set_irq(void *mlsl_handle,$/;"	f	file:
+mma8450_set_odr	accel/mma8450.c	/^static int mma8450_set_odr(void *mlsl_handle,$/;"	f	file:
+mma8450_set_ths	accel/mma8450.c	/^static int mma8450_set_ths(void *mlsl_handle,$/;"	f	file:
+mma8450_suspend	accel/mma8450.c	/^static int mma8450_suspend(void *mlsl_handle,$/;"	f	file:
+mma845x_config	accel/mma845x.c	/^static int mma845x_config(void *mlsl_handle,$/;"	f	file:
+mma845x_config	accel/mma845x.c	/^struct mma845x_config {$/;"	s	file:
+mma845x_descr	accel/mma845x.c	/^static struct ext_slave_descr mma845x_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+mma845x_exit	accel/mma845x.c	/^static int mma845x_exit(void *mlsl_handle,$/;"	f	file:
+mma845x_get_config	accel/mma845x.c	/^static int mma845x_get_config(void *mlsl_handle,$/;"	f	file:
+mma845x_get_slave_descr	accel/mma845x.c	/^struct ext_slave_descr *mma845x_get_slave_descr(void)$/;"	f	file:
+mma845x_init	accel/mma845x.c	/^static int mma845x_init(void *mlsl_handle,$/;"	f	file:
+mma845x_mod_driver	accel/mma845x.c	/^static struct i2c_driver mma845x_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+mma845x_mod_exit	accel/mma845x.c	/^module_exit(mma845x_mod_exit);$/;"	v
+mma845x_mod_exit	accel/mma845x.c	/^static void __exit mma845x_mod_exit(void)$/;"	f	file:
+mma845x_mod_id	accel/mma845x.c	/^static const struct i2c_device_id mma845x_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+mma845x_mod_init	accel/mma845x.c	/^module_init(mma845x_mod_init);$/;"	v
+mma845x_mod_init	accel/mma845x.c	/^static int __init mma845x_mod_init(void)$/;"	f	file:
+mma845x_mod_private_data	accel/mma845x.c	/^struct mma845x_mod_private_data {$/;"	s	file:
+mma845x_mod_probe	accel/mma845x.c	/^static int mma845x_mod_probe(struct i2c_client *client,$/;"	f	file:
+mma845x_mod_remove	accel/mma845x.c	/^static int mma845x_mod_remove(struct i2c_client *client)$/;"	f	file:
+mma845x_private_data	accel/mma845x.c	/^struct mma845x_private_data {$/;"	s	file:
+mma845x_read	accel/mma845x.c	/^static int mma845x_read(void *mlsl_handle,$/;"	f	file:
+mma845x_resume	accel/mma845x.c	/^static int mma845x_resume(void *mlsl_handle,$/;"	f	file:
+mma845x_set_dur	accel/mma845x.c	/^static int mma845x_set_dur(void *mlsl_handle,$/;"	f	file:
+mma845x_set_fsr	accel/mma845x.c	/^static int mma845x_set_fsr(void *mlsl_handle,$/;"	f	file:
+mma845x_set_irq	accel/mma845x.c	/^static int mma845x_set_irq(void *mlsl_handle,$/;"	f	file:
+mma845x_set_odr	accel/mma845x.c	/^static int mma845x_set_odr(void *mlsl_handle,$/;"	f	file:
+mma845x_set_ths	accel/mma845x.c	/^static int mma845x_set_ths(void *mlsl_handle,$/;"	f	file:
+mma845x_suspend	accel/mma845x.c	/^static int mma845x_suspend(void *mlsl_handle,$/;"	f	file:
+mmc314x_descr	compass/mmc314x.c	/^static struct ext_slave_descr mmc314x_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+mmc314x_get_slave_descr	compass/mmc314x.c	/^struct ext_slave_descr *mmc314x_get_slave_descr(void)$/;"	f	file:
+mmc314x_mod_driver	compass/mmc314x.c	/^static struct i2c_driver mmc314x_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+mmc314x_mod_exit	compass/mmc314x.c	/^module_exit(mmc314x_mod_exit);$/;"	v
+mmc314x_mod_exit	compass/mmc314x.c	/^static void __exit mmc314x_mod_exit(void)$/;"	f	file:
+mmc314x_mod_id	compass/mmc314x.c	/^static const struct i2c_device_id mmc314x_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+mmc314x_mod_init	compass/mmc314x.c	/^module_init(mmc314x_mod_init);$/;"	v
+mmc314x_mod_init	compass/mmc314x.c	/^static int __init mmc314x_mod_init(void)$/;"	f	file:
+mmc314x_mod_private_data	compass/mmc314x.c	/^struct mmc314x_mod_private_data {$/;"	s	file:
+mmc314x_mod_probe	compass/mmc314x.c	/^static int mmc314x_mod_probe(struct i2c_client *client,$/;"	f	file:
+mmc314x_mod_remove	compass/mmc314x.c	/^static int mmc314x_mod_remove(struct i2c_client *client)$/;"	f	file:
+mmc314x_read	compass/mmc314x.c	/^static int mmc314x_read(void *mlsl_handle,$/;"	f	file:
+mmc314x_resume	compass/mmc314x.c	/^static int mmc314x_resume(void *mlsl_handle,$/;"	f	file:
+mmc314x_suspend	compass/mmc314x.c	/^static int mmc314x_suspend(void *mlsl_handle,$/;"	f	file:
+mot_int1_cfg	accel/lis331.c	/^	unsigned char mot_int1_cfg;$/;"	m	struct:lis331dlh_config	file:
+mot_int1_cfg	accel/lis3dh.c	/^	unsigned char mot_int1_cfg;$/;"	m	struct:lis3dh_config	file:
+mot_int1_cfg	accel/lsm303dlx_a.c	/^	unsigned char mot_int1_cfg;$/;"	m	struct:lsm303dlx_a_config	file:
+mot_int1_cfg	accel/mma8450.c	/^	unsigned char mot_int1_cfg;$/;"	m	struct:mma8450_config	file:
+mot_int1_cfg	accel/mma845x.c	/^	unsigned char mot_int1_cfg;$/;"	m	struct:mma845x_config	file:
+mpu3050_pwr_mgmt	mldl_cfg.c	/^static int mpu3050_pwr_mgmt(struct mldl_cfg *mldl_cfg,$/;"	f	file:
+mpu3050_set_i2c_bypass	mldl_cfg.c	/^static int mpu3050_set_i2c_bypass(struct mldl_cfg *mldl_cfg,$/;"	f	file:
+mpu_chip_info	mldl_cfg.h	/^	struct mpu_chip_info		*mpu_chip_info;$/;"	m	struct:mldl_cfg	typeref:struct:mldl_cfg::mpu_chip_info
+mpu_chip_info	mldl_cfg.h	/^struct mpu_chip_info {$/;"	s
+mpu_chip_info	mpu-dev.c	/^	struct mpu_chip_info	mpu_chip_info;$/;"	m	struct:mpu_private_data	typeref:struct:mpu_private_data::mpu_chip_info	file:
+mpu_client	mpuirq.c	/^	struct i2c_client *mpu_client;$/;"	m	struct:mpuirq_dev_data	typeref:struct:mpuirq_dev_data::i2c_client	file:
+mpu_clock_sel	mpu3050.h	/^enum mpu_clock_sel {$/;"	g
+mpu_dev_ioctl	mpu-dev.c	/^static long mpu_dev_ioctl(struct file *file,$/;"	f	file:
+mpu_dev_ioctl_get_ext_slave_descr	mpu-dev.c	/^static int mpu_dev_ioctl_get_ext_slave_descr($/;"	f	file:
+mpu_dev_ioctl_get_ext_slave_platform_data	mpu-dev.c	/^static int mpu_dev_ioctl_get_ext_slave_platform_data($/;"	f	file:
+mpu_dev_ioctl_get_mpu_platform_data	mpu-dev.c	/^static int mpu_dev_ioctl_get_mpu_platform_data($/;"	f	file:
+mpu_dev_open	mpu-dev.c	/^static int mpu_dev_open(struct inode *inode, struct file *file)$/;"	f	file:
+mpu_dev_resume	mpu-dev.c	/^int mpu_dev_resume(struct i2c_client *client)$/;"	f
+mpu_dev_suspend	mpu-dev.c	/^int mpu_dev_suspend(struct i2c_client *client, pm_message_t mesg)$/;"	f
+mpu_driver	mpu-dev.c	/^static struct i2c_driver mpu_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+mpu_event_wait	mpu-dev.c	/^	wait_queue_head_t mpu_event_wait;$/;"	m	struct:mpu_private_data	file:
+mpu_exit	mpu-dev.c	/^module_exit(mpu_exit);$/;"	v
+mpu_exit	mpu-dev.c	/^static void __exit mpu_exit(void)$/;"	f	file:
+mpu_ext_sync	mpu3050.h	/^enum mpu_ext_sync {$/;"	g
+mpu_filter	mpu3050.h	/^enum mpu_filter {$/;"	g
+mpu_fops	mpu-dev.c	/^static const struct file_operations mpu_fops = {$/;"	v	typeref:struct:file_operations	file:
+mpu_fullscale	mpu3050.h	/^enum mpu_fullscale {$/;"	g
+mpu_gyro_cfg	mldl_cfg.h	/^	struct mpu_gyro_cfg		*mpu_gyro_cfg;$/;"	m	struct:mldl_cfg	typeref:struct:mldl_cfg::mpu_gyro_cfg
+mpu_gyro_cfg	mldl_cfg.h	/^struct mpu_gyro_cfg {$/;"	s
+mpu_gyro_cfg	mpu-dev.c	/^	struct mpu_gyro_cfg	mpu_gyro_cfg;$/;"	m	struct:mpu_private_data	typeref:struct:mpu_private_data::mpu_gyro_cfg	file:
+mpu_handle_mlsl	mpu-dev.c	/^static int mpu_handle_mlsl(void *sl_handle,$/;"	f	file:
+mpu_id	mpu-dev.c	/^static const struct i2c_device_id mpu_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+mpu_init	mpu-dev.c	/^module_init(mpu_init);$/;"	v
+mpu_init	mpu-dev.c	/^static int __init mpu_init(void)$/;"	f	file:
+mpu_memory_read	mlsl-kernel.c	/^static int mpu_memory_read(struct i2c_adapter *i2c_adap,$/;"	f	file:
+mpu_memory_write	mlsl-kernel.c	/^static int mpu_memory_write(struct i2c_adapter *i2c_adap,$/;"	f	file:
+mpu_offsets	mldl_cfg.h	/^	struct mpu_offsets		*mpu_offsets;$/;"	m	struct:mldl_cfg	typeref:struct:mldl_cfg::mpu_offsets
+mpu_offsets	mldl_cfg.h	/^struct mpu_offsets {$/;"	s
+mpu_offsets	mpu-dev.c	/^	struct mpu_offsets	mpu_offsets;$/;"	m	struct:mpu_private_data	typeref:struct:mpu_private_data::mpu_offsets	file:
+mpu_pm_event	mpu-dev.c	/^	struct mpuirq_data mpu_pm_event;$/;"	m	struct:mpu_private_data	typeref:struct:mpu_private_data::mpuirq_data	file:
+mpu_pm_notifier_callback	mpu-dev.c	/^static int mpu_pm_notifier_callback(struct notifier_block *nb,$/;"	f	file:
+mpu_pm_timeout	mpu-dev.c	/^static void mpu_pm_timeout(u_long data)$/;"	f	file:
+mpu_poll	mpu-dev.c	/^static unsigned int mpu_poll(struct file *file, struct poll_table_struct *poll)$/;"	f	file:
+mpu_private_data	mpu-dev.c	/^struct mpu_private_data *mpu_private_data;$/;"	v	typeref:struct:mpu_private_data
+mpu_private_data	mpu-dev.c	/^struct mpu_private_data {$/;"	s	file:
+mpu_probe	mpu-dev.c	/^int mpu_probe(struct i2c_client *client, const struct i2c_device_id *devid)$/;"	f
+mpu_ram	mldl_cfg.h	/^	struct mpu_ram			*mpu_ram;$/;"	m	struct:mldl_cfg	typeref:struct:mldl_cfg::mpu_ram
+mpu_ram	mldl_cfg.h	/^struct mpu_ram {$/;"	s
+mpu_ram	mpu-dev.c	/^	struct mpu_ram		mpu_ram;$/;"	m	struct:mpu_private_data	typeref:struct:mpu_private_data::mpu_ram	file:
+mpu_read	mpu-dev.c	/^static ssize_t mpu_read(struct file *file,$/;"	f	file:
+mpu_register	mpu3050.h	/^enum mpu_register {$/;"	g
+mpu_release	mpu-dev.c	/^static int mpu_release(struct inode *inode, struct file *file)$/;"	f	file:
+mpu_remove	mpu-dev.c	/^static int mpu_remove(struct i2c_client *client)$/;"	f	file:
+mpu_set_clock_source	mldl_cfg.c	/^static int mpu_set_clock_source(void *gyro_handle, struct mldl_cfg *mldl_cfg)$/;"	f	file:
+mpu_set_i2c_bypass	mldl_cfg.c	/^static int mpu_set_i2c_bypass(struct mldl_cfg *mldl_cfg, void *mlsl_handle,$/;"	f	file:
+mpu_set_slave	mldl_cfg.c	/^static int mpu_set_slave(struct mldl_cfg *mldl_cfg,$/;"	f	file:
+mpu_set_slave_mpu3050	mldl_cfg.c	/^static int mpu_set_slave_mpu3050(struct mldl_cfg *mldl_cfg,$/;"	f	file:
+mpu_shutdown	mpu-dev.c	/^void mpu_shutdown(struct i2c_client *client)$/;"	f
+mpu_was_reset	mldl_cfg.c	/^static int mpu_was_reset(struct mldl_cfg *mldl_cfg, void *gyro_handle)$/;"	f	file:
+mpuirq_data	mpuirq.c	/^static struct mpuirq_data mpuirq_data;$/;"	v	typeref:struct:mpuirq_data	file:
+mpuirq_dev_data	mpuirq.c	/^static struct mpuirq_dev_data mpuirq_dev_data;$/;"	v	typeref:struct:mpuirq_dev_data	file:
+mpuirq_dev_data	mpuirq.c	/^struct mpuirq_dev_data {$/;"	s	file:
+mpuirq_device	mpuirq.c	/^static struct miscdevice mpuirq_device = {$/;"	v	typeref:struct:miscdevice	file:
+mpuirq_exit	mpuirq.c	/^void mpuirq_exit(void)$/;"	f
+mpuirq_fops	mpuirq.c	/^const struct file_operations mpuirq_fops = {$/;"	v	typeref:struct:file_operations
+mpuirq_handler	mpuirq.c	/^static irqreturn_t mpuirq_handler(int irq, void *dev_id)$/;"	f	file:
+mpuirq_init	mpuirq.c	/^int mpuirq_init(struct i2c_client *mpu_client, struct mldl_cfg *mldl_cfg)$/;"	f
+mpuirq_ioctl	mpuirq.c	/^static long mpuirq_ioctl(struct file *file, unsigned int cmd, unsigned long arg)$/;"	f	file:
+mpuirq_open	mpuirq.c	/^static int mpuirq_open(struct inode *inode, struct file *file)$/;"	f	file:
+mpuirq_poll	mpuirq.c	/^unsigned int mpuirq_poll(struct file *file, struct poll_table_struct *poll)$/;"	f
+mpuirq_read	mpuirq.c	/^static ssize_t mpuirq_read(struct file *file,$/;"	f	file:
+mpuirq_release	mpuirq.c	/^static int mpuirq_release(struct inode *inode, struct file *file)$/;"	f	file:
+mpuirq_wait	mpuirq.c	/^DECLARE_WAIT_QUEUE_HEAD(mpuirq_wait);$/;"	v
+mutex	mpu-dev.c	/^	struct mutex mutex;$/;"	m	struct:mpu_private_data	typeref:struct:mpu_private_data::mutex	file:
+mx	compass/ami_sensor_def.h	/^	unsigned short mx;$/;"	m	struct:ami_sensor_rawvalue
+my	compass/ami_sensor_def.h	/^	unsigned short my;$/;"	m	struct:ami_sensor_rawvalue
+mz	compass/ami_sensor_def.h	/^	unsigned short mz;$/;"	m	struct:ami_sensor_rawvalue
+nb	mpu-dev.c	/^	struct notifier_block nb;$/;"	m	struct:mpu_private_data	typeref:struct:mpu_private_data::notifier_block	file:
+normal_i2c	accel/adxl34x.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	accel/bma150.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	accel/bma222.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	accel/bma250.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	accel/cma3000.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	accel/kxsd9.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	accel/kxtf9.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	accel/lis331.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	accel/lis3dh.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	accel/lsm303dlx_a.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	accel/mma8450.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	accel/mma845x.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	compass/ak8972.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	compass/ak8975.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	compass/ami306.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	compass/ami30x.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	compass/hmc5883.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	compass/hscdtd002b.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	compass/hscdtd004a.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	compass/lsm303dlx_m.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	compass/mmc314x.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	compass/yas529-kernel.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	compass/yas530.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	mpu-dev.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+normal_i2c	pressure/bma085.c	/^static unsigned short normal_i2c[] = { I2C_CLIENT_END };$/;"	v	file:
+odr	accel/adxl34x.c	/^	unsigned int odr;		\/** < output data rate in mHz *\/$/;"	m	struct:adxl34x_config	file:
+odr	accel/bma150.c	/^	unsigned int odr;	\/** < output data rate mHz *\/$/;"	m	struct:bma150_config	file:
+odr	accel/bma222.c	/^	unsigned int odr;		\/** < output data rate in mHz *\/$/;"	m	struct:bma222_config	file:
+odr	accel/bma250.c	/^	unsigned int odr;		\/** < output data rate in mHz *\/$/;"	m	struct:bma250_config	file:
+odr	accel/kxtf9.c	/^	unsigned long odr;	\/* Output data rate mHz *\/$/;"	m	struct:kxtf9_config	file:
+odr	accel/lis331.c	/^	unsigned int odr;$/;"	m	struct:lis331dlh_config	file:
+odr	accel/lis3dh.c	/^	unsigned long odr;$/;"	m	struct:lis3dh_config	file:
+odr	accel/lsm303dlx_a.c	/^	unsigned int odr;$/;"	m	struct:lsm303dlx_a_config	file:
+odr	accel/mma8450.c	/^	unsigned int odr;$/;"	m	struct:mma8450_config	file:
+odr	accel/mma845x.c	/^	unsigned int odr;$/;"	m	struct:mma845x_config	file:
+param	compass/ami306.c	/^	struct ami_sensor_parametor param;$/;"	m	struct:ami306_private_data	typeref:struct:ami306_private_data::ami_sensor_parametor	file:
+param_b5	pressure/bma085.c	/^	long param_b5;$/;"	m	struct:bmp085_calibration_param_t	file:
+pdata	accel/adxl34x.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:adxl34x_mod_private_data	typeref:struct:adxl34x_mod_private_data::ext_slave_platform_data	file:
+pdata	accel/bma150.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:bma150_mod_private_data	typeref:struct:bma150_mod_private_data::ext_slave_platform_data	file:
+pdata	accel/bma222.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:bma222_mod_private_data	typeref:struct:bma222_mod_private_data::ext_slave_platform_data	file:
+pdata	accel/bma250.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:bma250_mod_private_data	typeref:struct:bma250_mod_private_data::ext_slave_platform_data	file:
+pdata	accel/cma3000.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:cma3000_mod_private_data	typeref:struct:cma3000_mod_private_data::ext_slave_platform_data	file:
+pdata	accel/kxsd9.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:kxsd9_mod_private_data	typeref:struct:kxsd9_mod_private_data::ext_slave_platform_data	file:
+pdata	accel/kxtf9.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:kxtf9_mod_private_data	typeref:struct:kxtf9_mod_private_data::ext_slave_platform_data	file:
+pdata	accel/lis331.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:lis331_mod_private_data	typeref:struct:lis331_mod_private_data::ext_slave_platform_data	file:
+pdata	accel/lis3dh.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:lis3dh_mod_private_data	typeref:struct:lis3dh_mod_private_data::ext_slave_platform_data	file:
+pdata	accel/lsm303dlx_a.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:lsm303dlx_a_mod_private_data	typeref:struct:lsm303dlx_a_mod_private_data::ext_slave_platform_data	file:
+pdata	accel/mma8450.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:mma8450_mod_private_data	typeref:struct:mma8450_mod_private_data::ext_slave_platform_data	file:
+pdata	accel/mma845x.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:mma845x_mod_private_data	typeref:struct:mma845x_mod_private_data::ext_slave_platform_data	file:
+pdata	compass/ak8972.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:ak8972_mod_private_data	typeref:struct:ak8972_mod_private_data::ext_slave_platform_data	file:
+pdata	compass/ak8975.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:ak8975_mod_private_data	typeref:struct:ak8975_mod_private_data::ext_slave_platform_data	file:
+pdata	compass/ami306.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:ami306_mod_private_data	typeref:struct:ami306_mod_private_data::ext_slave_platform_data	file:
+pdata	compass/ami30x.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:ami30x_mod_private_data	typeref:struct:ami30x_mod_private_data::ext_slave_platform_data	file:
+pdata	compass/hmc5883.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:hmc5883_mod_private_data	typeref:struct:hmc5883_mod_private_data::ext_slave_platform_data	file:
+pdata	compass/hscdtd002b.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:hscdtd002b_mod_private_data	typeref:struct:hscdtd002b_mod_private_data::ext_slave_platform_data	file:
+pdata	compass/hscdtd004a.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:hscdtd004a_mod_private_data	typeref:struct:hscdtd004a_mod_private_data::ext_slave_platform_data	file:
+pdata	compass/lsm303dlx_m.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:lsm303dlx_m_mod_private_data	typeref:struct:lsm303dlx_m_mod_private_data::ext_slave_platform_data	file:
+pdata	compass/mmc314x.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:mmc314x_mod_private_data	typeref:struct:mmc314x_mod_private_data::ext_slave_platform_data	file:
+pdata	compass/yas529-kernel.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:yas529_mod_private_data	typeref:struct:yas529_mod_private_data::ext_slave_platform_data	file:
+pdata	compass/yas530.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:yas530_mod_private_data	typeref:struct:yas530_mod_private_data::ext_slave_platform_data	file:
+pdata	mldl_cfg.h	/^	struct mpu_platform_data	*pdata;$/;"	m	struct:mldl_cfg	typeref:struct:mldl_cfg::mpu_platform_data
+pdata	pressure/bma085.c	/^	struct ext_slave_platform_data *pdata;$/;"	m	struct:bma085_mod_private_data	typeref:struct:bma085_mod_private_data::ext_slave_platform_data	file:
+pdata_slave	mldl_cfg.h	/^	struct ext_slave_platform_data	*pdata_slave[EXT_SLAVE_NUM_TYPES];$/;"	m	struct:mldl_cfg	typeref:struct:mldl_cfg::ext_slave_platform_data
+period	timerirq.c	/^	unsigned long period;$/;"	m	struct:timerirq_data	file:
+pid	mpu-dev.c	/^	int pid;$/;"	m	struct:mpu_private_data	file:
+pid	mpuirq.c	/^	int pid;$/;"	m	struct:mpuirq_dev_data	file:
+pid	slaveirq.c	/^	int pid;$/;"	m	struct:slaveirq_dev_data	file:
+pid	timerirq.c	/^	int pid;$/;"	m	struct:timerirq_data	file:
+prod_rev_map	mldl_cfg.c	/^static struct prod_rev_map_t prod_rev_map[] = {$/;"	v	typeref:struct:prod_rev_map_t	file:
+prod_rev_map_t	mldl_cfg.c	/^struct prod_rev_map_t {$/;"	s	file:
+product_id	mldl_cfg.h	/^	__u8 product_id;$/;"	m	struct:mpu_chip_info
+product_revision	mldl_cfg.h	/^	__u8 product_revision;$/;"	m	struct:mpu_chip_info
+ram	mldl_cfg.h	/^	__u8 *ram;$/;"	m	struct:mpu_ram
+read_count	compass/mmc314x.c	/^static int read_count = 1;$/;"	v	file:
+reg_dur	accel/kxtf9.c	/^	unsigned char reg_dur;$/;"	m	struct:kxtf9_config	file:
+reg_dur	accel/lis331.c	/^	unsigned char reg_dur;$/;"	m	struct:lis331dlh_config	file:
+reg_dur	accel/lis3dh.c	/^	unsigned char reg_dur;$/;"	m	struct:lis3dh_config	file:
+reg_dur	accel/lsm303dlx_a.c	/^	unsigned char reg_dur;$/;"	m	struct:lsm303dlx_a_config	file:
+reg_dur	accel/mma8450.c	/^	unsigned char reg_dur;$/;"	m	struct:mma8450_config	file:
+reg_dur	accel/mma845x.c	/^	unsigned char reg_dur;$/;"	m	struct:mma845x_config	file:
+reg_int_cfg1	accel/kxtf9.c	/^	unsigned char reg_int_cfg1;$/;"	m	struct:kxtf9_config	file:
+reg_int_cfg2	accel/kxtf9.c	/^	unsigned char reg_int_cfg2;$/;"	m	struct:kxtf9_config	file:
+reg_odr	accel/kxtf9.c	/^	unsigned char reg_odr;$/;"	m	struct:kxtf9_config	file:
+reg_ths	accel/kxtf9.c	/^	unsigned char reg_ths;$/;"	m	struct:kxtf9_config	file:
+reg_ths	accel/lis331.c	/^	unsigned char reg_ths;$/;"	m	struct:lis331dlh_config	file:
+reg_ths	accel/lis3dh.c	/^	unsigned char reg_ths;$/;"	m	struct:lis3dh_config	file:
+reg_ths	accel/lsm303dlx_a.c	/^	unsigned char reg_ths;$/;"	m	struct:lsm303dlx_a_config	file:
+reg_ths	accel/mma8450.c	/^	unsigned char reg_ths;$/;"	m	struct:mma8450_config	file:
+reg_ths	accel/mma845x.c	/^	unsigned char reg_ths;$/;"	m	struct:mma845x_config	file:
+remarks	compass/ami_sensor_def.h	/^	unsigned char remarks[40];	\/* Some Information   *\/$/;"	m	struct:ami_driverinfo
+requested_sensors	mldl_cfg.h	/^	__u32 requested_sensors;$/;"	m	struct:inv_mpu_cfg
+reset_int	compass/mmc314x.c	/^static int reset_int = 1000;$/;"	v	file:
+reset_mode	compass/mmc314x.c	/^static char reset_mode;		\/* in Z-init section *\/$/;"	v	file:
+response_timeout	mpu-dev.c	/^	int response_timeout;	\/* In seconds *\/$/;"	m	struct:mpu_private_data	file:
+resume	accel/adxl34x.c	/^	struct adxl34x_config resume;	\/** < resume configuration *\/$/;"	m	struct:adxl34x_private_data	typeref:struct:adxl34x_private_data::adxl34x_config	file:
+resume	accel/bma150.c	/^	struct bma150_config resume;	\/** < resume configuration *\/$/;"	m	struct:bma150_private_data	typeref:struct:bma150_private_data::bma150_config	file:
+resume	accel/bma222.c	/^	struct bma222_config resume;	\/** < resume configuration *\/$/;"	m	struct:bma222_private_data	typeref:struct:bma222_private_data::bma222_config	file:
+resume	accel/bma250.c	/^	struct bma250_config resume;	\/** < resume configuration *\/$/;"	m	struct:bma250_private_data	typeref:struct:bma250_private_data::bma250_config	file:
+resume	accel/kxtf9.c	/^	struct kxtf9_config resume;$/;"	m	struct:kxtf9_private_data	typeref:struct:kxtf9_private_data::kxtf9_config	file:
+resume	accel/lis331.c	/^	struct lis331dlh_config resume;$/;"	m	struct:lis331dlh_private_data	typeref:struct:lis331dlh_private_data::lis331dlh_config	file:
+resume	accel/lis3dh.c	/^	struct lis3dh_config resume;$/;"	m	struct:lis3dh_private_data	typeref:struct:lis3dh_private_data::lis3dh_config	file:
+resume	accel/lsm303dlx_a.c	/^	struct lsm303dlx_a_config resume;$/;"	m	struct:lsm303dlx_a_private_data	typeref:struct:lsm303dlx_a_private_data::lsm303dlx_a_config	file:
+resume	accel/mma8450.c	/^	struct mma8450_config resume;$/;"	m	struct:mma8450_private_data	typeref:struct:mma8450_private_data::mma8450_config	file:
+resume	accel/mma845x.c	/^	struct mma845x_config resume;$/;"	m	struct:mma845x_private_data	typeref:struct:mma845x_private_data::mma845x_config	file:
+run	timerirq.c	/^	int run;$/;"	m	struct:timerirq_data	file:
+set_hardware_offset	compass/yas530.c	/^static int set_hardware_offset(void *mlsl_handle,$/;"	f	file:
+set_measure_command	compass/yas530.c	/^static int set_measure_command(void *mlsl_handle,$/;"	f	file:
+silicon_rev	mldl_cfg.c	/^	unsigned char silicon_rev;$/;"	m	struct:prod_rev_map_t	file:
+silicon_revision	mldl_cfg.h	/^	__u8 silicon_revision;$/;"	m	struct:mpu_chip_info
+slave	mldl_cfg.h	/^	struct ext_slave_descr		*slave[EXT_SLAVE_NUM_TYPES];$/;"	m	struct:mldl_cfg	typeref:struct:mldl_cfg::ext_slave_descr
+slave_client	slaveirq.c	/^	struct i2c_client *slave_client;$/;"	m	struct:slaveirq_dev_data	typeref:struct:slaveirq_dev_data::i2c_client	file:
+slave_config	mpu-dev.c	/^static int slave_config(struct mldl_cfg *mldl_cfg,$/;"	f	file:
+slave_get_config	mpu-dev.c	/^static int slave_get_config(struct mldl_cfg *mldl_cfg,$/;"	f	file:
+slave_modules	mpu-dev.c	/^	struct module *slave_modules[EXT_SLAVE_NUM_TYPES];$/;"	m	struct:mpu_private_data	typeref:struct:mpu_private_data::module	file:
+slaveirq_dev_data	slaveirq.c	/^struct slaveirq_dev_data {$/;"	s	file:
+slaveirq_exit	slaveirq.c	/^void slaveirq_exit(struct ext_slave_platform_data *pdata)$/;"	f
+slaveirq_fops	slaveirq.c	/^static const struct file_operations slaveirq_fops = {$/;"	v	typeref:struct:file_operations	file:
+slaveirq_handler	slaveirq.c	/^static irqreturn_t slaveirq_handler(int irq, void *dev_id)$/;"	f	file:
+slaveirq_init	slaveirq.c	/^int slaveirq_init(struct i2c_adapter *slave_adapter,$/;"	f
+slaveirq_ioctl	slaveirq.c	/^static long slaveirq_ioctl(struct file *file,$/;"	f	file:
+slaveirq_open	slaveirq.c	/^static int slaveirq_open(struct inode *inode, struct file *file)$/;"	f	file:
+slaveirq_poll	slaveirq.c	/^static unsigned int slaveirq_poll(struct file *file,$/;"	f	file:
+slaveirq_read	slaveirq.c	/^static ssize_t slaveirq_read(struct file *file,$/;"	f	file:
+slaveirq_release	slaveirq.c	/^static int slaveirq_release(struct inode *inode, struct file *file)$/;"	f	file:
+slaveirq_wait	slaveirq.c	/^	wait_queue_head_t slaveirq_wait;$/;"	m	struct:slaveirq_dev_data	file:
+sn	compass/ami_sensor_def.h	/^	unsigned short sn;	\/* SN   0xea\/0xeb reg.  *\/$/;"	m	struct:ami_chipinfo
+start_timerirq	timerirq.c	/^static int start_timerirq(struct timerirq_data *data)$/;"	f	file:
+status	mldl_cfg.h	/^	__u8 status;$/;"	m	struct:inv_mpu_state
+stop_timerirq	timerirq.c	/^static int stop_timerirq(struct timerirq_data *data)$/;"	f	file:
+suspend	accel/adxl34x.c	/^	struct adxl34x_config suspend;	\/** < suspend configuration *\/$/;"	m	struct:adxl34x_private_data	typeref:struct:adxl34x_private_data::adxl34x_config	file:
+suspend	accel/bma150.c	/^	struct bma150_config suspend;	\/** < suspend configuration *\/$/;"	m	struct:bma150_private_data	typeref:struct:bma150_private_data::bma150_config	file:
+suspend	accel/bma222.c	/^	struct bma222_config suspend;	\/** < suspend configuration *\/$/;"	m	struct:bma222_private_data	typeref:struct:bma222_private_data::bma222_config	file:
+suspend	accel/bma250.c	/^	struct bma250_config suspend;	\/** < suspend configuration *\/$/;"	m	struct:bma250_private_data	typeref:struct:bma250_private_data::bma250_config	file:
+suspend	accel/kxtf9.c	/^	struct kxtf9_config suspend;$/;"	m	struct:kxtf9_private_data	typeref:struct:kxtf9_private_data::kxtf9_config	file:
+suspend	accel/lis331.c	/^	struct lis331dlh_config suspend;$/;"	m	struct:lis331dlh_private_data	typeref:struct:lis331dlh_private_data::lis331dlh_config	file:
+suspend	accel/lis3dh.c	/^	struct lis3dh_config suspend;$/;"	m	struct:lis3dh_private_data	typeref:struct:lis3dh_private_data::lis3dh_config	file:
+suspend	accel/lsm303dlx_a.c	/^	struct lsm303dlx_a_config suspend;$/;"	m	struct:lsm303dlx_a_private_data	typeref:struct:lsm303dlx_a_private_data::lsm303dlx_a_config	file:
+suspend	accel/mma8450.c	/^	struct mma8450_config suspend;$/;"	m	struct:mma8450_private_data	typeref:struct:mma8450_private_data::mma8450_config	file:
+suspend	accel/mma845x.c	/^	struct mma845x_config suspend;$/;"	m	struct:mma845x_private_data	typeref:struct:mma845x_private_data::mma845x_config	file:
+tc	mldl_cfg.h	/^	__u8	tc[GYRO_NUM_AXES];$/;"	m	struct:mpu_offsets
+temperature	compass/ami_sensor_def.h	/^	unsigned short temperature;$/;"	m	struct:ami_sensor_rawvalue
+ths	accel/kxtf9.c	/^	unsigned int ths;	\/* Motion no-motion thseshold mg *\/$/;"	m	struct:kxtf9_config	file:
+ths	accel/lis331.c	/^	unsigned int ths;	\/* Motion no-motion thseshold mg *\/$/;"	m	struct:lis331dlh_config	file:
+ths	accel/lis3dh.c	/^	unsigned int ths;	\/* Motion no-motion thseshold mg *\/$/;"	m	struct:lis3dh_config	file:
+ths	accel/lsm303dlx_a.c	/^	unsigned int ths; \/** < Motion no-motion thseshold mg *\/$/;"	m	struct:lsm303dlx_a_config	file:
+ths	accel/mma8450.c	/^	unsigned int ths;	\/** < Motion no-motion thseshold mg *\/$/;"	m	struct:mma8450_config	file:
+ths	accel/mma845x.c	/^	unsigned int ths;		\/** < Motion no-motion thseshold mg *\/$/;"	m	struct:mma845x_config	file:
+timeout	mpu-dev.c	/^	struct timer_list timeout;$/;"	m	struct:mpu_private_data	typeref:struct:mpu_private_data::timer_list	file:
+timeout	mpuirq.c	/^	int timeout;$/;"	m	struct:mpuirq_dev_data	file:
+timeout	slaveirq.c	/^	int timeout;$/;"	m	struct:slaveirq_dev_data	file:
+timeout	timerirq.c	/^	int timeout;$/;"	m	struct:timerirq_data	file:
+timer	timerirq.c	/^	struct timer_list timer;$/;"	m	struct:timerirq_data	typeref:struct:timerirq_data::timer_list	file:
+timer_done	timerirq.c	/^	struct completion timer_done;$/;"	m	struct:timerirq_data	typeref:struct:timerirq_data::completion	file:
+timerirq_data	timerirq.c	/^struct timerirq_data {$/;"	s	file:
+timerirq_dev_data	timerirq.c	/^static struct miscdevice *timerirq_dev_data;$/;"	v	typeref:struct:miscdevice	file:
+timerirq_exit	timerirq.c	/^module_exit(timerirq_exit);$/;"	v
+timerirq_exit	timerirq.c	/^static void __exit timerirq_exit(void)$/;"	f	file:
+timerirq_fops	timerirq.c	/^static const struct file_operations timerirq_fops = {$/;"	v	typeref:struct:file_operations	file:
+timerirq_handler	timerirq.c	/^static void timerirq_handler(unsigned long arg)$/;"	f	file:
+timerirq_init	timerirq.c	/^module_init(timerirq_init);$/;"	v
+timerirq_init	timerirq.c	/^static int __init timerirq_init(void)$/;"	f	file:
+timerirq_ioctl	timerirq.c	/^static long timerirq_ioctl(struct file *file,$/;"	f	file:
+timerirq_open	timerirq.c	/^static int timerirq_open(struct inode *inode, struct file *file)$/;"	f	file:
+timerirq_poll	timerirq.c	/^static unsigned int timerirq_poll(struct file *file,$/;"	f	file:
+timerirq_read	timerirq.c	/^static ssize_t timerirq_read(struct file *file,$/;"	f	file:
+timerirq_release	timerirq.c	/^static int timerirq_release(struct inode *inode, struct file *file)$/;"	f	file:
+timerirq_wait	timerirq.c	/^	wait_queue_head_t timerirq_wait;$/;"	m	struct:timerirq_data	file:
+ver	compass/ami_sensor_def.h	/^	unsigned short ver;	\/* VER  0xe8\/0xe9 reg.  *\/$/;"	m	struct:ami_chipinfo
+ver_major	compass/ami_sensor_def.h	/^	unsigned char ver_major;	\/* major version *\/$/;"	m	struct:ami_driverinfo
+ver_middle	compass/ami_sensor_def.h	/^	unsigned char ver_middle;	\/* middle.. *\/$/;"	m	struct:ami_driverinfo
+ver_minor	compass/ami_sensor_def.h	/^	unsigned char ver_minor;	\/* minor .. *\/$/;"	m	struct:ami_driverinfo
+wia	compass/ami_sensor_def.h	/^	unsigned char wia;	\/* WIA  0x0f      reg.  *\/$/;"	m	struct:ami_chipinfo
+win	compass/ami306.c	/^	struct ami_win_parameter win;$/;"	m	struct:ami306_private_data	typeref:struct:ami306_private_data::ami_win_parameter	file:
+x	compass/ami_sensor_def.h	/^	signed short x;			\/**< X-axis  *\/$/;"	m	struct:ami_vector3d
+xy	compass/ami_sensor_def.h	/^	signed short xy;$/;"	m	struct:ami_interference
+xz	compass/ami_sensor_def.h	/^	signed short xz;$/;"	m	struct:ami_interference
+y	compass/ami_sensor_def.h	/^	signed short y;			\/**< Y-axis  *\/$/;"	m	struct:ami_vector3d
+yas529_descr	compass/yas529-kernel.c	/^static struct ext_slave_descr yas529_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+yas529_get_slave_descr	compass/yas529-kernel.c	/^struct ext_slave_descr *yas529_get_slave_descr(void)$/;"	f	file:
+yas529_mod_driver	compass/yas529-kernel.c	/^static struct i2c_driver yas529_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+yas529_mod_exit	compass/yas529-kernel.c	/^module_exit(yas529_mod_exit);$/;"	v
+yas529_mod_exit	compass/yas529-kernel.c	/^static void __exit yas529_mod_exit(void)$/;"	f	file:
+yas529_mod_id	compass/yas529-kernel.c	/^static const struct i2c_device_id yas529_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+yas529_mod_init	compass/yas529-kernel.c	/^module_init(yas529_mod_init);$/;"	v
+yas529_mod_init	compass/yas529-kernel.c	/^static int __init yas529_mod_init(void)$/;"	f	file:
+yas529_mod_private_data	compass/yas529-kernel.c	/^struct yas529_mod_private_data {$/;"	s	file:
+yas529_mod_probe	compass/yas529-kernel.c	/^static int yas529_mod_probe(struct i2c_client *client,$/;"	f	file:
+yas529_mod_remove	compass/yas529-kernel.c	/^static int yas529_mod_remove(struct i2c_client *client)$/;"	f	file:
+yas529_read	compass/yas529-kernel.c	/^static int yas529_read(void *mlsl_handle,$/;"	f	file:
+yas529_resume	compass/yas529-kernel.c	/^static int yas529_resume(void *mlsl_handle,$/;"	f	file:
+yas529_sensor_i2c_read	compass/yas529-kernel.c	/^static int yas529_sensor_i2c_read(struct i2c_adapter *i2c_adap,$/;"	f	file:
+yas529_sensor_i2c_write	compass/yas529-kernel.c	/^static int yas529_sensor_i2c_write(struct i2c_adapter *i2c_adap,$/;"	f	file:
+yas529_suspend	compass/yas529-kernel.c	/^static int yas529_suspend(void *mlsl_handle,$/;"	f	file:
+yas530_descr	compass/yas530.c	/^static struct ext_slave_descr yas530_descr = {$/;"	v	typeref:struct:ext_slave_descr	file:
+yas530_get_slave_descr	compass/yas530.c	/^struct ext_slave_descr *yas530_get_slave_descr(void)$/;"	f	file:
+yas530_mod_driver	compass/yas530.c	/^static struct i2c_driver yas530_mod_driver = {$/;"	v	typeref:struct:i2c_driver	file:
+yas530_mod_exit	compass/yas530.c	/^module_exit(yas530_mod_exit);$/;"	v
+yas530_mod_exit	compass/yas530.c	/^static void __exit yas530_mod_exit(void)$/;"	f	file:
+yas530_mod_id	compass/yas530.c	/^static const struct i2c_device_id yas530_mod_id[] = {$/;"	v	typeref:struct:i2c_device_id	file:
+yas530_mod_init	compass/yas530.c	/^module_init(yas530_mod_init);$/;"	v
+yas530_mod_init	compass/yas530.c	/^static int __init yas530_mod_init(void)$/;"	f	file:
+yas530_mod_private_data	compass/yas530.c	/^struct yas530_mod_private_data {$/;"	s	file:
+yas530_mod_probe	compass/yas530.c	/^static int yas530_mod_probe(struct i2c_client *client,$/;"	f	file:
+yas530_mod_remove	compass/yas530.c	/^static int yas530_mod_remove(struct i2c_client *client)$/;"	f	file:
+yas530_read	compass/yas530.c	/^static int yas530_read(void *mlsl_handle,$/;"	f	file:
+yas530_resume	compass/yas530.c	/^static int yas530_resume(void *mlsl_handle,$/;"	f	file:
+yas530_suspend	compass/yas530.c	/^static int yas530_suspend(void *mlsl_handle,$/;"	f	file:
+yx	compass/ami_sensor_def.h	/^	signed short yx;$/;"	m	struct:ami_interference
+yz	compass/ami_sensor_def.h	/^	signed short yz;$/;"	m	struct:ami_interference
+z	compass/ami_sensor_def.h	/^	signed short z;			\/**< Z-axis  *\/$/;"	m	struct:ami_vector3d
+zx	compass/ami_sensor_def.h	/^	signed short zx;$/;"	m	struct:ami_interference
+zy	compass/ami_sensor_def.h	/^	signed short zy;$/;"	m	struct:ami_interference

@@ -1,0 +1,21 @@
+
+menu "Amlogic BT Device Support"
+
+config BT_DEVICE
+    bool "BT Device support"
+    depends on BT && RFKILL
+    select BACKLIGHT_CLASS_DEVICE
+    default n
+    help
+      Say Y here if you want to use the BT device.
+
+config BCM4329_BT
+    bool "BCM4329 bt support"
+    depends on BT_DEVICE
+    help
+        Say y here if you want to use BCM4329 BT.
+        
+source "drivers/amlogic/bluetooth/rtk8723/Kconfig"
+    
+source "drivers/amlogic/bluetooth/mtk_wcn_bt/Kconfig"
+endmenu

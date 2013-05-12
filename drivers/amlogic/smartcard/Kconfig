@@ -1,0 +1,13 @@
+#
+# Smart card driver configuration
+#
+
+menu "Amlogic Smartcard Driver"
+
+config AM_SMARTCARD
+	tristate "Amlogic Smartcard driver"
+	default n
+	help
+		Select to enable Smartcard driver.
+endmenu
+
