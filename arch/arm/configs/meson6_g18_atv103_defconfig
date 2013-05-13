@@ -1303,7 +1303,7 @@ CONFIG_AM_AVL6211=y
 #
 # Mali GPU OpenGL device driver
 #
-CONFIG_MALI400=y
+CONFIG_MALI400=m
 # CONFIG_MALI400_DEBUG is not set
 
 #
