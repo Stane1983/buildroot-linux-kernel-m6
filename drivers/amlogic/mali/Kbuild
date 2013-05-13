@@ -10,57 +10,79 @@
 
 # This file is called by the Linux build system.
 
+OSKOS=linux
+TARGET_PLATFORM=meson_platform
+
 # set up defaults if not defined by the user
 TIMESTAMP ?= default
+ifeq ($(CONFIG_UMP), m)
+  USING_UMP ?= 1
+else
+  USING_UMP ?= 0
+endif
+
+ifneq ($(KBUILD_SRC),)
+	ifneq ($(wildcard $(KBUILD_SRC)/$(src)),)
+		TOP_KBUILD_SRC := $(KBUILD_SRC)/
+	endif
+endif
+
 OS_MEMORY_KERNEL_BUFFER_SIZE_IN_MB ?= 16
-USING_GPU_UTILIZATION ?= 1
+
+ifeq ($(CONFIG_MALI400_PROFILING),y)
+	USING_GPU_UTILIZATION ?= 1
+else
+	USING_GPU_UTILIZATION ?= 0
+endif
 PROFILING_SKIP_PP_JOBS ?= 0
 PROFILING_SKIP_PP_AND_GP_JOBS ?= 0
+ifeq ($(CONFIG_MALI400_DEBUG),y)
+	BUILD ?= debug
+else
+	BUILD ?= release
+endif
+
+ifeq ($(USING_UMP),1)
+	UMP_SYMVERS_FILE = ../ump/Module.symvers
+	KBUILD_EXTRA_SYMBOLS = $(srctree)/$(src)/$(UMP_SYMVERS_FILE)
+endif
+
 MALI_PP_SCHEDULER_FORCE_NO_JOB_OVERLAP ?= 0
 MALI_PP_SCHEDULER_KEEP_SUB_JOB_STARTS_ALIGNED ?= 0
 MALI_PP_SCHEDULER_FORCE_NO_JOB_OVERLAP_BETWEEN_APPS ?= 0
 MALI_UPPER_HALF_SCHEDULING ?= 1
 
+# Get path to driver source from Linux build system
+DRIVER_DIR=$(src)
+
 # For customer releases the Linux Device Drivers will be provided as ARM proprietary and GPL releases:
 # The ARM proprietary product will only include the license/proprietary directory
 # The GPL product will only include the license/gpl directory
-ifeq ($(wildcard $(src)/linux/license/gpl/*),)
-    ccflags-y += -I$(src)/linux/license/proprietary
-    ifeq ($(CONFIG_MALI400_PROFILING),y)
-        $(error Profiling is incompatible with non-GPL license)
-    endif
-    ifeq ($(CONFIG_PM_RUNTIME),y)
-        $(error Runtime PM is incompatible with non-GPL license)
-    endif
-    ifeq ($(CONFIG_DMA_SHARED_BUFFER),y)
-        $(error DMA-BUF is incompatible with non-GPL license)
-    endif
-    $(error Linux Device integration is incompatible with non-GPL license)
-else
-    ccflags-y += -I$(src)/linux/license/gpl
-endif
+
+
+ccflags-y += -I$(TOP_KBUILD_SRC)$(DRIVER_DIR)/linux/license/gpl
 
 mali-y += \
-	linux/mali_osk_atomics.o \
-	linux/mali_osk_irq.o \
-	linux/mali_osk_wq.o \
-	linux/mali_osk_locks.o \
-	linux/mali_osk_wait_queue.o \
-	linux/mali_osk_low_level_mem.o \
-	linux/mali_osk_math.o \
-	linux/mali_osk_memory.o \
-	linux/mali_osk_misc.o \
-	linux/mali_osk_mali.o \
-	linux/mali_osk_notification.o \
-	linux/mali_osk_time.o \
-	linux/mali_osk_timers.o
+	$(OSKOS)/mali_osk_atomics.o \
+	$(OSKOS)/mali_osk_irq.o \
+	$(OSKOS)/mali_osk_wq.o \
+	$(OSKOS)/mali_osk_locks.o \
+	$(OSKOS)/mali_osk_wait_queue.o \
+	$(OSKOS)/mali_osk_low_level_mem.o \
+	$(OSKOS)/mali_osk_math.o \
+	$(OSKOS)/mali_osk_memory.o \
+	$(OSKOS)/mali_osk_misc.o \
+	$(OSKOS)/mali_osk_mali.o \
+	$(OSKOS)/mali_osk_notification.o \
+	$(OSKOS)/mali_osk_time.o \
+	$(OSKOS)/mali_osk_timers.o
 
 mali-y += \
-	linux/mali_ukk_mem.o \
-	linux/mali_ukk_gp.o \
-	linux/mali_ukk_pp.o \
-	linux/mali_ukk_core.o
-
+	$(OSKOS)/mali_ukk_mem.o \
+	$(OSKOS)/mali_ukk_gp.o \
+	$(OSKOS)/mali_ukk_pp.o \
+	$(OSKOS)/mali_ukk_core.o
+	
 # Source files which always are included in a build
 mali-y += \
 	common/mali_kernel_core.o \
@@ -98,6 +120,10 @@ mali-y += \
 	linux/mali_pmu_power_up_down.o \
 	__malidrv_build_info.o
 
+MALI_PLATFORM_FILES = platform/meson_platform/mali_fix.c \
+			platform/meson_platform/mali_platform.c \
+			platform/meson_platform/meson_main.c
+
 ifneq ($(MALI_PLATFORM_FILES),)
 	mali-y += $(MALI_PLATFORM_FILES:.c=.o)
 endif
@@ -126,26 +152,27 @@ ccflags-y += -DMALI_PP_SCHEDULER_FORCE_NO_JOB_OVERLAP_BETWEEN_APPS=$(MALI_PP_SCH
 ccflags-y += -DMALI_STATE_TRACKING=1
 ccflags-y += -DMALI_OS_MEMORY_KERNEL_BUFFER_SIZE_IN_MB=$(OS_MEMORY_KERNEL_BUFFER_SIZE_IN_MB)
 ccflags-y += -DUSING_GPU_UTILIZATION=$(USING_GPU_UTILIZATION)
+ccflags-y += -DMALI_FAKE_PLATFORM_DEVICE
 
 ifeq ($(MALI_UPPER_HALF_SCHEDULING),1)
 	ccflags-y += -DMALI_UPPER_HALF_SCHEDULING
 endif
 
-ccflags-$(CONFIG_MALI400_UMP) += -I$(src)/../../ump/include/ump
+ccflags-$(CONFIG_MALI400_UMP) += -I$(src)/../ump/include/ump
 ccflags-$(CONFIG_MALI400_DEBUG) += -DDEBUG
 
 # Use our defines when compiling
 ccflags-y += -I$(src) -I$(src)/include -I$(src)/common -I$(src)/linux -I$(src)/platform
 
 # Get subversion revision number, fall back to only ${MALI_RELEASE_NAME} if no svn info is available
-MALI_RELEASE_NAME=$(shell cat $(src)/.version 2> /dev/null)
+MALI_RELEASE_NAME=$(shell cat $(TOP_KBUILD_SRC)$(DRIVER_DIR)/.version 2> /dev/null)
 
-SVN_INFO = (cd $(src); (svn info || git svn info || \
+SVN_INFO = (cd $(TOP_KBUILD_SRC)$(DRIVER_DIR); (svn info || git svn info || \
 	echo -e "\nURL: $(MALI_RELEASE_NAME)\n" \
 	"Last Changed Rev: $(MALI_RELEASE_NAME)\n" \
 	"Last Changed Date: $(MALI_RELEASE_NAME)") 2>/dev/null)
 
-SVN_REV := $(shell (cd $(src); echo "$(SVN_INFO)" | grep '^Revision: '| sed -e 's/^Revision: //' ) 2>/dev/null )
+SVN_REV := $(shell (cd $(TOP_KBUILD_SRC)$(DRIVER_DIR); echo "$(SVN_INFO)" | grep '^Revision: '| sed -e 's/^Revision: //' ) 2>/dev/null )
 ifeq ($(SVN_REV),)
 SVN_REV := $(MALI_RELEASE_NAME)
 else
@@ -155,7 +182,7 @@ endif
 ccflags-y += -DSVN_REV_STRING=\"$(SVN_REV)\"
 
 VERSION_STRINGS :=
-VERSION_STRINGS += API_VERSION=$(shell cd $(src); grep "\#define _MALI_API_VERSION" $(FILES_PREFIX)include/linux/mali/mali_utgard_uk_types.h | cut -d' ' -f 3 )
+VERSION_STRINGS += API_VERSION=$(shell cd $(TOP_KBUILD_SRC)$(DRIVER_DIR);  grep "\#define _MALI_API_VERSION" $(FILES_PREFIX)include/linux/mali/mali_utgard_uk_types.h | cut -d' ' -f 3 )
 VERSION_STRINGS += REPO_URL=$(shell $(SVN_INFO) | grep '^URL: ' | cut -d: -f2- | cut -b2-)
 VERSION_STRINGS += REVISION=$(SVN_REV)
 VERSION_STRINGS += CHANGED_REVISION=$(shell $(SVN_INFO) | grep '^Last Changed Rev: ' | cut -d: -f2- | cut -b2-)
@@ -177,5 +204,5 @@ VERSION_STRINGS += USING_GPU_UTILIZATION=$(USING_GPU_UTILIZATION)
 VERSION_STRINGS += MALI_UPPER_HALF_SCHEDULING=$(MALI_UPPER_HALF_SCHEDULING)
 
 # Create file with Mali driver configuration
-$(src)/__malidrv_build_info.c:
-	@echo 'const char *__malidrv_build_info(void) { return "malidrv: $(VERSION_STRINGS)";}' > $(src)/__malidrv_build_info.c
+$(TOP_KBUILD_SRC)$(DRIVER_DIR)/__malidrv_build_info.c:
+	@echo 'const char *__malidrv_build_info(void) { return "malidrv: $(VERSION_STRINGS)";}' > $(TOP_KBUILD_SRC)$(DRIVER_DIR)/__malidrv_build_info.c
