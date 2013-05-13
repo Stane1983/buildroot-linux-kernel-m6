@@ -91,7 +91,7 @@ $(warning MALI_PLATFORM $(MALI_PLATFORM))
 endif
 
 # Set up build config
-export CONFIG_MALI400=m
+export CONFIG_MALI400=y
 
 ifneq ($(MALI_PLATFORM),)
 export EXTRA_DEFINES += -DMALI_FAKE_PLATFORM_DEVICE=1
