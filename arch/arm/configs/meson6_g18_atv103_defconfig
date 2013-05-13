@@ -434,7 +434,8 @@ CONFIG_ALIGNMENT_TRAP=y
 # CONFIG_USE_OF is not set
 CONFIG_ZBOOT_ROM_TEXT=0
 CONFIG_ZBOOT_ROM_BSS=0
-CONFIG_CMDLINE=""
+CONFIG_CMDLINE="root=/dev/mtdblock4 rw rootfstype=yaffs2 init=/sbin/init"
+CONFIG_CMDLINE_APPEND=y
 # CONFIG_XIP_KERNEL is not set
 # CONFIG_KEXEC is not set
 # CONFIG_CRASH_DUMP is not set
