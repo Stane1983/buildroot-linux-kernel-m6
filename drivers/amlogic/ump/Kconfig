@@ -1,6 +1,7 @@
 menu "Mali 400 UMP device driver"
 config UMP
 	tristate "UMP support"
+	depends on m
 	default m
 	select MALI400_UMP
 	---help---

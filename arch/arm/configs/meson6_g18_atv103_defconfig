@@ -1298,7 +1298,7 @@ CONFIG_AM_AVL6211=y
 #
 # Mali 400 UMP device driver
 #
-# CONFIG_UMP is not set
+CONFIG_UMP=m
 
 #
 # Mali GPU OpenGL device driver
