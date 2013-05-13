@@ -110,8 +110,8 @@ source "drivers/amlogic/load_deferred_module/Kconfig"
 #	ARM Mali
 #
 comment "ARM Mali"
-isource "drivers/amlogic/ump/Kconfig"
-isource "drivers/amlogic/mali/Kconfig"
+# source "drivers/amlogic/ump/Kconfig"
+source "drivers/amlogic/mali/Kconfig"
 source "drivers/amlogic/spi/Kconfig"
 
 #

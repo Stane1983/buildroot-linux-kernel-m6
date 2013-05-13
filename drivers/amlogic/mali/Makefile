@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2010-2012 ARM Limited. All rights reserved.
+# Copyright (C) 2010-2013 ARM Limited. All rights reserved.
 # 
 # This program is free software and is provided to you under the terms of the GNU General Public License version 2
 # as published by the Free Software Foundation, and any use by you of this program is subject to the terms of such GNU licence.
@@ -11,6 +11,7 @@
 USE_UMPV2=0
 USING_PROFILING ?= 1
 USING_INTERNAL_PROFILING ?= 0
+MALI_DMA_BUF_MAP_ON_ATTACH ?= 1
 
 # The Makefile sets up "arch" based on the CONFIG, creates the version info
 # string and the __malidrv_build_info.c file, and then call the Linux build
@@ -41,13 +42,6 @@ endif
 
 ifneq ($(CPU),)
 $(warning "You have specified the CPU variable which is no longer in used. Use TARGET_PLATFORM instead.")
-endif
-
-# KDIR not set when included by modpost
-ifneq ($(KBUILD_EXTMOD),)
-	ifeq ($(KDIR),)
-		KDIR := $(KBUILD_SRC)
-	endif
 endif
 
 # Include the mapping between TARGET_PLATFORM and KDIR + MALI_PLATFORM
@@ -82,11 +76,7 @@ endif
 # Define host system directory
 KDIR-$(shell uname -m):=/lib/modules/$(shell uname -r)/build
 
-# .config could be in an output directory, different than KDIR
-# and it's not needed during modpost
-ifeq ($(KBUILD_EXTMOD),)
-	include $(KDIR)/.config
-endif
+include $(KDIR)/.config
 
 ifeq ($(ARCH), arm)
 # when compiling for ARM we're cross compiling
@@ -101,7 +91,7 @@ $(warning MALI_PLATFORM $(MALI_PLATFORM))
 endif
 
 # Set up build config
-export CONFIG_MALI400=y
+export CONFIG_MALI400=m
 
 ifneq ($(MALI_PLATFORM),)
 export EXTRA_DEFINES += -DMALI_FAKE_PLATFORM_DEVICE=1
@@ -119,6 +109,11 @@ export CONFIG_MALI400_INTERNAL_PROFILING=y
 export EXTRA_DEFINES += -DCONFIG_MALI400_INTERNAL_PROFILING=1
 endif
 endif
+endif
+
+ifeq ($(MALI_DMA_BUF_MAP_ON_ATTACH),1)
+export CONFIG_MALI_DMA_BUF_MAP_ON_ATTACH=1
+export EXTRA_DEFINES += -DCONFIG_MALI_DMA_BUF_MAP_ON_ATTACH
 endif
 
 ifneq ($(BUILD),release)

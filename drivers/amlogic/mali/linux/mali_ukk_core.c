@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2012 ARM Limited. All rights reserved.
+ * Copyright (C) 2010-2013 ARM Limited. All rights reserved.
  * 
  * This program is free software and is provided to you under the terms of the GNU General Public License version 2
  * as published by the Free Software Foundation, and any use by you of this program is subject to the terms of such GNU licence.
@@ -95,7 +95,6 @@ int get_user_settings_wrapper(struct mali_session_data *session_data, _mali_uk_g
 	err = _mali_ukk_get_user_settings(&kargs);
 	if (_MALI_OSK_ERR_OK != err)
 	{
-		printk("fuckkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk..\n");
 		return map_errcode(err);
 	}
 

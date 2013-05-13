@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2012 ARM Limited. All rights reserved.
+ * Copyright (C) 2010-2013 ARM Limited. All rights reserved.
  * 
  * This program is free software and is provided to you under the terms of the GNU General Public License version 2
  * as published by the Free Software Foundation, and any use by you of this program is subject to the terms of such GNU licence.
@@ -97,11 +97,6 @@ struct mali_mmu_core *mali_mmu_create(_mali_osk_resource_t *resource, struct mal
 	mmu = _mali_osk_calloc(1,sizeof(struct mali_mmu_core));
 	if (NULL != mmu)
 	{
-#if MESON_CPU_TYPE == MESON_CPU_TYPE_MESON6
-		extern int static_pp_mmu_cnt;
-		mmu->id = static_pp_mmu_cnt++;
-		//MALI_DEBUG_PRINT(3, ("Mali MMU: mmu_id: %d\n", resource->mmu_id));
-#endif
 		if (_MALI_OSK_ERR_OK == mali_hw_core_create(&mmu->hw_core, resource, MALI_MMU_REGISTERS_SIZE))
 		{
 			if (_MALI_OSK_ERR_OK == mali_group_add_mmu_core(group, mmu))
@@ -303,6 +298,7 @@ _mali_osk_errcode_t mali_mmu_reset(struct mali_mmu_core *mmu)
 
 	/* The stall can not fail in current hw-state */
 	MALI_DEBUG_ASSERT(stall_success);
+	MALI_IGNORE(stall_success);
 
 	MALI_DEBUG_PRINT(3, ("Mali MMU: mali_kernel_mmu_reset: %s\n", mmu->hw_core.description));
 
@@ -378,8 +374,11 @@ void mali_mmu_activate_empty_page_directory(struct mali_mmu_core* mmu)
 	MALI_DEBUG_PRINT(3, ("Activating the empty page directory on MMU %s\n", mmu->hw_core.description));
 
 	stall_success = mali_mmu_enable_stall(mmu);
+
 	/* This function can only be called when the core is idle, so it could not fail. */
-	MALI_DEBUG_ASSERT( stall_success );
+	MALI_DEBUG_ASSERT(stall_success);
+	MALI_IGNORE(stall_success);
+
 	mali_mmu_activate_address_space(mmu, mali_empty_page_directory);
 	mali_mmu_disable_stall(mmu);
 }
