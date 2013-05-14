@@ -27,8 +27,6 @@
 #include <linux/ioport.h>
 #include <linux/dma-mapping.h>
 
-#include <linux/module.h>
-
 #include <mach/am_regs.h>
 #include <mach/clock.h>
 
@@ -113,7 +111,6 @@ int malifix_get_mmu_int_process_state(int index)
 
 void malifix_init(void)
 {
-#if MESON_CPU_TYPE == MESON_CPU_TYPE_MESON6
 	if (!mali_meson_is_revb())
 		return;
 
@@ -137,12 +134,10 @@ void malifix_init(void)
 
 	if ((mali_mm1_regs != NULL) && (mali_mm2_regs != NULL))
 		mod_timer(&timer, jiffies + HZ/100);
-#endif
 }
 
 void malifix_exit(void)
 {
-#if MESON_CPU_TYPE == MESON_CPU_TYPE_MESON6
 	if (!mali_meson_is_revb())
 		return;
 
@@ -156,7 +151,6 @@ void malifix_exit(void)
 		iounmap(mali_mm2_regs);
 	mali_mm2_regs = NULL;
 
-#endif
 	return;
 }
 

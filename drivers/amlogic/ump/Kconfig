@@ -3,7 +3,6 @@ config UMP
 	tristate "UMP support"
 	depends on m
 	default m
-	select MALI400_UMP
 	---help---
 	  This enables support for the UMP memory allocation and sharing API.
 

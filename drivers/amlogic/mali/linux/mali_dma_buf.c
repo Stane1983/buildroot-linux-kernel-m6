@@ -13,7 +13,6 @@
 #include <linux/dma-buf.h>
 #include <linux/scatterlist.h>
 #include <linux/rbtree.h>
-#include <linux/platform_device.h>
 
 #include "mali_ukk.h"
 #include "mali_osk.h"
@@ -23,6 +22,8 @@
 
 #include "mali_kernel_memory_engine.h"
 #include "mali_memory.h"
+
+#include "mali_kernel_sysfs.h"
 
 
 struct mali_dma_buf_attachment {
@@ -98,6 +99,8 @@ static void mali_dma_buf_release(void *ctx, void *handle)
 
 	spin_lock(&mali_dma_bufs_lock);
 	ref = _mali_osk_atomic_dec_return(&mem->ref);
+
+	MALI_DEBUG_ASSERT(ref >= 0);
 
 	if (0 == ref)
 	{
@@ -231,13 +234,13 @@ int mali_attach_dma_buf(struct mali_session_data *session, _mali_uk_attach_dma_b
 		if (NULL == mem)
 		{
 			MALI_PRINT_ERROR(("Failed to allocate dma-buf tracing struct\n"));
-			dma_buf_put(buf);
+			dma_buf_put(mem->buf);
 			return -ENOMEM;
 		}
 		_mali_osk_atomic_init(&mem->ref, 1);
 		mem->buf = buf;
 
-		mem->attachment = dma_buf_attach(mem->buf, &mali_platform_device->dev);
+		mem->attachment = dma_buf_attach(mem->buf, mali_device);
 		if (NULL == mem->attachment)
 		{
 			MALI_DEBUG_PRINT(2, ("Failed to attach to dma-buf %d\n", fd));

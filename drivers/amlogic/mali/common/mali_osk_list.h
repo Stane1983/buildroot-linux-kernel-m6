@@ -16,8 +16,6 @@
 #ifndef __MALI_OSK_LIST_H__
 #define __MALI_OSK_LIST_H__
 
-#include "mali_kernel_common.h"
-
 #ifdef __cplusplus
 extern "C"
 {
@@ -130,7 +128,7 @@ MALI_STATIC_INLINE void _mali_osk_list_delinit( _mali_osk_list_t *list )
  * @param list the list to check.
  * @return non-zero if the list is empty, and zero otherwise.
  */
-MALI_STATIC_INLINE mali_bool _mali_osk_list_empty( _mali_osk_list_t *list )
+MALI_STATIC_INLINE int _mali_osk_list_empty( _mali_osk_list_t *list )
 {
     return list->next == list;
 }
@@ -152,27 +150,30 @@ MALI_STATIC_INLINE void _mali_osk_list_move( _mali_osk_list_t *move_entry, _mali
     _mali_osk_list_add(move_entry, list);
 }
 
-/** @brief Move an entire list
+/** @brief Join two lists
  *
  * The list element must be initialized.
  *
- * Allows you to move a list from one list head to another list head
+ * Allows you to join a list into another list at a specific location
  *
- * @param old_list The existing list head
- * @param new_list The new list head (must be an empty list)
+ * @param list the new list to add
+ * @param at the location in a list to add the new list into
  */
-MALI_STATIC_INLINE void _mali_osk_list_move_list( _mali_osk_list_t *old_list, _mali_osk_list_t *new_list )
+MALI_STATIC_INLINE void _mali_osk_list_splice( _mali_osk_list_t *list, _mali_osk_list_t *at )
 {
-	MALI_DEBUG_ASSERT(_mali_osk_list_empty(new_list));
-	if (!_mali_osk_list_empty(old_list))
-	{
-		new_list->next = old_list->next;
-		new_list->prev = old_list->prev;
-		new_list->next->prev = new_list;
-		new_list->prev->next = new_list;
-		old_list->next = old_list;
-		old_list->prev = old_list;
-	}
+    if (!_mali_osk_list_empty(list))
+    {
+        /* insert all items from 'list' after 'at'  */
+        _mali_osk_list_t *first = list->next;
+        _mali_osk_list_t *last = list->prev;
+        _mali_osk_list_t *split = at->next;
+
+        first->prev = at;
+        at->next = first;
+
+        last->next  = split;
+        split->prev = last;
+    }
 }
 /** @} */ /* end group _mali_osk_list */
 

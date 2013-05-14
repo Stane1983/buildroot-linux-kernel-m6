@@ -20,7 +20,13 @@ extern "C"
 #include "mali_kernel_license.h"
 #include "mali_osk.h"
 
-extern struct platform_device *mali_platform_device;
+struct mali_dev
+{
+	struct cdev cdev;
+#if MALI_LICENSE_IS_GPL
+	struct class *  mali_class;
+#endif
+};
 
 #if MALI_LICENSE_IS_GPL
 /* Defined in mali_osk_irq.h */

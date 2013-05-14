@@ -11,8 +11,6 @@
 #ifndef __MALI_KERNEL_COMMON_H__
 #define __MALI_KERNEL_COMMON_H__
 
-#include "mali_osk.h"
-
 /* Make sure debug is defined when it should be */
 #ifndef DEBUG
 	#if defined(_DEBUG)

@@ -26,53 +26,32 @@ extern "C"
 /** @addtogroup _mali_osk_miscellaneous
  * @{ */
 
-/** @brief Struct with device specific configuration data
- */
-struct _mali_osk_device_data
-{
-	/* Dedicated GPU memory range (physical). */
-	u32 dedicated_mem_start;
-	u32 dedicated_mem_size;
-
-	/* Shared GPU memory */
-	u32 shared_mem_size;
-
-	/* Frame buffer memory to be accessible by Mali GPU (physical) */
-	u32 fb_start;
-	u32 fb_size;
-
-	/* Report GPU utilization in this interval (specified in ms) */
-	u32 utilization_interval;
-
-	/* Function that will receive periodic GPU utilization numbers */
-	void (*utilization_handler)(unsigned int);
-};
-
-/** @brief Find Mali GPU HW resource
+/** @brief Read the Mali Resource configuration
  *
- * @param addr Address of Mali GPU resource to find
- * @param res Storage for resource information if resource is found.
- * @return _MALI_OSK_ERR_OK on success, _MALI_OSK_ERR_ITEM_NOT_FOUND if resource is not found
- */
-_mali_osk_errcode_t _mali_osk_resource_find(u32 addr, _mali_osk_resource_t *res);
-
-
-/** @brief Find Mali GPU HW base address
+ * Populates a _mali_arch_resource_t array from configuration settings, which
+ * are stored in an OS-specific way.
  *
- * @return 0 if resources are found, otherwise the Mali GPU component with lowest address.
- */
-u32 _mali_osk_resource_base_address(void);
-
-/** @brief Retrieve the Mali GPU specific data
+ * For example, these may be compiled in to a static structure, or read from
+ * the filesystem at startup.
  *
- * @return _MALI_OSK_ERR_OK on success, otherwise failure.
+ * On failure, do not call _mali_osk_resources_term.
+ *
+ * @param arch_config a pointer to the store the pointer to the resources
+ * @param num_resources the number of resources read
+ * @return _MALI_OSK_ERR_OK on success. _MALI_OSK_ERR_NOMEM on allocation
+ * error. For other failures, a suitable _mali_osk_errcode_t is returned.
  */
-_mali_osk_errcode_t _mali_osk_device_data_get(struct _mali_osk_device_data *data);
+_mali_osk_errcode_t _mali_osk_resources_init( _mali_osk_resource_t **arch_config, u32 *num_resources );
 
+/** @brief Free resources allocated by _mali_osk_resources_init.
+ *
+ * Frees the _mali_arch_resource_t array allocated by _mali_osk_resources_init
+ *
+ * @param arch_config a pointer to the stored the pointer to the resources
+ * @param num_resources the number of resources in the array
+ */
+void _mali_osk_resources_term( _mali_osk_resource_t **arch_config, u32 num_resources);
 /** @} */ /* end group _mali_osk_miscellaneous */
-
-
-
 
 /** @addtogroup _mali_osk_low_level_memory
  * @{ */

@@ -1,56 +1,54 @@
 menu "Mali GPU OpenGL device driver"
 config MALI400
-	tristate "Mali-300/400/450 support"
-	depends on ARM
+	tristate "Mali support"
 	depends on m
 	default m
-	select DMA_SHARED_BUFFER
+	select FB
 	---help---
-	  This enables support for the ARM Mali-300, Mali-400, and Mali-450
-	  GPUs.
+	  This enables support for the Mali-300, Mali-400, and Mali-450 GPUs.
 
 	  To compile this driver as a module, choose M here: the module will be
 	  called mali.
+choice
+	prompt "Mali frequency"
+	default MALI_CLK_333M
+	depends on ARCH_MESON6 
+	depends on MALI400
+	
+config MALI_CLK_400M
+	bool "Mali clock 400M"
+	help	
+		Mali clock set to 400M
+config MALI_CLK_333M
+	bool"Mali clock 333M"
+	help
+		Mali clock set to 333M
+config MALI_CLK_250M
+	bool"Mali clock 250M"
+	help
+		Mali clock set to 250M		
+
+endchoice
 
 config MALI400_DEBUG
 	bool "Enable debug in Mali driver"
 	depends on MALI400
 	---help---
-	  This enabled extra debug checks and messages in the Mali driver.
-
-if !PROFILING || !FTRACE
-comment "ARM mali streamline with gator is depends on CONFIG_FTRACE and PROFILING.I will"
-comment "select them and other options for you.please refer to ARM DS-5 Documentation."
-comment "Setting up an ARM Linux target"
-endif
+	  This enabled extra debug checks and messages in the Mali-300/400/450
+	  driver.
 
 config MALI400_PROFILING
 	bool "Enable Mali profiling"
-	depends on MALI400
-	select PROFILING
-	select FTRACE
-	select MALI400_DEBUG
-	select PERF_EVENTS
-	select ENABLE_DEFAULT_TRACERS
-	select DEBUG_MUTEXES
-	select HIGH_RES_TIMERS
-	select HW_PERF_EVENTS
-	select CPU_FREQ
-	select TRACEPOINTS
+	depends on MALI400 && TRACEPOINTS
 	---help---
 	  This enables gator profiling of Mali GPU events.
 
-config MALI400_INTERNAL_PROFILING
-	bool "Enable internal Mali profiling API"
-	depends on MALI400_PROFILING
-	default n
-	---help---
-	  This enables the internal legacy Mali profiling API.
-
-config MALI400_UMP
-	bool "Enable UMP support"
+config MALI400_GPU_UTILIZATION
+	bool "Enable Mali GPU utilization tracking"
 	depends on MALI400
 	---help---
-	  This enables support for the UMP memory sharing API in the Mali driver.	  
+	  This enables gathering and processing of the utilization of Mali GPU.
+	  This data can be used as a basis to change GPU operating frequency.
+	  
 endmenu
 

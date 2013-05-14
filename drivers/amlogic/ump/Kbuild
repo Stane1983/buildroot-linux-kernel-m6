@@ -11,11 +11,10 @@
 # Set default configuration to use, if Makefile didn't provide one.
 # Change this to use a different config.h
 CONFIG ?= aml-meson-m400-1
+TARGET_PLATFORM ?= aml-meson
 
 ifneq ($(KBUILD_SRC),)
-	ifneq ($(wildcard $(KBUILD_SRC)/$(src)),)
-		TOP_KBUILD_SRC := $(KBUILD_SRC)/
-	endif
+TOP_KBUILD_SRC := $(KBUILD_SRC)/
 endif
 
 # Validate selected config

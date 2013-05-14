@@ -28,7 +28,6 @@
 #include "mali_platform.h"
 #include "mali_poweron_reg.h"
 #include "mali_fix.h"
-#include "mali_platform.h"
 
 static int last_power_mode = -1;
 static int mali_init_flag = 0;
@@ -106,10 +105,6 @@ static const u32 poweron_data[] =
 /* 420 */ 0xad4bda56, 0x038002b5, 0x0007ffe0, 0x00001c10,
 /* 430 */ 0xad4ad6b5, 0x038002b5, 0x4007fee0, 0x00001c00
 };
-static DEFINE_SPINLOCK(lock);
-static struct clk *mali_clk = NULL;
-
-#if MESON_CPU_TYPE <= MESON_CPU_TYPE_MESON6
 
 #define OFFSET_MMU_DTE          0
 #define OFFSET_MMU_PTE          4096
@@ -126,6 +121,9 @@ static struct clk *mali_clk = NULL;
 #define MMU_FLAG_PTE_PAGE_PRESENT       0x01
 #define MMU_FLAG_PTE_RD_PERMISSION      0x02
 #define MMU_FLAG_PTE_WR_PERMISSION      0x04
+
+static DEFINE_SPINLOCK(lock);
+static struct clk *mali_clk = NULL;
 
 //static int mali_revb_flag = -1;
 extern int mali_revb_flag;
@@ -248,11 +246,6 @@ static void mali_meson_poweron(int first_poweron)
 	if (last_power_mode == -1)
 		mali_revb_flag = mali_meson_is_revb();
 }
-#else
-static void mali_meson_poweron(int first_poweron) {
-	return;
-}
-#endif /*MESON_CPU_TYPE <= MESON_CPU_TYPE_MESON6 */
 
 _mali_osk_errcode_t mali_platform_init(void)
 {
@@ -260,7 +253,13 @@ _mali_osk_errcode_t mali_platform_init(void)
 
 	if (mali_clk ) {
 		if (!mali_init_flag) {
+#if defined(CONFIG_MALI_CLK_400M)
+			clk_set_rate(mali_clk, 400000000);
+#elif defined(CONFIG_MALI_CLK_333M)
 			clk_set_rate(mali_clk, 333000000);
+#else
+			clk_set_rate(mali_clk, 250000000);
+#endif
 			mali_clk->enable(mali_clk);
 			malifix_init();
 			mali_meson_poweron(1);
