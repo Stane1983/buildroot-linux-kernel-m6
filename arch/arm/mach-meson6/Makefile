@@ -20,7 +20,7 @@ obj-$(CONFIG_MACH_MESON6_REF)	+= board-meson6-ref.o
 obj-$(CONFIG_MACH_MESON6_REF)	+= board-m6ref-panel.o
 obj-$(CONFIG_MACH_MESON6_SKT)	+= board-meson6-skt.o
 obj-$(CONFIG_MACH_MESON6_SKT)	+= board-m6skt-panel.o
-obj-$(CONFIG_MACH_MESON6_REFG18_ATV103) += board-m6g18-atv103.o
+obj-$(CONFIG_MACH_MESON6_REFG18_ATV106) += board-m6g18-atv106.o
 endif
 obj-$(CONFIG_HOTPLUG_CPU) += hotplug.o
 obj-$(CONFIG_SMP) += headsmp.o platsmp.o
