@@ -22,7 +22,7 @@
 #include <asm/mach-types.h>
 
 extern void meson_secondary_startup(void);
-extern inline void meson_set_cpu_ctrl_reg(int value);
+extern void meson_set_cpu_ctrl_reg(int value);
 
 /*
  * control for which core is the next to come out of the secondary

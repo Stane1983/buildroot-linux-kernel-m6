@@ -15,7 +15,7 @@
 
 #include <linux/module.h>
 
-extern inline void meson_set_cpu_ctrl_reg(int value);
+extern void meson_set_cpu_ctrl_reg(int value);
 
 int platform_cpu_kill(unsigned int cpu)
 {
