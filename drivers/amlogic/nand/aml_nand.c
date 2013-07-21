@@ -1083,12 +1083,11 @@ void aml_nand_read_retry_exit_micron(struct mtd_info *mtd, int chipnr)
 {
 	
 	struct aml_nand_chip *aml_chip = mtd_to_nand_chip(mtd);
-
+	uint8_t default_val = 0;
+	
 	if(aml_chip->new_nand_info.type != MICRON_20NM)
 		return;
 	//printk("Enter %s\n", __func__);
-
-	int default_val = 0;
 	
 	aml_nand_set_reg_value_micron(aml_chip, &default_val,
 		&aml_chip->new_nand_info.read_rety_info.reg_addr[0], chipnr, aml_chip->new_nand_info.read_rety_info.reg_cnt);
@@ -1376,7 +1375,7 @@ void aml_nand_set_toggle_mode_toshiba(struct mtd_info *mtd, int chipnr)
 void aml_nand_debug_toggle_flash(struct mtd_info *mtd, int chipnr)
 {
 	struct aml_nand_chip *aml_chip = mtd_to_nand_chip(mtd);
-	struct aml_nand_platform *plat = aml_chip->platform;
+	//struct aml_nand_platform *plat = aml_chip->platform;
 	
      if(aml_chip->mfr_type == NAND_MFR_TOSHIBA){
 
@@ -1544,7 +1543,7 @@ static void aml_platform_adjust_timing(struct aml_nand_chip *aml_chip)
 
 static int aml_nand_add_partition(struct aml_nand_chip *aml_chip)
 {
-	uint64_t adjust_offset = 0, mini_part_blk_num, start_blk = 0,key_block;
+	uint64_t adjust_offset = 0, mini_part_blk_num, start_blk = 0,key_block = 0;
 	struct mtd_info *mtd = &aml_chip->mtd;
 	struct aml_nand_platform *plat = aml_chip->platform;
 	struct platform_nand_chip *chip = &plat->platform_nand_data.chip;
@@ -4732,7 +4731,7 @@ static int aml_nand_read_env (struct mtd_info *mtd, size_t offset, u_char * buf)
 	size_t amount_loaded = 0;
 	size_t len;
 	//struct mtd_oob_ops aml_oob_ops;
-	struct mtd_oob_ops  * aml_oob_ops; 
+	struct mtd_oob_ops  * aml_oob_ops = NULL; 
 	unsigned char *data_buf;
 	unsigned char env_oob_buf[sizeof(struct env_oobinfo_t)];
 
@@ -4825,7 +4824,7 @@ static int aml_nand_write_env(struct mtd_info *mtd, loff_t offset, u_char *buf)
 	size_t len;
 	//struct mtd_oob_ops aml_oob_ops;
 	
-	struct mtd_oob_ops  * aml_oob_ops;
+	struct mtd_oob_ops  * aml_oob_ops = NULL;
 	unsigned char *data_buf;
 	unsigned char env_oob_buf[sizeof(struct env_oobinfo_t)];
 
@@ -4899,7 +4898,7 @@ exit:
 static int aml_nand_save_env(struct mtd_info *mtd, u_char *buf)
 {
 	struct aml_nand_bbt_info *nand_bbt_info;
-	struct env_free_node_t *env_free_node, *env_tmp_node;
+	struct env_free_node_t *env_free_node = NULL, *env_tmp_node;
 	int error = 0, pages_per_blk, i = 1;
 	loff_t addr = 0;
 	//struct erase_info aml_env_erase_info;
@@ -5015,7 +5014,7 @@ static int aml_nand_env_init(struct mtd_info *mtd)
 	struct env_free_node_t *env_free_node, *env_tmp_node, *env_prev_node;
 	int error = 0, err, start_blk, total_blk, env_blk, i, j, pages_per_blk, bad_blk_cnt = 0, max_env_blk, phys_erase_shift;
 	loff_t offset;
-	unsigned char *data_buf;
+	unsigned char *data_buf = NULL;
 	//struct mtd_oob_ops aml_oob_ops;
 	
 	struct mtd_oob_ops  *aml_oob_ops; 
@@ -6091,7 +6090,8 @@ int aml_nand_init(struct aml_nand_chip *aml_chip)
 	if (nand_scan(mtd, aml_chip->chip_num) == -ENODEV) {
 		chip->options = 0;
 		chip->options |=  NAND_SKIP_BBTSCAN;
-		chip->options |= NAND_NO_SUBPAGE_WRITE;		if (aml_nand_scan(mtd, aml_chip->chip_num)) {
+		chip->options |= NAND_NO_SUBPAGE_WRITE;
+		if (aml_nand_scan(mtd, aml_chip->chip_num)) {
 			err = -ENXIO;
 			goto exit_error;
 		}

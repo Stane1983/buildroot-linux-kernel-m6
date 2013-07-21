@@ -392,7 +392,9 @@ static unsigned long global_l_p_j_ref_freq;
 
 static void adjust_jiffies(unsigned int freqOld, unsigned int freqNew)
 {
+#ifdef CONFIG_SMP
     int i;
+#endif
 
     if (!global_l_p_j_ref) {
         global_l_p_j_ref = loops_per_jiffy;

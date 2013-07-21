@@ -378,7 +378,7 @@ static int tsync_mode_switch(int mode,unsigned long diff_pts,int jump_pts)
 	char VA[]="VA--";
        unsigned int olddur=tsync_av_dynamic_duration_ms;
 	
-	printk("%c-discontinue,pcr=%d,vpts=%d,apts=%d,diff_pts=%d,jump_Pts=%d\n",mode,timestamp_pcrscr_get(),timestamp_vpts_get(),timestamp_apts_get(),diff_pts,jump_pts);
+	printk("%c-discontinue,pcr=%d,vpts=%d,apts=%d,diff_pts=%lu,jump_Pts=%d\n",mode,timestamp_pcrscr_get(),timestamp_vpts_get(),timestamp_apts_get(),diff_pts,jump_pts);
 	if (!tsync_enable) {
         if(tsync_mode != TSYNC_MODE_VMASTER)
 			tsync_mode = TSYNC_MODE_VMASTER;
@@ -406,8 +406,8 @@ static int tsync_mode_switch(int mode,unsigned long diff_pts,int jump_pts)
 			///
 		}
 		if(tsync_mode!=old_tsync_mode || tsync_av_mode!=old_tsync_av_mode)
-			printk("mode changes:tsync_mode:%c->%c,state:%c->%c,debugcnt=0x%x,diff_pts=%d\n",
-			VA[old_tsync_mode],VA[tsync_mode],old_tsync_av_mode,tsync_av_mode,debugcnt,diff_pts);
+			printk("mode changes:tsync_mode:%c->%c,state:%c->%c,debugcnt=0x%x,diff_pts=%lu\n",
+			  VA[old_tsync_mode],VA[tsync_mode],old_tsync_av_mode,tsync_av_mode,debugcnt,diff_pts);
 		return 0;
 	}
 
@@ -455,8 +455,8 @@ static int tsync_mode_switch(int mode,unsigned long diff_pts,int jump_pts)
 	if(olddur!=tsync_av_dynamic_duration_ms){/*duration changed,update new timeout.*/
 			tsync_av_dynamic_timeout_ms=tsync_av_latest_switch_time_ms+tsync_av_dynamic_duration_ms;
 	}
-	printk("discontinue-tsync_mode:%c->%c,state:%c->%c,debugcnt=0x%x,diff_pts=%d tsync_mode=%d\n",
-                	VA[old_tsync_mode],VA[tsync_mode],old_tsync_av_mode,tsync_av_mode,debugcnt,diff_pts,tsync_mode);	
+	printk("discontinue-tsync_mode:%c->%c,state:%c->%c,debugcnt=0x%x,diff_pts=%lu tsync_mode=%d\n",
+                  VA[old_tsync_mode],VA[tsync_mode],old_tsync_av_mode,tsync_av_mode,debugcnt,diff_pts,tsync_mode);
 	return 0;
 }
 static void tsync_state_switch_timer_fun(unsigned long arg)
@@ -1065,7 +1065,7 @@ static ssize_t store_apts(struct class *class,
                           const char *buf,
                           size_t size)
 {
-    unsigned pts, t;
+    unsigned pts;
     ssize_t r;
 
     r = sscanf(buf, "0x%x", &pts);

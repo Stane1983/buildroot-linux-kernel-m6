@@ -19,7 +19,7 @@
  */
 
 #ifdef CONFIG_VMSPLIT_3G
-#define VMALLOC_END     0xF0000000
+#define VMALLOC_END     0xF0000000UL
 #endif
 
 #ifdef CONFIG_VMSPLIT_2G

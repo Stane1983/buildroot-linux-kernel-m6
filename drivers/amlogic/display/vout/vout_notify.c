@@ -101,12 +101,14 @@ void wakeup_early_suspend_proc(void)
 #endif
 int vout_suspend(void)
 {
+#ifdef CONFIG_SCREEN_ON_EARLY
+    int i = 0;
+#endif
 	int ret=0 ;
 	vout_server_t  *p_server = vout_module.curr_vout_server;
 
 #ifdef CONFIG_SCREEN_ON_EARLY
 	wake_up_flag = 0;
-	int i = 0;
 	for(; i < 20; i++)
 		if (wake_up_flag) {
 			wake_up_flag = 0;

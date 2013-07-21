@@ -74,9 +74,9 @@ unsigned int aml_iec958_playback_size = 0;  // in bytes
 
 static  unsigned  playback_substream_handle = 0 ;
 /*to keep the pcm status for clockgating*/
-static unsigned clock_gating_status = 0;
-static unsigned clock_gating_playback = 1;
-static unsigned clock_gating_capture = 2;
+//static unsigned clock_gating_status = 0;
+//static unsigned clock_gating_playback = 1;
+//static unsigned clock_gating_capture = 2;
 static int audio_type_info = -1;
 static int audio_sr_info = -1;
 extern unsigned audioin_mode;
@@ -89,9 +89,9 @@ static struct aml_pcm_work_t{
 
 int codec_power=1;
 unsigned int flag=0;
-static int num=0;
+//static int num=0;
 
-static int codec_power_switch(struct snd_pcm_substream *substream, unsigned int status);
+//static int codec_power_switch(struct snd_pcm_substream *substream, unsigned int status);
 
 EXPORT_SYMBOL(aml_pcm_playback_start_addr);
 EXPORT_SYMBOL(aml_pcm_capture_start_addr);
@@ -276,14 +276,14 @@ static int aml_pcm_preallocate_dma_buffer(struct snd_pcm *pcm,
 		aml_pcm_playback_phy_end_addr = buf->addr+size;
 
         /* alloc iec958 buffer */
-        aml_iec958_playback_start_addr = dma_alloc_coherent(pcm->card->dev, size*4,
+        aml_iec958_playback_start_addr = (unsigned int)dma_alloc_coherent(pcm->card->dev, size*4,
            (dma_addr_t *)(&aml_iec958_playback_start_phy), GFP_KERNEL);
         if(aml_iec958_playback_start_addr == 0){
           printk("aml-pcm %d: alloc iec958 buffer failed\n", stream);
           return -ENOMEM;
         }
         aml_iec958_playback_size = size*4;
-        printk("iec958 %d: preallocate dma buffer start=%p, size=%x\n", stream, aml_iec958_playback_start_addr, size*4);
+        printk("iec958 %d: preallocate dma buffer start=%x, size=%x\n", stream, aml_iec958_playback_start_addr, size*4);
 	}else{
 		size = aml_pcm_capture.buffer_bytes_max;
 		buf->dev.type = SNDRV_DMA_TYPE_DEV;
@@ -293,8 +293,8 @@ static int aml_pcm_preallocate_dma_buffer(struct snd_pcm *pcm,
 					  &buf->addr, GFP_KERNEL);
 		    printk("aml-pcm %d:"
 		    "capture preallocate_dma_buffer: area=%p, addr=%p, size=%d\n", stream,
-		    (void *) buf->area,
-		    (void *) buf->addr,
+		    buf->area,
+		    (void *)buf->addr,
 		    size);
 
             aml_pcm_capture_start_addr = (unsigned int)buf->area;
@@ -321,7 +321,7 @@ static int aml_pcm_preallocate_dma_buffer(struct snd_pcm *pcm,
             /* one size for i2s output, another for 958, and 128 for alignment */
 		    //buf->area = dma_alloc_coherent(pcm->card->dev, size+4096,
 					  //&buf->addr, GFP_KERNEL);
-            buf->area = aml_pcm_playback_start_addr;
+            buf->area = (void*)aml_pcm_playback_start_addr;
             buf->addr = aml_pcm_playback_phy_start_addr;
 		    printk("aml-pcm %d:"
 		    "dev>0 playback preallocate_dma_buffer: area=%p, addr=%p, size=%d\n", stream,
@@ -336,8 +336,8 @@ static int aml_pcm_preallocate_dma_buffer(struct snd_pcm *pcm,
 		    buf->private_data = NULL;
 		    //buf->area = dma_alloc_coherent(pcm->card->dev, size*2,
 		    //			  &buf->addr, GFP_KERNEL);
-		    buf->area = aml_pcm_capture_start_addr;
-            buf->addr = aml_pcm_capture_phy_start_addr;
+		    buf->area = (void *)aml_pcm_capture_start_addr;
+		    buf->addr = aml_pcm_capture_phy_start_addr;
 		    printk("aml-pcm %d:"
 		    "dev>0 capture preallocate_dma_buffer: area=%p, addr=%p, size=%d\n", stream,
 		    (void *) buf->area,
@@ -448,7 +448,8 @@ static int audio_notify_hdmi_info(int audio_type, void *v){
 	}
 	audio_sr_info = substream->runtime->rate;
 	audio_type_info = audio_type;
-
+	
+	return 0;
 }
 static void iec958_notify_hdmi_info(void)
 {

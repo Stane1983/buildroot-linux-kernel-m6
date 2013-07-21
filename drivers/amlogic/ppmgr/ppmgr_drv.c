@@ -47,7 +47,7 @@ extern void Set3DProcessPara(unsigned mode);
 #ifdef CONFIG_POST_PROCESS_MANAGER_PPSCALER
 static bool scaler_pos_reset = false;
 #endif
-platform_type_t get_platform_type()
+platform_type_t get_platform_type(void)
 {
 	return	platform_type;
 }
@@ -477,7 +477,7 @@ static ssize_t receiver_write(struct class *cla,
 					struct class_attribute *attr,
 					const char *buf, size_t count)
 {
-	ssize_t ret = -EINVAL, size;
+	ssize_t size;
 	char *endp;
     if(buf[0]!='0'&&buf[0]!='1') {
 		printk("device to whitch the video stream decoded\n");
@@ -506,7 +506,7 @@ static ssize_t platform_type_write(struct class *cla,
 					struct class_attribute *attr,
 					const char *buf, size_t count)
 {
-	ssize_t ret = -EINVAL, size;
+	ssize_t size;
 	char *endp;
 	platform_type = simple_strtoul(buf, &endp, 0);
 	size = endp - buf;
@@ -967,6 +967,7 @@ static long ppmgr_ioctl(struct file *file,
 #ifdef CONFIG_POST_PROCESS_MANAGER_3D_PROCESS
     unsigned mode = 0;
     int flag = 0;
+    platform_type_t plarform_type;
 #endif
     switch (cmd)
     {
@@ -983,8 +984,7 @@ static long ppmgr_ioctl(struct file *file,
             break;
 #ifdef CONFIG_POST_PROCESS_MANAGER_3D_PROCESS
         case PPMGR_IOC_ENABLE_PP:
-            mode=(int)argp;    
-            platform_type_t plarform_type;
+            mode=(int)argp;
             plarform_type = get_platform_type();
             if( plarform_type == PLATFORM_TV){
             	set_ppmgr_status(mode);            

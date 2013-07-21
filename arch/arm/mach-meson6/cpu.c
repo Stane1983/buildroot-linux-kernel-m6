@@ -48,9 +48,12 @@ static inline void __init write_actlr(u32 actlr)
 static int __init meson_cache_init(void)
 {
 #ifdef CONFIG_CACHE_L2X0
-	__u32 prefetch,aux, scu_ctrl;
-	void __iomem *l2x0_base;
+#ifdef CONFIG_MESON_L2CC_OPTIMIZE
+	__u32 scu_ctrl, aux;
 	void __iomem *scu_base = (void __iomem *) IO_PERIPH_BASE;
+#endif
+	__u32 prefetch;
+	void __iomem *l2x0_base;
     /*
      * Early BRESP, I/D prefetch enabled
      * Shared attribute override enabled

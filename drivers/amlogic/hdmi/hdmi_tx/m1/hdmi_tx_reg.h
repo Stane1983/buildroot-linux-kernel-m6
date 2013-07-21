@@ -22,10 +22,11 @@ void WRITE_APB_REG(unsigned long addr, unsigned long data);
 unsigned long READ_APB_REG(unsigned long addr);
 
 #endif
+#if 0
 #define HDMI_ADDR_PORT 0x2000
 #define HDMI_DATA_PORT 0x2004
 #define HDMI_CNTL_PORT 0x2008
-
+#endif
 
 //inside chip
 // tx base addr  : 0x00000 ~ 0x03fff

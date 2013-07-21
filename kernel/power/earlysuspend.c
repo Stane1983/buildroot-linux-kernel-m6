@@ -173,6 +173,10 @@ abort:
 	mutex_unlock(&early_suspend_lock);
 }
 
+#ifdef CONFIG_SCREEN_ON_EARLY
+    extern void wakeup_early_suspend_proc(void);
+#endif
+
 void request_suspend_state(suspend_state_t new_state)
 {
 	unsigned long irqflags;
@@ -203,7 +207,6 @@ void request_suspend_state(suspend_state_t new_state)
 		state &= ~SUSPEND_REQUESTED;
 		wake_lock(&main_wake_lock);
 #ifdef CONFIG_SCREEN_ON_EARLY
-		extern void wakeup_early_suspend_proc(void);
 		wakeup_early_suspend_proc();
 		waiting_flag  = 1;
 #endif
@@ -217,7 +220,7 @@ void request_suspend_state(suspend_state_t new_state)
 		mutex_lock(&suspend_mutex);
 		mutex_unlock(&suspend_mutex);
 	}
-#endif CONFIG_SCREEN_ON_EARLY
+#endif
 }
 
 suspend_state_t get_suspend_state(void)

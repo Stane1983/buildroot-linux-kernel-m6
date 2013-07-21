@@ -232,13 +232,14 @@ int journal_has_data_buffers(journal_t *journal)
 	struct jbd2_inode *jinode;
 	int  ret = 0;
 	struct address_space *mapping;
+	transaction_t *commit_transaction; 
 
 	if(journal == NULL)
 		return ret;
 	if(journal->j_running_transaction == NULL)
 		return ret;
 
-	transaction_t *commit_transaction = journal->j_running_transaction;
+	commit_transaction = journal->j_running_transaction;
 
 
 	spin_lock(&journal->j_list_lock);

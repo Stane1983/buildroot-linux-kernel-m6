@@ -340,11 +340,6 @@ static int get_celius(void)
     }
     return (int)((get_adc_sample(6))*x/div + y);
 }
-static unsigned get_saradc_ch6(void)
-{
-    int val=get_adc_sample(6);
-    return  (unsigned)(val<0?0:val);
-}
 static ssize_t temperature_raw_show(struct class *cla, struct class_attribute *attr, char *buf)
 {
     return sprintf(buf, "%d\n", get_adc_sample(6));
@@ -357,7 +352,7 @@ static ssize_t temperature_mode_show(struct class *cla, struct class_attribute *
 {
     return sprintf(buf, "%d\n", aml_read_reg32(P_SAR_ADC_REG3)&(1<<29)?1:0);
 }
-static ssize_t temperature_mode_store(struct class *cla, struct class_attribute *attr, const char *buf, ssize_t count)
+static ssize_t temperature_mode_store(struct class *cla, struct class_attribute *attr, const char *buf, size_t count)
 {
     u8 tempsen;
     sscanf(buf, "%x", (int*)&tempsen);

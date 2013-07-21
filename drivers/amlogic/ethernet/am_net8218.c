@@ -1120,13 +1120,21 @@ static int mac_pmt_enable(unsigned int enable)
 /* --------------------------------------------------------------------------*/
 extern int get_aml_key_kernel(const char* key_name, unsigned char* data, int ascii_flag);
 extern int extenal_api_key_set_version(char *devvesion);
+#ifdef CONFIG_AML_NAND_KEY
 static char print_buff[1025];
+#endif
 
 static int phy_reset(struct net_device *ndev)
 {
 	struct am_net_private *np = netdev_priv(ndev);
 	unsigned long val;
 	int k;
+#ifdef CONFIG_AML_NAND_KEY
+	char *endp;
+	int ret,j;
+	int use_nand_mac=0;
+	u8 mac[ETH_ALEN];
+#endif
 	printk("phy_reset!\n");
 #if MESON_CPU_TYPE >= MESON_CPU_TYPE_MESON6
 	/* make sure PHY power-on */
@@ -1175,10 +1183,6 @@ static int phy_reset(struct net_device *ndev)
 	IO_WRITE32(0x00100800, np->base_addr + ETH_DMA_0_Bus_Mode);
 	printk("--1--write mac add to:");
 	data_dump(ndev->dev_addr, 6);
-	int ret,j;
-	int use_nand_mac=0;
-	u8 mac[ETH_ALEN];
-	char *endp;
 #ifdef CONFIG_AML_NAND_KEY
 	extenal_api_key_set_version("nand3");
 	ret = get_aml_key_kernel("mac", print_buff, 0);
@@ -2176,9 +2180,10 @@ static int am_net_read_macreg(int argc, char **argv)
 {
 	int reg = 0;
 	int val = 0;
-	printk("am_net_read_macreg\n");
 	struct am_net_private *np = netdev_priv(my_ndev);
 
+	printk("am_net_read_macreg\n");
+	
 	if ((np == NULL) || (np->dev == NULL))
 		return -1;
 
@@ -2211,8 +2216,9 @@ static int am_net_write_macreg(int argc, char **argv)
 {
 	int reg = 0;
 	int val = 0;
-	printk("am_net_write_macreg\n");
 	struct am_net_private *np = netdev_priv(my_ndev);
+
+	printk("am_net_write_macreg\n");
 
 	if ((np == NULL) || (np->dev == NULL))
 		return -1;

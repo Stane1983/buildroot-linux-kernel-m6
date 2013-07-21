@@ -311,6 +311,7 @@ static irqreturn_t sdxc_interrupt_monitor(int irq, void *dev_id, struct pt_regs 
 
 struct card_host *sdio_host;
 
+#if defined(CONFIG_CARD_DEFERRED_MONITOR) && defined (CONFIG_INAND)
 static void card_force_init(struct card_host *card_host, CARD_TYPE_t card_type)
 {
     struct memory_card *card = NULL;
@@ -337,6 +338,7 @@ static void card_force_init(struct card_host *card_host, CARD_TYPE_t card_type)
     card_detect_change(card_host, 0);
     printk("%s force init ok\n", card->name);
 }
+#endif
 
 static int card_reader_init(struct card_host *host)
 {

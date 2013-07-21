@@ -1839,6 +1839,7 @@ static ssize_t show_resample_type(struct class* class, struct class_attribute* a
      }else if(resample_type_flag==2){//2-->up resample processing
          return sprintf(buf, "UP\n");
      }
+     return sprintf(buf, "Error\n");
 }
 
 static ssize_t store_resample_type(struct class* class, struct class_attribute* attr,

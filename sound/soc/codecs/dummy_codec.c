@@ -106,8 +106,8 @@ static int dummy_codec_platform_probe(struct platform_device *pdev)
 static int __exit dummy_codec_platform_remove(struct platform_device *pdev)
 {
     snd_soc_unregister_codec(&pdev->dev);
-	kfree(platform_get_drvdata(&pdev->dev));
-	return 0;
+    kfree(platform_get_drvdata(pdev));
+    return 0;
 }
 
 static struct platform_driver dummy_codec_platform_driver = {

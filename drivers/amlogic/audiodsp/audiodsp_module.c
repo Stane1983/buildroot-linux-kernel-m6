@@ -111,14 +111,14 @@ static audiodsp_pm_state_t pm_state;
 
 static void audiodsp_prevent_sleep(void)
 {
-    struct audiodsp_priv* priv = audiodsp_privdata();
+    //struct audiodsp_priv* priv = audiodsp_privdata();
     printk("audiodsp prevent sleep\n");
     //wake_lock(&priv->wakelock);
 }
 
 static void audiodsp_allow_sleep(void)
 {
-    struct audiodsp_priv *priv=audiodsp_privdata();
+    //struct audiodsp_priv *priv=audiodsp_privdata();
     printk("audiodsp allow sleep\n");
     //wake_unlock(&priv->wakelock);
 }
@@ -213,7 +213,7 @@ static unsigned long audiodsp_drop_pcm(unsigned long size)
 {
 	struct audiodsp_priv *priv = audiodsp_privdata();
 	size_t len;
-	int count;
+	int count = 0;
 	unsigned long drop_bytes = size;
 
 	mutex_lock(&priv->stream_buffer_mutex);
@@ -259,10 +259,12 @@ static long audiodsp_ioctl(struct file *file, unsigned int cmd,
 	int ret=0;
 	unsigned long drop_size;
 	unsigned long *val=(unsigned long *)args;
-	static int wait_format_times=0;	
+	static int wait_format_times=0;
+	
 	switch(cmd)
 		{
-		case AUDIODSP_SET_FMT:						
+		case AUDIODSP_SET_FMT:			
+			
 			priv->stream_fmt=args;
 			if(IEC958_mode_raw){// raw data pass through		
 				if(args == MCODEC_FMT_DTS)
@@ -285,7 +287,8 @@ static long audiodsp_ioctl(struct file *file, unsigned int cmd,
 			else if(args == MCODEC_FMT_DTS)
 				DSP_WD(DSP_DTS_DEC_INFO,dts_dec_control|(1<<31));
 			break;
-		case AUDIODSP_START:						
+		case AUDIODSP_START:			
+			
 			if(IEC958_mode_codec || (IEC958_mode_codec_last != IEC958_mode_codec))
 			{
 				IEC958_mode_raw_last = IEC958_mode_raw;
@@ -718,7 +721,7 @@ static ssize_t dsp_working_status_show(struct class* cla, struct class_attribute
     pbuf += sprintf(pbuf, "\tdsp jeffies  0x%lx\n", DSP_RD(DSP_JIFFIES));
     pbuf += sprintf(pbuf, "\tdsp pcm wp  0x%lx\n", DSP_RD(DSP_DECODE_OUT_WD_ADDR));
     pbuf += sprintf(pbuf, "\tdsp pcm rp  0x%lx\n", DSP_RD(DSP_DECODE_OUT_RD_ADDR));
-		 pbuf += sprintf(pbuf, "\tdsp pcm buffer level  0x%lx\n", dsp_codec_get_bufer_data_len(priv));
+    pbuf += sprintf(pbuf, "\tdsp pcm buffer level  0x%i\n", dsp_codec_get_bufer_data_len(priv));
     pbuf += sprintf(pbuf, "\tdsp pcm buffered size  0x%lx\n", DSP_RD(DSP_BUFFERED_LEN));
     pbuf += sprintf(pbuf, "\tdsp es read offset  0x%lx\n", DSP_RD(DSP_AFIFO_RD_OFFSET1));
 
@@ -750,7 +753,8 @@ static ssize_t digital_raw_store(struct class* class, struct class_attribute* at
   printk("IEC958_mode_raw=%d\n", IEC958_mode_raw);
   return count;
 }
-static ssize_t print_flag_show(struct class*cla, struct class_attribute* attr, char* buf)
+
+static ssize_t print_flag_show(struct class*cla, struct class_attribute* attr, char* buf)
 {
   static char* dec_format[] = {
     "0 - disable arc dsp print",
@@ -861,7 +865,7 @@ static ssize_t dts_dec_control_show(struct class*cla, struct class_attribute* at
 	char *dialnorm[] = {"disable","enable"};	
 	char *pbuf = buf;
 	pbuf += sprintf(pbuf, "\tdts  dmx mode : %s\n", dmxmode[(dts_dec_control>>DTS_DMX_MODE_BIT)&0x1]);
-	pbuf += sprintf(pbuf, "\tdts  drc scale : %d%\n", (dts_dec_control>>DTS_DRC_SCALE_BIT)&0xff);
+	pbuf += sprintf(pbuf, "\tdts  drc scale : %d\n", (dts_dec_control>>DTS_DRC_SCALE_BIT)&0xff);
 	pbuf += sprintf(pbuf, "\tdts  dial norm : %s\n", dialnorm[(dts_dec_control>>DTS_DIAL_NORM_BIT)&0x1]);
 	return (pbuf-buf);
 }
@@ -885,9 +889,9 @@ static ssize_t dts_dec_control_store(struct class* class, struct class_attribute
 		dts_dec_control = (dts_dec_control&(~1))|val;
  	}
  	else if(strncmp(tmpbuf, "dtsdrcscale", 11)==0){
-        val=simple_strtoul(buf+i+1, NULL, 16); 	
+        val=simple_strtoul(buf+i+1, NULL, 16);
 		val = val&0xff;
-		printk("dts drc  scale set to %d%\n",val);
+		printk("dts drc  scale set to %d\n",val);
 		dts_dec_control = (dts_dec_control&(~(0xff<<DTS_DRC_SCALE_BIT)))|(val<<DTS_DRC_SCALE_BIT);
  	}
  	else if(strncmp(tmpbuf, "dtsdialnorm", 11)==0){
@@ -929,9 +933,12 @@ static struct class_attribute audiodsp_attrs[]={
     __ATTR_RO(codec_fatal_err),
     __ATTR_RO(swap_buf_ptr),
     __ATTR_RO(dsp_working_status),
-    __ATTR(digital_raw, S_IRUGO | S_IWUSR, digital_raw_show, digital_raw_store),		
-    __ATTR(dec_option, S_IRUGO | S_IWUSR, dec_option_show, dec_option_store),		
-    __ATTR(print_flag, S_IRUGO | S_IWUSR, print_flag_show, print_flag_store),		
+    __ATTR(digital_raw, S_IRUGO | S_IWUSR, digital_raw_show, digital_raw_store),
+		
+    __ATTR(dec_option, S_IRUGO | S_IWUSR, dec_option_show, dec_option_store),
+		
+    __ATTR(print_flag, S_IRUGO | S_IWUSR, print_flag_show, print_flag_store),
+		
     __ATTR(ac3_drc_control, S_IRUGO | S_IWUSR, ac3_drc_control_show, ac3_drc_control_store),
     __ATTR(dsp_debug, S_IRUGO | S_IWUSR, dsp_debug_show, dsp_debug_store),
     __ATTR(dts_dec_control, S_IRUGO | S_IWUSR, dts_dec_control_show, dts_dec_control_store),    
@@ -941,12 +948,12 @@ static struct class_attribute audiodsp_attrs[]={
 #ifdef CONFIG_PM
 static int audiodsp_suspend(struct device* dev, pm_message_t state)
 {
-     struct audiodsp_priv *priv = audiodsp_privdata();
 #if 0	 
+     struct audiodsp_priv *priv = audiodsp_privdata();
     if(wake_lock_active(&priv->wakelock)){
         return -1; // please stop dsp first
     }
-#endif	
+#endif
     pm_state.event = state.event;
     if(state.event == PM_EVENT_SUSPEND){
         // should sleep cpu2 here after RevC chip

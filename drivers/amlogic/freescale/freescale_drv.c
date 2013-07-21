@@ -254,9 +254,7 @@ static void set_disp_para(const char *para)
     }
 }
 
-static ssize_t disp_write(struct device *dev,
-					struct device_attribute *attr,
-					const char *buf, size_t count)
+static ssize_t disp_write(struct class *cla,struct class_attribute *attr,const char *buf, size_t count)
 {
     set_disp_para(buf);
     return 0;
@@ -338,13 +336,11 @@ static struct class_attribute freescale_class_attrs[] = {
     __ATTR(bypass,
            S_IRUGO | S_IWUSR,
            bypass_read,
-           bypass_write),   
-           
+           bypass_write),
     __ATTR(disp,
            S_IRUGO | S_IWUSR,
            disp_read,
-           disp_write),          
-
+           disp_write),
     __ATTR(orientation,
            S_IRUGO | S_IWUSR,
            orientation_read,
@@ -385,9 +381,9 @@ struct class* init_freescale_cls() {
 *
 ************************************************************************/
 
-void set_freescale_buf_info(char* start,unsigned int size) {
-    freescale_device.buffer_start=(char*)start;
-    freescale_device.buffer_size=(char*)size;
+void set_freescale_buf_info(char *start,unsigned int size) { 
+    freescale_device.buffer_start=start;
+    freescale_device.buffer_size=size;
 }
 
 void get_freescale_buf_info(char** start,unsigned int* size) {
@@ -549,9 +545,9 @@ static int freescale_driver_probe(struct platform_device *pdev)
         return -EFAULT;
     }
 
-    buf_start = mem->start;
+    buf_start = (char *)mem->start;
     buf_size = mem->end - mem->start + 1;
-    set_freescale_buf_info(mem->start,buf_size);
+    set_freescale_buf_info(buf_start, buf_size);
     init_freescale_device();
     return 0;
 }
@@ -604,5 +600,3 @@ module_exit(freescale_remove_module);
 MODULE_DESCRIPTION("AMLOGIC  freescale driver");
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("aml-sh <kasin.li@amlogic.com>");
-
-

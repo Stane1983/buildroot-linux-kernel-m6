@@ -84,7 +84,9 @@ static void hdmitx_dump_tvenc_reg(int cur_VIC, int printk_flag);
 static void hdmi_phy_suspend(void);
 static void hdmi_phy_wakeup(void);
 
+#if !defined(CEC0_LOG_ADDR) 
 #define CEC0_LOG_ADDR 0x4
+#endif
 
 //#define HPD_DELAY_CHECK
 //#define CEC_SUPPORT
@@ -305,8 +307,8 @@ static void hdmi_tvenc1080i_set(Hdmi_tx_video_para_t* param)
 {
     unsigned long VFIFO2VD_TO_HDMI_LATENCY = 2; // Annie 01Sep2011: Change value from 3 to 2, due to video encoder path delay change.
     unsigned long TOTAL_PIXELS, PIXEL_REPEAT_HDMI, PIXEL_REPEAT_VENC, ACTIVE_PIXELS;
-    unsigned FRONT_PORCH, HSYNC_PIXELS, ACTIVE_LINES, INTERLACE_MODE, TOTAL_LINES, SOF_LINES, VSYNC_LINES;
-    unsigned LINES_F0, LINES_F1,BACK_PORCH, EOF_LINES, TOTAL_FRAMES;
+    unsigned FRONT_PORCH = 0, HSYNC_PIXELS, ACTIVE_LINES = 0, INTERLACE_MODE, TOTAL_LINES, SOF_LINES, VSYNC_LINES = 0;
+    unsigned LINES_F0 = 0, LINES_F1 = 0,BACK_PORCH, EOF_LINES = 0, TOTAL_FRAMES;
 
     unsigned long total_pixels_venc ;
     unsigned long active_pixels_venc;
@@ -456,8 +458,8 @@ static void hdmi_tvenc480i_set(Hdmi_tx_video_para_t* param)
 {
     unsigned long VFIFO2VD_TO_HDMI_LATENCY = 1; // Annie 01Sep2011: Change value from 2 to 1, due to video encoder path delay change.
     unsigned long TOTAL_PIXELS, PIXEL_REPEAT_HDMI, PIXEL_REPEAT_VENC, ACTIVE_PIXELS;
-    unsigned FRONT_PORCH, HSYNC_PIXELS, ACTIVE_LINES, INTERLACE_MODE, TOTAL_LINES, SOF_LINES, VSYNC_LINES;
-    unsigned LINES_F0, LINES_F1,BACK_PORCH, EOF_LINES, TOTAL_FRAMES;
+    unsigned FRONT_PORCH = 0, HSYNC_PIXELS = 0, ACTIVE_LINES = 0, INTERLACE_MODE, TOTAL_LINES, SOF_LINES, VSYNC_LINES;
+    unsigned LINES_F0 = 0, LINES_F1 = 0,BACK_PORCH = 0, EOF_LINES = 0, TOTAL_FRAMES;
 
     unsigned long total_pixels_venc ;
     unsigned long active_pixels_venc;
@@ -849,7 +851,7 @@ void hdmi_tvenc_set(Hdmi_tx_video_para_t *param)
         ENC_OFFSET_RIGHT(P_ENCP_DE_H_BEGIN);
         ENC_OFFSET_RIGHT(P_ENCP_DE_H_END);
 #undef ENC_OFFSET_POSITION
-#undef ENC_OFFSET_RIGHT(reg)
+#undef ENC_OFFSET_RIGHT
     }
 
     switch(param->VIC)
@@ -2573,6 +2575,8 @@ static int hdmitx_m3_set_audmode(struct hdmi_tx_dev_s* hdmitx_device, Hdmi_tx_au
         case FS_48K:
             audio_N_para = 6144 * 2;
             break;
+	default:
+	    break;
     }
 
     //TODO. Different audio type, maybe have different settings
@@ -2775,7 +2779,7 @@ static void hdmitx_m3_uninit(hdmitx_dev_t* hdmitx_device)
     unmux_hpd();
 }    
 
-static unsigned int osd_reg_save = -1;
+//static unsigned int osd_reg_save = -1;
 static char hdcp_log_buf[HDMITX_HDCP_MONITOR_BUF_SIZE] = { 0 };
 const static hdcp_sub_t hdcp_monitor_array[] = {
     {"Aksv_shw", TX_HDCP_SHW_AKSV_0, 5},

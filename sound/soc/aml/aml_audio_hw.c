@@ -28,7 +28,8 @@ unsigned I2S_MODE      = AIU_I2S_MODE_PCM16;
 int  audio_in_buf_ready = 0;
 int audio_out_buf_ready = 0;
 
-unsigned int IEC958_bpf = 0x7dd;
+
+unsigned int IEC958_bpf = 0x7dd;
 unsigned int IEC958_brst = 0xc;
 unsigned int IEC958_length = 0x7dd*8;
 unsigned int IEC958_padsize = 0x8000;
@@ -359,11 +360,12 @@ int if_audio_in_i2s_enable()
 
 void audio_in_spdif_enable(int flag)
 {
+#if 0
   int rd = 0, start=0;
-
+#endif
 	if(flag){
+#if 0
 reset_again:
-#if 0	
 	     WRITE_MPEG_REG_BITS(AUDIN_FIFO1_CTRL, 1, 1, 1); // reset FIFO 0
             WRITE_MPEG_REG(AUDIN_FIFO1_PTR, 0);
             rd = READ_MPEG_REG(AUDIN_FIFO1_PTR);

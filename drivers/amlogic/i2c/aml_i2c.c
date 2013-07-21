@@ -230,7 +230,7 @@ static void aml_i2c_stop(struct aml_i2c *i2c)
 		aml_i2c_clr_pinmux(i2c);
 		return;
 	}
-    if(i2c_silence) return 0;
+    if(i2c_silence) return;
 	aml_i2c_clear_token_list(i2c);
 	i2c->token_tag[0]=TOKEN_STOP;
 	aml_i2c_set_token_list(i2c);
@@ -707,8 +707,8 @@ static ssize_t test_slave_device(struct class *class,
       return count;
     }
     
-    i = sscanf(buf, "%d%x%d%d%d%x%x%x%x", &bus_num, &slave_addr, &speed, &wnum, &rnum, 
-      &wbuf[0], &wbuf[1], &wbuf[2], &wbuf[3]);
+    i = sscanf(buf, "%d%x%d%d%d%x%x%x%x", &bus_num, &slave_addr, &speed, &wnum, &rnum,
+		(unsigned int *)&wbuf[0], (unsigned int *)&wbuf[1], (unsigned int *)&wbuf[2], (unsigned int *)&wbuf[3]);
     restart = !!(rnum & 0x80);
     rnum &= 0x7f;
     printk("bus_num=%d, slave_addr=%x, speed=%d, wnum=%d, rnum=%d\n",

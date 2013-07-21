@@ -45,6 +45,10 @@ int do_aes_internal(unsigned char bEncryptFlag,unsigned char * pIN, int nINLen, 
 {
 	int nRet = -1;
 	int nAESblkLen=16;
+	aes256_ctx_t ctx;
+	unsigned char blk_buf[64];
+	int nLoadLen = nAESblkLen;
+	
 	//check
 	if(!pIN || !nINLen || !pOUT || !pOUTLen)
 		return nRet;
@@ -52,12 +56,9 @@ int do_aes_internal(unsigned char bEncryptFlag,unsigned char * pIN, int nINLen, 
 	//clear memory first?
 	memset(pOUT,0,nINLen);
 	
-	aes256_ctx_t ctx;
-	memset(&ctx,0,sizeof(ctx));	
-	unsigned char blk_buf[64];		
+	memset(&ctx,0,sizeof(ctx));
 	memcpy(ctx.key,g_AESkey,14*sizeof(aes_roundkey_t));	
-	
-	int nLoadLen = nAESblkLen;	
+		
 	*pOUTLen = 0;
 	do{
 		memset(blk_buf,0,sizeof(blk_buf));
@@ -76,7 +77,6 @@ int do_aes_internal(unsigned char bEncryptFlag,unsigned char * pIN, int nINLen, 
 	nRet = 0;	
 	
 	return nRet;
-	
 }
 
 //for kernel compile pass

@@ -132,7 +132,7 @@ void reset_dsp( struct audiodsp_priv *priv)
     
     DSP_WD(DSP_CHIP_SUBID, subid);
 
-    printk("reset dsp : dec opt=%x, subid=%x\n", DSP_RD(DSP_DECODE_OPTION), DSP_RD(DSP_CHIP_SUBID));
+    printk("reset dsp : dec opt=%lx, subid=%lx\n", DSP_RD(DSP_DECODE_OPTION), DSP_RD(DSP_CHIP_SUBID));
     if(!priv->dsp_is_started){
         DSP_PRNT("dsp reset now\n");
         enable_dsp(1);

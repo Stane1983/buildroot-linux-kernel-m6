@@ -131,7 +131,7 @@ static unsigned char * default_osd_name[16] = {
 
 cec_rx_msg_buf_t cec_rx_msg_buf;
 
-static unsigned char * osd_name_uninit = "\0\0\0\0\0\0\0\0";
+//static unsigned char * osd_name_uninit = "\0\0\0\0\0\0\0\0";
 static irqreturn_t cec_isr_handler(int irq, void *dev_instance);
 
 
@@ -253,17 +253,17 @@ static unsigned int cec_get_ms_tick_interval(unsigned int last_tick)
 int cec_ll_tx_irq(unsigned char *msg, unsigned char len)
 {
     int i;
-    int ret;
+    int ret = 0;
     //unsigned long tx_flags;
     unsigned int n = 0;
     unsigned int repeat = 2;
-    unsigned long timeout =jiffies + (HZ);
+    //unsigned long timeout =jiffies + (HZ);
     
 //    spin_lock_irqsave(&cec_tx_lock, cec_tx_flags);
     do {
         printk("\nCEC repeat:%x\n", repeat);
-        printk("\nCEC CEC_TX_MSG_STATUS:%x\n", hdmi_rd_reg(CEC0_BASE_ADDR+CEC_TX_MSG_STATUS));
-        printk("\nCEC CEC_RX_MSG_STATUS:%x\n", hdmi_rd_reg(CEC0_BASE_ADDR+CEC_RX_MSG_STATUS));
+        printk("\nCEC CEC_TX_MSG_STATUS:%lx\n", hdmi_rd_reg(CEC0_BASE_ADDR+CEC_TX_MSG_STATUS));
+        printk("\nCEC CEC_RX_MSG_STATUS:%lx\n", hdmi_rd_reg(CEC0_BASE_ADDR+CEC_RX_MSG_STATUS));
         if(hdmi_rd_reg(CEC0_BASE_ADDR+CEC_TX_MSG_STATUS) == TX_DONE)
             break;
 	    while ((hdmi_rd_reg(CEC0_BASE_ADDR+CEC_TX_MSG_STATUS) != TX_IDLE) || (hdmi_rd_reg(CEC0_BASE_ADDR+CEC_RX_MSG_STATUS) != RX_IDLE)){
@@ -356,11 +356,11 @@ int cec_ll_tx_irq(unsigned char *msg, unsigned char len)
 int cec_ll_tx(unsigned char *msg, unsigned char len, unsigned char *stat_header)
 {
     int i;
-    int ret;
+    int ret = 0;
     //unsigned long tx_flags;
     unsigned int n = 0;
     unsigned int repeat = 2;
-    unsigned long timeout =jiffies + (HZ);
+    //unsigned long timeout =jiffies + (HZ);
     
 //    spin_lock_irqsave(&cec_tx_lock, cec_tx_flags);
     do {
@@ -2219,6 +2219,7 @@ void cec_usrcmd_routing_change(cec_rx_message_t* pcec_message)
 
 void cec_usrcmd_routing_information(cec_rx_message_t* pcec_message)
 {
+    unsigned char msg[4];
     unsigned char index = cec_global_info.my_node_index;
     //unsigned char log_addr = pcec_message->content.msg.header >> 4 ;
     
@@ -2237,7 +2238,6 @@ void cec_usrcmd_routing_information(cec_rx_message_t* pcec_message)
     //register_cec_tx_msg(gbl_msg, 4);
 
 
-    unsigned char msg[4];
     msg[0] = ((index & 0xf) << 4) | CEC_BROADCAST_ADDR;
     msg[1] = CEC_OC_ROUTING_INFORMATION;
     msg[2] = phy_addr_ab;
@@ -2379,7 +2379,7 @@ void cec_usrcmd_set_config(const char * buf, size_t count)
 {
     int i = 0;
     int j = 0;
-    int bool = 0;
+//    int bool = 0;
     char param[16] = {0};
 
     if(count > 32){

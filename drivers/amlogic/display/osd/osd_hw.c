@@ -1815,8 +1815,8 @@ void osd_init_hw(u32  logo_loaded)
 	osd_hw.scale[OSD2].h_enable=osd_hw.scale[OSD2].v_enable=0;
 	osd_hw.mode_3d[OSD2].enable=osd_hw.mode_3d[OSD1].enable=0;
 	osd_hw.block_mode[OSD1] = osd_hw.block_mode[OSD2] = 0;
-	osd_hw.free_scale[OSD1].hfs_enable=osd_hw.free_scale[OSD1].hfs_enable=0;
-	osd_hw.free_scale[OSD2].vfs_enable=osd_hw.free_scale[OSD2].vfs_enable=0;
+	osd_hw.free_scale[OSD1].hfs_enable=osd_hw.free_scale[OSD2].hfs_enable=0;
+	osd_hw.free_scale[OSD1].vfs_enable=osd_hw.free_scale[OSD2].vfs_enable=0;
 	osd_hw.free_scale_mode[OSD1] = osd_hw.free_scale_mode[OSD2] = 0;
 	osd_hw.osd_reverse[OSD1] = osd_hw.osd_reverse[OSD2] = 0;
 

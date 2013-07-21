@@ -289,9 +289,11 @@ static ulong keep_v_addr = 0, *keep_v_addr_remap = NULL;
 #define Y_BUFFER_SIZE   0x400000 // for 1920*1088
 #define U_BUFFER_SIZE   0x100000  //compatible with NV21
 #define V_BUFFER_SIZE   0x80000
+#ifdef CONFIG_KEEP_FRAME_RESERVED
 static uint y_buffer_size = 0;
 static uint u_buffer_size = 0;
 static uint v_buffer_size = 0;
+#endif
 
 /* zoom information */
 static u32 zoom_start_x_lines;
@@ -1884,7 +1886,7 @@ void get_video_keep_buffer(ulong *addr, ulong *phys_addr)
     }
 #endif
     if(debug_flag& DEBUG_FLAG_BLACKOUT){
-        printk("%s: y=%x u=%x v=%x\n", __func__, phys_addr[0], phys_addr[1], phys_addr[2]);
+        printk("%s: y=%lx u=%lx v=%lx\n", __func__, phys_addr[0], phys_addr[1], phys_addr[2]);
     }
 }
 
@@ -2131,7 +2133,7 @@ unsigned int vf_keep_current(void)
     v_index = (cur_index >> 16) & 0xff;
 
     if(debug_flag& DEBUG_FLAG_BLACKOUT){
-    	printk("%s %x %x\n", __func__, keep_y_addr, canvas_get_addr(y_index));
+    	printk("%s %lx %x\n", __func__, keep_y_addr, canvas_get_addr(y_index));
     }
 
     if ((cur_dispbuf->type & VIDTYPE_VIU_422) == VIDTYPE_VIU_422) {

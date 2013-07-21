@@ -288,9 +288,9 @@ void sd_io_init(struct memory_card *card)
 }
 
 //do nothing
-static void card_pinmux_dummy(int flag)
+static bool card_pinmux_dummy(bool flag)
 {
-	return;
+	return flag;
 }
 
 static pinmux_item_t SDHC_CARD_0_5_pins[] = {
