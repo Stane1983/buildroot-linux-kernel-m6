@@ -27,6 +27,8 @@
 #include "mali_osk_profiling.h"
 #endif
 
+#include <mach/cpu.h>
+
 /* See mali_gp.c file for description on how to handle the interrupt mask.
  * This is how to do it on PP: mali_hw_core_register_write(&core->hw_core, MALI200_REG_ADDR_MGMT_INT_MASK, MALI200_REG_VAL_IRQ_MASK_USED);
  */

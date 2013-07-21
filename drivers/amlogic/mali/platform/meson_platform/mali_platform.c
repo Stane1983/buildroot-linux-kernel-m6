@@ -29,6 +29,8 @@
 #include "mali_poweron_reg.h"
 #include "mali_fix.h"
 
+#include <mach/cpu.h>
+
 static int last_power_mode = -1;
 static int mali_init_flag = 0;
 static const u32 poweron_data[] =

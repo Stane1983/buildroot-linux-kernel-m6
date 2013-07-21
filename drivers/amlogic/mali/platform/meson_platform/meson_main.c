@@ -31,6 +31,8 @@
 #include <linux/module.h>
 #include "mali_platform.h"
 
+#include <mach/cpu.h>
+
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(3,0,0)
 extern struct platform_device meson_device_pd[];
