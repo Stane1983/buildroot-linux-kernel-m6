@@ -2598,7 +2598,7 @@ static __init void meson_init_early(void)
 
 }
 
-MACHINE_START(MESON6_G02, "Amlogic Meson6 g02 customer platform")
+MACHINE_START(MESON6_G02, "Visson ATV-106 platform")
     .boot_params    = BOOT_PARAMS_OFFSET,
     .map_io         = meson_map_io,///2
     .init_early     = meson_init_early,///3
