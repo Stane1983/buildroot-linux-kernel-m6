@@ -1463,15 +1463,6 @@ static struct hdmi_config_platform_data aml_hdmi_pdata = {
 /***********************************************************************
  * Meson CS DCDC section
  **********************************************************************/
-static void vcck_pwm_set() {
-    printk("***vcck: vcck_pwm_set");
-    //enable pwm clk & pwm output
-    aml_write_reg32(P_PWM_MISC_REG_CD, (aml_read_reg32(P_PWM_MISC_REG_CD) & ~(0x7f << 8)) | ((1 << 15) | (1 << 0)));
-    aml_write_reg32(P_PWM_PWM_C, 0x030020);
-    aml_write_reg32(P_PERIPHS_PIN_MUX_2, aml_read_reg32(P_PERIPHS_PIN_MUX_2) | (1 << 2));
-//    aml_set_reg32_bits(P_VGHL_PWM_REG0, 1, 12, 2);		//Enable
-//    aml_set_reg32_bits(P_VGHL_PWM_REG0, to, 0, 4);
-}
 
 #ifdef CONFIG_MESON_CS_DCDC_REGULATOR
 #include <linux/regulator/meson_cs_dcdc_regulator.h>
@@ -1526,10 +1517,16 @@ static pinmux_item_t vcck_pwm_pins[] ={
     PINMUX_END_ITEM
 };
 
-static pinmux_set_t vcck_pwm_set = {
-    .chip_select = NULL,
-    .pinmux = &vcck_pwm_pins[0]
-};
+static void vcck_pwm_set() {
+    printk("***vcck: vcck_pwm_set");
+    //enable pwm clk & pwm output
+    aml_write_reg32(P_PWM_MISC_REG_CD, (aml_read_reg32(P_PWM_MISC_REG_CD) & ~(0x7f << 8)) | ((1 << 15) | (1 << 0)));
+    aml_write_reg32(P_PWM_PWM_C, 0x030020);
+    aml_write_reg32(P_PERIPHS_PIN_MUX_2, aml_read_reg32(P_PERIPHS_PIN_MUX_2) | (1 << 2));
+//    aml_set_reg32_bits(P_VGHL_PWM_REG0, 1, 12, 2);		//Enable
+//    aml_set_reg32_bits(P_VGHL_PWM_REG0, to, 0, 4);
+}
+
 static void vcck_pwm_init() {
     printk("***vcck: vcck_pwm_init");
     //enable pwm clk & pwm output
@@ -1622,7 +1619,13 @@ static struct platform_device meson_cs_dcdc_regulator_device = {
         .platform_data = &vcck_pdata,
     }
 };
+#else
+static pinmux_set_t vcck_pwm_set = {
+    .chip_select = NULL,
+    .pinmux = &vcck_pwm_pins[0]
+};
 #endif
+
 /***********************************************************************
  * Meson CPUFREQ section
  **********************************************************************/
