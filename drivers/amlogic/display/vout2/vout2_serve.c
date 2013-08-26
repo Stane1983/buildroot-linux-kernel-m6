@@ -336,7 +336,7 @@ static int
 
 
 static struct platform_driver
-vout2_driver = {
+vout2_driver __refdata = {
     .probe      = meson_vout_probe,
     .remove     = meson_vout_remove,
 #if 0 //def  CONFIG_PM      

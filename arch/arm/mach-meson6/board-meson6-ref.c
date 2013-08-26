@@ -1365,7 +1365,7 @@ static struct aml_uart_platform  __initdata aml_uart_plat = {
     .pinmux_uart[4] = NULL
 };
 
-static struct platform_device aml_uart_device = {
+static struct platform_device aml_uart_device __refdata = {
     .name       = "mesonuart",
     .id     = -1,
     .num_resources  = 0,
