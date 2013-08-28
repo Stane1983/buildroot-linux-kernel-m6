@@ -120,6 +120,8 @@ typedef enum _RT_CUSTOMER_ID
 struct eeprom_priv 
 {    
 	u8		bautoload_fail_flag;
+	u8		bloadfile_fail_flag;
+	u8		bloadmac_fail_flag;
 	//u8		bempty;
 	//u8		sys_config;
 	u8		mac_addr[6];	//PermanentAddress
@@ -133,6 +135,10 @@ struct eeprom_priv
 	u8		EepromOrEfuse;
 
 	u8		efuse_eeprom_data[HWSET_MAX_SIZE_512]; //92C:256bytes, 88E:512bytes, we use union set (512bytes)
+
+#ifdef CONFIG_RF_GAIN_OFFSET
+	u8		EEPROMRFGainOffset;
+#endif //CONFIG_RF_GAIN_OFFSET
 
 #ifdef CONFIG_SDIO_HCI
 	u8		sdio_setting;	

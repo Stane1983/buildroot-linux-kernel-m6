@@ -107,7 +107,7 @@ odm_ConfigMAC_8188E(
  	)
 {
 	ODM_Write1Byte(pDM_Odm, Addr, Data);
-    ODM_RT_TRACE(pDM_Odm,ODM_COMP_INIT, ODM_DBG_TRACE, ("===> ODM_ConfigMACWithHeaderFile: [MAC_REG] %08X %08X\n", Addr, Data));
+	ODM_RT_TRACE(pDM_Odm,ODM_COMP_INIT, ODM_DBG_TRACE, ("===> ODM_ConfigMACWithHeaderFile: [MAC_REG] %08X %08X\n", Addr, Data));
 }
 
 void 
@@ -133,28 +133,35 @@ odm_ConfigBB_PHY_REG_PG_8188E(
     IN 	u4Byte 		Data
     )
 {    
-	if (Addr == 0xfe)
+	if (Addr == 0xfe){
 		#ifdef CONFIG_LONG_DELAY_ISSUE
 		ODM_sleep_ms(50);
 		#else		
 		ODM_delay_ms(50);
 		#endif
-	else if (Addr == 0xfd)
+	}
+	else if (Addr == 0xfd){
 		ODM_delay_ms(5);
-	else if (Addr == 0xfc)
+	}
+	else if (Addr == 0xfc){
 		ODM_delay_ms(1);
-	else if (Addr == 0xfb)
+	}
+	else if (Addr == 0xfb){
 		ODM_delay_us(50);
-	else if (Addr == 0xfa)
+	}
+	else if (Addr == 0xfa){
 		ODM_delay_us(5);
-	else if (Addr == 0xf9)
+	}
+	else if (Addr == 0xf9){
 		ODM_delay_us(1);
+	}
+	else{
+		ODM_RT_TRACE(pDM_Odm,ODM_COMP_INIT, ODM_DBG_LOUD, ("===> @@@@@@@ ODM_ConfigBBWithHeaderFile: [PHY_REG] %08X %08X %08X\n", Addr, Bitmask, Data));
 
-	ODM_RT_TRACE(pDM_Odm,ODM_COMP_INIT, ODM_DBG_LOUD, ("===> @@@@@@@ ODM_ConfigBBWithHeaderFile: [PHY_REG] %08X %08X %08X\n", Addr, Bitmask, Data));
-
-#if	!(DM_ODM_SUPPORT_TYPE&ODM_AP)
-	storePwrIndexDiffRateOffset(pDM_Odm->Adapter, Addr, Bitmask, Data);
-#endif
+	#if	!(DM_ODM_SUPPORT_TYPE&ODM_AP)
+		storePwrIndexDiffRateOffset(pDM_Odm->Adapter, Addr, Bitmask, Data);
+	#endif
+	}
 
 }
 
@@ -166,29 +173,37 @@ odm_ConfigBB_PHY_8188E(
     IN 	u4Byte 		Data
     )
 {    
-	if (Addr == 0xfe)
+	if (Addr == 0xfe){
 		#ifdef CONFIG_LONG_DELAY_ISSUE
 		ODM_sleep_ms(50);
 		#else		
 		ODM_delay_ms(50);
 		#endif
-	else if (Addr == 0xfd)
+	}
+	else if (Addr == 0xfd){
 		ODM_delay_ms(5);
-	else if (Addr == 0xfc)
+	}
+	else if (Addr == 0xfc){
 		ODM_delay_ms(1);
-	else if (Addr == 0xfb)
+	}
+	else if (Addr == 0xfb){
 		ODM_delay_us(50);
-	else if (Addr == 0xfa)
+	}
+	else if (Addr == 0xfa){
 		ODM_delay_us(5);
-	else if (Addr == 0xf9)
+	}
+	else if (Addr == 0xf9){
 		ODM_delay_us(1);
-	else if (Addr == 0xa24)
-		pDM_Odm->RFCalibrateInfo.RegA24 = Data;			
-	ODM_SetBBReg(pDM_Odm, Addr, Bitmask, Data);		
+	}
+	else{
+		if (Addr == 0xa24)
+			pDM_Odm->RFCalibrateInfo.RegA24 = Data;			
+		ODM_SetBBReg(pDM_Odm, Addr, Bitmask, Data);		
 	
-	// Add 1us delay between BB/RF register setting.
-	ODM_delay_us(1);
-    ODM_RT_TRACE(pDM_Odm,ODM_COMP_INIT, ODM_DBG_TRACE, ("===> ODM_ConfigBBWithHeaderFile: [PHY_REG] %08X %08X\n", Addr, Data));
+		// Add 1us delay between BB/RF register setting.
+		ODM_delay_us(1);
+    		ODM_RT_TRACE(pDM_Odm,ODM_COMP_INIT, ODM_DBG_TRACE, ("===> ODM_ConfigBBWithHeaderFile: [PHY_REG] %08X %08X\n", Addr, Data));
+	}
 }
 #endif
 

@@ -22,19 +22,39 @@
 
 #include <linux/mmc/sdio_func.h>
 
+static bool rtw_sdio_claim_host_needed(struct sdio_func *func)
+{
+	struct dvobj_priv *dvobj = sdio_get_drvdata(func);
+	PSDIO_DATA sdio_data = &dvobj->intf_data;
+
+	if (sdio_data->sys_sdio_irq_thd && sdio_data->sys_sdio_irq_thd == current)
+		return _FALSE;
+	return _TRUE;
+}
+
+inline void rtw_sdio_set_irq_thd(struct dvobj_priv *dvobj, _thread_hdl_ thd_hdl)
+{
+	PSDIO_DATA sdio_data = &dvobj->intf_data;
+
+	sdio_data->sys_sdio_irq_thd = thd_hdl;
+}
 
 u8 sd_f0_read8(PSDIO_DATA psdio, u32 addr, s32 *err)
 {
 	u8 v;
 	struct sdio_func *func;
+	bool claim_needed;
 
 _func_enter_;
 
 	func = psdio->func;
+	claim_needed = rtw_sdio_claim_host_needed(func);
 
-	sdio_claim_host(func);
+	if (claim_needed)
+		sdio_claim_host(func);
 	v = sdio_f0_readb(func, addr, err);
-	sdio_release_host(func);
+	if (claim_needed)
+		sdio_release_host(func);
 	if (err && *err)
 		DBG_871X(KERN_ERR "%s: FAIL!(%d) addr=0x%05x\n", __func__, *err, addr);
 
@@ -46,14 +66,18 @@ _func_exit_;
 void sd_f0_write8(PSDIO_DATA psdio, u32 addr, u8 v, s32 *err)
 {
 	struct sdio_func *func;
-
+	bool claim_needed;
+	
 _func_enter_;
 
 	func = psdio->func;
+	claim_needed = rtw_sdio_claim_host_needed(func);
 
-	sdio_claim_host(func);
+	if (claim_needed)
+		sdio_claim_host(func);
 	sdio_f0_writeb(func, v, addr, err);
-	sdio_release_host(func);
+	if (claim_needed)
+		sdio_release_host(func);
 	if (err && *err)
 		DBG_871X(KERN_ERR "%s: FAIL!(%d) addr=0x%05x val=0x%02x\n", __func__, *err, addr, v);
 
@@ -97,15 +121,19 @@ s32 sd_cmd52_read(PSDIO_DATA psdio, u32 addr, u32 cnt, u8 *pdata)
 {
 	int err, i;
 	struct sdio_func *func;
+	bool claim_needed;
 
 _func_enter_;
 
 	err = 0;
 	func = psdio->func;
+	claim_needed = rtw_sdio_claim_host_needed(func);
 
-	sdio_claim_host(func);
+	if (claim_needed)
+		sdio_claim_host(func);
 	err = _sd_cmd52_read(psdio, addr, cnt, pdata);
-	sdio_release_host(func);
+	if (claim_needed)
+		sdio_release_host(func);
 
 _func_exit_;
 
@@ -149,15 +177,19 @@ s32 sd_cmd52_write(PSDIO_DATA psdio, u32 addr, u32 cnt, u8 *pdata)
 {
 	int err, i;
 	struct sdio_func *func;
+	bool claim_needed;
 
 _func_enter_;
 
 	err = 0;
 	func = psdio->func;
+	claim_needed = rtw_sdio_claim_host_needed(func);
 
-	sdio_claim_host(func);
+	if (claim_needed)
+		sdio_claim_host(func);
 	err = _sd_cmd52_write(psdio, addr, cnt, pdata);
-	sdio_release_host(func);
+	if (claim_needed)
+		sdio_release_host(func);
 
 _func_exit_;
 
@@ -173,9 +205,8 @@ _func_enter_;
 
 	func = psdio->func;
 
-	//sdio_claim_host(func);
 	v = sdio_readb(func, addr, err);
-	//sdio_release_host(func);
+
 	if (err && *err)
 		DBG_871X(KERN_ERR "%s: FAIL!(%d) addr=0x%05x\n", __func__, *err, addr);
 
@@ -188,14 +219,18 @@ u8 sd_read8(PSDIO_DATA psdio, u32 addr, s32 *err)
 {
 	u8 v;
 	struct sdio_func *func;
+	bool claim_needed;
 
 _func_enter_;
 
 	func = psdio->func;
+	claim_needed = rtw_sdio_claim_host_needed(func);
 
-	sdio_claim_host(func);
+	if (claim_needed)
+		sdio_claim_host(func);
 	v = sdio_readb(func, addr, err);
-	sdio_release_host(func);
+	if (claim_needed)
+		sdio_release_host(func);
 	if (err && *err)
 		DBG_871X(KERN_ERR "%s: FAIL!(%d) addr=0x%05x\n", __func__, *err, addr);
 
@@ -208,14 +243,18 @@ u16 sd_read16(PSDIO_DATA psdio, u32 addr, s32 *err)
 {
 	u16 v;
 	struct sdio_func *func;
+	bool claim_needed;
 
 _func_enter_;
 
 	func = psdio->func;
+	claim_needed = rtw_sdio_claim_host_needed(func);
 
-	sdio_claim_host(func);
+	if (claim_needed)
+		sdio_claim_host(func);
 	v = sdio_readw(func, addr, err);
-	sdio_release_host(func);
+	if (claim_needed)
+		sdio_release_host(func);
 	if (err && *err)
 		DBG_871X(KERN_ERR "%s: FAIL!(%d) addr=0x%05x\n", __func__, *err, addr);
 
@@ -233,9 +272,8 @@ _func_enter_;
 
 	func = psdio->func;
 
-	//sdio_claim_host(func);
 	v = sdio_readl(func, addr, err);
-	//sdio_release_host(func);
+
 	if (err && *err)
 		DBG_871X(KERN_ERR "%s: FAIL!(%d) addr=0x%05x\n", __func__, *err, addr);
 
@@ -248,14 +286,18 @@ u32 sd_read32(PSDIO_DATA psdio, u32 addr, s32 *err)
 {
 	u32 v;
 	struct sdio_func *func;
+	bool claim_needed;
 
 _func_enter_;
 
 	func = psdio->func;
+	claim_needed = rtw_sdio_claim_host_needed(func);
 
-	sdio_claim_host(func);
+	if (claim_needed)
+		sdio_claim_host(func);
 	v = sdio_readl(func, addr, err);
-	sdio_release_host(func);
+	if (claim_needed)
+		sdio_release_host(func);
 	if (err && *err)
 		DBG_871X(KERN_ERR "%s: FAIL!(%d) addr=0x%05x\n", __func__, *err, addr);
 
@@ -267,14 +309,18 @@ _func_exit_;
 void sd_write8(PSDIO_DATA psdio, u32 addr, u8 v, s32 *err)
 {
 	struct sdio_func *func;
+	bool claim_needed;
 
 _func_enter_;
 
 	func = psdio->func;
+	claim_needed = rtw_sdio_claim_host_needed(func);
 
-	sdio_claim_host(func);
+	if (claim_needed)
+		sdio_claim_host(func);
 	sdio_writeb(func, v, addr, err);
-	sdio_release_host(func);
+	if (claim_needed)
+		sdio_release_host(func);
 	if (err && *err)
 		DBG_871X(KERN_ERR "%s: FAIL!(%d) addr=0x%05x val=0x%02x\n", __func__, *err, addr, v);
 
@@ -284,14 +330,18 @@ _func_exit_;
 void sd_write16(PSDIO_DATA psdio, u32 addr, u16 v, s32 *err)
 {
 	struct sdio_func *func;
+	bool claim_needed;
 
 _func_enter_;
 
 	func = psdio->func;
+	claim_needed = rtw_sdio_claim_host_needed(func);
 
-	sdio_claim_host(func);
+	if (claim_needed)
+		sdio_claim_host(func);
 	sdio_writew(func, v, addr, err);
-	sdio_release_host(func);
+	if (claim_needed)
+		sdio_release_host(func);
 	if (err && *err)
 		DBG_871X(KERN_ERR "%s: FAIL!(%d) addr=0x%05x val=0x%04x\n", __func__, *err, addr, v);
 
@@ -306,9 +356,8 @@ _func_enter_;
 
 	func = psdio->func;
 
-	//sdio_claim_host(func);
 	sdio_writel(func, v, addr, err);
-	//sdio_release_host(func);
+
 	if (err && *err)
 		DBG_871X(KERN_ERR "%s: FAIL!(%d) addr=0x%05x val=0x%08x\n", __func__, *err, addr, v);
 
@@ -318,14 +367,18 @@ _func_exit_;
 void sd_write32(PSDIO_DATA psdio, u32 addr, u32 v, s32 *err)
 {
 	struct sdio_func *func;
+	bool claim_needed;
 
 _func_enter_;
 
 	func = psdio->func;
+	claim_needed = rtw_sdio_claim_host_needed(func);
 
-	sdio_claim_host(func);
+	if (claim_needed)
+		sdio_claim_host(func);
 	sdio_writel(func, v, addr, err);
-	sdio_release_host(func);
+	if (claim_needed)
+		sdio_release_host(func);
 	if (err && *err)
 		DBG_871X(KERN_ERR "%s: FAIL!(%d) addr=0x%05x val=0x%08x\n", __func__, *err, addr, v);
 
@@ -400,13 +453,16 @@ s32 sd_read(PSDIO_DATA psdio, u32 addr, u32 cnt, void *pdata)
 {
 	s32 err;
 	struct sdio_func *func;
-
+	bool claim_needed;
 
 	func = psdio->func;
+	claim_needed = rtw_sdio_claim_host_needed(func);
 
-	sdio_claim_host(func);
+	if (claim_needed)
+		sdio_claim_host(func);
 	err = _sd_read(psdio, addr, cnt, pdata);
-	sdio_release_host(func);
+	if (claim_needed)
+		sdio_release_host(func);
 
 	return err;
 }
@@ -482,13 +538,16 @@ s32 sd_write(PSDIO_DATA psdio, u32 addr, u32 cnt, void *pdata)
 {
 	s32 err;
 	struct sdio_func *func;
-
+	bool claim_needed;
 
 	func = psdio->func;
+	claim_needed = rtw_sdio_claim_host_needed(func);
 
-	sdio_claim_host(func);
+	if (claim_needed)
+		sdio_claim_host(func);
 	err = _sd_write(psdio, addr, cnt, pdata);
-	sdio_release_host(func);
+	if (claim_needed)
+		sdio_release_host(func);
 
 	return err;
 }

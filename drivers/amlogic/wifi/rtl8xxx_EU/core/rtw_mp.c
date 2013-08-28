@@ -649,7 +649,7 @@ s32 mp_start_test(PADAPTER padapter)
 
 	//init mp_start_test status
 	if (check_fwstate(pmlmepriv, _FW_LINKED) == _TRUE) {
-		rtw_disassoc_cmd(padapter);
+		rtw_disassoc_cmd(padapter, 500, _TRUE);
 		rtw_indicate_disconnect(padapter);
 		rtw_free_assoc_resources(padapter, 1);
 	}
@@ -1253,7 +1253,9 @@ void SetPacketTx(PADAPTER padapter)
 
 	//3 6. start thread
 #ifdef PLATFORM_LINUX
-	pmp_priv->tx.PktTxThread = kernel_thread(mp_xmit_packet_thread, pmp_priv, CLONE_FS|CLONE_FILES);
+	pmp_priv->tx.PktTxThread = kthread_run(mp_xmit_packet_thread, pmp_priv, "RTW_MP_THREAD");
+	if (IS_ERR(pmp_priv->tx.PktTxThread))
+		DBG_871X("Create PktTx Thread Fail !!!!!\n");
 #endif
 #ifdef PLATFORM_FREEBSD
 {
@@ -1261,11 +1263,11 @@ void SetPacketTx(PADAPTER padapter)
 	struct thread *td;
 	pmp_priv->tx.PktTxThread = kproc_kthread_add(mp_xmit_packet_thread, pmp_priv,
 					&p, &td, RFHIGHPID, 0, "MPXmitThread", "MPXmitThread");
-}
-#endif
+
 	if (pmp_priv->tx.PktTxThread < 0)
 		DBG_871X("Create PktTx Thread Fail !!!!!\n");
-
+}
+#endif
 }
 
 void SetPacketRx(PADAPTER pAdapter, u8 bStartRx)

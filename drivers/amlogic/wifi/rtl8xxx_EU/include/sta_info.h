@@ -58,13 +58,21 @@ typedef struct _RSSI_STA{
 
 struct	stainfo_stats	{
 
-	//u64	rx_pkts;
 	u64 rx_mgnt_pkts;
+		u64 rx_beacon_pkts;
+		u64 rx_probereq_pkts;
+		u64 rx_probersp_pkts;
+		u64 rx_probersp_bm_pkts;
+		u64 rx_probersp_uo_pkts;
 	u64 rx_ctrl_pkts;
 	u64 rx_data_pkts;
 
-	//u64	last_rx_pkts;
 	u64	last_rx_mgnt_pkts;
+		u64 last_rx_beacon_pkts;
+		u64 last_rx_probereq_pkts;
+		u64 last_rx_probersp_pkts;
+		u64 last_rx_probersp_bm_pkts;
+		u64 last_rx_probersp_uo_pkts;
 	u64	last_rx_ctrl_pkts;
 	u64	last_rx_data_pkts;
 	
@@ -244,6 +252,8 @@ struct sta_info {
 	u8 under_exist_checking;
 #endif	// CONFIG_TX_MCAST2UNI
 	
+	u8 keep_alive_trycnt;
+
 #endif	// CONFIG_AP_MODE	
 
 #ifdef CONFIG_IOCTL_CFG80211
@@ -294,9 +304,56 @@ struct sta_info {
 	+ sta->sta_stats.last_rx_ctrl_pkts \
 	+ sta->sta_stats.last_rx_data_pkts)
 
+#define sta_rx_data_pkts(sta) \
+	(sta->sta_stats.rx_data_pkts)
+
+#define sta_last_rx_data_pkts(sta) \
+	(sta->sta_stats.last_rx_data_pkts)
+
+#define sta_rx_mgnt_pkts(sta) \
+	(sta->sta_stats.rx_mgnt_pkts)
+
+#define sta_last_rx_mgnt_pkts(sta) \
+	(sta->sta_stats.last_rx_mgnt_pkts)
+
+#define sta_rx_beacon_pkts(sta) \
+	(sta->sta_stats.rx_beacon_pkts)
+
+#define sta_last_rx_beacon_pkts(sta) \
+	(sta->sta_stats.last_rx_beacon_pkts)
+
+#define sta_rx_probereq_pkts(sta) \
+	(sta->sta_stats.rx_probereq_pkts)
+
+#define sta_last_rx_probereq_pkts(sta) \
+	(sta->sta_stats.last_rx_probereq_pkts)
+
+#define sta_rx_probersp_pkts(sta) \
+	(sta->sta_stats.rx_probersp_pkts)
+
+#define sta_last_rx_probersp_pkts(sta) \
+	(sta->sta_stats.last_rx_probersp_pkts)
+
+#define sta_rx_probersp_bm_pkts(sta) \
+	(sta->sta_stats.rx_probersp_bm_pkts)
+
+#define sta_last_rx_probersp_bm_pkts(sta) \
+	(sta->sta_stats.last_rx_probersp_bm_pkts)
+
+#define sta_rx_probersp_uo_pkts(sta) \
+	(sta->sta_stats.rx_probersp_uo_pkts)
+
+#define sta_last_rx_probersp_uo_pkts(sta) \
+	(sta->sta_stats.last_rx_probersp_uo_pkts)
+
 #define sta_update_last_rx_pkts(sta) \
 	do { \
 		sta->sta_stats.last_rx_mgnt_pkts = sta->sta_stats.rx_mgnt_pkts; \
+		sta->sta_stats.last_rx_beacon_pkts = sta->sta_stats.rx_beacon_pkts; \
+		sta->sta_stats.last_rx_probereq_pkts = sta->sta_stats.rx_probereq_pkts; \
+		sta->sta_stats.last_rx_probersp_pkts = sta->sta_stats.rx_probersp_pkts; \
+		sta->sta_stats.last_rx_probersp_bm_pkts = sta->sta_stats.rx_probersp_bm_pkts; \
+		sta->sta_stats.last_rx_probersp_uo_pkts = sta->sta_stats.rx_probersp_uo_pkts; \
 		sta->sta_stats.last_rx_ctrl_pkts = sta->sta_stats.rx_ctrl_pkts; \
 		sta->sta_stats.last_rx_data_pkts = sta->sta_stats.rx_data_pkts; \
 	} while(0)
@@ -310,6 +367,11 @@ struct sta_info {
 	sta->sta_stats.last_rx_mgnt_pkts \
 	, sta->sta_stats.last_rx_ctrl_pkts \
 	, sta->sta_stats.last_rx_data_pkts
+
+#define STA_RX_PKTS_DIFF_ARG(sta) \
+	sta->sta_stats.rx_mgnt_pkts - sta->sta_stats.last_rx_mgnt_pkts \
+	, sta->sta_stats.rx_ctrl_pkts - sta->sta_stats.last_rx_ctrl_pkts \
+	, sta->sta_stats.rx_data_pkts -sta->sta_stats.last_rx_data_pkts
 
 #define STA_PKTS_FMT "(m:%llu, c:%llu, d:%llu)"
 	
@@ -333,6 +395,8 @@ struct	sta_priv {
 	_list auth_list;
 	_lock asoc_list_lock;
 	_lock auth_list_lock;
+	u8 asoc_list_cnt;
+	u8 auth_list_cnt;
 
 	unsigned int auth_to;  //sec, time to expire in authenticating.
 	unsigned int assoc_to; //sec, time to expire before associating.
@@ -375,6 +439,11 @@ __inline static u32 wifi_mac_hash(u8 *mac)
 
 extern u32	_rtw_init_sta_priv(struct sta_priv *pstapriv);
 extern u32	_rtw_free_sta_priv(struct sta_priv *pstapriv);
+
+#define stainfo_offset_valid(offset) (offset < NUM_STA && offset >= 0)
+int rtw_stainfo_offset(struct sta_priv *stapriv, struct sta_info *sta);
+struct sta_info *rtw_get_stainfo_by_offset(struct sta_priv *stapriv, int offset);
+
 extern struct sta_info *rtw_alloc_stainfo(struct	sta_priv *pstapriv, u8 *hwaddr);
 extern u32	rtw_free_stainfo(_adapter *padapter , struct sta_info *psta);
 extern void rtw_free_all_stainfo(_adapter *padapter);

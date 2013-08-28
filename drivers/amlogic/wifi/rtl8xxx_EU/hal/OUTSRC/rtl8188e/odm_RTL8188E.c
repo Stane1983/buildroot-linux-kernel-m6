@@ -54,12 +54,12 @@ odm_RX_HWAntDivInit(
 	PADAPTER		Adapter = pDM_Odm->Adapter;
         #if (MP_DRIVER == 1)
         if (*(pDM_Odm->mp_mode) == 1)
-        	{
+       	{
         	pDM_Odm->AntDivType = CGCS_RX_SW_ANTDIV;
         	ODM_SetBBReg(pDM_Odm, ODM_REG_IGI_A_11N , BIT7, 0); // disable HW AntDiv 
         	ODM_SetBBReg(pDM_Odm, ODM_REG_LNA_SWITCH_11N , BIT31, 1);  // 1:CG, 0:CS
-	return;
-        	}
+		return;
+        }
         #endif
 	ODM_RT_TRACE(pDM_Odm,ODM_COMP_ANT_DIV, ODM_DBG_LOUD, ("odm_RX_HWAntDivInit() \n"));
 	
@@ -149,7 +149,7 @@ odm_FastAntTrainingInit(
 	if (*(pDM_Odm->mp_mode) == 1)
   	{	  
   		ODM_RT_TRACE(pDM_Odm, ODM_COMP_INIT, ODM_DBG_LOUD, ("pDM_Odm->AntDivType: %d\n", pDM_Odm->AntDivType));
-  	  return;
+  	 	 return;
 	}
 #endif
 

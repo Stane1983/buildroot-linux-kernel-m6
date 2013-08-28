@@ -640,15 +640,12 @@ s32 rtl8192cu_xmitframe_complete(_adapter *padapter, struct xmit_priv *pxmitpriv
 		//pxmitframe->agg_num = 1; // alloc xmitframe should assign to 1.
 		pxmitframe->pkt_offset = 1; // first frame of aggregation, reserve offset
 
-#ifdef IDEA_CONDITION
-		rtw_xmitframe_coalesce(padapter, pxmitframe->pkt, pxmitframe);
-#else
-		res = rtw_xmitframe_coalesce(padapter, pxmitframe->pkt, pxmitframe);
-		if (res == _FALSE) {
-//			rtw_free_xmitframe(pxmitpriv, pxmitframe);
+
+		if (rtw_xmitframe_coalesce(padapter, pxmitframe->pkt, pxmitframe) == _FALSE) {
+			DBG_871X("%s coalesce 1st xmitframe failed \n",__FUNCTION__);
 			continue;
 		}
-#endif
+
 
 		// always return ndis_packet after rtw_xmitframe_coalesce
 		rtw_os_xmit_complete(padapter, pxmitframe);
@@ -744,15 +741,11 @@ s32 rtl8192cu_xmitframe_complete(_adapter *padapter, struct xmit_priv *pxmitpriv
 		pxmitframe->agg_num = 0; // not first frame of aggregation
 		pxmitframe->pkt_offset = 0; // not first frame of aggregation, no need to reserve offset
 
-#ifdef IDEA_CONDITION
-		rtw_xmitframe_coalesce(padapter, pxmitframe->pkt, pxmitframe);
-#else
-		res = rtw_xmitframe_coalesce(padapter, pxmitframe->pkt, pxmitframe);
-		if (res == _FALSE) {
+		if (rtw_xmitframe_coalesce(padapter, pxmitframe->pkt, pxmitframe) == _FALSE) {
+			DBG_871X("%s coalesce failed \n",__FUNCTION__);
 			rtw_free_xmitframe(pxmitpriv, pxmitframe);
 			continue;
 		}
-#endif
 
 		// always return ndis_packet after rtw_xmitframe_coalesce
 		rtw_os_xmit_complete(padapter, pxmitframe);
@@ -992,6 +985,30 @@ s32 rtl8192cu_mgnt_xmit(_adapter *padapter, struct xmit_frame *pmgntframe)
 s32 rtl8192cu_hal_xmit(_adapter *padapter, struct xmit_frame *pxmitframe)
 {
 	return pre_xmitframe(padapter, pxmitframe);
+}
+
+s32	 rtl8192cu_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe)
+{
+	struct xmit_priv 	*pxmitpriv = &padapter->xmitpriv;
+	s32 err;
+	
+	if ((err=rtw_xmitframe_enqueue(padapter, pxmitframe)) != _SUCCESS) 
+	{
+		rtw_free_xmitframe(pxmitpriv, pxmitframe);
+
+		// Trick, make the statistics correct
+		pxmitpriv->tx_pkts--;
+		pxmitpriv->tx_drop++;					
+	}
+	else
+	{
+#ifdef PLATFORM_LINUX
+		tasklet_hi_schedule(&pxmitpriv->xmit_tasklet);
+#endif
+	}
+	
+	return err;
+	
 }
 
 #ifdef  CONFIG_HOSTAPD_MLME

@@ -47,6 +47,7 @@ typedef enum _RT_MEDIA_STATUS {
 
 #define	BT_TMP_BUF_SIZE		100
 
+void BT_SignalCompensation(PADAPTER padapter, u8 *rssi_wifi, u8 *rssi_bt);
 void BT_WifiScanNotify(PADAPTER padapter, u8 scanType);
 void BT_WifiAssociateNotify(PADAPTER padapter, u8 action);
 void BT_WifiMediaStatusNotify(PADAPTER padapter, RT_MEDIA_STATUS mstatus);
@@ -1307,6 +1308,8 @@ typedef struct _BTDM_8723A_1ANT
 	u8		bWiFiHalt;
 } BTDM_8723A_1ANT, *PBTDM_8723A_1ANT;
 
+void BTDM_1AntSignalCompensation(PADAPTER padapter, u8 *rssi_wifi, u8 *rssi_bt);
+void BTDM_1AntForDhcp(PADAPTER padapter);
 void BTDM_1AntBtCoexist8723A(PADAPTER padapter);
 
 // ===== End of sync from SD7 driver HAL/BTCoexist/HalBtc87231Ant.h =====
@@ -1732,6 +1735,7 @@ void BTDM_SWCoexAllOff(PADAPTER padapter);
 void BTDM_HWCoexAllOff(PADAPTER padapter);
 void BTDM_CoexAllOff(PADAPTER padapter);
 void BTDM_TurnOffBtCoexistBeforeEnterIPS(PADAPTER padapter);
+void BTDM_SignalCompensation(PADAPTER padapter, u8 *rssi_wifi, u8 *rssi_bt);
 void BTDM_Coexist(PADAPTER padapter);
 #define BT_CoexistMechanism BTDM_Coexist
 void BTDM_UpdateCoexState(PADAPTER padapter);

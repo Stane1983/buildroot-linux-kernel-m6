@@ -114,6 +114,18 @@ typedef enum _RT_SCAN_TYPE
 	SCAN_MIX,
 }RT_SCAN_TYPE, *PRT_SCAN_TYPE;
 
+enum DriverInterface {
+	DRIVER_WEXT =  1,
+	DRIVER_CFG80211 = 2
+};
+
+enum  _BAND
+{
+	GHZ24_50 = 0,
+	GHZ_50,
+	GHZ_24,
+};
+
 enum SCAN_RESULT_TYPE
 {
 	SCAN_RESULT_P2P_ONLY = 0,		//	Will return all the P2P devices.
@@ -245,7 +257,6 @@ struct cfg80211_wifidirect_info{
 	struct ieee80211_channel	remain_on_ch_channel;
 	enum nl80211_channel_type	remain_on_ch_type;
 	u64						remain_on_ch_cookie;
-	struct net_device 			*remain_on_ch_dev;
 	bool is_ro_ch;
 };
 #endif //CONFIG_IOCTL_CFG80211
@@ -325,6 +336,8 @@ struct wifidirect_info{
 	uint						channel_list_attr_len;		//	This field will contain the length of body of P2P Channel List attribute of group negotitation response frame.
 	u8						channel_list_attr[100];		//	This field will contain the body of P2P Channel List attribute of group negotitation response frame.
 														//	We will use the channel_cnt and channel_list fields when constructing the group negotitation confirm frame.
+	u8						driver_interface; 			// Indicate DRIVER_WEXT or DRIVER_CFG80211
+
 #ifdef CONFIG_CONCURRENT_MODE
 	u16						ext_listen_interval;	//	The interval to be available with legacy AP (ms)
 	u16						ext_listen_period;	//	The time period to be available for P2P listen state (ms)

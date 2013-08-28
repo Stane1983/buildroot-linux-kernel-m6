@@ -975,6 +975,15 @@ static int rtw_set_wpa_ie(_adapter *padapter, char *pie, unsigned short ielen)
 			_rtw_memcpy(padapter->securitypriv.supplicant_ie, &buf[0], ielen);	
 		}
 			
+		if (group_cipher == 0)
+		{
+			group_cipher = WPA_CIPHER_NONE;
+		}
+		if (pairwise_cipher == 0)
+		{
+			pairwise_cipher = WPA_CIPHER_NONE;
+		}
+			
 		switch(group_cipher)
 		{
 			case WPA_CIPHER_NONE:
@@ -5543,6 +5552,53 @@ exit:
 		
 }
 
+static int rtw_p2p_set_wfd_enable(struct net_device *dev,
+                               struct iw_request_info *info,
+                               union iwreq_data *wrqu, char *extra)
+{
+//	Commented by Kurt 20121206
+//	This function is used to set wfd enabled
+
+	int ret = 0;	
+	_adapter *padapter = (_adapter *)rtw_netdev_priv(dev);
+	struct wifidirect_info *pwdinfo= &(padapter->wdinfo);
+
+	if(*extra == '0' )
+		pwdinfo->wfd_info->wfd_enable = _FALSE;
+	else if(*extra == '1')
+		pwdinfo->wfd_info->wfd_enable = _TRUE;
+
+	DBG_871X( "[%s] wfd_enable = %d\n", __FUNCTION__, pwdinfo->wfd_info->wfd_enable );
+	
+	return ret;
+		
+}
+
+static int rtw_p2p_set_driver_iface(struct net_device *dev,
+                               struct iw_request_info *info,
+                               union iwreq_data *wrqu, char *extra)
+{
+//	Commented by Kurt 20121206
+//	This function is used to set driver iface is WEXT or CFG80211
+	int ret = 0;	
+	_adapter *padapter = (_adapter *)rtw_netdev_priv(dev);
+	struct wifidirect_info *pwdinfo= &(padapter->wdinfo);
+
+	if(*extra == '1' )
+	{
+		pwdinfo->driver_interface = DRIVER_WEXT;
+		DBG_871X( "[%s] driver_interface = WEXT\n", __FUNCTION__);
+	}
+	else if(*extra == '2')
+	{
+		pwdinfo->driver_interface = DRIVER_CFG80211;
+		DBG_871X( "[%s] driver_interface = CFG80211\n", __FUNCTION__);
+	}
+	
+	return ret;
+		
+}
+
 //	To set the WFD session available to enable or disable
 static int rtw_p2p_set_sa(struct net_device *dev,
                                struct iw_request_info *info,
@@ -5605,6 +5661,7 @@ static int rtw_p2p_prov_disc(struct net_device *dev,
 	u8 *p2pie;
 	uint					p2pielen = 0, attr_contentlen = 0;
 	_irqL				irqL;
+	u8 					ie_offset;
 #ifdef CONFIG_CONCURRENT_MODE
 	_adapter				*pbuddy_adapter = padapter->pbuddy_adapter;
 	struct mlme_ext_priv	*pbuddy_mlmeext = &pbuddy_adapter->mlmeextpriv;
@@ -5632,6 +5689,13 @@ static int rtw_p2p_prov_disc(struct net_device *dev,
 	}
 	else
 	{
+#ifdef CONFIG_INTEL_WIDI
+		if(check_fwstate(pmlmepriv, _FW_UNDER_SURVEY) == _TRUE){
+			DBG_871X( "[%s] WiFi is under survey!\n", __FUNCTION__ );
+			return ret;
+		}
+#endif //CONFIG_INTEL_WIDI
+
 		//	Reset the content of struct tx_provdisc_req_info excluded the wps_config_method_request.
 		_rtw_memset( pwdinfo->tx_prov_disc_info.peerDevAddr, 0x00, ETH_ALEN );
 		_rtw_memset( pwdinfo->tx_prov_disc_info.peerIFAddr, 0x00, ETH_ALEN );
@@ -5687,7 +5751,12 @@ static int rtw_p2p_prov_disc(struct net_device *dev,
 		//	Match the device address located in the P2P IE
 		//	This is for the case that the P2P device address is not the same as the P2P interface address.
 
-		if ( (p2pie=rtw_get_p2p_ie( &pnetwork->network.IEs[12], pnetwork->network.IELength - 12, NULL, &p2pielen)) )
+		if (pnetwork->network.Reserved[0] == 2) { // Probe Request
+			ie_offset = 0;
+		} else { // Beacon or Probe Respones
+			ie_offset = 12;
+		}
+		if ( (p2pie=rtw_get_p2p_ie( &pnetwork->network.IEs[ie_offset], pnetwork->network.IELength - ie_offset, NULL, &p2pielen)) )
 		{
 			while ( p2pie )
 			{
@@ -5714,9 +5783,23 @@ static int rtw_p2p_prov_disc(struct net_device *dev,
 				}
 
 				//Get the next P2P IE
-				p2pie = rtw_get_p2p_ie(p2pie+p2pielen, pnetwork->network.IELength - 12 -(p2pie -&pnetwork->network.IEs[12] + p2pielen), NULL, &p2pielen);
+				p2pie = rtw_get_p2p_ie(p2pie+p2pielen, pnetwork->network.IELength - ie_offset -(p2pie -&pnetwork->network.IEs[ie_offset] + p2pielen), NULL, &p2pielen);
 			}
 		}
+
+#ifdef CONFIG_INTEL_WIDI
+			// Some Intel WiDi source may not provide P2P IE, 
+			// so we could only compare mac addr by 802.11 Source Address
+			if( pmlmepriv->widi_state == INTEL_WIDI_STATE_WFD_CONNECTION 
+				&& uintPeerChannel == 0 )
+			{
+				if ( _rtw_memcmp( pnetwork->network.MacAddress, peerMAC, ETH_ALEN ) )
+				{
+					uintPeerChannel = pnetwork->network.Configuration.DSConfig;
+					break;
+				}
+			}
+#endif //CONFIG_INTEL_WIDI
 
 		plist = get_next(plist);
 	
@@ -5724,6 +5807,8 @@ static int rtw_p2p_prov_disc(struct net_device *dev,
 
 	_exit_critical_bh(&(pmlmepriv->scanned_queue.lock), &irqL);
 
+	if ( uintPeerChannel )
+	{
 #ifdef CONFIG_WFD
 	{
 		u8	wfd_ie[ 128 ] = { 0x00 };
@@ -5762,9 +5847,6 @@ static int rtw_p2p_prov_disc(struct net_device *dev,
 	}	
 #endif // CONFIG_WFD
 
-	if ( uintPeerChannel )
-	{
-		
 		DBG_871X( "[%s] peer channel: %d!\n", __FUNCTION__, uintPeerChannel );
 #ifdef CONFIG_CONCURRENT_MODE
 		if ( check_buddy_fwstate(padapter, _FW_LINKED ) )
@@ -5825,6 +5907,14 @@ static int rtw_p2p_prov_disc(struct net_device *dev,
 	else
 	{
 		DBG_871X( "[%s] NOT Found in the Scanning Queue!\n", __FUNCTION__ );
+#ifdef CONFIG_INTEL_WIDI
+		rtw_p2p_set_state(pwdinfo, P2P_STATE_FIND_PHASE_SEARCH);
+		rtw_p2p_findphase_ex_set(pwdinfo, P2P_FINDPHASE_EX_NONE);
+		rtw_free_network_queue(padapter, _TRUE);		
+		_enter_critical_bh(&pmlmepriv->lock, &irqL);				
+		rtw_sitesurvey_cmd(padapter, NULL, 0, NULL, 0);
+		_exit_critical_bh(&pmlmepriv->lock, &irqL);
+#endif //CONFIG_INTEL_WIDI
 	}
 exit:
 	
@@ -5988,8 +6078,17 @@ static int rtw_p2p_set(struct net_device *dev,
 		wrqu->data.length -= 10;
 		rtw_p2p_set_scan_result_type( dev, info, wrqu, &extra[10] );
 	}
+	else if ( _rtw_memcmp( extra, "wfd_enable=", 11 ) )
+	{
+		wrqu->data.length -= 11;
+		rtw_p2p_set_wfd_enable( dev, info, wrqu, &extra[11] );
+	}
+	else if ( _rtw_memcmp( extra, "driver_iface=", 13 ) )
+	{
+		wrqu->data.length -= 13;
+		rtw_p2p_set_driver_iface( dev, info, wrqu, &extra[13] );
+	}
 #endif //CONFIG_WFD
-
 #endif //CONFIG_P2P
 
 	return ret;
@@ -6041,7 +6140,7 @@ static int rtw_p2p_get(struct net_device *dev,
 	{
 		rtw_p2p_get_groupid( dev, info, wrqu, extra);
 	}
-	else if ( _rtw_memcmp( wrqu->data.pointer, "peer_deva_inv", 9 ) )
+	else if ( _rtw_memcmp( wrqu->data.pointer, "inv_peer_deva", 13 ) )
 	{
 		//	Get the P2P device address when receiving the P2P Invitation request frame.
 		rtw_p2p_get_peer_devaddr_by_invitation( dev, info, wrqu, extra);
@@ -6308,6 +6407,9 @@ void rf_reg_dump(_adapter *padapter)
 
 #ifdef CONFIG_IOL
 #include <rtw_iol.h>
+#endif
+#ifdef DBG_CONFIG_ERROR_DETECT
+#include <rtw_sreset.h>
 #endif
 static int rtw_dbg_port(struct net_device *dev,
                                struct iw_request_info *info,
@@ -6626,8 +6728,12 @@ static int rtw_dbg_port(struct net_device *dev,
 						struct xmit_priv *pxmitpriv = &padapter->xmitpriv;
 						struct recv_priv  *precvpriv = &padapter->recvpriv;
 						
-						DBG_871X("free_xmitbuf_cnt=%d, free_xmitframe_cnt=%d, free_xmit_extbuf_cnt=%d\n", 
-							pxmitpriv->free_xmitbuf_cnt, pxmitpriv->free_xmitframe_cnt, pxmitpriv->free_xmit_extbuf_cnt);
+						DBG_871X("free_xmitbuf_cnt=%d, free_xmitframe_cnt=%d"
+							", free_xmit_extbuf_cnt=%d, free_xframe_ext_cnt=%d"
+							", free_recvframe_cnt=%d\n",
+							pxmitpriv->free_xmitbuf_cnt, pxmitpriv->free_xmitframe_cnt,
+							pxmitpriv->free_xmit_extbuf_cnt, pxmitpriv->free_xframe_ext_cnt,
+							precvpriv->free_recvframe_cnt);
 						#ifdef CONFIG_USB_HCI
 						DBG_871X("rx_urb_pending_cn=%d\n", precvpriv->rx_pending_cnt);
 						#endif
@@ -6719,6 +6825,8 @@ static int rtw_dbg_port(struct net_device *dev,
 							if(extra_arg == 0){	
 								DBG_871X("###### silent reset test.......#####\n");
 								rtw_hal_sreset_reset(padapter);
+							} else {
+								sreset_set_trigger_point(padapter, extra_arg);
 							}
 							
 						}
@@ -7167,6 +7275,8 @@ static int set_group_key(_adapter *padapter, u8 *key, u8 alg, int keyid)
 	_rtw_memset(psetkeyparm, 0, sizeof(struct setkey_parm));
 		
 	psetkeyparm->keyid=(u8)keyid;
+	if (is_wep_enc(alg))
+		padapter->mlmepriv.key_mask |= BIT(psetkeyparm->keyid);
 
 	psetkeyparm->algorithm = alg;
 
@@ -8015,32 +8125,55 @@ static int rtw_set_wps_assoc_resp(struct net_device *dev, struct ieee_param *par
 static int rtw_set_hidden_ssid(struct net_device *dev, struct ieee_param *param, int len)
 {
 	int ret=0;
-	_adapter *padapter = (_adapter *)rtw_netdev_priv(dev);	
-	struct mlme_priv *pmlmepriv = &(padapter->mlmepriv);
-	struct mlme_ext_priv	*pmlmeext = &(padapter->mlmeextpriv);
-	struct mlme_ext_info	*pmlmeinfo = &(pmlmeext->mlmext_info);
+	_adapter *adapter = (_adapter *)rtw_netdev_priv(dev);
+	struct mlme_priv *mlmepriv = &(adapter->mlmepriv);
+	struct mlme_ext_priv	*mlmeext = &(adapter->mlmeextpriv);
+	struct mlme_ext_info	*mlmeinfo = &(mlmeext->mlmext_info);
+	int ie_len;
+	u8 *ssid_ie;
+	char ssid[NDIS_802_11_LENGTH_SSID + 1];
+	sint ssid_len;
+	u8 ignore_broadcast_ssid;
 
-	u8 value;
+	if(check_fwstate(mlmepriv, WIFI_AP_STATE) != _TRUE)
+		return -EPERM;
 
-	if(check_fwstate(pmlmepriv, WIFI_AP_STATE) != _TRUE)
+	if (param->u.bcn_ie.reserved[0] != 0xea)
 		return -EINVAL;
 
-	if(param->u.wpa_param.name != 0) //dummy test...
-	{
-		DBG_871X("%s name(%u) != 0\n", __FUNCTION__, param->u.wpa_param.name);
+	mlmeinfo->hidden_ssid_mode = ignore_broadcast_ssid = param->u.bcn_ie.reserved[1];
+
+	ie_len = len-12-2;// 12 = param header, 2:no packed
+	ssid_ie = rtw_get_ie(param->u.bcn_ie.buf,  WLAN_EID_SSID, &ssid_len, ie_len);
+
+	if (ssid_ie && ssid_len) {
+		WLAN_BSSID_EX *pbss_network = &mlmepriv->cur_network.network;
+		WLAN_BSSID_EX *pbss_network_ext = &mlmeinfo->network;
+
+		_rtw_memcpy(ssid, ssid_ie+2, ssid_len);
+		ssid[ssid_len>NDIS_802_11_LENGTH_SSID?NDIS_802_11_LENGTH_SSID:ssid_len] = 0x0;
+
+		if(0)
+		DBG_871X(FUNC_ADPT_FMT" ssid:(%s,%d), from ie:(%s,%d), (%s,%d)\n", FUNC_ADPT_ARG(adapter),
+			ssid, ssid_len,
+			pbss_network->Ssid.Ssid, pbss_network->Ssid.SsidLength,
+			pbss_network_ext->Ssid.Ssid, pbss_network_ext->Ssid.SsidLength);
+
+		_rtw_memcpy(pbss_network->Ssid.Ssid, (void *)ssid, ssid_len);
+		pbss_network->Ssid.SsidLength = ssid_len;
+		_rtw_memcpy(pbss_network_ext->Ssid.Ssid, (void *)ssid, ssid_len);
+		pbss_network_ext->Ssid.SsidLength = ssid_len;
+
+		if(0)
+		DBG_871X(FUNC_ADPT_FMT" after ssid:(%s,%d), (%s,%d)\n", FUNC_ADPT_ARG(adapter),
+			pbss_network->Ssid.Ssid, pbss_network->Ssid.SsidLength,
+			pbss_network_ext->Ssid.Ssid, pbss_network_ext->Ssid.SsidLength);
 	}
-	
-	value = param->u.wpa_param.value;
 
-	//use the same definition of hostapd's ignore_broadcast_ssid
-	if(value != 1 && value != 2)
-		value = 0;
+	DBG_871X(FUNC_ADPT_FMT" ignore_broadcast_ssid:%d, %s,%d\n", FUNC_ADPT_ARG(adapter),
+		ignore_broadcast_ssid, ssid, ssid_len);
 
-	DBG_871X("%s value(%u)\n", __FUNCTION__, value);
-	pmlmeinfo->hidden_ssid_mode = value;
-
-	return ret;		
-
+	return ret;
 }
 
 static int rtw_ioctl_acl_remove_sta(struct net_device *dev, struct ieee_param *param, int len)
@@ -10711,18 +10844,17 @@ static int rtw_widi_set_probe_request(struct net_device *dev,
 	u8	*pbuf = NULL;
 	_adapter	*padapter = (_adapter *)rtw_netdev_priv(dev);
 
-#if 1
 	pbuf = rtw_malloc(sizeof(l2_msg_t));
 	if(pbuf)
 	{
-		_rtw_memcpy(pbuf, wrqu->data.pointer, wrqu->data.length);
-		intel_widi_wk_cmd(padapter, INTEL_WIDI_ISSUE_PROB_WK, pbuf);
-	}
-#else
-	DBG_871X( "[%s] len = %d\n", __FUNCTION__,wrqu->data.length);
+		copy_from_user(pbuf, wrqu->data.pointer, wrqu->data.length);
+		//_rtw_memcpy(pbuf, wrqu->data.pointer, wrqu->data.length);
 
-	issue_probereq_widi(padapter, wrqu->data.pointer);
-#endif
+		if( wrqu->data.flags == 0 )
+		intel_widi_wk_cmd(padapter, INTEL_WIDI_ISSUE_PROB_WK, pbuf);
+		else if( wrqu->data.flags == 1 )
+			rtw_set_wfd_rds_sink_info( padapter, (l2_msg_t *)pbuf );
+	}
 	return ret;
 }
 
@@ -11519,7 +11651,7 @@ static const struct iw_priv_args rtw_private_args[] = {
 	},
 	{
 		SIOCIWFIRSTPRIV + 0x11,
-		IW_PRIV_TYPE_CHAR | P2P_PRIVATE_IOCTL_SET_LEN, IW_PRIV_TYPE_CHAR | IW_PRIV_SIZE_FIXED | P2P_PRIVATE_IOCTL_SET_LEN , "p2p_get"
+		IW_PRIV_TYPE_CHAR | 1024, IW_PRIV_TYPE_CHAR | IW_PRIV_SIZE_MASK , "p2p_get"
 	},
 	{
 		SIOCIWFIRSTPRIV + 0x12, 0, 0, "NULL"

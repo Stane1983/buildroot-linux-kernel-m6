@@ -1215,44 +1215,12 @@ u8 convert_ip_addr(u8 hch, u8 mch, u8 lch)
 }
 
 extern char* rtw_initmac;
-
-static char print_buff[1025];
-extern int get_aml_key_kernel(const char* key_name, unsigned char* data, int ascii_flag);
-extern int extenal_api_key_set_version(char *devvesion);
-
 void rtw_macaddr_cfg(u8 *mac_addr)
 {
-					
-	char *endp;
-	int i = 0, j = 0;
-
-	int ret;
-	int use_nand_mac=0;
-
 	u8 mac[ETH_ALEN];
 	if(mac_addr == NULL)	return;
-	#if defined(CONFIG_AML_NAND_KEY)
-	use_nand_mac = 1 ;
-	#endif
 	
-	if (use_nand_mac)
-	{
-		extenal_api_key_set_version("nand3");
-		ret = get_aml_key_kernel("mac_wifi", print_buff, 0);
-		printk("ret = %d\nprint_buff=%s\n", ret, print_buff);
-		if (ret >= 0) {
-			strcpy(mac_addr, print_buff);
-		//printk("\n");
-
-		for(j=0; j < ETH_ALEN; j++)
-		{
-			mac[j] = simple_strtol(&mac_addr[3 * j], &endp, 16);
-			//printk("%d : %d\n", j, mac[j]);
-		}
-		_rtw_memcpy(mac_addr, mac, ETH_ALEN);
-		}	
-	}
-	else if (rtw_initmac)
+	if ( rtw_initmac )
 	{	//	Users specify the mac address
 		int jj,kk;
 

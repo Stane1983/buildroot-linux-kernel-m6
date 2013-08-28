@@ -694,7 +694,8 @@ dm_initial_gain_STA(
 			dm_CtrlInitGainByRssi(pAdapter);
 		}	
 #ifdef CONFIG_IOCTL_CFG80211
-		else if((wdev_to_priv(pAdapter->rtw_wdev))->p2p_enabled == _TRUE)
+		else if((wdev_to_priv(pAdapter->rtw_wdev))->p2p_enabled == _TRUE 
+				&& pAdapter->wdinfo.driver_interface == DRIVER_CFG80211)
 		{
 			pDigTable->CurIGValue = 0x30;
 			DM_Write_DIG(pAdapter);

@@ -137,6 +137,8 @@ typedef enum _HAL_DEF_VARIABLE{
 	HW_VAR_MAX_RX_AMPDU_FACTOR,
 	HW_DEF_RA_INFO_DUMP,
 	HAL_DEF_DBG_DUMP_TXPKT,
+	HW_DEF_FA_CNT_DUMP,
+	HW_DEF_ODM_DBG_FLAG,
 }HAL_DEF_VARIABLE;
 
 typedef enum _HAL_ODM_VARIABLE{
@@ -149,6 +151,8 @@ typedef enum _HAL_INTF_PS_FUNC{
 	HAL_USB_SELECT_SUSPEND,
 	HAL_MAX_ID,
 }HAL_INTF_PS_FUNC;
+
+typedef s32 (*c2h_id_filter)(u8 id);
 
 struct hal_ops {
 	u32	(*hal_power_on)(_adapter *padapter);
@@ -244,7 +248,7 @@ struct hal_ops {
 #endif
 
 #ifdef CONFIG_IOL
-	int (*IOL_exec_cmds_sync)(_adapter *padapter, struct xmit_frame *xmit_frame, u32 max_wating_ms);
+	int (*IOL_exec_cmds_sync)(_adapter *padapter, struct xmit_frame *xmit_frame, u32 max_wating_ms, u32 bndy_cnt);
 #endif
 
 #ifdef CONFIG_XMIT_THREAD_MODE
@@ -253,6 +257,13 @@ struct hal_ops {
 	void (*hal_notch_filter)(_adapter * adapter, bool enable);
 	void (*hal_reset_security_engine)(_adapter * adapter);
 	s32 (*c2h_handler)(_adapter *padapter, struct c2h_evt_hdr *c2h_evt);
+	c2h_id_filter c2h_id_filter_ccx;
+#if defined(CONFIG_CHECK_BT_HANG) && defined(CONFIG_BT_COEXIST)
+	void (*hal_init_checkbthang_workqueue)(_adapter * padapter);
+	void (*hal_free_checkbthang_workqueue)(_adapter * padapter);
+	void (*hal_cancel_checkbthang_workqueue)(_adapter * padapter);
+	void (*hal_checke_bt_hang)(_adapter * padapter);	
+#endif	
 };
 
 typedef	enum _RT_EEPROM_TYPE{
@@ -261,8 +272,7 @@ typedef	enum _RT_EEPROM_TYPE{
 	EEPROM_BOOT_EFUSE,
 }RT_EEPROM_TYPE,*PRT_EEPROM_TYPE;
 
-#define USB_HIGH_SPEED_BULK_SIZE	512
-#define USB_FULL_SPEED_BULK_SIZE	64
+
 
 #define RF_CHANGE_BY_INIT	0
 #define RF_CHANGE_BY_IPS 	BIT28
@@ -446,7 +456,7 @@ u8   rtw_hal_sreset_get_wifi_status(_adapter *padapter);
 #endif
 
 #ifdef CONFIG_IOL
-int rtw_hal_iol_cmd(ADAPTER *adapter, struct xmit_frame *xmit_frame, u32 max_wating_ms);
+int rtw_hal_iol_cmd(ADAPTER *adapter, struct xmit_frame *xmit_frame, u32 max_wating_ms, u32 bndy_cnt);
 #endif
 
 #ifdef CONFIG_XMIT_THREAD_MODE
@@ -457,6 +467,7 @@ void rtw_hal_notch_filter(_adapter * adapter, bool enable);
 void rtw_hal_reset_security_engine(_adapter * adapter);
 
 s32 rtw_hal_c2h_handler(_adapter *adapter, struct c2h_evt_hdr *c2h_evt);
+c2h_id_filter rtw_hal_c2h_id_filter_ccx(_adapter *adapter);
 
 #endif //__HAL_INTF_H__
 

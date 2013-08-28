@@ -138,22 +138,24 @@ uint	 rtw_hal_init(_adapter *padapter)
 #else
 	if(adapter_to_dvobj(padapter)->NumInterfaces == 2 && padapter->registrypriv.mac_phy_mode != 1)
 	{
-		if(padapter->pbuddy_adapter->hw_init_completed == _FALSE)
-		{
+		if(padapter->pbuddy_adapter != NULL) {
+			if(padapter->pbuddy_adapter->hw_init_completed == _FALSE)
+			{
 #ifdef CONFIG_DEINIT_BEFORE_INIT
-			status = padapter->HalFunc.hal_deinit(padapter->pbuddy_adapter);
-			if(status != _SUCCESS){
-				DBG_871X("rtw_hal_init: hal_deinit before hal_init FAIL !!(pbuddy_adapter)\n");
-				return status;
-			}
+				status = padapter->HalFunc.hal_deinit(padapter->pbuddy_adapter);
+				if(status != _SUCCESS){
+					DBG_871X("rtw_hal_init: hal_deinit before hal_init FAIL !!(pbuddy_adapter)\n");
+					return status;
+				}
 #endif
-			status = padapter->HalFunc.hal_init(padapter->pbuddy_adapter);
-			if(status == _SUCCESS){
-				padapter->pbuddy_adapter->hw_init_completed = _TRUE;
-			}
-			else{
-				padapter->pbuddy_adapter->hw_init_completed = _FALSE;
-				RT_TRACE(_module_hal_init_c_,_drv_err_,("rtw_hal_init: hal__init fail for another interface\n"));
+				status = padapter->HalFunc.hal_init(padapter->pbuddy_adapter);
+				if(status == _SUCCESS){
+					padapter->pbuddy_adapter->hw_init_completed = _TRUE;
+				}
+				else{
+					padapter->pbuddy_adapter->hw_init_completed = _FALSE;
+					RT_TRACE(_module_hal_init_c_,_drv_err_,("rtw_hal_init: hal__init fail for another interface\n"));
+				}
 			}
 		}
 	}
@@ -271,6 +273,14 @@ u8 rtw_hal_intf_ps_func(_adapter *padapter,HAL_INTF_PS_FUNC efunc_id, u8* val)
 	if(padapter->HalFunc.interface_ps_func)
 		return padapter->HalFunc.interface_ps_func(padapter,efunc_id,val);
 	return _FAIL;
+}
+
+s32	rtw_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe)
+{
+	if(padapter->HalFunc.hal_xmitframe_enqueue)
+		return padapter->HalFunc.hal_xmitframe_enqueue(padapter, pxmitframe);
+
+	return _FALSE;	
 }
 
 s32 rtw_hal_xmit(_adapter *padapter, struct xmit_frame *pxmitframe)
@@ -420,6 +430,8 @@ void rtw_hal_sreset_init(_adapter *padapter)
 
 void rtw_hal_sreset_reset(_adapter *padapter)
 {
+	padapter = GET_PRIMARY_ADAPTER(padapter);
+
 	if(padapter->HalFunc.silentreset)
 		padapter->HalFunc.silentreset(padapter);
 }
@@ -452,6 +464,17 @@ u8 rtw_hal_sreset_get_wifi_status(_adapter *padapter)
 	if(padapter->HalFunc.sreset_get_wifi_status)
 		status = padapter->HalFunc.sreset_get_wifi_status(padapter);
 	return status;
+}
+
+bool rtw_hal_sreset_inprogress(_adapter *padapter)
+{
+	bool inprogress = _FALSE;
+
+	padapter = GET_PRIMARY_ADAPTER(padapter);
+
+	if(padapter->HalFunc.sreset_inprogress)
+		inprogress = padapter->HalFunc.sreset_inprogress(padapter);
+	return inprogress;
 }
 #endif //DBG_CONFIG_ERROR_DETECT
 

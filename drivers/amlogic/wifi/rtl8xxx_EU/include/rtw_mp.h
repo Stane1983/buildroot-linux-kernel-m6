@@ -212,7 +212,7 @@ struct mp_tx
 	u8 *pallocated_buf;
 	u8 *buf;
 	u32 buf_size, write_size;
-	_thread_hdl_	PktTxThread;
+	_thread_hdl_ PktTxThread;
 };
 
 #if defined(CONFIG_RTL8192C) || defined(CONFIG_RTL8192D) || defined(CONFIG_RTL8723A) || defined(CONFIG_RTL8188E)
@@ -370,27 +370,6 @@ typedef struct _MPT_CONTEXT
 }MPT_CONTEXT, *PMPT_CONTEXT;
 #endif
 //#endif
-
-/* E-Fuse */
-#ifdef CONFIG_RTL8192D
-#define EFUSE_MAP_SIZE		256
-#endif
-#ifdef CONFIG_RTL8192C
-#define EFUSE_MAP_SIZE		128
-#endif
-#ifdef CONFIG_RTL8723A
-#define EFUSE_MAP_SIZE		256
-#endif
-#ifdef CONFIG_RTL8188E
-#define EFUSE_MAP_SIZE		512
-#endif
-
-#ifdef CONFIG_RTL8188E
-#define EFUSE_MAX_SIZE		256
-#else
-#define EFUSE_MAX_SIZE		512
-#endif
-/* end of E-Fuse */
 
 //#define RTPRIV_IOCTL_MP 					( SIOCIWFIRSTPRIV + 0x17)
 enum {	  

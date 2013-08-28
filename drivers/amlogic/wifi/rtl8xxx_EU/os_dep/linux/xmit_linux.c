@@ -397,7 +397,8 @@ _func_enter_;
 		&& check_fwstate(pmlmepriv, WIFI_AP_STATE) == _TRUE
 		&& ( IP_MCAST_MAC(pkt->data)
 			|| ICMPV6_MCAST_MAC(pkt->data) )
-		)
+		&& (padapter->registrypriv.wifi_spec == 0)
+                )
 	{
 		if ( pxmitpriv->free_xmitframe_cnt > (NR_XMITFRAME/4) ) {
 			res = rtw_mlcst2unicst(padapter, pkt);

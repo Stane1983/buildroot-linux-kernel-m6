@@ -962,17 +962,7 @@ _func_enter_;
 _func_exit_;
 }
 
-#ifdef CONFIG_P2P
-void rtl8188e_set_p2p_ctw_period_cmd(_adapter* padapter, u8 ctwindow)
-{
-	struct P2P_PS_CTWPeriod_t p2p_ps_ctw;
-
-	p2p_ps_ctw.CTWPeriod = ctwindow;
-
-	FillH2CCmd_88E(padapter, H2C_PS_P2P_OFFLOAD, 1, (u8 *)(&p2p_ps_ctw));
-
-}
-
+#ifdef CONFIG_P2P_PS
 void rtl8188e_set_p2p_ps_offload_cmd(_adapter* padapter, u8 p2p_ps_state)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
@@ -980,12 +970,10 @@ void rtl8188e_set_p2p_ps_offload_cmd(_adapter* padapter, u8 p2p_ps_state)
 	struct wifidirect_info	*pwdinfo = &( padapter->wdinfo );
 	struct P2P_PS_Offload_t	*p2p_ps_offload = &pHalData->p2p_ps_offload;
 	u8	i;
-	u16	ctwindow;
-	u32	start_time, tsf_low;
 
 _func_enter_;
 
-#if 0
+#if 1
 	switch(p2p_ps_state)
 	{
 		case P2P_PS_DISABLE:
@@ -998,43 +986,31 @@ _func_enter_;
 			if( pwdinfo->ctwindow > 0 )
 			{
 				p2p_ps_offload->CTWindow_En = 1;
-				ctwindow = pwdinfo->ctwindow;
-				rtl8192c_set_p2p_ctw_period_cmd(padapter, ctwindow);
-				
+				rtw_write8(padapter, REG_P2P_CTWIN, pwdinfo->ctwindow);
 			}
 
 			// hw only support 2 set of NoA
 			for( i=0 ; i<pwdinfo->noa_num ; i++)
 			{
 				// To control the register setting for which NOA
-				rtw_write8(padapter, 0x5CF, (i << 4));
+				rtw_write8(padapter, REG_NOA_DESC_SEL, (i << 4));
 				if(i == 0)
 					p2p_ps_offload->NoA0_En = 1;
 				else
 					p2p_ps_offload->NoA1_En = 1;
 
 				// config P2P NoA Descriptor Register
-				rtw_write32(padapter, 0x5E0, pwdinfo->noa_duration[i]);
+				//DBG_8192C("%s(): noa_duration = %x\n",__FUNCTION__,pwdinfo->noa_duration[i]);
+				rtw_write32(padapter, REG_NOA_DESC_DURATION, pwdinfo->noa_duration[i]);
 
-				rtw_write32(padapter, 0x5E4, pwdinfo->noa_interval[i]);
+				//DBG_8192C("%s(): noa_interval = %x\n",__FUNCTION__,pwdinfo->noa_interval[i]);
+				rtw_write32(padapter, REG_NOA_DESC_INTERVAL, pwdinfo->noa_interval[i]);
 
-				//Get Current TSF value
-				tsf_low = rtw_read32(padapter, REG_TSFTR);
+				//DBG_8192C("%s(): start_time = %x\n",__FUNCTION__,pwdinfo->noa_start_time[i]);
+				rtw_write32(padapter, REG_NOA_DESC_START, pwdinfo->noa_start_time[i]);
 
-				start_time = pwdinfo->noa_start_time[i];
-				if(pwdinfo->noa_count[i] != 1)
-				{
-					while( start_time <= (tsf_low+(50*1024) ) )
-					{
-						start_time += pwdinfo->noa_interval[i];
-						if(pwdinfo->noa_count[i] != 255)
-							pwdinfo->noa_count[i]--;
-					}
-				}
-				//DBG_8192C("%s(): start_time = %x\n",__FUNCTION__,start_time);
-				rtw_write32(padapter, 0x5E8, start_time);
-
-				rtw_write8(padapter, 0x5EC, pwdinfo->noa_count[i]);
+				//DBG_8192C("%s(): noa_count = %x\n",__FUNCTION__,pwdinfo->noa_count[i]);
+				rtw_write8(padapter, REG_NOA_DESC_COUNT, pwdinfo->noa_count[i]);
 			}
 
 			if( (pwdinfo->opp_ps == 1) || (pwdinfo->noa_num > 0) )
@@ -1064,7 +1040,7 @@ _func_enter_;
 		case P2P_PS_SCAN_DONE:
 			DBG_8192C("P2P_PS_SCAN_DONE \n");
 			p2p_ps_offload->discovery = 0;
-			pwdinfo->p2p_ps = P2P_PS_ENABLE;
+			pwdinfo->p2p_ps_state = P2P_PS_ENABLE;
 			break;
 		default:
 			break;
@@ -1076,7 +1052,7 @@ _func_enter_;
 _func_exit_;
 
 }
-#endif //CONFIG_P2P
+#endif //CONFIG_P2P_PS
 
 #ifdef CONFIG_TSF_RESET_OFFLOAD
 /*
@@ -1133,6 +1109,7 @@ void rtl8188es_set_wowlan_cmd(_adapter* padapter, u8 enable)
 	u32		test=0;
 	struct recv_priv	*precvpriv = &padapter->recvpriv;
 	SETWOWLAN_PARM		pwowlan_parm;
+	SETAOAC_GLOBAL_INFO	paoac_global_info_parm;
 	struct pwrctrl_priv	*pwrpriv=&padapter->pwrctrlpriv;
 
 _func_enter_;
@@ -1185,7 +1162,6 @@ _func_enter_;
 
 			DBG_871X_LEVEL(_drv_info_, "%s 5.pwowlan_parm.mode=0x%x \n",__FUNCTION__,pwowlan_parm.mode);
 			DBG_871X_LEVEL(_drv_info_, "%s 6.pwowlan_parm.index=0x%x \n",__FUNCTION__,pwowlan_parm.gpio_index);
-
 			res = FillH2CCmd_88E(padapter, H2C_COM_WWLAN, 2, (u8 *)&pwowlan_parm);
 
 			rtw_msleep_os(2);
@@ -1199,15 +1175,21 @@ _func_enter_;
 			//keep alive period = 10 * 10 BCN interval
 			pwowlan_parm.mode =1;
 			pwowlan_parm.gpio_index=10;
-
 			res = FillH2CCmd_88E(padapter, H2C_COM_KEEP_ALIVE, 2, (u8 *)&pwowlan_parm);
+
+			rtw_msleep_os(2);
+			//Configure STA security information for GTK rekey wakeup event.
+			paoac_global_info_parm.pairwiseEncAlg=
+						padapter->securitypriv.dot11PrivacyAlgrthm;
+			paoac_global_info_parm.groupEncAlg=
+						padapter->securitypriv.dot118021XGrpPrivacy;
+			res = FillH2CCmd_88E(padapter, H2C_COM_AOAC_GLOBAL_INFO, 2, (u8 *)&paoac_global_info_parm);
 
 			rtw_msleep_os(2);
 			//enable Remote wake ctrl
 			pwowlan_parm.mode = 1;
 			pwowlan_parm.gpio_index=0;
 			pwowlan_parm.gpio_duration=0;
-
 			res = FillH2CCmd_88E(padapter, H2C_COM_REMOTE_WAKE_CTRL, 3, (u8 *)&pwowlan_parm);
 		} else {
 			pwrpriv->wowlan_magic =_FALSE;

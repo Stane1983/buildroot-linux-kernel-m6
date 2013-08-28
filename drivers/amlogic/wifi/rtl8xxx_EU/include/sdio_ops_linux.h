@@ -20,5 +20,7 @@
 #ifndef __SDIO_OPS_LINUX_H__
 #define __SDIO_OPS_LINUX_H__
 
+void rtw_sdio_set_irq_thd(struct dvobj_priv *dvobj, _thread_hdl_ thd_hdl);
+
 #endif
 

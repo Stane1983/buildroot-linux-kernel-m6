@@ -1824,7 +1824,7 @@ sint On_TDLS_Ch_Switch_Req(_adapter *adapter, union recv_frame *precv_frame)
 	ptdls_sta->stat_code=0;
 	ptdls_sta->tdls_sta_state |= TDLS_CH_SWITCH_ON_STATE;
 
-	issue_nulldata(adapter, 1);
+	issue_nulldata(adapter, NULL, 1, 0, 0);
 
 	issue_tdls_ch_switch_rsp(adapter, psa);
 

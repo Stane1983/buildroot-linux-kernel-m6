@@ -140,6 +140,13 @@
 #define DESC_RATEMCS15_SG			0x1c
 #define DESC_RATEMCS32				0x20
 
+#define REG_P2P_CTWIN					0x0572 // 1 Byte long (in unit of TU)
+#define REG_NOA_DESC_SEL				0x05CF
+#define REG_NOA_DESC_DURATION		0x05E0
+#define REG_NOA_DESC_INTERVAL			0x05E4
+#define REG_NOA_DESC_START			0x05E8
+#define REG_NOA_DESC_COUNT			0x05EC
+
 #include "HalVerDef.h"
 void dump_chip_info(HAL_VERSION	ChipVersion);
 

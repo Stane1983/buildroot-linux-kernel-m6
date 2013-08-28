@@ -76,6 +76,7 @@ typedef enum _RTL8188E_H2C_CMD_ID
 #ifdef CONFIG_WOWLAN
 	H2C_COM_WWLAN				=0x80,
 	H2C_COM_REMOTE_WAKE_CTRL	=0x81,
+	H2C_COM_AOAC_GLOBAL_INFO	=0x82,
 #endif
 
 	//Class 
@@ -151,8 +152,7 @@ void rtl8188e_Add_RateATid(PADAPTER padapter, u32 bitmap, u8 arg, u8 rssi_level)
 
 
 #ifdef CONFIG_P2P
-void rtl8192c_set_p2p_ps_offload_cmd(PADAPTER padapter, u8 p2p_ps_state);
-//void rtl8723a_set_p2p_ps_offload_cmd(PADAPTER padapter, u8 p2p_ps_state);
+void rtl8188e_set_p2p_ps_offload_cmd(PADAPTER padapter, u8 p2p_ps_state);
 #endif //CONFIG_P2P
 
 void CheckFwRsvdPageContent(PADAPTER padapter);
@@ -171,6 +171,11 @@ typedef struct _SETWOWLAN_PARM{
 	u8		second_mode;
 	u8		reserve;
 }SETWOWLAN_PARM, *PSETWOWLAN_PARM;
+
+typedef struct _SETAOAC_GLOBAL_INFO{
+	u8		pairwiseEncAlg;
+	u8		groupEncAlg;
+}SETAOAC_GLOBAL_INFO, *PSETAOAC_GLOBAL_INFO;
 
 #define FW_WOWLAN_FUN_EN				BIT(0)
 #define FW_WOWLAN_PATTERN_MATCH			BIT(1)

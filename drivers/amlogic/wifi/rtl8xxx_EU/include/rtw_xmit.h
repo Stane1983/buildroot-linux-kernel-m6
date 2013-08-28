@@ -45,13 +45,19 @@
 #elif defined (CONFIG_USB_HCI)
 
 #ifdef CONFIG_USB_TX_AGGREGATION
-#define MAX_XMITBUF_SZ	20480	// 20k
+#ifdef CONFIG_PLATFORM_ARM_SUNxI
+#define MAX_XMITBUF_SZ (12288)  //12k 1536*8
+#else
+#define MAX_XMITBUF_SZ	(20480)	// 20k
+#endif
 #else
 #define MAX_XMITBUF_SZ	(2048)
 #endif
-
+#ifdef CONFIG_SINGLE_XMIT_BUF
+#define NR_XMITBUFF	(1)
+#else
 #define NR_XMITBUFF	(4)
-
+#endif //CONFIG_SINGLE_XMIT_BUF
 #elif defined (CONFIG_PCI_HCI)
 #define MAX_XMITBUF_SZ	(1664)
 #define NR_XMITBUFF	(128)
@@ -381,6 +387,8 @@ enum {
 	RTW_SCTX_DONE_TX_DESC_NA,
 	RTW_SCTX_DONE_TX_DENY,
 	RTW_SCTX_DONE_CCX_PKT_FAIL,
+	RTW_SCTX_DONE_DRV_STOP,
+	RTW_SCTX_DONE_DEV_REMOVE,
 };
 
 

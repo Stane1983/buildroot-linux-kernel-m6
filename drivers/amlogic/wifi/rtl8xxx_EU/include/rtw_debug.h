@@ -404,6 +404,14 @@ extern void rtl871x_cedbg(const char *fmt, ...);
 	int proc_set_rx_signal(struct file *file, const char *buffer,
 		unsigned long count, void *data);
 #ifdef CONFIG_80211N_HT
+
+	int proc_get_ht_enable(char *page, char **start,
+			  off_t offset, int count,
+			  int *eof, void *data);
+			  
+	int proc_set_ht_enable(struct file *file, const char *buffer,
+		unsigned long count, void *data);
+
 	int proc_get_cbw40_enable(char *page, char **start,
 			  off_t offset, int count,
 			  int *eof, void *data);

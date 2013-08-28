@@ -509,7 +509,11 @@ extern u32 GlobalDebugLevel;
 
 	int proc_set_rssi_disp(struct file *file, const char *buffer,
 		unsigned long count, void *data);
-	
+
+#if defined(DBG_CONFIG_ERROR_DETECT)
+int proc_get_sreset(char *page, char **start, off_t offset, int count, int *eof, void *data);
+int proc_set_sreset(struct file *file, const char *buffer, unsigned long count, void *data);
+#endif /* DBG_CONFIG_ERROR_DETECT */
 
 #endif //CONFIG_PROC_DEBUG
 

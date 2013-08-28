@@ -940,6 +940,9 @@ static void usb_read_port_complete(struct urb *purb, struct pt_regs *regs)
 				RT_TRACE(_module_hci_ops_os_c_,_drv_err_,("usb_read_port_complete:bDriverStopped=TRUE\n"));
 				break;
 			case -EPROTO:
+			case -EILSEQ:
+			case -ETIME:
+			case -ECOMM:
 			case -EOVERFLOW:
 				#ifdef DBG_CONFIG_ERROR_DETECT	
 				{	
@@ -1338,6 +1341,9 @@ static void usb_read_port_complete(struct urb *purb, struct pt_regs *regs)
 				RT_TRACE(_module_hci_ops_os_c_,_drv_err_,("usb_read_port_complete:bDriverStopped=TRUE\n"));
 				break;
 			case -EPROTO:
+			case -EILSEQ:
+			case -ETIME:
+			case -ECOMM:
 			case -EOVERFLOW:
 				#ifdef DBG_CONFIG_ERROR_DETECT	
 				{	

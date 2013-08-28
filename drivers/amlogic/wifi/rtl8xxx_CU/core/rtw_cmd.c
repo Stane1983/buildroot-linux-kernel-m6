@@ -752,10 +752,13 @@ _func_enter_;
 		pmlmepriv->scan_start_time = rtw_get_current_time();
 
 #ifdef CONFIG_STA_MODE_SCAN_UNDER_AP_MODE
+		if (padapter->pbuddy_adapter == NULL )
+			goto full_scan_timeout;
 		if((padapter->pbuddy_adapter->mlmeextpriv.mlmext_info.state&0x03) == WIFI_FW_AP_STATE)
 			_set_timer(&pmlmepriv->scan_to_timer, SURVEY_TO * ( 38 + ( 38 / RTW_SCAN_NUM_OF_CH ) * RTW_STAY_AP_CH_MILLISECOND ) + 1000 );
 		else
 #endif //CONFIG_STA_MODE_SCAN_UNDER_AP_MODE
+full_scan_timeout:
 			_set_timer(&pmlmepriv->scan_to_timer, SCANNING_TIMEOUT);
 
 		rtw_led_control(padapter, LED_CTL_SITE_SURVEY);
@@ -1984,6 +1987,7 @@ static void traffic_status_watchdog(_adapter *padapter)
 #ifdef CONFIG_LPS
 	u8	bEnterPS;
 #endif
+	u16	BusyThreshold = 100;
 	u8	bBusyTraffic = _FALSE, bTxBusyTraffic = _FALSE, bRxBusyTraffic = _FALSE;
 	u8	bHigherBusyTraffic = _FALSE, bHigherBusyRxTraffic = _FALSE, bHigherBusyTxTraffic = _FALSE;
 	struct mlme_priv		*pmlmepriv = &(padapter->mlmepriv);
@@ -1998,15 +2002,18 @@ static void traffic_status_watchdog(_adapter *padapter)
 		/*&& !MgntInitAdapterInProgress(pMgntInfo)*/)
 	{
 
-		if( pmlmepriv->LinkDetectInfo.NumRxOkInPeriod > 100 ||
-			pmlmepriv->LinkDetectInfo.NumTxOkInPeriod > 100 )
+		// if we raise bBusyTraffic in last watchdog, using lower threshold.
+		if (pmlmepriv->LinkDetectInfo.bBusyTraffic)
+			BusyThreshold = 75;
+		if( pmlmepriv->LinkDetectInfo.NumRxOkInPeriod > BusyThreshold ||
+			pmlmepriv->LinkDetectInfo.NumTxOkInPeriod > BusyThreshold )
 		{
 			bBusyTraffic = _TRUE;
 
-			if(pmlmepriv->LinkDetectInfo.NumRxOkInPeriod > 100)
+			if(pmlmepriv->LinkDetectInfo.NumRxOkInPeriod > BusyThreshold)
 				bRxBusyTraffic = _TRUE;
 
-			if(pmlmepriv->LinkDetectInfo.NumTxOkInPeriod > 100)
+			if(pmlmepriv->LinkDetectInfo.NumTxOkInPeriod > BusyThreshold)
 				bTxBusyTraffic = _TRUE;
 		}
 

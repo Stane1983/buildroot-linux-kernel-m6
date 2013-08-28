@@ -414,15 +414,21 @@ int proc_get_trx_info(char *page, char **start,
 			  off_t offset, int count,
 			  int *eof, void *data)
 {
+	int i;
 	struct net_device *dev = data;
 	_adapter *padapter = (_adapter *)rtw_netdev_priv(dev);
 	struct xmit_priv *pxmitpriv = &padapter->xmitpriv;
 	struct recv_priv  *precvpriv = &padapter->recvpriv;
-	struct dvobj_priv	*pdvobj = adapter_to_dvobj(padapter);	
+	struct dvobj_priv	*pdvobj = adapter_to_dvobj(padapter);
+        struct hw_xmit *phwxmit;
 	int len = 0;
 	
-	len += snprintf(page + len, count - len, "free_xmitbuf_cnt=%d, free_xmitframe_cnt=%d, free_ext_xmitbuf_cnt=%d, free_recvframe_cnt=%d\n", 
-				pxmitpriv->free_xmitbuf_cnt, pxmitpriv->free_xmitframe_cnt,pxmitpriv->free_xmit_extbuf_cnt, precvpriv->free_recvframe_cnt);
+	len += snprintf(page + len, count - len, "free_xmitbuf_cnt=%d, free_xmitframe_cnt=%d"
+				", free_ext_xmitbuf_cnt=%d, free_xframe_ext_cnt=%d"
+				", free_recvframe_cnt=%d\n",
+				pxmitpriv->free_xmitbuf_cnt, pxmitpriv->free_xmitframe_cnt,
+				pxmitpriv->free_xmit_extbuf_cnt, pxmitpriv->free_xframe_ext_cnt,
+				precvpriv->free_recvframe_cnt);
 #ifdef CONFIG_USB_HCI
 	len += snprintf(page + len, count - len, "rx_urb_pending_cnt=%d\n", precvpriv->rx_pending_cnt);
 #endif
@@ -435,6 +441,12 @@ int proc_get_trx_info(char *page, char **start,
 #ifdef CONFIG_USB_HCI
 	len += snprintf(page + len, count - len, "continual_urb_error=%d\n", atomic_read(&pdvobj->continual_urb_error));
 #endif
+
+        for(i = 0; i < 4; i++) 
+	{
+		phwxmit = pxmitpriv->hwxmits + i;
+		len += snprintf(page + len, count - len, "%d, hwq.accnt=%d\n", i, phwxmit->accnt);
+	}
 
 	*eof = 1;
 	return len;
@@ -1195,6 +1207,45 @@ int proc_get_best_channel(char *page, char **start,
 
 }
 #endif /* CONFIG_FIND_BEST_CHANNEL */
+
+#if defined(DBG_CONFIG_ERROR_DETECT)
+#include <rtw_sreset.h>
+int proc_get_sreset(char *page, char **start, off_t offset, int count, int *eof, void *data)
+{
+	struct net_device *dev = data;
+	_adapter *padapter = (_adapter *)rtw_netdev_priv(dev);
+	struct mlme_priv *pmlmepriv = &(padapter->mlmepriv);
 	
+	int len = 0;
+	
+	*eof = 1;
+	return len;
+}
+
+int proc_set_sreset(struct file *file, const char *buffer, unsigned long count, void *data)
+{
+	struct net_device *dev = (struct net_device *)data;
+	_adapter *padapter = (_adapter *)rtw_netdev_priv(dev);
+	char tmp[32];
+	s32 trigger_point;
+
+	if (count < 1)
+		return -EFAULT;
+
+	if (buffer && !copy_from_user(tmp, buffer, sizeof(tmp))) {		
+
+		int num = sscanf(tmp, "%d", &trigger_point);
+
+		if (trigger_point == SRESET_TGP_NULL)
+			rtw_hal_sreset_reset(padapter);
+		else
+			sreset_set_trigger_point(padapter, trigger_point);
+	}
+	
+	return count;
+	
+}
+#endif /* DBG_CONFIG_ERROR_DETECT */
+
 #endif
 

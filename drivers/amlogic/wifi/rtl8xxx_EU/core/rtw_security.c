@@ -1895,7 +1895,6 @@ u32	rtw_aes_decrypt(_adapter *padapter, u8 *precvframe)
 
 
 	sint 		length;
-	u32	prwskeylen;
 	u8	*pframe,*prwskey;	//, *payload,*iv
 	struct	sta_info		*stainfo;
 	struct	rx_pkt_attrib	 *prxattrib = &((union recv_frame *)precvframe)->u.hdr.attrib;
@@ -1923,12 +1922,17 @@ _func_enter_;
 					goto exit;
 				}
 				prwskey = psecuritypriv->dot118021XGrpKey[prxattrib->key_index].skey;
-				prwskeylen=16;
+				if(psecuritypriv->dot118021XGrpKeyid != prxattrib->key_index)
+				{
+					DBG_871X("not match packet_index=%d, install_index=%d \n"
+					, prxattrib->key_index, psecuritypriv->dot118021XGrpKeyid);
+					res=_FAIL;
+					goto exit;
+				}
 			}
 			else
 			{
 				prwskey=&stainfo->dot118021x_UncstKey.skey[0];
-			        prwskeylen=16;
 			}
 	
 			length= ((union recv_frame *)precvframe)->u.hdr.len-prxattrib->hdrlen-prxattrib->iv_len;

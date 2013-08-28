@@ -418,6 +418,22 @@ typedef enum _PA_MODE {
 	PA_MODE_INTERNAL_SPDT = 0x02	
 } PA_MODE;
 
+/* Copy from rtl8192c */
+enum c2h_id_8192d {
+	C2H_DBG = 0,
+	C2H_TSF = 1,
+	C2H_AP_RPT_RSP = 2,
+	C2H_CCX_TX_RPT = 3,
+	C2H_BT_RSSI = 4,
+	C2H_BT_OP_MODE = 5,
+	C2H_EXT_RA_RPT = 6,
+	C2H_HW_INFO_EXCH = 10,
+	C2H_C2H_H2C_TEST = 11,
+	C2H_BT_INFO = 12,
+	C2H_BT_MP_INFO = 15,
+	MAX_C2HEVENT
+};
+
 #ifdef CONFIG_PCI_HCI
 struct hal_data_8192de
 {

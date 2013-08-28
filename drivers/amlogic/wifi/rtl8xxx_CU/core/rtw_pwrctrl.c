@@ -29,13 +29,7 @@
 void ips_enter(_adapter * padapter)
 {
 	struct pwrctrl_priv *pwrpriv = &padapter->pwrctrlpriv;
-	struct mlme_priv *pmlmepriv = &(padapter->mlmepriv);
 
-#ifdef CONFIG_INTEL_PROXIM
-	if(padapter->proximity.proxim_on==_TRUE){
-		return;
-	}
-#endif	
 	_enter_pwrlock(&pwrpriv->lock);
 
 	pwrpriv->bips_processing = _TRUE;	
@@ -170,6 +164,13 @@ bool rtw_pwr_unassociated_idle(_adapter *adapter)
 			goto exit;
 		}
 	}
+
+#ifdef CONFIG_INTEL_PROXIM
+	if(adapter->proximity.proxim_on==_TRUE){
+		return;
+	}
+#endif
+
 	ret = _TRUE;
 
 exit:
@@ -1227,6 +1228,13 @@ static void rtw_late_resume(struct early_suspend *h)
 
 void rtw_register_early_suspend(struct pwrctrl_priv *pwrpriv)
 {
+	_adapter *adapter = container_of(pwrpriv, _adapter, pwrctrlpriv);
+
+#if defined(CONFIG_CONCURRENT_MODE)
+	if (adapter->adapter_type != PRIMARY_ADAPTER)
+		return;
+#endif	
+
 	DBG_871X("%s\n", __FUNCTION__);
 
 	//jeff: set the early suspend level before blank screen, so we wll do late resume after scree is lit
@@ -1240,6 +1248,13 @@ void rtw_register_early_suspend(struct pwrctrl_priv *pwrpriv)
 
 void rtw_unregister_early_suspend(struct pwrctrl_priv *pwrpriv)
 {
+	_adapter *adapter = container_of(pwrpriv, _adapter, pwrctrlpriv);
+
+#if defined(CONFIG_CONCURRENT_MODE)
+	if (adapter->adapter_type != PRIMARY_ADAPTER)
+		return;
+#endif
+
 	DBG_871X("%s\n", __FUNCTION__);
 
 	rtw_set_do_late_resume(pwrpriv, _FALSE);
@@ -1280,6 +1295,13 @@ static void rtw_late_resume(android_early_suspend_t *h)
 
 void rtw_register_early_suspend(struct pwrctrl_priv *pwrpriv)
 {
+	_adapter *adapter = container_of(pwrpriv, _adapter, pwrctrlpriv);
+
+#if defined(CONFIG_CONCURRENT_MODE)
+	if (adapter->adapter_type != PRIMARY_ADAPTER)
+		return;
+#endif
+
 	DBG_871X("%s\n", __FUNCTION__);
 
 	//jeff: set the early suspend level before blank screen, so we wll do late resume after scree is lit
@@ -1291,6 +1313,13 @@ void rtw_register_early_suspend(struct pwrctrl_priv *pwrpriv)
 
 void rtw_unregister_early_suspend(struct pwrctrl_priv *pwrpriv)
 {
+	_adapter *adapter = container_of(pwrpriv, _adapter, pwrctrlpriv);
+
+#if defined(CONFIG_CONCURRENT_MODE)
+	if (adapter->adapter_type != PRIMARY_ADAPTER)
+		return;
+#endif
+
 	DBG_871X("%s\n", __FUNCTION__);
 
 	rtw_set_do_late_resume(pwrpriv, _FALSE);
@@ -1355,6 +1384,18 @@ int _rtw_pwr_wakeup(_adapter *padapter, u32 ips_deffer_ms, const char *caller)
 		else
 			DBG_871X("%s wait ps_processing done\n", __func__);
 	}
+
+#ifdef DBG_CONFIG_ERROR_DETECT
+	if (rtw_hal_sreset_inprogress(padapter)) {
+		DBG_871X("%s wait sreset_inprogress...\n", __func__);
+		while (rtw_hal_sreset_inprogress(padapter) && rtw_get_passing_time_ms(start) <= 4000)
+			rtw_msleep_os(10);
+		if (rtw_hal_sreset_inprogress(padapter))
+			DBG_871X("%s wait sreset_inprogress timeout\n", __func__);
+		else
+			DBG_871X("%s wait sreset_inprogress done\n", __func__);
+	}
+#endif
 
 	if (pwrpriv->bInternalAutoSuspend == _FALSE && pwrpriv->bInSuspend) {
 		DBG_871X("%s wait bInSuspend...\n", __func__);

@@ -57,7 +57,7 @@ ODM_ReadFirmware_8188E_FW_WoWLAN(
      OUT  u4Byte       *pFirmwareSize
 );
 #endif
-#define ArrayLength_8188E_FW_WoWLAN 16116
+#define ArrayLength_8188E_FW_WoWLAN 15764
 extern const u8 Array_8188E_FW_WoWLAN[ArrayLength_8188E_FW_WoWLAN];
 #endif
 

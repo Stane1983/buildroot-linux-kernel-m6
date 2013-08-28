@@ -42,35 +42,39 @@
 
 void dump_chip_info(HAL_VERSION	ChipVersion)
 {
+	int cnt = 0;
+	u8 buf[128];
+
 	if(IS_81XXC(ChipVersion)){
-		DBG_871X("Chip Version Info: %s_",IS_92C_SERIAL(ChipVersion)?"CHIP_8192C":"CHIP_8188C");
+		cnt += sprintf((buf+cnt), "Chip Version Info: %s_", IS_92C_SERIAL(ChipVersion)?"CHIP_8192C":"CHIP_8188C");
 	}
 	else if(IS_92D(ChipVersion)){
-		DBG_871X("Chip Version Info: CHIP_8192D_");
+		cnt += sprintf((buf+cnt), "Chip Version Info: CHIP_8192D_");
 	}
 	else if(IS_8723_SERIES(ChipVersion)){
-		DBG_871X("Chip Version Info: CHIP_8723A_");
+		cnt += sprintf((buf+cnt), "Chip Version Info: CHIP_8723A_");
 	}
 	else if(IS_8188E(ChipVersion)){
-		DBG_871X("Chip Version Info: CHIP_8188E_");
+		cnt += sprintf((buf+cnt), "Chip Version Info: CHIP_8188E_");
 	}
 
-	DBG_871X("%s_",IS_NORMAL_CHIP(ChipVersion)?"Normal_Chip":"Test_Chip");	
-	DBG_871X("%s_",IS_CHIP_VENDOR_TSMC(ChipVersion)?"TSMC":"UMC");
-	if(IS_A_CUT(ChipVersion)) DBG_871X("A_CUT_");	
-	else if(IS_B_CUT(ChipVersion)) DBG_871X("B_CUT_");	
-	else if(IS_C_CUT(ChipVersion)) DBG_871X("C_CUT_");	
-	else if(IS_D_CUT(ChipVersion)) DBG_871X("D_CUT_");	
-	else if(IS_E_CUT(ChipVersion)) DBG_871X("E_CUT_");	
-	else DBG_871X("UNKNOWN_CUT(%d)_",ChipVersion.CUTVersion);
-	
-	if(IS_1T1R(ChipVersion))	DBG_871X("1T1R_");	
-	else if(IS_1T2R(ChipVersion))	DBG_871X("1T2R_");	
-	else if(IS_2T2R(ChipVersion))	DBG_871X("2T2R_");
-	else DBG_871X("UNKNOWN_RFTYPE(%d)_",ChipVersion.RFType);
+	cnt += sprintf((buf+cnt), "%s_", IS_NORMAL_CHIP(ChipVersion)?"Normal_Chip":"Test_Chip");
+	cnt += sprintf((buf+cnt), "%s_", IS_CHIP_VENDOR_TSMC(ChipVersion)?"TSMC":"UMC");
+	if(IS_A_CUT(ChipVersion)) cnt += sprintf((buf+cnt), "A_CUT_");
+	else if(IS_B_CUT(ChipVersion)) cnt += sprintf((buf+cnt), "B_CUT_");
+	else if(IS_C_CUT(ChipVersion)) cnt += sprintf((buf+cnt), "C_CUT_");
+	else if(IS_D_CUT(ChipVersion)) cnt += sprintf((buf+cnt), "D_CUT_");
+	else if(IS_E_CUT(ChipVersion)) cnt += sprintf((buf+cnt), "E_CUT_");
+	else cnt += sprintf((buf+cnt), "UNKNOWN_CUT(%d)_", ChipVersion.CUTVersion);
 
-	
-	DBG_871X("RomVer(%d)\n",ChipVersion.ROMVer);	
+	if(IS_1T1R(ChipVersion)) cnt += sprintf((buf+cnt), "1T1R_");
+	else if(IS_1T2R(ChipVersion)) cnt += sprintf((buf+cnt), "1T2R_");
+	else if(IS_2T2R(ChipVersion)) cnt += sprintf((buf+cnt), "2T2R_");
+	else cnt += sprintf((buf+cnt), "UNKNOWN_RFTYPE(%d)_", ChipVersion.RFType);
+
+	cnt += sprintf((buf+cnt), "RomVer(%d)\n", ChipVersion.ROMVer);
+
+	DBG_871X("%s", buf);
 }
 
 

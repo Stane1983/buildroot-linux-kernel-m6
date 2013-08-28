@@ -203,7 +203,7 @@ struct registry_priv
 #endif
 
 #ifdef CONFIG_IOL
-	bool force_iol; //enable iol without other concern
+	u8 fw_iol; //enable iol without other concern
 #endif
 
 #ifdef CONFIG_DUALMAC_CONCURRENT
@@ -472,7 +472,11 @@ struct _ADAPTER{
 	struct	pwrctrl_priv	pwrctrlpriv;
 	struct 	eeprom_priv eeprompriv;
 	struct	led_priv	ledpriv;
-
+#if defined(CONFIG_CHECK_BT_HANG) && defined(CONFIG_BT_COEXIST)	
+	//Check BT status for BT Hung.
+	struct workqueue_struct *priv_checkbt_wq;
+	struct delayed_work checkbt_work;
+#endif	
 #ifdef CONFIG_MP_INCLUDED
        struct	mp_priv	mppriv;
 #endif
@@ -526,10 +530,10 @@ struct _ADAPTER{
 	u8	init_adpt_in_progress;
 	u8	bHaltInProgress;
 
-	_thread_hdl_	cmdThread;
-	_thread_hdl_	evtThread;
-	_thread_hdl_	xmitThread;
-	_thread_hdl_	recvThread;
+	_thread_hdl_ cmdThread;
+	_thread_hdl_ evtThread;
+	_thread_hdl_ xmitThread;
+	_thread_hdl_ recvThread;
 
 #ifndef PLATFORM_LINUX
 	NDIS_STATUS (*dvobj_init)(struct dvobj_priv *dvobj);
@@ -584,6 +588,14 @@ struct _ADAPTER{
 	u8 bReadPortCancel;
 	u8 bWritePortCancel;
 	u8 bRxRSSIDisplay;
+	//	Added by Albert 2012/10/26
+	//	The driver will show up the desired channel number when this flag is 1.
+	u8 bNotifyChannelChange;
+#ifdef CONFIG_P2P
+	//	Added by Albert 2012/12/06
+	//	The driver will show the current P2P status when the upper application reads it.
+	u8 bShowGetP2PState;
+#endif
 #ifdef CONFIG_AUTOSUSPEND
 	u8	bDisableAutosuspend;
 #endif

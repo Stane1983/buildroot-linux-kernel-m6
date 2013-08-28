@@ -777,6 +777,11 @@ phy_PathA_RxIQK(
 	ODM_SetRFReg(pDM_Odm, RF_PATH_A, RF_RCK_OS, bRFRegOffsetMask, 0x30000 );
 	ODM_SetRFReg(pDM_Odm, RF_PATH_A, RF_TXPA_G1, bRFRegOffsetMask, 0x0000f );
 	ODM_SetRFReg(pDM_Odm, RF_PATH_A, RF_TXPA_G2, bRFRegOffsetMask, 0xf117B );
+	
+	//PA,PAD off
+	ODM_SetRFReg(pDM_Odm, RF_PATH_A, 0xdf, bRFRegOffsetMask, 0x980 );
+	ODM_SetRFReg(pDM_Odm, RF_PATH_A, 0x56, bRFRegOffsetMask, 0x51000 );
+	
 	ODM_SetBBReg(pDM_Odm, rFPGA0_IQK, bMaskDWord, 0x80800000);
 	
 	//IQK setting
@@ -786,7 +791,7 @@ phy_PathA_RxIQK(
 	//path-A IQK setting
 	ODM_SetBBReg(pDM_Odm, rTx_IQK_Tone_A, bMaskDWord, 0x10008c1c);
 	ODM_SetBBReg(pDM_Odm, rRx_IQK_Tone_A, bMaskDWord, 0x30008c1c);
-	ODM_SetBBReg(pDM_Odm, rTx_IQK_PI_A, bMaskDWord, 0x82160804);
+	ODM_SetBBReg(pDM_Odm, rTx_IQK_PI_A, bMaskDWord, 0x82160c1f);
 	ODM_SetBBReg(pDM_Odm, rRx_IQK_PI_A, bMaskDWord, 0x28160000);	
 
 	//LO calibration setting
@@ -838,10 +843,10 @@ phy_PathA_RxIQK(
 	ODM_SetBBReg(pDM_Odm, rRx_IQK, bMaskDWord, 0x01004800);
 
 	//path-A IQK setting
-	ODM_SetBBReg(pDM_Odm, rTx_IQK_Tone_A, bMaskDWord, 0x30008c1c);
-	ODM_SetBBReg(pDM_Odm, rRx_IQK_Tone_A, bMaskDWord, 0x10008c1c);
+	ODM_SetBBReg(pDM_Odm, rTx_IQK_Tone_A, bMaskDWord, 0x38008c1c);
+	ODM_SetBBReg(pDM_Odm, rRx_IQK_Tone_A, bMaskDWord, 0x18008c1c);
 	ODM_SetBBReg(pDM_Odm, rTx_IQK_PI_A, bMaskDWord, 0x82160c05);
-	ODM_SetBBReg(pDM_Odm, rRx_IQK_PI_A, bMaskDWord, 0x28160c05);	
+	ODM_SetBBReg(pDM_Odm, rRx_IQK_PI_A, bMaskDWord, 0x28160c1f);	
 
 	//LO calibration setting
 	ODM_RT_TRACE(pDM_Odm,ODM_COMP_CALIBRATION, ODM_DBG_LOUD, ("LO calibration setting!\n"));
@@ -857,6 +862,7 @@ phy_PathA_RxIQK(
 	//PlatformStallExecution(IQK_DELAY_TIME_88E*1000);
 	ODM_delay_ms(IQK_DELAY_TIME_88E);
 
+        
 	// Check failed
 	regEAC = ODM_GetBBReg(pDM_Odm, rRx_Power_After_IQK_A_2, bMaskDWord);
 	ODM_RT_TRACE(pDM_Odm,ODM_COMP_CALIBRATION, ODM_DBG_LOUD,  ("0xeac = 0x%x\n", regEAC));
@@ -867,6 +873,10 @@ phy_PathA_RxIQK(
 	regEA4= ODM_GetBBReg(pDM_Odm, rRx_Power_Before_IQK_A_2, bMaskDWord);
 	ODM_RT_TRACE(pDM_Odm,ODM_COMP_CALIBRATION, ODM_DBG_LOUD,  ("0xea4 = 0x%x\n", regEA4));
 
+	//reload RF 0xdf
+	ODM_SetBBReg(pDM_Odm, rFPGA0_IQK, bMaskDWord, 0x00000000);
+	ODM_SetRFReg(pDM_Odm, RF_PATH_A, 0xdf, bRFRegOffsetMask, 0x180 );
+	
 #if 0	
 	if(!(regEAC & BIT28) &&		
 		(((regE94 & 0x03FF0000)>>16) != 0x142) &&
@@ -884,6 +894,8 @@ phy_PathA_RxIQK(
 		ODM_RT_TRACE(pDM_Odm,ODM_COMP_CALIBRATION, ODM_DBG_LOUD,  ("Path A Rx IQK fail!!\n"));
 	
 	return result;
+
+
 
 
 }
@@ -1401,6 +1413,8 @@ phy_SimularityCompare_8188E(
 	u1Byte		final_candidate[2] = {0xFF, 0xFF};	//for path A and path B
 	BOOLEAN		bResult = TRUE;
 	BOOLEAN		is2T;
+	s4Byte tmp1 = 0,tmp2 = 0;
+		
 	if( (pDM_Odm->RFType ==ODM_2T2R )||(pDM_Odm->RFType ==ODM_2T3R )||(pDM_Odm->RFType ==ODM_2T4R ))
 		is2T = TRUE;
 	else
@@ -1410,7 +1424,9 @@ phy_SimularityCompare_8188E(
 		bound = 8;
 	else
 		bound = 4;
-
+		
+	
+	
 	ODM_RT_TRACE(pDM_Odm,ODM_COMP_CALIBRATION, ODM_DBG_LOUD, ("===> IQK:phy_SimularityCompare_8188E c1 %d c2 %d!!!\n", c1, c2));
 
 
@@ -1418,7 +1434,27 @@ phy_SimularityCompare_8188E(
 	
 	for( i = 0; i < bound; i++ )
 	{
-		diff = (result[c1][i] > result[c2][i]) ? (result[c1][i] - result[c2][i]) : (result[c2][i] - result[c1][i]);
+//		diff = (result[c1][i] > result[c2][i]) ? (result[c1][i] - result[c2][i]) : (result[c2][i] - result[c1][i]);
+		if((i==1) || (i==3) || (i==5) || (i==7))
+		{
+			if((result[c1][i]& 0x00000200) != 0)
+				tmp1 = result[c1][i] | 0xFFFFFC00; 
+			else
+				tmp1 = result[c1][i];
+
+			if((result[c2][i]& 0x00000200) != 0)
+				tmp2 = result[c2][i] | 0xFFFFFC00; 
+			else
+				tmp2 = result[c2][i];
+		}
+		else
+		{
+			tmp1 = result[c1][i];	
+			tmp2 = result[c2][i];
+		}
+			
+		diff = (tmp1 > tmp2) ? (tmp1 - tmp2) : (tmp2 - tmp1);
+
 		if (diff > MAX_TOLERANCE)
 		{
 			ODM_RT_TRACE(pDM_Odm,ODM_COMP_CALIBRATION, ODM_DBG_LOUD,  ("IQK:phy_SimularityCompare_8188E differnece overflow index %d compare1 0x%x compare2 0x%x!!!\n",  i, result[c1][i], result[c2][i]));
@@ -1452,20 +1488,36 @@ phy_SimularityCompare_8188E(
 		}
 		return bResult;
 	}
-	else if (!(SimularityBitMap & 0x0F))			//path A OK
+	else 
 	{
-		for(i = 0; i < 4; i++)
-			result[3][i] = result[c1][i];
-		return FALSE;
+	
+	   if (!(SimularityBitMap & 0x03))		   //path A TX OK
+	   {
+		   for(i = 0; i < 2; i++)
+			   result[3][i] = result[c1][i];
+	   }
+	
+	   if (!(SimularityBitMap & 0x0c))		   //path A RX OK
+	   {
+		   for(i = 2; i < 4; i++)
+			   result[3][i] = result[c1][i];
+	   }
+	
+	   if (!(SimularityBitMap & 0x30)) //path B TX OK
+	   {
+		   for(i = 4; i < 6; i++)
+			   result[3][i] = result[c1][i];
+	
+	   }
+	
+	   if (!(SimularityBitMap & 0xc0)) //path B RX OK
+	   {
+		   for(i = 6; i < 8; i++)
+			   result[3][i] = result[c1][i];
+	   }
+		   
+		   return FALSE;
 	}
-	else if (!(SimularityBitMap & 0xF0) && is2T)	//path B OK
-	{
-		for(i = 4; i < 8; i++)
-			result[3][i] = result[c1][i];
-		return FALSE;
-	}	
-	else		
-		return FALSE;
 	
 }
 
@@ -1756,6 +1808,7 @@ else
 		//load 0xe30 IQC default value
 		ODM_SetBBReg(pDM_Odm, rTx_IQK_Tone_A, bMaskDWord, 0x01008c00);		
 		ODM_SetBBReg(pDM_Odm, rRx_IQK_Tone_A, bMaskDWord, 0x01008c00);				
+		
 		
 	}
 	ODM_RT_TRACE(pDM_Odm,ODM_COMP_CALIBRATION, ODM_DBG_LOUD, ("phy_IQCalibrate_8188E() <==\n"));
@@ -2470,7 +2523,10 @@ if (*(pDM_Odm->mp_mode) == 1)
 		result[0][i] = 0;
 		result[1][i] = 0;
 		result[2][i] = 0;
-		result[3][i] = 0;
+		if((i==0) ||(i==2) || (i==4)  || (i==6))
+			result[3][i] = 0x100;
+		else
+			result[3][i] = 0;
 	}
 	final_candidate = 0xff;
 	bPathAOK = FALSE;
@@ -2533,6 +2589,7 @@ if (*(pDM_Odm->mp_mode) == 1)
 			}
 			else
 			{
+		/*
 				for(i = 0; i < 8; i++)
 					RegTmp += result[3][i];
 
@@ -2540,6 +2597,8 @@ if (*(pDM_Odm->mp_mode) == 1)
 					final_candidate = 3;			
 				else
 					final_candidate = 0xFF;
+		*/
+				final_candidate = 3;
 			}
 		}
 	}

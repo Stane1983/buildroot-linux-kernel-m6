@@ -279,6 +279,12 @@ int rtw_mlcst2unicst(_adapter *padapter, struct sk_buff *skb)
 	_list	*phead, *plist;
 	struct sk_buff *newskb;
 	struct sta_info *psta = NULL;
+	u8 chk_alive_num = 0;
+	char chk_alive_list[NUM_STA];
+	u8 bc_addr[6]={0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
+	u8 null_addr[6]={0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
+	int i;
 	s32	res;
 
 	_enter_critical_bh(&pstapriv->asoc_list_lock, &irqL);
@@ -286,20 +292,32 @@ int rtw_mlcst2unicst(_adapter *padapter, struct sk_buff *skb)
 	plist = get_next(phead);
 	
 	//free sta asoc_queue
-	while ((rtw_end_of_queue_search(phead, plist)) == _FALSE)	
-	{		
+	while ((rtw_end_of_queue_search(phead, plist)) == _FALSE) {
+		int stainfo_offset;
 		psta = LIST_CONTAINOR(plist, struct sta_info, asoc_list);
-		
 		plist = get_next(plist);
 
-		/* avoid   come from STA1 and send back STA1 */ 
-		if (!memcmp(psta->hwaddr, &skb->data[6], 6))	
-			continue; 
+		stainfo_offset = rtw_stainfo_offset(pstapriv, psta);
+		if (stainfo_offset_valid(stainfo_offset)) {
+			chk_alive_list[chk_alive_num++] = stainfo_offset;
+		}
+	}
+	_exit_critical_bh(&pstapriv->asoc_list_lock, &irqL);
+
+	for (i = 0; i < chk_alive_num; i++) {
+		psta = rtw_get_stainfo_by_offset(pstapriv, chk_alive_list[i]);
+
+		/* avoid come from STA1 and send back STA1 */ 
+		if (_rtw_memcmp(psta->hwaddr, &skb->data[6], 6) == _TRUE
+			|| _rtw_memcmp(psta->hwaddr, null_addr, 6) == _TRUE
+			|| _rtw_memcmp(psta->hwaddr, bc_addr, 6) == _TRUE
+		)
+			continue;
 
 		newskb = skb_copy(skb, GFP_ATOMIC);
-		
+
 		if (newskb) {
-			memcpy(newskb->data, psta->hwaddr, 6);
+			_rtw_memcpy(newskb->data, psta->hwaddr, 6);
 			res = rtw_xmit(padapter, &newskb);
 			if (res < 0) {
 				DBG_871X("%s()-%d: rtw_xmit() return error!\n", __FUNCTION__, __LINE__);
@@ -310,14 +328,11 @@ int rtw_mlcst2unicst(_adapter *padapter, struct sk_buff *skb)
 		} else {
 			DBG_871X("%s-%d: skb_copy() failed!\n", __FUNCTION__, __LINE__);
 			pxmitpriv->tx_drop++;
-
-			_exit_critical_bh(&pstapriv->asoc_list_lock, &irqL);
 			//dev_kfree_skb_any(skb);
 			return _FALSE;	// Caller shall tx this multicast frame via normal way.
 		}
 	}
 
-	_exit_critical_bh(&pstapriv->asoc_list_lock, &irqL);
 	dev_kfree_skb_any(skb);
 	return _TRUE;
 }

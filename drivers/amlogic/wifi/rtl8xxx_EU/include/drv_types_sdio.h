@@ -46,6 +46,7 @@ typedef struct sdio_data
 
 #ifdef PLATFORM_LINUX
 	struct sdio_func	 *func;
+	_thread_hdl_ sys_sdio_irq_thd;
 #endif
 
 #ifdef PLATFORM_OS_XP

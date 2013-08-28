@@ -688,6 +688,54 @@ int proc_set_rx_signal(struct file *file, const char *buffer,
 	
 }
 #ifdef CONFIG_80211N_HT
+
+int proc_get_ht_enable(char *page, char **start,
+			  off_t offset, int count,
+			  int *eof, void *data)
+{
+	struct net_device *dev = data;
+	_adapter *padapter = (_adapter *)rtw_netdev_priv(dev);
+	struct registry_priv	*pregpriv = &padapter->registrypriv;
+	
+	int len = 0;
+	
+	if(pregpriv)
+		len += snprintf(page + len, count - len,
+			"%d\n",
+			pregpriv->ht_enable
+			);
+
+	*eof = 1;
+	return len;
+}
+
+int proc_set_ht_enable(struct file *file, const char *buffer,
+		unsigned long count, void *data)
+{
+	struct net_device *dev = (struct net_device *)data;
+	_adapter *padapter = (_adapter *)rtw_netdev_priv(dev);
+	struct registry_priv	*pregpriv = &padapter->registrypriv;
+	char tmp[32];
+	u32 mode;
+
+	if (count < 1)
+		return -EFAULT;
+
+	if (buffer && !copy_from_user(tmp, buffer, sizeof(tmp))) {		
+
+		int num = sscanf(tmp, "%d ", &mode);
+
+		if( pregpriv && mode >= 0 && mode < 2 )
+		{
+			pregpriv->ht_enable= mode;
+			printk("ht_enable=%d\n", pregpriv->ht_enable);
+		}
+	}
+	
+	return count;
+	
+}
+
 int proc_get_cbw40_enable(char *page, char **start,
 			  off_t offset, int count,
 			  int *eof, void *data)

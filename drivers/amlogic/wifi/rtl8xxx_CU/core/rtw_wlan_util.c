@@ -2233,6 +2233,9 @@ int rtw_handle_dualmac(_adapter *adapter, bool init)
 	int status = _SUCCESS;
 	struct dvobj_priv *dvobj = adapter_to_dvobj(adapter);
 
+	if (!IS_HARDWARE_TYPE_8192D(adapter))
+		goto exit;
+
 	if (init) {
 		if ((dvobj->NumInterfaces == 2) && (adapter->registrypriv.mac_phy_mode != 1)) {
 			dvobj->DualMacMode = _TRUE;
@@ -2246,17 +2249,21 @@ int rtw_handle_dualmac(_adapter *adapter, bool init)
 			status = _FAIL;
 			goto exit;
 		}
-		
-		if (pbuddy_padapter == NULL) {
-			pbuddy_padapter = adapter;
-			DBG_871X("%s(): pbuddy_padapter == NULL, Set pbuddy_padapter\n",__FUNCTION__);
-		} else {
-			adapter->pbuddy_adapter = pbuddy_padapter;
-			pbuddy_padapter->pbuddy_adapter = adapter;
-			// clear global value
-			pbuddy_padapter = NULL;
-			DBG_871X("%s(): pbuddy_padapter exist, Exchange Information\n",__FUNCTION__);
+
+#ifndef CONFIG_CONCURRENT_MODE
+		if (dvobj->DualMacMode == _TRUE) {
+			if (pbuddy_padapter == NULL) {
+				pbuddy_padapter = adapter;
+				DBG_871X("%s(): pbuddy_padapter == NULL, Set pbuddy_padapter\n",__FUNCTION__);
+			} else {
+				adapter->pbuddy_adapter = pbuddy_padapter;
+				pbuddy_padapter->pbuddy_adapter = adapter;
+				// clear global value
+				pbuddy_padapter = NULL;
+				DBG_871X("%s(): pbuddy_padapter exist, Exchange Information\n",__FUNCTION__);
+			}
 		}
+
 #ifdef CONFIG_DUALMAC_CONCURRENT
 		if (dvobj->InterfaceNumber == 0) {
 			//set adapter_type/iface type
@@ -2271,6 +2278,7 @@ int rtw_handle_dualmac(_adapter *adapter, bool init)
 			adapter->iface_type = IFACE_PORT1;
 			DBG_871X("%s(): SECONDARY_ADAPTER\n",__FUNCTION__);
 		}
+#endif
 #endif
 	}else {
 		pbuddy_padapter = NULL;

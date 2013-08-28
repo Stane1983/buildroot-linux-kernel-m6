@@ -232,7 +232,11 @@ _ConfigChipOutEP(
 		pHalData->OutEpQueueSel |= TX_SELE_HQ;
 		pHalData->OutEpNumber++;
 	}
-	
+
+#ifdef CONFIG_USB_ONE_OUT_EP
+		return;
+#endif
+		
 	if((value8 >> USB_NORMAL_SIE_EP_SHIFT) & USB_NORMAL_SIE_EP_MASK){
 		pHalData->OutEpQueueSel |= TX_SELE_NQ;
 		pHalData->OutEpNumber++;
@@ -261,13 +265,14 @@ static BOOLEAN HalUsbSetQueuePipeMapping8192CUsb(
 
 	_ConfigChipOutEP(pAdapter, NumOutPipe);
 
+	#ifndef CONFIG_USB_ONE_OUT_EP
 	// Normal chip with one IN and one OUT doesn't have interrupt IN EP.
 	if(1 == pHalData->OutEpNumber){
 		if(1 != NumInPipe){
 			return result;
 		}
 	}
-
+	#endif
 	result = _MappingOutEP(pAdapter, NumOutPipe);
 	
 	return result;
@@ -308,8 +313,13 @@ void rtl8192cu_interface_configure(_adapter *padapter)
 	pHalData->UsbRxAggPageTimeout	= 0x4; //6, absolute time = 34ms/(2^6)
 #endif
 
-	HalUsbSetQueuePipeMapping8192CUsb(padapter,
-				pdvobjpriv->RtNumInPipes, pdvobjpriv->RtNumOutPipes);
+	HalUsbSetQueuePipeMapping8192CUsb(padapter, pdvobjpriv->RtNumInPipes,
+		#ifdef CONFIG_USB_ONE_OUT_EP
+		1
+		#else
+		pdvobjpriv->RtNumOutPipes
+		#endif
+		);
 
 }
 
@@ -760,8 +770,6 @@ _InitQueueReservedPage(
 	{ //for WMM 
 		//RT_ASSERT((outEPNum>=2), ("for WMM ,number of out-ep must more than or equal to 2!\n"));
 
-		numPubQ = (bWiFiConfig)?WMM_NORMAL_PAGE_NUM_PUBQ:NORMAL_PAGE_NUM_PUBQ;
-
 		if(pHalData->OutEpQueueSel & TX_SELE_HQ){
 			numHQ = (bWiFiConfig)?WMM_NORMAL_PAGE_NUM_HPQ:NORMAL_PAGE_NUM_HPQ;
 		}
@@ -775,6 +783,11 @@ _InitQueueReservedPage(
 		}
 		value8 = (u8)_NPQ(numNQ);
 		rtw_write8(Adapter, REG_RQPN_NPQ, value8);
+
+		if (bWiFiConfig)
+			numPubQ = WMM_NORMAL_TX_TOTAL_PAGE_NUMBER - numHQ - numLQ - numNQ;
+		else
+			numPubQ = TX_TOTAL_PAGE_NUMBER - numHQ - numLQ - numNQ;
 	}
 
 	// TX DMA
@@ -6224,6 +6237,7 @@ _func_enter_;
 
 	pHalFunc->hal_xmit = &rtl8192cu_hal_xmit;
 	pHalFunc->mgnt_xmit = &rtl8192cu_mgnt_xmit;
+	pHalFunc->hal_xmitframe_enqueue = &rtl8192cu_hal_xmitframe_enqueue;
 
 	//pHalFunc->read_bbreg = &rtl8192c_PHY_QueryBBReg;
 	//pHalFunc->write_bbreg = &rtl8192c_PHY_SetBBReg;

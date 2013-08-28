@@ -20,6 +20,10 @@
 
 #include "../odm_precomp.h"
 
+#ifdef CONFIG_IOL_IOREG_CFG
+#include <rtw_iol.h>
+#endif
+
 #if (RTL8188E_SUPPORT == 1)
 static BOOLEAN
 CheckCondition(
@@ -156,10 +160,9 @@ u4Byte Array_RadioA_1T_8188E[] = {
 		0x01E, 0x00000001,
 		0x01F, 0x00080000,
 		0x000, 0x00033E60,
-
 };
 
-void
+HAL_STATUS
 ODM_ReadAndConfig_RadioA_1T_8188E(
  	IN   PDM_ODM_T  pDM_Odm
  	)
@@ -175,12 +178,34 @@ ODM_ReadAndConfig_RadioA_1T_8188E(
 	u1Byte     board       = pDM_Odm->BoardType;  
 	u4Byte     ArrayLen    = sizeof(Array_RadioA_1T_8188E)/sizeof(u4Byte);
 	pu4Byte    Array       = Array_RadioA_1T_8188E;
-
+	BOOLEAN		biol = FALSE;
+#ifdef CONFIG_IOL_IOREG_CFG 
+	PADAPTER	Adapter =  pDM_Odm->Adapter;	
+	struct xmit_frame	*pxmit_frame;	
+	u8 bndy_cnt = 1;
+	#ifdef CONFIG_IOL_IOREG_CFG_DBG
+	struct cmd_cmp cmpdata[ArrayLen];
+	u4Byte	cmpdata_idx=0;
+	#endif
+#endif//#ifdef CONFIG_IOL_IOREG_CFG 
+	HAL_STATUS rst =HAL_STATUS_SUCCESS;
 
 	hex += board;
 	hex += interfaceValue << 8;
 	hex += platform << 16;
 	hex += 0xFF000000;
+#ifdef CONFIG_IOL_IOREG_CFG 
+	biol = rtw_IOL_applied(Adapter);
+	
+	if(biol){		
+		if((pxmit_frame=rtw_IOL_accquire_xmit_frame(Adapter)) == NULL)
+		{
+			printk("rtw_IOL_accquire_xmit_frame failed\n");
+			return HAL_STATUS_FAILURE;
+		}
+	}		
+#endif//#ifdef CONFIG_IOL_IOREG_CFG 
+	
 	for (i = 0; i < ArrayLen; i += 2 )
 	{
 	    u4Byte v1 = Array[i];
@@ -189,7 +214,45 @@ ODM_ReadAndConfig_RadioA_1T_8188E(
 	    // This (offset, data) pair meets the condition.
 	    if ( v1 < 0xCDCDCDCD )
 	    {
-		    odm_ConfigRF_RadioA_8188E(pDM_Odm, v1, v2);
+	    		#ifdef CONFIG_IOL_IOREG_CFG 	
+	 		if(biol){	
+				if(rtw_IOL_cmd_boundary_handle(pxmit_frame))
+					bndy_cnt++;	
+				
+				if(v1 == 0xffe)
+				{ 					
+					rtw_IOL_append_DELAY_MS_cmd(pxmit_frame,50);				
+				}
+				else if (v1 == 0xfd){
+					rtw_IOL_append_DELAY_MS_cmd(pxmit_frame,5);
+				}
+				else if (v1 == 0xfc){
+					rtw_IOL_append_DELAY_MS_cmd(pxmit_frame,1);
+				}
+				else if (v1 == 0xfb){
+					rtw_IOL_append_DELAY_US_cmd(pxmit_frame,50);
+				}
+				else if (v1 == 0xfa){
+					rtw_IOL_append_DELAY_US_cmd(pxmit_frame,5);
+				}
+				else if (v1 == 0xf9){
+					rtw_IOL_append_DELAY_US_cmd(pxmit_frame,1);
+				}
+				else{
+					rtw_IOL_append_WRF_cmd(pxmit_frame, ODM_RF_PATH_A,(u2Byte)v1, v2,bRFRegOffsetMask) ;
+					#ifdef CONFIG_IOL_IOREG_CFG_DBG
+					cmpdata[cmpdata_idx].addr = v1;
+					cmpdata[cmpdata_idx].value= v2;
+					cmpdata_idx++;
+					#endif
+				}				
+ 
+	 		}
+			else
+			#endif	//#ifdef CONFIG_IOL_IOREG_CFG 
+			{
+		    		odm_ConfigRF_RadioA_8188E(pDM_Odm, v1, v2);
+			}
 		    continue;
 	 	}
 		else
@@ -212,7 +275,46 @@ ODM_ReadAndConfig_RadioA_1T_8188E(
 		               v2 != 0xCDEF && 
 		               v2 != 0xCDCD && i < ArrayLen -2)
 		        {
-		    		odm_ConfigRF_RadioA_8188E(pDM_Odm, v1, v2);
+		    		#ifdef CONFIG_IOL_IOREG_CFG 	
+		 		if(biol){	
+					if(rtw_IOL_cmd_boundary_handle(pxmit_frame))
+						bndy_cnt++;	
+					
+					if(v1 == 0xffe)
+					{ 							
+						rtw_IOL_append_DELAY_MS_cmd(pxmit_frame,50);					
+					}
+					else if (v1 == 0xfd){
+						rtw_IOL_append_DELAY_MS_cmd(pxmit_frame,5);
+					}
+					else if (v1 == 0xfc){
+						rtw_IOL_append_DELAY_MS_cmd(pxmit_frame,1);
+					}
+					else if (v1 == 0xfb){
+						rtw_IOL_append_DELAY_US_cmd(pxmit_frame,50);
+					}
+					else if (v1 == 0xfa){
+						rtw_IOL_append_DELAY_US_cmd(pxmit_frame,5);
+					}
+					else if (v1 == 0xf9){
+						rtw_IOL_append_DELAY_US_cmd(pxmit_frame,1);
+					}
+					else{
+						rtw_IOL_append_WRF_cmd(pxmit_frame, ODM_RF_PATH_A,(u2Byte)v1, v2,bRFRegOffsetMask) ;
+						#ifdef CONFIG_IOL_IOREG_CFG_DBG
+						cmpdata[cmpdata_idx].addr = v1;
+						cmpdata[cmpdata_idx].value= v2;
+						cmpdata_idx++;
+						#endif
+
+					}				
+	 
+		 		}
+				else
+				#endif	//#ifdef CONFIG_IOL_IOREG_CFG 
+				{
+		    			odm_ConfigRF_RadioA_8188E(pDM_Odm, v1, v2);
+				}
 		            READ_NEXT_PAIR(v1, v2, i);
 		        }
 
@@ -224,7 +326,51 @@ ODM_ReadAndConfig_RadioA_1T_8188E(
 		    }
 		}	
 	}
+#ifdef CONFIG_IOL_IOREG_CFG 		
+	if(biol){
+		//printk("==> %s, pktlen = %d,bndy_cnt = %d\n",__FUNCTION__,pxmit_frame->attrib.pktlen+4+32,bndy_cnt);
+		if(rtw_IOL_exec_cmds_sync(pDM_Odm->Adapter, pxmit_frame, 1000, bndy_cnt))
+		{			
+			#ifdef CONFIG_IOL_IOREG_CFG_DBG
+			printk("~~~ %s Success !!! \n",__FUNCTION__);
+			{
+				u4Byte idx;
+				u4Byte cdata;
+				printk("  %s data compare => array_len:%d \n",__FUNCTION__,cmpdata_idx);
+				printk("### %s data compared !!###\n",__FUNCTION__);
+				for(idx=0;idx< cmpdata_idx;idx++)
+				{
+					cdata = ODM_GetRFReg(pDM_Odm, ODM_RF_PATH_A,cmpdata[idx].addr,bRFRegOffsetMask);
+					if(cdata != cmpdata[idx].value){
+						printk("addr:0x%04x, data:(0x%02x : 0x%02x) \n",
+							cmpdata[idx].addr,cmpdata[idx].value,cdata);
+						rst = HAL_STATUS_FAILURE;
+					}					
+				}	
+				printk("### %s data compared !!###\n",__FUNCTION__);
+				//if(rst == HAL_STATUS_FAILURE)
+				{//dump data from TX packet buffer				
+					rtw_IOL_cmd_tx_pkt_buf_dump(pDM_Odm->Adapter,pxmit_frame->attrib.pktlen+32);
+				}
+			}
+			#endif //CONFIG_IOL_IOREG_CFG_DBG
+		
+		}
+		else{
+			rst = HAL_STATUS_FAILURE;
+			printk("~~~ IOL Config %s Failed !!! \n",__FUNCTION__);
+			#ifdef CONFIG_IOL_IOREG_CFG_DBG
+			{
+				//dump data from TX packet buffer				
+				rtw_IOL_cmd_tx_pkt_buf_dump(pDM_Odm->Adapter,pxmit_frame->attrib.pktlen+32);
+			}
+			#endif //CONFIG_IOL_IOREG_CFG_DBG
+		}
+	}
 
+	 
+#endif	//#ifdef CONFIG_IOL_IOREG_CFG 
+	return rst;
 }
 
 #endif // end of HWIMG_SUPPORT

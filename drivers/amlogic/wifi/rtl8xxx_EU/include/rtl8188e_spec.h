@@ -123,6 +123,10 @@
 #define REG_MCUFWDL					0x0080
 #define REG_WOL_EVENT					0x0081 //RTL8188E
 #define REG_MCUTSTCFG					0x0084
+#define REG_HMEBOX_E0					0x0088
+#define REG_HMEBOX_E1					0x008A
+#define REG_HMEBOX_E2					0x008C
+#define REG_HMEBOX_E3					0x008E
 #define REG_HMEBOX_EXT_0				0x01F0
 #define REG_HMEBOX_EXT_1				0x01F4
 #define REG_HMEBOX_EXT_2				0x01F8
@@ -217,7 +221,7 @@
 //
 //-----------------------------------------------------
 #define 	REG_RXDMA_AGG_PG_TH			0x0280
-#define	REG_RXPKT_NUM					0x0284 // The number of packets in RXPKTBUF.	
+#define	REG_RXPKT_NUM					0x0284 	
 #define 	REG_RXDMA_STATUS				0x0288
 
 //-----------------------------------------------------
@@ -592,6 +596,19 @@ Default: 00b.
 #define	USB_INTR_CONTENT_HISR_OFFSET		48
 #define	USB_INTR_CONTENT_HISRE_OFFSET	52
 
+
+//----------------------------------------------------------------------------
+//       88E Driver Initialization Offload REG_FDHM0(Offset 0x88, 8 bits)  
+//----------------------------------------------------------------------------
+//IOL config for REG_FDHM0(Reg0x88)
+#define CMD_INIT_LLT					BIT0
+#define CMD_READ_EFUSE_MAP		BIT1
+#define CMD_EFUSE_PATCH			BIT2
+#define CMD_IOCONFIG				BIT3
+#define CMD_INIT_LLT_ERR			BIT4
+#define CMD_READ_EFUSE_MAP_ERR	BIT5
+#define CMD_EFUSE_PATCH_ERR		BIT6
+#define CMD_IOCONFIG_ERR			BIT7
 
 //
 // 6. Adaptive Control Registers  (Offset: 0x0160 - 0x01CF)
@@ -976,22 +993,22 @@ Current IOREG MAP
 #define ACLK_VLD						BIT(1)
 #define UCLK_VLD						BIT(2)
 #define PCLK_VLD						BIT(3)
-#define PCIRSTB						BIT(4)
-#define V15_VLD						BIT(5)
-#define TRP_B15V_EN					BIT(7)
-#define SIC_IDLE						BIT(8)
-#define BD_MAC2						BIT(9)
-#define BD_MAC1						BIT(10)
+#define PCIRSTB							BIT(4)
+#define V15_VLD							BIT(5)
+#define SW_OFFLOAD_EN					BIT(7)
+#define SIC_IDLE							BIT(8)
+#define BD_MAC2							BIT(9)
+#define BD_MAC1							BIT(10)
 #define IC_MACPHY_MODE				BIT(11)
 #define CHIP_VER						(BIT(12)|BIT(13)|BIT(14)|BIT(15))
-#define BT_FUNC						BIT(16)
+#define BT_FUNC							BIT(16)
 #define VENDOR_ID						BIT(19)
 #define PAD_HWPD_IDN					BIT(22)
-#define TRP_VAUX_EN					BIT(23)	// RTL ID
+#define TRP_VAUX_EN						BIT(23)	// RTL ID
 #define TRP_BT_EN						BIT(24)
-#define BD_PKG_SEL					BIT(25)
+#define BD_PKG_SEL						BIT(25)
 #define BD_HCI_SEL						BIT(26)
-#define TYPE_ID						BIT(27)
+#define TYPE_ID							BIT(27)
 
 #define CHIP_VER_RTL_MASK				0xF000	//Bit 12 ~ 15
 #define CHIP_VER_RTL_SHIFT				12
@@ -1600,6 +1617,10 @@ Current IOREG MAP
 #define	EEPROM_CUSTOMERID_88E				0xC5
 #define	EEPROM_RF_ANTENNA_OPT_88E			0xC9
 
+#ifdef CONFIG_RF_GAIN_OFFSET
+#define	EEPROM_RF_GAIN_OFFSET_88E			0xFD
+#endif //CONFIG_RF_GAIN_OFFSET
+
 // RTL88EE
 #define	EEPROM_MAC_ADDR_88EE				0xD0
 #define	EEPROM_VID_88EE						0xD6
@@ -1651,8 +1672,12 @@ Current IOREG MAP
 #define EEPROM_Default_HT40_PwrMaxOffset	0
 #define EEPROM_Default_HT20_PwrMaxOffset	0
 
-#define 	EEPROM_Default_CrystalCap_88E 		0x20
-#define	EEPROM_Default_ThermalMeter_88E	0x18
+#define EEPROM_Default_CrystalCap_88E		0x20
+#define	EEPROM_Default_ThermalMeter_88E		0x18
+
+#ifdef CONFIG_RF_GAIN_OFFSET
+#define EEPROM_Default_RFGainOffset			0xff
+#endif //CONFIG_RF_GAIN_OFFSET
 
 //New EFUSE deafult value
 #define 	EEPROM_DEFAULT_24G_INDEX		0x2D

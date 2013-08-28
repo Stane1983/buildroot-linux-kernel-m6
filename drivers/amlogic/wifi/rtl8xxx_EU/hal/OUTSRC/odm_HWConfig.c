@@ -1162,6 +1162,7 @@ ODM_ConfigMACWithHeaderFile(
 	IN 	PDM_ODM_T	pDM_Odm
 	)
 {
+	u1Byte result = HAL_STATUS_SUCCESS;
 #if (RTL8723A_SUPPORT == 1)
 	if (pDM_Odm->SupportICType == ODM_RTL8723A)
 	{
@@ -1171,10 +1172,11 @@ ODM_ConfigMACWithHeaderFile(
 #if (RTL8188E_SUPPORT == 1)  
 	if (pDM_Odm->SupportICType == ODM_RTL8188E)
 	{
-		READ_AND_CONFIG(8188E,_MAC_REG_);
+		result = READ_AND_CONFIG(8188E,_MAC_REG_);
 	}
 #endif
-	return HAL_STATUS_SUCCESS;    
+	 
+	return result;    
 } 
 
 

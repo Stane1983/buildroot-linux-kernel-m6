@@ -251,7 +251,7 @@ typedef struct _RX_High_Power_
 }RXHP_T, *pRXHP_T;
 
 #if(DM_ODM_SUPPORT_TYPE & (ODM_CE))
-#define ASSOCIATE_ENTRY_NUM					8 // Max size of AsocEntry[].
+#define ASSOCIATE_ENTRY_NUM					32 // Max size of AsocEntry[].
 #define	ODM_ASSOCIATE_ENTRY_NUM				ASSOCIATE_ENTRY_NUM
 
 #elif(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
@@ -1976,6 +1976,10 @@ ODM_SingleDualAntennaDetection(
 	);
 
 #endif	// #if((DM_ODM_SUPPORT_TYPE==ODM_MP)||(DM_ODM_SUPPORT_TYPE==ODM_CE))
+
+#if (DM_ODM_SUPPORT_TYPE == ODM_CE)
+void odm_dtc(PDM_ODM_T pDM_Odm);
+#endif /* #if (DM_ODM_SUPPORT_TYPE == ODM_CE) */
 
 #endif
 

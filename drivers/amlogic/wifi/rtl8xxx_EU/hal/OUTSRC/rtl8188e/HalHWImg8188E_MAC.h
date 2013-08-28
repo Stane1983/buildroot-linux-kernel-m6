@@ -28,7 +28,7 @@
 *                           MAC_REG.TXT
 ******************************************************************************/
 
-void
+HAL_STATUS
 ODM_ReadAndConfig_MAC_REG_8188E(
 	IN   PDM_ODM_T  pDM_Odm
 );

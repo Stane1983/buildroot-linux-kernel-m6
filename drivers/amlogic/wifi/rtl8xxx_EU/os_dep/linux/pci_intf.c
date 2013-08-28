@@ -1533,24 +1533,12 @@ static void rtw_dev_unload(_adapter *padapter)
 	if(padapter->bup == _TRUE)
 	{
 		DBG_871X("+rtw_dev_unload\n");
-		//s1.
-/*		if(pnetdev)
-		{
-			netif_carrier_off(pnetdev);
-			rtw_netif_stop_queue(pnetdev);
-		}
-
-		//s2.
-		//s2-1.  issue rtw_disassoc_cmd to fw
-		rtw_disassoc_cmd(padapter);
-		//s2-2.  indicate disconnect to os
-		rtw_indicate_disconnect(padapter);
-		//s2-3.
-		rtw_free_assoc_resources(padapter, 1);
-		//s2-4.
-		rtw_free_network_queue(padapter, _TRUE);*/
 
 		padapter->bDriverStopped = _TRUE;
+		#ifdef CONFIG_XMIT_ACK
+		if (padapter->xmitpriv.ack_tx)
+			rtw_ack_tx_done(&padapter->xmitpriv, RTW_SCTX_DONE_DRV_STOP);
+		#endif
 
 		//s3.
 		if(padapter->intf_stop)
@@ -1716,6 +1704,7 @@ _adapter *rtw_pci_if1_init(struct dvobj_priv * dvobj, struct pci_dev *pdev, cons
 	}
 	rtw_init_netdev_name(pnetdev, padapter->registrypriv.ifname);
 	rtw_macaddr_cfg(padapter->eeprompriv.mac_addr);
+	rtw_init_wifidirect_addrs(padapter, padapter->eeprompriv.mac_addr, padapter->eeprompriv.mac_addr);
 
 	_rtw_memcpy(pnetdev->dev_addr, padapter->eeprompriv.mac_addr, ETH_ALEN);
 	DBG_871X("MAC Address from pnetdev->dev_addr= "MAC_FMT"\n", MAC_ARG(pnetdev->dev_addr));	
@@ -1765,6 +1754,7 @@ free_hal_data:
 free_wdev:
 	if(status != _SUCCESS) {
 		#ifdef CONFIG_IOCTL_CFG80211
+		rtw_wdev_unregister(padapter->rtw_wdev);
 		rtw_wdev_free(padapter->rtw_wdev);
 		#endif
 	}
@@ -1786,36 +1776,10 @@ static void rtw_pci_if1_deinit(_adapter *if1)
 	struct net_device *pnetdev = if1->pnetdev;
 	struct mlme_priv *pmlmepriv= &if1->mlmepriv;
 
-#if defined(CONFIG_HAS_EARLYSUSPEND ) || defined(CONFIG_ANDROID_POWER)
-	rtw_unregister_early_suspend(&if1->pwrctrlpriv);
-#endif
-
-	rtw_pm_set_ips(if1, IPS_NONE);
-	rtw_pm_set_lps(if1, PS_MODE_ACTIVE);
-
-	LeaveAllPowerSaveMode(if1);
 	//	padapter->intf_stop(padapter);
 
 	if(check_fwstate(pmlmepriv, _FW_LINKED))
-		disconnect_hdl(if1, NULL);
-
-	#if 0
-#ifdef RTK_DMP_PLATFORM
-	padapter->bSurpriseRemoved = _FALSE;	// always trate as device exists
-											// this will let the driver to disable it's interrupt
-#else
-	if(pci_drvpriv.drv_registered == _TRUE)
-	{
-		//DBG_871X("r871xu_dev_remove():padapter->bSurpriseRemoved == _TRUE\n");
-		padapter->bSurpriseRemoved = _TRUE;
-	}
-	/*else
-	{
-		//DBG_871X("r871xu_dev_remove():module removed\n");
-		padapter->hw_init_completed = _FALSE;
-	}*/
-#endif
-	#endif
+		rtw_disassoc_cmd(if1, 0, _FALSE);
 
 #ifdef CONFIG_AP_MODE
 	free_mlme_ap_info(if1);
@@ -1843,6 +1807,7 @@ static void rtw_pci_if1_deinit(_adapter *if1)
 	rtw_handle_dualmac(if1, 0);
 
 #ifdef CONFIG_IOCTL_CFG80211
+	rtw_wdev_unregister(if1->rtw_wdev);
 	rtw_wdev_free(if1->rtw_wdev);
 #endif //CONFIG_IOCTL_CFG80211
 
@@ -1910,7 +1875,8 @@ static int rtw_drv_init(struct pci_dev *pdev, const struct pci_device_id *pdid)
 free_if2:
 	if(status != _SUCCESS && if2) {
 		#ifdef CONFIG_CONCURRENT_MODE
-		rtw_drv_if2_free(if1);
+		rtw_drv_if2_stop(if2);
+		rtw_drv_if2_free(if2);
 		#endif
 	}
 free_if1:
@@ -1942,11 +1908,42 @@ _func_exit_;
 		return;
 	}
 
+	#if 0
+#ifdef RTK_DMP_PLATFORM
+	padapter->bSurpriseRemoved = _FALSE;	// always trate as device exists
+											// this will let the driver to disable it's interrupt
+#else
+	if(pci_drvpriv.drv_registered == _TRUE)
+	{
+		//DBG_871X("r871xu_dev_remove():padapter->bSurpriseRemoved == _TRUE\n");
+		padapter->bSurpriseRemoved = _TRUE;
+	}
+	/*else
+	{
+		//DBG_871X("r871xu_dev_remove():module removed\n");
+		padapter->hw_init_completed = _FALSE;
+	}*/
+#endif
+	#endif
+
+#if defined(CONFIG_HAS_EARLYSUSPEND) || defined(CONFIG_ANDROID_POWER)
+	rtw_unregister_early_suspend(&padapter->pwrctrlpriv);
+#endif
+
+	rtw_pm_set_ips(padapter, IPS_NONE);
+	rtw_pm_set_lps(padapter, PS_MODE_ACTIVE);
+
+	LeaveAllPowerSaveMode(padapter);
+
 #ifdef CONFIG_CONCURRENT_MODE
-	rtw_drv_if2_free(padapter);
+	rtw_drv_if2_stop(pdvobjpriv->if2);
 #endif
 
 	rtw_pci_if1_deinit(padapter);
+
+#ifdef CONFIG_CONCURRENT_MODE
+	rtw_drv_if2_free(pdvobjpriv->if2);
+#endif
 
 	pci_dvobj_deinit(pdev);
 

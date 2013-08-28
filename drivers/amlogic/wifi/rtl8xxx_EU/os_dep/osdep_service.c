@@ -1979,3 +1979,97 @@ keep_ori:
 		_rtw_mfree(ori, ori_len);
 }
 
+
+/**
+ * rtw_cbuf_full - test if cbuf is full
+ * @cbuf: pointer of struct rtw_cbuf
+ *
+ * Returns: _TRUE if cbuf is full
+ */
+inline bool rtw_cbuf_full(struct rtw_cbuf *cbuf)
+{
+	return (cbuf->write == cbuf->read-1)? _TRUE : _FALSE;
+}
+
+/**
+ * rtw_cbuf_empty - test if cbuf is empty
+ * @cbuf: pointer of struct rtw_cbuf
+ *
+ * Returns: _TRUE if cbuf is empty
+ */
+inline bool rtw_cbuf_empty(struct rtw_cbuf *cbuf)
+{
+	return (cbuf->write == cbuf->read)? _TRUE : _FALSE;
+}
+
+/**
+ * rtw_cbuf_push - push a pointer into cbuf
+ * @cbuf: pointer of struct rtw_cbuf
+ * @buf: pointer to push in
+ *
+ * Lock free operation, be careful of the use scheme
+ * Returns: _TRUE push success
+ */
+bool rtw_cbuf_push(struct rtw_cbuf *cbuf, void *buf)
+{
+	if (rtw_cbuf_full(cbuf))
+		return _FAIL;
+
+	if (0)
+		DBG_871X("%s on %u\n", __func__, cbuf->write);
+	cbuf->bufs[cbuf->write] = buf;
+	cbuf->write = (cbuf->write+1)%cbuf->size;
+
+	return _SUCCESS;
+}
+
+/**
+ * rtw_cbuf_pop - pop a pointer from cbuf
+ * @cbuf: pointer of struct rtw_cbuf
+ *
+ * Lock free operation, be careful of the use scheme
+ * Returns: pointer popped out
+ */
+void *rtw_cbuf_pop(struct rtw_cbuf *cbuf)
+{
+	void *buf;
+	if (rtw_cbuf_empty(cbuf))
+		return NULL;
+
+	if (0)
+		DBG_871X("%s on %u\n", __func__, cbuf->read);
+	buf = cbuf->bufs[cbuf->read];
+	cbuf->read = (cbuf->read+1)%cbuf->size;
+
+	return buf;
+}
+
+/**
+ * rtw_cbuf_alloc - allocte a rtw_cbuf with given size and do initialization
+ * @size: size of pointer
+ *
+ * Returns: pointer of srtuct rtw_cbuf, NULL for allocation failure
+ */
+struct rtw_cbuf *rtw_cbuf_alloc(u32 size)
+{
+	struct rtw_cbuf *cbuf;
+
+	cbuf = (struct rtw_cbuf *)rtw_malloc(sizeof(*cbuf) + sizeof(void*)*size);
+
+	if (cbuf) {
+		cbuf->write = cbuf->read = 0;
+		cbuf->size = size;
+	}
+
+	return cbuf;
+}
+
+/**
+ * rtw_cbuf_free - free the given rtw_cbuf
+ * @cbuf: pointer of struct rtw_cbuf to free
+ */
+void rtw_cbuf_free(struct rtw_cbuf *cbuf)
+{
+	rtw_mfree((u8*)cbuf, sizeof(*cbuf) + sizeof(void*)*cbuf->size);
+}
+

@@ -46,6 +46,7 @@
 #endif
 
 	struct cmd_obj {
+		_adapter *padapter;
 		u16	cmdcode;
 		u8	res;
 		u8	*parmbuf;
@@ -88,7 +89,15 @@
 		_sema	evt_notify;
 		_sema	terminate_evtthread_sema;
 		_queue	evt_queue;
-#endif		
+#endif
+
+#define CONFIG_C2H_WK
+#ifdef CONFIG_C2H_WK
+		_workitem c2h_wk;
+		bool c2h_wk_alive;
+		struct rtw_cbuf *c2h_queue;
+		#define C2H_QUEUE_MAX_LEN 10
+#endif
 		
 #ifdef CONFIG_H2CLBK
 		_sema	lbkevt_done;
@@ -232,7 +241,7 @@ Command Mode
 
 */
 struct disconnect_parm {
-	u32 rsvd;
+	u32 deauth_timeout_ms;
 };
 
 /*
@@ -279,11 +288,14 @@ Command-Event Mode
 */
 
 #define RTW_SSID_SCAN_AMOUNT 9 // for WEXT_CSCAN_AMOUNT 9
+#define RTW_CHANNEL_SCAN_AMOUNT (14+37)
 struct sitesurvey_parm {
 	sint scan_mode;	//active: 1, passive: 0 
-	sint bsslimit;	// 1 ~ 48
-	// for up to 9 probreq with specific ssid
+	/* sint bsslimit;	// 1 ~ 48 */
+	u8 ssid_num;
+	u8 ch_num;
 	NDIS_802_11_SSID ssid[RTW_SSID_SCAN_AMOUNT];
+	struct rtw_ieee80211_channel ch[RTW_CHANNEL_SCAN_AMOUNT];
 };
 
 /*
@@ -806,9 +818,10 @@ struct addBaReq_parm
 };
 
 /*H2C Handler index: 46 */
-struct SetChannel_parm
-{
-	u32 curr_ch;	
+struct set_ch_parm {
+	u8 ch;
+	u8 bw;
+	u8 ch_offset;
 };
 
 #ifdef MP_FIRMWARE_OFFLOAD
@@ -921,14 +934,14 @@ Result:
 
 extern u8 rtw_setassocsta_cmd(_adapter  *padapter, u8 *mac_addr);
 extern u8 rtw_setstandby_cmd(_adapter *padapter, uint action);
-extern u8 rtw_sitesurvey_cmd(_adapter  *padapter, NDIS_802_11_SSID *pssid, int ssid_max_num);
+u8 rtw_sitesurvey_cmd(_adapter  *padapter, NDIS_802_11_SSID *ssid, int ssid_num, struct rtw_ieee80211_channel *ch, int ch_num);
 extern u8 rtw_createbss_cmd(_adapter  *padapter);
 extern u8 rtw_createbss_cmd_ex(_adapter  *padapter, unsigned char *pbss, unsigned int sz);
 extern u8 rtw_setphy_cmd(_adapter  *padapter, u8 modem, u8 ch);
 extern u8 rtw_setstakey_cmd(_adapter  *padapter, u8 *psta, u8 unicast_key);
 extern u8 rtw_clearstakey_cmd(_adapter *padapter, u8 *psta, u8 entry, u8 enqueue);
 extern u8 rtw_joinbss_cmd(_adapter  *padapter, struct wlan_network* pnetwork);
-extern u8 rtw_disassoc_cmd(_adapter  *padapter);
+u8 rtw_disassoc_cmd(_adapter *padapter, u32 deauth_timeout_ms, bool enqueue);
 extern u8 rtw_setopmode_cmd(_adapter  *padapter, NDIS_802_11_NETWORK_INFRASTRUCTURE networktype);
 extern u8 rtw_setdatarate_cmd(_adapter  *padapter, u8 *rateset);
 extern u8 rtw_setbasicrate_cmd(_adapter  *padapter, u8 *rateset);
@@ -963,7 +976,8 @@ extern u8 rtw_ps_cmd(_adapter*padapter);
 u8 rtw_chk_hi_queue_cmd(_adapter*padapter);
 #endif
 
-extern u8 rtw_set_chplan_cmd(_adapter*padapter, u8 chplan, u8 enaueue);
+u8 rtw_set_ch_cmd(_adapter*padapter, u8 ch, u8 bw, u8 ch_offset, u8 enqueue);
+extern u8 rtw_set_chplan_cmd(_adapter*padapter, u8 chplan, u8 enqueue);
 extern u8 rtw_led_blink_cmd(_adapter*padapter, PLED_871x pLed);
 extern u8 rtw_set_csa_cmd(_adapter*padapter, u8 new_ch_no);
 extern u8 rtw_tdls_cmd(_adapter*padapter, u8 *addr, u8 option);

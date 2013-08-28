@@ -334,6 +334,10 @@ static void rtw_dev_unload(PADAPTER padapter)
 	RT_TRACE(_module_hci_intfs_c_, _drv_notice_, ("+rtw_dev_unload\n"));
 
 	padapter->bDriverStopped = _TRUE;
+	#ifdef CONFIG_XMIT_ACK
+	if (padapter->xmitpriv.ack_tx)
+		rtw_ack_tx_done(&padapter->xmitpriv, RTW_SCTX_DONE_DRV_STOP);
+	#endif
 
 	if (padapter->bup == _TRUE)
 	{
@@ -474,6 +478,7 @@ static PADAPTER rtw_gspi_if1_init(struct dvobj_priv *dvobj)
 	rtw_init_netdev_name(pnetdev, padapter->registrypriv.ifname);
 
 	rtw_macaddr_cfg(padapter->eeprompriv.mac_addr);
+	rtw_init_wifidirect_addrs(padapter, padapter->eeprompriv.mac_addr, padapter->eeprompriv.mac_addr);
 	_rtw_memcpy(pnetdev->dev_addr, padapter->eeprompriv.mac_addr, ETH_ALEN);
 
 	rtw_hal_disable_interrupt(padapter);
@@ -506,6 +511,7 @@ free_hal_data:
 free_wdev:
 	if (status != _SUCCESS) {
 		#ifdef CONFIG_IOCTL_CFG80211
+		rtw_wdev_unregister(padapter->rtw_wdev);
 		rtw_wdev_free(padapter->rtw_wdev);
 		#endif
 	}
@@ -528,18 +534,8 @@ static void rtw_gspi_if1_deinit(PADAPTER if1)
 	struct net_device *pnetdev = if1->pnetdev;
 	struct mlme_priv *pmlmepriv = &if1->mlmepriv;
 
-
-#if defined(CONFIG_HAS_EARLYSUSPEND ) || defined(CONFIG_ANDROID_POWER)
-	rtw_unregister_early_suspend(&if1->pwrctrlpriv);
-#endif
-
-	rtw_pm_set_ips(if1, IPS_NONE);
-	rtw_pm_set_lps(if1, PS_MODE_ACTIVE);
-
-	LeaveAllPowerSaveMode(if1);
-
 	if (check_fwstate(pmlmepriv, _FW_LINKED))
-		disconnect_hdl(if1, NULL);
+		rtw_disassoc_cmd(if1, 0, _FALSE);
 
 #ifdef CONFIG_AP_MODE
 	free_mlme_ap_info(if1);
@@ -563,6 +559,7 @@ static void rtw_gspi_if1_deinit(PADAPTER if1)
 	rtw_handle_dualmac(if1, 0);
 
 #ifdef CONFIG_IOCTL_CFG80211
+	rtw_wdev_unregister(if1->rtw_wdev);
 	rtw_wdev_free(if1->rtw_wdev);
 #endif
 
@@ -621,8 +618,9 @@ static int /*__devinit*/  rtw_drv_probe(struct spi_device *spi)
 free_if2:
 	if (status != _SUCCESS && if2) {
 		#ifdef CONFIG_CONCURRENT_MODE
-		rtw_drv_if2_free(if1);
-#endif
+		rtw_drv_if2_stop(if2);
+		rtw_drv_if2_free(if2);
+		#endif
 	}
 
 free_if1:
@@ -647,11 +645,24 @@ _func_enter_;
 
 	RT_TRACE(_module_hci_intfs_c_, _drv_notice_, ("+rtw_dev_remove\n"));
 
+#if defined(CONFIG_HAS_EARLYSUSPEND) || defined(CONFIG_ANDROID_POWER)
+	rtw_unregister_early_suspend(&padapter->pwrctrlpriv);
+#endif
+
+	rtw_pm_set_ips(padapter, IPS_NONE);
+	rtw_pm_set_lps(padapter, PS_MODE_ACTIVE);
+
+	LeaveAllPowerSaveMode(padapter);
+
 #ifdef CONFIG_CONCURRENT_MODE
-	rtw_drv_if2_free(padapter);
+	rtw_drv_if2_stop(dvobj->if2);
 #endif
 
 	rtw_gspi_if1_deinit(padapter);
+
+#ifdef CONFIG_CONCURRENT_MODE
+	rtw_drv_if2_free(dvobj->if2);
+#endif
 
 	gspi_dvobj_deinit(spi);
 
@@ -703,9 +714,7 @@ static int rtw_gspi_suspend(struct spi_device *spi, pm_message_t mesg)
 	padapter->pwrctrlpriv.bSupportRemoteWakeup=_TRUE;
 #else
 	//s2.
-	//s2-1.  issue rtw_disassoc_cmd to fw
-	disconnect_hdl(padapter, NULL);
-	//rtw_disassoc_cmd(padapter);
+	rtw_disassoc_cmd(padapter, 0, _FALSE);
 #endif
 
 #ifdef CONFIG_LAYER2_ROAMING_RESUME

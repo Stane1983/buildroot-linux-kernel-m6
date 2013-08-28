@@ -278,6 +278,7 @@ static s32 update_txdesc(struct xmit_frame *pxmitframe, u8 *pmem, s32 sz ,u8 bag
 if (padapter->registrypriv.mp_mode == 0)
 {
 	if((!bagg_pkt) &&(urb_zero_packet_chk(padapter, sz)==0))//(sz %512) != 0
+	//if((!bagg_pkt) &&(rtw_usb_bulk_size_boundary(padapter,TXDESC_SIZE+sz)==_FALSE))	
 	{
 		ptxdesc = (struct tx_desc *)(pmem+PACKET_OFFSET_SZ);
 		//DBG_8192C("==> non-agg-pkt,shift pointer...\n");
@@ -461,6 +462,12 @@ if (padapter->registrypriv.mp_mode == 0)
 #ifdef CONFIG_XMIT_ACK
 		//CCX-TXRPT ack for xmit mgmt frames.
 		if (pxmitframe->ack_report) {
+			#ifdef DBG_CCX
+			static u16 ccx_sw = 0x123;
+			ptxdesc->txdw7 |= cpu_to_le32(((ccx_sw)<<16)&0x0fff0000);
+			DBG_871X("%s set ccx, sw:0x%03x\n", __func__, ccx_sw);
+			ccx_sw = (ccx_sw+1)%0xfff;
+			#endif
 			ptxdesc->txdw2 |= cpu_to_le32(BIT(19));
 		}
 #endif //CONFIG_XMIT_ACK
@@ -607,7 +614,9 @@ s32 rtl8188eu_xmit_buf_handler(PADAPTER padapter)
 }
 #endif
 
-
+#ifdef CONFIG_IOL_IOREG_CFG_DBG
+#include <rtw_iol.h>
+#endif
 //for non-agg data frame or  management frame
 static s32 rtw_dump_xframe(_adapter *padapter, struct xmit_frame *pxmitframe)
 {
@@ -666,7 +675,9 @@ static s32 rtw_dump_xframe(_adapter *padapter, struct xmit_frame *pxmitframe)
 		{
 			w_sz = sz + TXDESC_SIZE + PACKET_OFFSET_SZ;
 		}	
-
+#ifdef CONFIG_IOL_IOREG_CFG_DBG		
+		rtw_IOL_cmd_buf_dump(padapter,w_sz,pxmitframe->buf_addr);
+#endif		
 		ff_hwaddr = rtw_get_ff_hwaddr(pxmitframe);
 
 #ifdef CONFIG_XMIT_THREAD_MODE

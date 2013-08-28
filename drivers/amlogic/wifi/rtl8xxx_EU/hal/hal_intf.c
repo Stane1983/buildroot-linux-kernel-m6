@@ -121,6 +121,7 @@ uint	 rtw_hal_init(_adapter *padapter)
 			else{
 			 	padapter->pbuddy_adapter->hw_init_completed = _FALSE;
 				RT_TRACE(_module_hal_init_c_,_drv_err_,("rtw_hal_init: hal__init fail(pbuddy_adapter)\n"));
+				DBG_871X("rtw_hal_init: hal__init fail(pbuddy_adapter)\n");
 				return status;
 			}
 		}
@@ -468,10 +469,10 @@ u8   rtw_hal_sreset_get_wifi_status(_adapter *padapter)
 #endif	//DBG_CONFIG_ERROR_DETECT
 
 #ifdef CONFIG_IOL
-int rtw_hal_iol_cmd(ADAPTER *adapter, struct xmit_frame *xmit_frame, u32 max_wating_ms)
+int rtw_hal_iol_cmd(ADAPTER *adapter, struct xmit_frame *xmit_frame, u32 max_wating_ms, u32 bndy_cnt)
 {
 	if(adapter->HalFunc.IOL_exec_cmds_sync)
-		return adapter->HalFunc.IOL_exec_cmds_sync(adapter, xmit_frame, max_wating_ms);
+		return adapter->HalFunc.IOL_exec_cmds_sync(adapter, xmit_frame, max_wating_ms,bndy_cnt);
 	return _FAIL;
 }
 #endif
@@ -503,5 +504,10 @@ s32 rtw_hal_c2h_handler(_adapter *adapter, struct c2h_evt_hdr *c2h_evt)
 	if (adapter->HalFunc.c2h_handler)
 		ret = adapter->HalFunc.c2h_handler(adapter, c2h_evt);
 	return ret;
+}
+
+c2h_id_filter rtw_hal_c2h_id_filter_ccx(_adapter *adapter)
+{
+	return adapter->HalFunc.c2h_id_filter_ccx;
 }
 

@@ -38,7 +38,7 @@
 	#endif
 #endif
 #ifdef CONFIG_IOCTL_CFG80211
-	#define RTW_USE_CFG80211_STA_EVENT /* Opne this for Android 4.1's wpa_supplicant */
+	#define RTW_USE_CFG80211_STA_EVENT /* Indecate new sta asoc through cfg80211_new_sta */
 	#define CONFIG_CFG80211_FORCE_COMPATIBLE_2_6_37_UNDER
 	//#define CONFIG_DEBUG_CFG80211 1
 	//#define CONFIG_DRV_ISSUE_PROV_REQ // IOT FOR S2
@@ -115,7 +115,7 @@
 #ifdef CONFIG_P2P
 	//Added by Albert 20110812
 	//The CONFIG_WFD is for supporting the Wi-Fi display
-	#define CONFIG_WFD	1
+	#define CONFIG_WFD
 	
 	#ifndef CONFIG_WIFI_TEST
 		#define CONFIG_P2P_REMOVE_GROUP_INFO
@@ -182,6 +182,7 @@
 #ifdef CONFIG_CONCURRENT_MODE
 	#define CONFIG_TSF_RESET_OFFLOAD 1			// For 2 PORT TSF SYNC.
 	//#define CONFIG_HWPORT_SWAP				//Port0->Sec , Port1 -> Pri
+	//#define CONFIG_MULTI_VIR_IFACES //besides primary&secondary interfaces, extend to support more interfaces
 #endif	// CONFIG_CONCURRENT_MODE
 
 #define CONFIG_80211D
@@ -189,6 +190,8 @@
 /*
  * Interface  Related Config
  */
+ 
+//#define CONFIG_USB_ONE_OUT_EP
 //#define CONFIG_USB_INTERRUPT_IN_PIPE	1
 
 #ifndef CONFIG_MINIMAL_MEMORY_USAGE
@@ -204,7 +207,11 @@
  * CONFIG_USE_USB_BUFFER_ALLOC_XX uses Linux USB Buffer alloc API and is for Linux platform only now!
  */
 //#define CONFIG_USE_USB_BUFFER_ALLOC_TX 1	// Trade-off: For TX path, improve stability on some platforms, but may cause performance degrade on other platforms.
-#define CONFIG_USE_USB_BUFFER_ALLOC_RX 1	// For RX path
+//#define CONFIG_USE_USB_BUFFER_ALLOC_RX 1	// For RX path
+#ifdef CONFIG_USE_USB_BUFFER_ALLOC_RX
+#undef CONFIG_PREALLOC_RECV_SKB
+#endif
+
 #ifdef CONFIG_PLATFORM_ARM_SUNxI
 	#ifndef 	CONFIG_USE_USB_BUFFER_ALLOC_TX 
 		#define CONFIG_USE_USB_BUFFER_ALLOC_TX
@@ -279,6 +286,7 @@
 #define CONFIG_USE_USB_BUFFER_ALLOC_RX 1
 #endif
 
+#define CONFIG_ATTEMPT_TO_FIX_AP_BEACON_ERROR
 
 /*
  * Debug  Related Config

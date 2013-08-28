@@ -574,7 +574,7 @@ typedef struct hal_data_8188e
 	u8			SdioTxFIFOFreePage[SDIO_TX_FREE_PG_QUEUE];
 	_lock		SdioTxFIFOFreePageLock;
 #ifndef CONFIG_SDIO_TX_TASKLET
-	_thread_hdl_	SdioXmitThread;
+	_thread_hdl_ 	SdioXmitThread;
 	_sema		SdioXmitSema;
 	_sema		SdioXmitTerminateSema;
 #endif
@@ -691,6 +691,11 @@ BOOLEAN HalDetectPwrDownMode88E(PADAPTER Adapter);
 #ifdef CONFIG_WOWLAN
 void Hal_DetectWoWMode(PADAPTER pAdapter);
 #endif //CONFIG_WOWLAN
+
+#ifdef CONFIG_RF_GAIN_OFFSET
+void Hal_ReadRFGainOffset(PADAPTER pAdapter,u8* hwinfo,BOOLEAN AutoLoadFail);
+#endif //CONFIG_RF_GAIN_OFFSET
+
 //RT_CHANNEL_DOMAIN rtl8723a_HalMapChannelPlan(PADAPTER padapter, u8 HalChannelPlan);
 //VERSION_8192C rtl8723a_ReadChipVersion(PADAPTER padapter);
 //void rtl8723a_ReadBluetoothCoexistInfo(PADAPTER padapter, u8 *PROMContent, BOOLEAN AutoloadFail);
@@ -704,5 +709,11 @@ void SetBcnCtrlReg(PADAPTER padapter, u8 SetBits, u8 ClearBits);
 void rtl8188e_clone_haldata(_adapter *dst_adapter, _adapter *src_adapter);
 void rtl8188e_start_thread(_adapter *padapter);
 void rtl8188e_stop_thread(_adapter *padapter);
+
+void rtw_IOL_cmd_tx_pkt_buf_dump(ADAPTER *Adapter,int data_len);
+#ifdef CONFIG_IOL_EFUSE_PATCH
+s32 rtl8188e_iol_efuse_patch(PADAPTER padapter);
+#endif//CONFIG_IOL_EFUSE_PATCH
+
 #endif //__RTL8188E_HAL_H__
 

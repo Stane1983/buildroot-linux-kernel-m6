@@ -129,5 +129,21 @@ static inline void rtw_reset_continual_urb_error(struct dvobj_priv *dvobj)
 	ATOMIC_SET(&dvobj->continual_urb_error, 0);	
 }
 
+#define USB_HIGH_SPEED_BULK_SIZE	512
+#define USB_FULL_SPEED_BULK_SIZE	64
+
+static inline u8 rtw_usb_bulk_size_boundary(_adapter * padapter,int buf_len)
+{
+	u8 rst = _TRUE;
+	struct dvobj_priv	*pdvobjpriv = adapter_to_dvobj(padapter);
+
+	if (pdvobjpriv->ishighspeed == _TRUE)	
+		rst = (0 == (buf_len) % USB_HIGH_SPEED_BULK_SIZE)?_TRUE:_FALSE;	
+	else	
+		rst = (0 == (buf_len) % USB_FULL_SPEED_BULK_SIZE)?_TRUE:_FALSE;		
+	return rst;
+}
+
+
 #endif //__USB_OPS_H_
 

@@ -635,7 +635,7 @@ typedef struct hal_data_8723a
 	// HIQ, MID, LOW, PUB free pages; padapter->xmitpriv.free_txpg
 	u8			SdioTxFIFOFreePage[SDIO_TX_FREE_PG_QUEUE];
 	_lock		SdioTxFIFOFreePageLock;
-	_thread_hdl_	SdioXmitThread;
+	_thread_hdl_ 	SdioXmitThread;
 	_sema		SdioXmitSema;
 	_sema		SdioXmitTerminateSema;
 
@@ -827,5 +827,15 @@ void rtl8723a_InitBeaconMaxError(PADAPTER padapter, u8 InfraMode);
 void rtl8723a_clone_haldata(_adapter *dst_adapter, _adapter *src_adapter);
 void rtl8723a_start_thread(_adapter *padapter);
 void rtl8723a_stop_thread(_adapter *padapter);
+
+s32 c2h_id_filter_ccx_8723a(u8 id);
+
+
+#if defined(CONFIG_CHECK_BT_HANG) && defined(CONFIG_BT_COEXIST)
+void rtl8723a_init_checkbthang_workqueue(_adapter * padapter);
+void rtl8723a_free_checkbthang_workqueue(_adapter * padapter);
+void rtl8723a_cancel_checkbthang_workqueue(_adapter * padapter);
+void rtl8723a_hal_check_bt_hang(_adapter * padapter);
+#endif
 #endif
 

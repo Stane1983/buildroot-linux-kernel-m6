@@ -1512,6 +1512,9 @@ _func_enter_;
 	{
 		rtw_os_indicate_disconnect(padapter);
 
+		//set ips_deny_time to avoid enter IPS before LPS leave
+		padapter->pwrctrlpriv.ips_deny_time = rtw_get_current_time() + rtw_ms_to_systime(3000);
+
 	      _clr_fwstate_(pmlmepriv, _FW_LINKED);
 
 		rtw_led_control(padapter, LED_CTL_NO_LINK);
@@ -1562,7 +1565,7 @@ void rtw_scan_abort(_adapter *adapter)
 	if (check_fwstate(pmlmepriv, _FW_UNDER_SURVEY)) {
 		if (!adapter->bDriverStopped && !adapter->bSurpriseRemoved)
 			DBG_871X(FUNC_NDEV_FMT"waiting for scan_abort time out!\n", FUNC_NDEV_ARG(adapter->pnetdev));
-		#ifdef CONFIG_PLATFORM_MSTAR_TITANIA12	
+		#ifdef CONFIG_PLATFORM_MSTAR
 		//_clr_fwstate_(pmlmepriv, _FW_UNDER_SURVEY);
 		set_survey_timer(pmlmeext, 0);
 		_set_timer(&pmlmepriv->scan_to_timer, 50);
@@ -2330,6 +2333,12 @@ _func_enter_;
 	{
 		rtw_indicate_disconnect(adapter);
 		free_scanqueue(pmlmepriv);//???
+
+#ifdef CONFIG_IOCTL_CFG80211
+		//indicate disconnect for the case that join_timeout and check_fwstate != FW_LINKED
+		rtw_cfg80211_indicate_disconnect(adapter);
+#endif //CONFIG_IOCTL_CFG80211
+
  	}
 
 	_exit_critical_bh(&pmlmepriv->lock, &irqL);
@@ -3053,7 +3062,9 @@ _func_enter_;
 	}
 	psetkeyparm->keyid = (u8)keyid;//0~3
 	psetkeyparm->set_tx = set_tx;
-	pmlmepriv->key_mask |= BIT(psetkeyparm->keyid);
+	if (is_wep_enc(psetkeyparm->algorithm))
+		pmlmepriv->key_mask |= BIT(psetkeyparm->keyid);
+
 #ifdef CONFIG_AUTOSUSPEND
 	if( _TRUE  == adapter->pwrctrlpriv.bInternalAutoSuspend)
 	{
@@ -3755,10 +3766,23 @@ void rtw_issue_addbareq_cmd(_adapter *padapter, struct xmit_frame *pxmitframe)
 	if (pattrib->psta)
 		psta = pattrib->psta;
 	else
+	{
+		DBG_871X("%s, call rtw_get_stainfo()\n", __func__);
 		psta = rtw_get_stainfo(&padapter->stapriv, pattrib->ra);
+	}	
 	
 	if(psta==NULL)
+	{
+		DBG_871X("%s, psta==NUL\n", __func__);
 		return;
+	}
+
+	if(!(psta->state &_FW_LINKED))
+	{
+		DBG_871X("%s, psta->state(0x%x) != _FW_LINKED\n", __func__, psta->state);
+		return;
+	}	
+
 	
 	phtpriv = &psta->htpriv;
 
