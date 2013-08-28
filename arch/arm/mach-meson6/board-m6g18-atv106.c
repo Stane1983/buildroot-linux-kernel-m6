@@ -613,7 +613,7 @@ static struct mtd_partition normal_partition_info[] = {
         .size = 256*SZ_1M,
     },	
     {
-        .name = "userdata",
+        .name = "data",
         .offset = MTDPART_OFS_APPEND,
         .size = MTDPART_SIZ_FULL,
     },
