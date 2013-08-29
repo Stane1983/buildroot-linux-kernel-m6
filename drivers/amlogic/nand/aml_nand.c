@@ -162,7 +162,11 @@ static struct nand_ecclayout aml_nand_oob_1280 = {
 		{.offset = 0,
 		 .length = 32}}
 };
-
+#if  0
+#define aml_nand_debug(a...) {printk("%s()[%s,%d]",__func__,__FILE__,__LINE__); printk(a);}
+#else
+#define aml_nand_debug(a...) 
+#endif
 static unsigned default_environment_size = (ENV_SIZE - sizeof(struct aml_nand_bbt_info));
 static uint8_t nand_boot_flag = 0;
 static uint8_t nand_erarly_suspend_flag = 0;
@@ -216,6 +220,7 @@ struct aml_nand_flash_dev aml_nand_flash_ids[] = {
 #ifdef NEW_NAND_SUPPORT
 	{"A serials NAND 8GiB SDTNQGAMA-008G ", {NAND_MFR_SANDISK, 0xDE, 0x94, 0x93, 0x76, 0x57}, 16384, 8192, 0x400000, 1280, 1, 20, 25, 0, (NAND_TIMING_MODE5 | NAND_ECC_BCH16_MODE )},	
 	{"A serials NAND 4GiB SDTNQGAMA-004G ", {NAND_MFR_SANDISK, 0xD7, 0x84, 0x93, 0x72, 0x57}, 16384, 4096, 0x400000, 1280, 1, 20, 25, 0, (NAND_TIMING_MODE5 | NAND_ECC_BCH16_MODE )},
+	{"A serials NAND 8GiB SDTNPMAHEM-008G ", {NAND_MFR_SANDISK, 0xDE, 0xA4, 0x82, 0x76, 0x56}, 8192, 8192, 0x200000, 640, 1, 20, 25, 0, (NAND_TIMING_MODE5 | NAND_ECC_BCH16_MODE )},
 #endif
 
 	{"M Generation NAND 2GiB K9GAG08U0M", {NAND_MFR_SAMSUNG, 0xD5, 0x14, 0xb6, 0x74}, 4096, 2048, 0x80000, 128, 1, 20, 15, 0, (NAND_TIMING_MODE5 | NAND_ECC_BCH8_MODE)},
@@ -247,7 +252,9 @@ uint8_t aml_nand_get_onfi_features(struct aml_nand_chip *aml_chip,  uint8_t *buf
 			//aml_chip->aml_nand_command(aml_chip, NAND_CMD_GET_FEATURES, addr, -1, i);
 			aml_chip->aml_nand_command(aml_chip, NAND_CMD_GET_FEATURES, -1, -1, i);
 			chip->cmd_ctrl(mtd, addr, NAND_CTRL_CHANGE | NAND_NCE | NAND_ALE);
-			udelay(1);
+			
+			NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 5);
+
 			for (j=0; j<4; j++)
 				buf[j] = chip->read_byte(mtd);
 		}
@@ -269,6 +276,7 @@ void aml_nand_set_onfi_features(struct aml_nand_chip *aml_chip,  uint8_t *buf, i
 			//aml_chip->aml_nand_command(aml_chip, NAND_CMD_SET_FEATURES, addr, -1, i);
 			aml_chip->aml_nand_command(aml_chip, NAND_CMD_SET_FEATURES, -1, -1, i);
 			chip->cmd_ctrl(mtd, addr, NAND_CTRL_CHANGE | NAND_NCE | NAND_ALE);
+			NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 5);
 			for (j=0; j<4; j++)
 				aml_chip->aml_nand_write_byte(aml_chip, buf[j]);
 			aml_chip->aml_nand_wait_devready(aml_chip, i);
@@ -319,17 +327,14 @@ uint8_t aml_nand_get_reg_value_hynix(struct aml_nand_chip *aml_chip,  uint8_t *b
 	if((aml_chip->new_nand_info.type == 0) ||(aml_chip->new_nand_info.type > 10))
 		return 0;
 
-	printk("Enter %s\n", __func__);
-
 	aml_chip->aml_nand_wait_devready(aml_chip, chipnr);
 	aml_chip->aml_nand_command(aml_chip, NAND_CMD_HYNIX_GET_VALUE, -1, -1, chipnr);
 
 	for (j=0; j<cnt; j++){
 	        chip->cmd_ctrl(mtd, addr[j], NAND_CTRL_CHANGE | NAND_NCE | NAND_ALE);
-	        udelay(2);
+	        NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 10);
 		buf[j] = chip->read_byte(mtd);
-		udelay(2);
-		printk("%s, REG(0x%x): 	value:0x%x, for chip[%d]\n", __func__, addr[j], buf[j], chipnr);
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 10);
         }
         
         aml_chip->aml_nand_wait_devready(aml_chip, chipnr);
@@ -350,11 +355,13 @@ uint8_t aml_nand_set_reg_value_hynix(struct aml_nand_chip *aml_chip,  uint8_t *b
 
 	aml_chip->aml_nand_wait_devready(aml_chip, chipnr);
 	aml_chip->aml_nand_command(aml_chip, NAND_CMD_HYNIX_SET_VALUE_START, -1, -1, chipnr);
-	udelay(2);
+	
 	for (j=0; j<cnt; j++){
 	        chip->cmd_ctrl(mtd, addr[j], NAND_CTRL_CHANGE | NAND_NCE | NAND_ALE);
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 15);
 		aml_chip->aml_nand_write_byte(aml_chip, buf[j]);		
-		udelay(1);
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 0);
+		
 	//	printk("%s, REG(0x%x): 	value:0x%x for chip[%d]\n", __func__, addr[j], buf[j], chipnr);
 	}
 
@@ -375,7 +382,6 @@ uint8_t aml_nand_get_reg_value_formOTP_hynix(struct aml_nand_chip *aml_chip, int
 	if((aml_chip->new_nand_info.type < 3) ||(aml_chip->new_nand_info.type > 10))
 		return 0;
 
-	printk("Enter %s\n", __func__);
 
 	one_copy_buf = (unsigned char *)kmalloc(256, GFP_KERNEL);
 	if(one_copy_buf == NULL){
@@ -387,37 +393,31 @@ uint8_t aml_nand_get_reg_value_formOTP_hynix(struct aml_nand_chip *aml_chip, int
 	aml_chip->aml_nand_wait_devready(aml_chip, chipnr);
 	aml_chip->aml_nand_command(aml_chip, NAND_CMD_RESET, -1, -1, chipnr);
 	aml_chip->aml_nand_wait_devready(aml_chip, chipnr);
-	udelay(1);
 
 	aml_chip->aml_nand_command(aml_chip, NAND_CMD_HYNIX_SET_VALUE_START, -1, -1, chipnr);	//send cmd 0x36 
-	udelay(1);
+	NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 0);
 	
 	if(aml_chip->new_nand_info.type == HYNIX_20NM_8GB){
 		chip->cmd_ctrl(mtd, 0xff, NAND_CTRL_CHANGE | NAND_NCE | NAND_ALE);			//send 0xff add
-		udelay(1);
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 0);
 		aml_chip->aml_nand_write_byte(aml_chip,0x40 );								//write 0x40 into 0xff add
-		udelay(1);
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 0);
 		chip->cmd_ctrl(mtd, 0xcc, NAND_CTRL_CHANGE | NAND_NCE | NAND_ALE);			//send 0xcc add
 	}
 	else if(aml_chip->new_nand_info.type == HYNIX_20NM_4GB){
 		chip->cmd_ctrl(mtd, 0xae, NAND_CTRL_CHANGE | NAND_NCE | NAND_ALE);			//send 0xff add
-		udelay(1);
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 0);
 		aml_chip->aml_nand_write_byte(aml_chip,0x00 );								//write 0x40 into 0xff add
-		udelay(1);
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 0);
 		chip->cmd_ctrl(mtd, 0xb0, NAND_CTRL_CHANGE | NAND_NCE | NAND_ALE);			//send 0xcc add
 	}
 	
-	udelay(1);
+	NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 0);
 	aml_chip->aml_nand_write_byte(aml_chip,0x4d );								//write 0x4d into 0xcc add
-	udelay(1);
 	aml_chip->aml_nand_command(aml_chip, 0x16, -1, -1, chipnr);					//send cmd 0x16 
-	udelay(1);
 	aml_chip->aml_nand_command(aml_chip, 0x17, -1, -1, chipnr);					//send cmd 0x17
-	udelay(1);
 	aml_chip->aml_nand_command(aml_chip, 0x04, -1, -1, chipnr);					//send cmd 0x04 
-	udelay(1);
 	aml_chip->aml_nand_command(aml_chip, 0x19, -1, -1, chipnr);					//send cmd 0x19 
-	udelay(1);
 	aml_chip->aml_nand_command(aml_chip, NAND_CMD_READ0, 0, 0x200, chipnr);
 #if 0	
 	chip->cmd_ctrl(mtd, NAND_CMD_READ0, NAND_NCE | NAND_CLE | NAND_CTRL_CHANGE);
@@ -443,7 +443,6 @@ uint8_t aml_nand_get_reg_value_formOTP_hynix(struct aml_nand_chip *aml_chip, int
 	
 	total_reg_cnt = chip->read_byte(mtd);
 	reg_cnt_otp = chip->read_byte(mtd);
-	printk("%s %d 20 nm flash total_reg_cnt:%d, reg_cnt_otp:%d, chip[%d]\n", __func__, __LINE__, total_reg_cnt, reg_cnt_otp, chipnr);
 #if 0
 	for(j=0; j<8; j++){
 		printk("#############%dst COPY#############\n", j);
@@ -492,7 +491,6 @@ uint8_t aml_nand_get_reg_value_formOTP_hynix(struct aml_nand_chip *aml_chip, int
 				if(((one_copy_buf[k+j] < 0x80) && (one_copy_buf[k+j+64] < 0x80)) ||
 				   ((one_copy_buf[k+j] > 0x80) && (one_copy_buf[k+j+64] > 0x80))  ||
 					((unsigned char)(one_copy_buf[k+j]^one_copy_buf[k+j+64]) != 0xFF)){
-					printk("%dst copy at j:%d, k%d, not match %2x %2x\n", i, j, k, one_copy_buf[k+j], one_copy_buf[k+j+64]);
 					check_flag = 1;
 					break;
 				}
@@ -524,27 +522,19 @@ uint8_t aml_nand_get_reg_value_formOTP_hynix(struct aml_nand_chip *aml_chip, int
 	}
 	else{	
 		tmp_buf = one_copy_buf;
-		printk("%s %d 20 nm flashdefault vaule OK at %dst copy\n", __func__, __LINE__, i);
+		
 		memcpy(&aml_chip->new_nand_info.read_rety_info.reg_default_value[chipnr][0], tmp_buf, aml_chip->new_nand_info.read_rety_info.reg_cnt);
-
-		printk("%s %d 20 nm flash default vaule\n", __func__, __LINE__);
-		for(j=0;j<aml_chip->new_nand_info.read_rety_info.reg_cnt;j++)
-			printk("%s, REG(0x%x):	value:0x%2x, for chip[%d]\n", __func__, aml_chip->new_nand_info.read_rety_info.reg_addr[j], 
-			                   aml_chip->new_nand_info.read_rety_info.reg_default_value[chipnr][j], chipnr);
 
 		tmp_buf += aml_chip->new_nand_info.read_rety_info.reg_cnt;
 		
-		//memcpy(&aml_chip->new_nand_info.read_rety_info.reg_offset_value[chipnr][0][0], tmp_buf, 
-		//		aml_chip->new_nand_info.read_rety_info.reg_cnt*aml_chip->new_nand_info.read_rety_info.retry_cnt);
-		printk("%s %d 20 nm flash offset vaule\n", __func__, __LINE__);		
+		
 		for(j=0;j<aml_chip->new_nand_info.read_rety_info.retry_cnt;j++){
 			for(k=0;k<aml_chip->new_nand_info.read_rety_info.reg_cnt;k++){
 				aml_chip->new_nand_info.read_rety_info.reg_offset_value[chipnr][j][k] = (char)tmp_buf[0];
 				tmp_buf++;
-				printk("%s, Retry[%d]   REG(0x%x):	value:0x%2x, for chip[%d]\n", __func__, j, aml_chip->new_nand_info.read_rety_info.reg_addr[k], 
-				                 aml_chip->new_nand_info.read_rety_info.reg_offset_value[chipnr][j][k], chipnr);
+
 			}
-			printk("\n");
+		
 		}
 	}	
 
@@ -560,8 +550,6 @@ void aml_nand_set_readretry_default_value_hynix(struct mtd_info *mtd)
 	if((aml_chip->new_nand_info.type == 0) ||(aml_chip->new_nand_info.type > 10))
 		return;	
 
-	printk("Enter %s\n", __func__);
-
 	memset(&hynix_reg_read_value_tmp[0], 0, READ_RETRY_REG_NUM);
 
 	chip->select_chip(mtd, 0);
@@ -570,12 +558,8 @@ void aml_nand_set_readretry_default_value_hynix(struct mtd_info *mtd)
 		if (aml_chip->valid_chip[i]) {
 
 			aml_nand_set_reg_value_hynix(aml_chip, &aml_chip->new_nand_info.read_rety_info.reg_default_value[i][0], &aml_chip->new_nand_info.read_rety_info.reg_addr[0], i, aml_chip->new_nand_info.read_rety_info.reg_cnt);
-
-			udelay(10);
-			//aml_nand_hynix_get_parameters(aml_chip, &hynix_reg_read_value_tmp[0], &aml_chip->hynix_reg_read_addr[0], i, 4);
 		}
 	}
-	//chip->select_chip(mtd, -1);
 }
 
 void aml_nand_enter_enslc_mode_hynix(struct mtd_info *mtd)
@@ -588,7 +572,7 @@ void aml_nand_enter_enslc_mode_hynix(struct mtd_info *mtd)
 	if((aml_chip->new_nand_info.type == 0) ||(aml_chip->new_nand_info.type > 10))
 		return;
 
-	//printk("Enter %s\n", __func__);
+	printk("Enter %s\n", __func__);
 
 	memset(&hynix_reg_program_value_tmp[0], 0, ENHANCE_SLC_REG_NUM);
 
@@ -601,12 +585,10 @@ void aml_nand_enter_enslc_mode_hynix(struct mtd_info *mtd)
 				hynix_reg_program_value_tmp[j] = aml_chip->new_nand_info.slc_program_info.reg_default_value[i][j]  + aml_chip->new_nand_info.slc_program_info.reg_offset_value[j];
 		
 			aml_nand_set_reg_value_hynix(aml_chip, &hynix_reg_program_value_tmp[0], &aml_chip->new_nand_info.slc_program_info.reg_addr[0], i, aml_chip->new_nand_info.slc_program_info.reg_cnt);
-			udelay(10);		
 			memset(&hynix_reg_program_value_tmp[0], 0, aml_chip->new_nand_info.slc_program_info.reg_cnt);
 		}
 	}
-	mdelay(2);
-	//chip->select_chip(mtd, -1);
+	
 }
 
 //working  in Normal program mode
@@ -619,7 +601,7 @@ void aml_nand_exit_enslc_mode_hynix(struct mtd_info *mtd)
 	if((aml_chip->new_nand_info.type == 0) ||(aml_chip->new_nand_info.type > 10))
 		return;
 
-	//printk("Enter %s\n", __func__);
+	printk("Enter %s\n", __func__);
 	
 	chip->select_chip(mtd, 0);
 	for (i=0; i<aml_chip->chip_num; i++) {
@@ -627,11 +609,8 @@ void aml_nand_exit_enslc_mode_hynix(struct mtd_info *mtd)
 		if (aml_chip->valid_chip[i]) {
 
 			aml_nand_set_reg_value_hynix(aml_chip, &aml_chip->new_nand_info.slc_program_info.reg_default_value[i][0], &aml_chip->new_nand_info.slc_program_info.reg_addr[0], i, aml_chip->new_nand_info.slc_program_info.reg_cnt);
-			udelay(10);				
 		}
 	}
-	mdelay(2);
-	//chip->select_chip(mtd, -1);
 
 }
 
@@ -652,7 +631,6 @@ void aml_nand_read_retry_handle_hynix(struct mtd_info *mtd, int chipnr)
 		retry_offset = aml_chip->new_nand_info.read_rety_info.cur_cnt[chipnr] % aml_chip->new_nand_info.read_rety_info.retry_cnt;
 		cur_cnt = (retry_zone + retry_offset) % aml_chip->new_nand_info.read_rety_info.retry_cnt;
 	}
-	printk("HYNIX NAND set partmeters here and hynix_read_retry_cnt:%d\n", cur_cnt);
 	
 	memset(&hynix_reg_read_value[0], 0, READ_RETRY_REG_NUM);
 	
@@ -670,10 +648,7 @@ void aml_nand_read_retry_handle_hynix(struct mtd_info *mtd, int chipnr)
 	}
 	
 	aml_nand_set_reg_value_hynix(aml_chip, &hynix_reg_read_value[0], &aml_chip->new_nand_info.read_rety_info.reg_addr[0], chipnr, aml_chip->new_nand_info.read_rety_info.reg_cnt);
-	udelay(10); 	
 
-	//cur_cnt++;
-	//aml_chip->new_nand_info.read_rety_info.cur_cnt[chipnr] = (cur_cnt > (aml_chip->new_nand_info.read_rety_info.retry_cnt-1)) ? 0 : cur_cnt;
 	aml_chip->new_nand_info.read_rety_info.cur_cnt[chipnr]++;
 }
 
@@ -686,9 +661,7 @@ void aml_nand_read_retry_exit_hynix(struct mtd_info *mtd, int chipnr)
 
 	if((aml_chip->new_nand_info.type == 0) ||(aml_chip->new_nand_info.type > 10))
 		return;
-
-	printk("Enter %s\n", __func__);
-
+	aml_nand_debug("hyinx retry cnt :%d\n",aml_chip->new_nand_info.read_rety_info.cur_cnt[chipnr]);
 	chip->select_chip(mtd, chipnr);
 	for (i=0; i<aml_chip->chip_num; i++) {
 
@@ -696,11 +669,11 @@ void aml_nand_read_retry_exit_hynix(struct mtd_info *mtd, int chipnr)
 
 			aml_nand_set_reg_value_hynix(aml_chip, &aml_chip->new_nand_info.read_rety_info.reg_default_value[i][0], &aml_chip->new_nand_info.read_rety_info.reg_addr[0], i, aml_chip->new_nand_info.read_rety_info.reg_cnt);
 
-			udelay(10);
 			
 		}
 	}
-	aml_chip->new_nand_info.read_rety_info.cur_cnt[chipnr] =0;
+	//aml_chip->new_nand_info.read_rety_info.cur_cnt[chipnr] =0;
+	memset(&aml_chip->new_nand_info.read_rety_info.cur_cnt[0], 0, MAX_CHIP_NUM);
 }
 
 void aml_nand_get_slc_default_value_hynix(struct mtd_info *mtd)
@@ -713,7 +686,6 @@ void aml_nand_get_slc_default_value_hynix(struct mtd_info *mtd)
 	for(i=0; i<aml_chip->chip_num; i++){
 		if(aml_chip->valid_chip[i]){
 			aml_nand_get_reg_value_hynix(aml_chip, &aml_chip->new_nand_info.slc_program_info.reg_default_value[i][0], &aml_chip->new_nand_info.slc_program_info.reg_addr[0], i, aml_chip->new_nand_info.slc_program_info.reg_cnt);
-			udelay(2);
 		}		
 	}
 	//chip->select_chip(mtd, -1);
@@ -794,34 +766,12 @@ void aml_nand_get_read_default_value_hynix(struct mtd_info *mtd)
 				memcpy(&aml_chip->new_nand_info.read_rety_info.reg_default_value[0][0], (unsigned char *)aml_oob_ops->datbuf, MAX_CHIP_NUM*READ_RETRY_REG_NUM);
 				//memcpy(&aml_chip->new_nand_info.slc_program_info.reg_default_value[0][0], (unsigned char *)aml_oob_ops.datbuf, MAX_CHIP_NUM*ENHANCE_SLC_REG_NUM);
 				printk("%s %d get default reg value at blk:%d, page:%d\n", __func__, __LINE__, addr>> phys_erase_shift, (addr +  page_list[i]*mtd->writesize)/mtd->writesize);
-				for(i=0; i<aml_chip->chip_num; i++){
-					if(aml_chip->valid_chip[i]){
-						for(j=0;j<aml_chip->new_nand_info.read_rety_info.reg_cnt;j++)
-							printk("%s, REG(0x%x):	value:0x%x, for chip[%d]\n", __func__, aml_chip->new_nand_info.read_rety_info.reg_addr[j], 
-												aml_chip->new_nand_info.read_rety_info.reg_default_value[i][j], i);
-						
-						//for(j=0;j<aml_chip->new_nand_info.slc_program_info.reg_cnt;j++)
-						//	printk("%s, REG(0x%x):	value:0x%x, for chip[%d]\n", __func__, aml_chip->new_nand_info.slc_program_info.reg_addr[j], aml_chip->new_nand_info.slc_program_info.reg_default_value[i][j], i);
-					}
-				}
-
+				
 				if((aml_chip->new_nand_info.type == HYNIX_20NM_8GB) || (aml_chip->new_nand_info.type == HYNIX_20NM_4GB)){
 					memcpy(&aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][0][0], (unsigned char *)(aml_oob_ops->datbuf+MAX_CHIP_NUM*READ_RETRY_REG_NUM), 		
 															MAX_CHIP_NUM*READ_RETRY_CNT*READ_RETRY_REG_NUM);
 
-					for(i=0; i<aml_chip->chip_num; i++){
-						if(aml_chip->valid_chip[i]){							
-							for(j=0;j<aml_chip->new_nand_info.read_rety_info.retry_cnt;j++)
-								for(k=0;k<aml_chip->new_nand_info.read_rety_info.reg_cnt;k++)
-									printk("%s, Retry%dst, REG(0x%x):	value:0x%2x, for chip[%d]\n", __func__, j, aml_chip->new_nand_info.read_rety_info.reg_addr[k], 
-																	aml_chip->new_nand_info.read_rety_info.reg_offset_value[i][j][k], i);
-									
-								printk("\n");
-
-							//for(j=0;j<aml_chip->new_nand_info.slc_program_info.reg_cnt;j++)
-							//	printk("%s, REG(0x%x): 	value:0x%x, for chip[%d]\n", __func__, aml_chip->new_nand_info.slc_program_info.reg_addr[j], aml_chip->new_nand_info.slc_program_info.reg_default_value[i][j], i);
-						}
-					}
+					
 				}
 				aml_chip->new_nand_info.read_rety_info.default_flag = 1;
 				goto READ_OK;
@@ -844,8 +794,6 @@ void aml_nand_get_read_default_value_hynix(struct mtd_info *mtd)
 			else  if((aml_chip->new_nand_info.type == HYNIX_20NM_8GB) || (aml_chip->new_nand_info.type == HYNIX_20NM_4GB)){
 				aml_nand_get_reg_value_formOTP_hynix(aml_chip, i);
 			}
-			udelay(2);
-			//aml_nand_get_reg_value_hynix(aml_chip, &aml_chip->new_nand_info.slc_program_info.reg_default_value[i][0], &aml_chip->new_nand_info.slc_program_info.reg_addr[0], i, aml_chip->new_nand_info.slc_program_info.reg_cnt);
 		}		
 	}
 	//chip->select_chip(mtd, -1);
@@ -880,7 +828,6 @@ void aml_nand_set_reg_value_toshiba(struct aml_nand_chip *aml_chip,  uint8_t *bu
 	if(aml_chip->new_nand_info.type != TOSHIBA_24NM)
 		return;
 
-	printk("Enter %s\n", __func__);
 
 	aml_chip->aml_nand_wait_devready(aml_chip, chipnr);
 
@@ -889,24 +836,27 @@ void aml_nand_set_reg_value_toshiba(struct aml_nand_chip *aml_chip,  uint8_t *bu
 	if(aml_chip->new_nand_info.read_rety_info.cur_cnt[chipnr] ==0){
 
 		aml_chip->aml_nand_command(aml_chip, NAND_CMD_TOSHIBA_PRE_CON1, -1, -1, chipnr);
-		udelay(2);
+		
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 2);
+		
 		aml_chip->aml_nand_command(aml_chip, NAND_CMD_TOSHIBA_PRE_CON2, -1, -1, chipnr);
-		udelay(2);
+		
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 2);
 	}
 	
 	for (j=0; j<cnt; j++){
 		aml_chip->aml_nand_command(aml_chip, NAND_CMD_TOSHIBA_SET_VALUE, -1, -1, chipnr);
-		udelay(2);
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 2);
 	        chip->cmd_ctrl(mtd, addr[j], NAND_CTRL_CHANGE | NAND_NCE | NAND_ALE);
-		udelay(2);
-		aml_chip->aml_nand_write_byte(aml_chip, buf[j]);			
-		printk("%s, REG(0x%x): 	value:0x%x\n", __func__, addr[j], buf[j]);
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 2);
+		aml_chip->aml_nand_write_byte(aml_chip, buf[j]);	
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 2);
 	}
 
 	aml_chip->aml_nand_command(aml_chip, NAND_CMD_TOSHIBA_BEF_COMMAND1, -1, -1, chipnr);
-	udelay(2);
+	NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 2);
 	aml_chip->aml_nand_command(aml_chip, NAND_CMD_TOSHIBA_BEF_COMMAND2, -1, -1, chipnr);
-	udelay(2);
+	NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 2);
 	aml_chip->aml_nand_wait_devready(aml_chip, chipnr);
 
 	return;
@@ -926,10 +876,8 @@ void aml_nand_read_retry_handle_toshiba(struct mtd_info *mtd, int chipnr)
 		NFC_EXIT_TOSHIBA_TOGGLE_MODE();
 	}
 	cur_cnt = aml_chip->new_nand_info.read_rety_info.cur_cnt[chipnr];
-	printk("TOSHIBA NAND set partmeters here and read_retry_cnt:%d\n", cur_cnt);
 
 	aml_nand_set_reg_value_toshiba(aml_chip, &aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][cur_cnt][0], &aml_chip->new_nand_info.read_rety_info.reg_addr[0], chipnr, aml_chip->new_nand_info.read_rety_info.reg_cnt);
-	udelay(10); 	
 
 	cur_cnt++;
 	aml_chip->new_nand_info.read_rety_info.cur_cnt[chipnr] = (cur_cnt > (aml_chip->new_nand_info.read_rety_info.retry_cnt-1)) ? 0 : cur_cnt;
@@ -948,6 +896,7 @@ void aml_nand_read_retry_exit_toshiba(struct mtd_info *mtd, int chipnr)
 	if(aml_chip->new_nand_info.type != TOSHIBA_24NM)
 		return;
 		
+	aml_nand_debug("toshiba retry cnt :%d\n",aml_chip->new_nand_info.read_rety_info.cur_cnt[chipnr]);	
 	aml_chip->aml_nand_wait_devready(aml_chip, chipnr);
 	aml_chip->aml_nand_command(aml_chip, NAND_CMD_RESET, -1, -1, chipnr);
 	aml_chip->aml_nand_wait_devready(aml_chip, chipnr);	
@@ -966,21 +915,20 @@ uint8_t aml_nand_set_reg_value_samsung(struct aml_nand_chip *aml_chip,  uint8_t 
 	if(aml_chip->new_nand_info.type != SUMSUNG_2XNM)
 		return 0;
 
-	printk("Enter %s\n", __func__);
-
 	aml_chip->aml_nand_wait_devready(aml_chip, chipnr);
 
 	aml_chip->aml_nand_select_chip(aml_chip, chipnr);
 
 	for (j=0; j<cnt; j++){
 		aml_chip->aml_nand_command(aml_chip, NAND_CMD_SAMSUNG_SET_VALUE, -1, -1, chipnr);
-		udelay(2);
+		
 	       chip->cmd_ctrl(mtd,0, NAND_CTRL_CHANGE | NAND_NCE | NAND_ALE);
-		udelay(2);
+		
 	        chip->cmd_ctrl(mtd,addr[j], NAND_CTRL_CHANGE | NAND_NCE | NAND_ALE);
-		udelay(2);
-		aml_chip->aml_nand_write_byte(aml_chip, buf[j]);			
-		printk("%s, REG(0x%x): 	value:0x%x\n", __func__, addr[j], buf[j]);
+		
+		aml_chip->aml_nand_write_byte(aml_chip, buf[j]);	
+		
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 20);
 	}
 
 	aml_chip->aml_nand_wait_devready(aml_chip, chipnr);
@@ -998,10 +946,8 @@ void aml_nand_read_retry_handle_samsung(struct mtd_info *mtd, int chipnr)
 		return;
 	
 	cur_cnt = aml_chip->new_nand_info.read_rety_info.cur_cnt[chipnr];
-	printk("SAMSUNG NAND set partmeters here and read_retry_cnt:%d\n", cur_cnt);
 
 	aml_nand_set_reg_value_samsung(aml_chip, &aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][cur_cnt][0], &aml_chip->new_nand_info.read_rety_info.reg_addr[0], chipnr, aml_chip->new_nand_info.read_rety_info.reg_cnt);
-	udelay(10); 	
 
 	cur_cnt++;
 	aml_chip->new_nand_info.read_rety_info.cur_cnt[chipnr] = (cur_cnt > (aml_chip->new_nand_info.read_rety_info.retry_cnt-1)) ? 0 : cur_cnt;
@@ -1013,9 +959,9 @@ void aml_nand_read_retry_exit_samsung(struct mtd_info *mtd, int chipnr)
 
 	if(aml_chip->new_nand_info.type != SUMSUNG_2XNM)
 		return;
-		
+	aml_nand_debug("samsung retry cnt :%d\n",aml_chip->new_nand_info.read_rety_info.cur_cnt[chipnr]);	
 	aml_nand_set_reg_value_samsung(aml_chip, &aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][0][0], &aml_chip->new_nand_info.read_rety_info.reg_addr[0], chipnr, aml_chip->new_nand_info.read_rety_info.reg_cnt);
-	udelay(10); 
+	memset(&aml_chip->new_nand_info.read_rety_info.cur_cnt[0], 0, MAX_CHIP_NUM);
 }
 
 
@@ -1032,24 +978,19 @@ uint8_t aml_nand_set_reg_value_micron(struct aml_nand_chip *aml_chip,  uint8_t *
 
 	if(aml_chip->new_nand_info.type != MICRON_20NM)
 		return 0;
-	//printk("Enter %s\n", __func__);
 
 	aml_chip->aml_nand_wait_devready(aml_chip, chipnr);
 
 	aml_chip->aml_nand_select_chip(aml_chip, chipnr);
 	
 		aml_chip->aml_nand_command(aml_chip, NAND_CMD_MICRON_SET_VALUE, -1, -1, chipnr);
-		udelay(2);
-	      // chip->cmd_ctrl(mtd,0, NAND_CTRL_CHANGE | NAND_NCE | NAND_ALE);
-		//udelay(2);
 	        chip->cmd_ctrl(mtd,addr[0], NAND_CTRL_CHANGE | NAND_NCE | NAND_ALE);
-		udelay(2);
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 10);
 		aml_chip->aml_nand_write_byte(aml_chip, buf[0]);	
 		for(i =0; i < 3; i++){
-			udelay(2);	
+			NFC_SEND_CMD(aml_chip->chip_selected | IDLE | 1);	
 			aml_chip->aml_nand_write_byte(aml_chip, 0x0);	//for P2 P3 P4
 		}
-		printk("%s, REG(0x%x): 	value:0x%x\n", __func__, addr[0], buf[0]);
 
 	aml_chip->aml_nand_wait_devready(aml_chip, chipnr);
 
@@ -1063,14 +1004,11 @@ void aml_nand_read_retry_handle_micron(struct mtd_info *mtd, int chipnr)
 
 	if(aml_chip->new_nand_info.type != MICRON_20NM)
 		return;	
-	//printk("Enter %s\n", __func__);
 	
 	cur_cnt = aml_chip->new_nand_info.read_rety_info.cur_cnt[chipnr];
-	printk("MICRON NAND set partmeters here and read_retry_cnt:%d\n", cur_cnt +1);
 
 	aml_nand_set_reg_value_micron(aml_chip, &aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][cur_cnt][0], 
 		&aml_chip->new_nand_info.read_rety_info.reg_addr[0], chipnr, aml_chip->new_nand_info.read_rety_info.reg_cnt);
-	udelay(10); 	
 
 	cur_cnt++;
 	aml_chip->new_nand_info.read_rety_info.cur_cnt[chipnr] = 
@@ -1083,15 +1021,17 @@ void aml_nand_read_retry_exit_micron(struct mtd_info *mtd, int chipnr)
 {
 	
 	struct aml_nand_chip *aml_chip = mtd_to_nand_chip(mtd);
-	uint8_t default_val = 0;
-	
+
 	if(aml_chip->new_nand_info.type != MICRON_20NM)
 		return;
 	//printk("Enter %s\n", __func__);
+
+	int default_val = 0;
 	
+	aml_nand_debug("micron retry cnt :%d\n",aml_chip->new_nand_info.read_rety_info.cur_cnt[chipnr]);
 	aml_nand_set_reg_value_micron(aml_chip, &default_val,
 		&aml_chip->new_nand_info.read_rety_info.reg_addr[0], chipnr, aml_chip->new_nand_info.read_rety_info.reg_cnt);
-	udelay(10); 
+	memset(&aml_chip->new_nand_info.read_rety_info.cur_cnt[0], 0, MAX_CHIP_NUM);
 
 	return ;
 }
@@ -1105,7 +1045,6 @@ uint8_t aml_nand_dynamic_read_init_start(struct aml_nand_chip *aml_chip, int chi
 	uint8_t *buf;
 	int i=0;
 
-	//printk("Enter %s\n", __func__);
 
 	buf = &aml_chip->new_nand_info.dynamic_read_info.reg_addr_init[0];
 
@@ -1115,18 +1054,16 @@ uint8_t aml_nand_dynamic_read_init_start(struct aml_nand_chip *aml_chip, int chi
 	udelay(1);*/
 
 	aml_chip->aml_nand_command(aml_chip, NAND_CMD_SANDISK_INIT_ONE, -1, -1, chipnr);	//send cmd 0x3B 
-	udelay(1);
 	
 	aml_chip->aml_nand_command(aml_chip, NAND_CMD_SANDISK_INIT_TWO, -1, -1, chipnr);	//send cmd 0xB9
-	udelay(1);
 	
 	for(i=0; i<DYNAMIC_REG_INIT_NUM; i++){
 		aml_chip->aml_nand_command(aml_chip, NAND_CMD_SANDISK_LOAD_VALUE_ONE, -1, -1, chipnr);	//send cmd 0x53 
-		ndelay(200);
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 10);
 		chip->cmd_ctrl(mtd, buf[i], NAND_CTRL_CHANGE | NAND_NCE | NAND_ALE);			//send 0x04 add
-		ndelay(200);
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 10);
 		aml_chip->aml_nand_write_byte(aml_chip,0x0 );								//write 0x00 into  add
-		ndelay(200);
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 10);
 	}
 	return 0;
 
@@ -1141,15 +1078,13 @@ void aml_nand_dynamic_read_init(struct mtd_info *mtd)
 	if((aml_chip->new_nand_info.type < SANDISK_19NM))
 		return;	
 	
-	//printk("Enter %s\n", __func__);
 	aml_chip->new_nand_info.dynamic_read_info.dynamic_read_flag = 1; //DRF
 
 	for(i=0; i<aml_chip->chip_num; i++){
 		if(aml_chip->valid_chip[i]){
-			if((aml_chip->new_nand_info.type == SANDISK_19NM) ){
+			if((aml_chip->new_nand_info.type == SANDISK_19NM)||(aml_chip->new_nand_info.type == SANDISK_24NM) ){
 				aml_nand_dynamic_read_init_start(aml_chip, i);
 			}
-			udelay(2);
 		}		
 	}
 }
@@ -1164,24 +1099,21 @@ uint8_t aml_nand_dynamic_read_load_register_value(struct aml_nand_chip *aml_chip
 	if(aml_chip->new_nand_info.type < SANDISK_19NM)
 		return 0;
 	
-	//printk("Enter %s\n", __func__);
 	
 	aml_chip->aml_nand_wait_devready(aml_chip, chipnr);
 	
 	aml_chip->aml_nand_select_chip(aml_chip, chipnr);
 	
 	aml_chip->aml_nand_command(aml_chip, NAND_CMD_SANDISK_INIT_ONE, -1, -1, chipnr);//3B
-	udelay(1);
 	aml_chip->aml_nand_command(aml_chip, NAND_CMD_SANDISK_INIT_TWO, -1, -1, chipnr);//B9
-	udelay(1);
 	
 	for (j=0; j<cnt; j++){
 		aml_chip->aml_nand_command(aml_chip, NAND_CMD_SANDISK_LOAD_VALUE_ONE, -1, -1, chipnr); //53
-		udelay(1);
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 10);
 		chip->cmd_ctrl(mtd, addr[j], NAND_CTRL_CHANGE | NAND_NCE | NAND_ALE); //addr
-		udelay(1);
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 10);
 		aml_chip->aml_nand_write_byte(aml_chip, buf[j]);			
-		printk("%s, REG(0x%x):	value:0x%x\n", __func__, addr[j], buf[j]);
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 10);
 	}	
 		aml_chip->aml_nand_wait_devready(aml_chip, chipnr);	
 		return 0;	
@@ -1208,7 +1140,6 @@ void aml_nand_dynamic_read_handle(struct mtd_info *mtd, int page, int chipnr)
 	pages_per_blk = (1 << (chip->phys_erase_shift - chip->page_shift));
 	if(((page !=0) && (page % 2 ) == 0) || (page == (pages_per_blk -1))){
 		//cur_case_num_upper_page = aml_chip->new_nand_info.dynamic_read_info.cur_case_num_upper_page[chipnr]; //N
-		printk("SANDISK NAND set partmeters here upper page: %d and cur_case_num :%d\n", page, cur_case_num_upper_page);
 
 		memset(&dynamic_reg_read_value[0], 0, DYNAMIC_REG_NUM);
 		
@@ -1222,7 +1153,6 @@ void aml_nand_dynamic_read_handle(struct mtd_info *mtd, int page, int chipnr)
 		}
 			//dynamic_reg_read_value[0] |= aml_chip->new_nand_info.dynamic_read_info.reg_offset_value_lower_page[0][cur_case_num_lower_page -1][0];
 		aml_nand_dynamic_read_load_register_value(aml_chip, &dynamic_reg_read_value[0], &dynamic_reg_addr_value [0], chipnr, DYNAMIC_REG_NUM);
-		udelay(2); 
 		
 		cur_case_num_upper_page++;
 		aml_chip->new_nand_info.dynamic_read_info.cur_case_num_upper_page[chipnr] = 
@@ -1234,7 +1164,6 @@ void aml_nand_dynamic_read_handle(struct mtd_info *mtd, int page, int chipnr)
 	}else{
 
 		//cur_case_num_lower_page = aml_chip->new_nand_info.dynamic_read_info.cur_case_num_lower_page[chipnr]; //N
-		printk("SANDISK NAND set partmeters here lower page: %d and cur_case_num :%d\n", page, cur_case_num_lower_page);
 
 		memset(&dynamic_reg_read_value[0], 0, DYNAMIC_REG_NUM);
 		
@@ -1249,7 +1178,6 @@ void aml_nand_dynamic_read_handle(struct mtd_info *mtd, int page, int chipnr)
 
 			//dynamic_reg_read_value[0] |= aml_chip->new_nand_info.dynamic_read_info.reg_offset_value_upper_page[0][cur_case_num_upper_page -1][0];
 		aml_nand_dynamic_read_load_register_value(aml_chip, &dynamic_reg_read_value[0], &dynamic_reg_addr_value [0], chipnr, DYNAMIC_REG_NUM);
-		udelay(2); 	
 
 		cur_case_num_lower_page++;
 		aml_chip->new_nand_info.dynamic_read_info.cur_case_num_lower_page[chipnr] = 
@@ -1257,16 +1185,27 @@ void aml_nand_dynamic_read_handle(struct mtd_info *mtd, int page, int chipnr)
 		
 		//enable dynamic read
 		aml_chip->aml_nand_command(aml_chip, NAND_CMD_SANDISK_DYNAMIC_ENABLE, -1, -1, chipnr);//B6
-		udelay(2);
 	}
 	
 }
+void aml_nand_read_retry_handle_sandisk(struct mtd_info *mtd, int chipnr)
+{
+	struct aml_nand_chip *aml_chip = mtd_to_nand_chip(mtd);
+	int cur_cnt;
+	cur_cnt = aml_chip->new_nand_info.read_rety_info.cur_cnt[chipnr];
 
+	aml_nand_dynamic_read_load_register_value(aml_chip, (uint8_t *)&aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][cur_cnt][0], 
+		&aml_chip->new_nand_info.read_rety_info.reg_addr[0], chipnr, aml_chip->new_nand_info.read_rety_info.reg_cnt);
+	cur_cnt++;
+	aml_chip->new_nand_info.read_rety_info.cur_cnt[chipnr] = 
+		(cur_cnt > (aml_chip->new_nand_info.read_rety_info.retry_cnt-1)) ? 0 : cur_cnt;
+	return ;
+}
 void aml_nand_dynamic_read_exit(struct mtd_info *mtd, int chipnr)
 {
 	struct aml_nand_chip *aml_chip = mtd_to_nand_chip(mtd);
 
-	if(aml_chip->new_nand_info.type != SANDISK_19NM)
+	if(aml_chip->new_nand_info.type < SANDISK_19NM)
 		return;
 	
 	//printk("Enter %s\n", __func__);
@@ -1280,6 +1219,7 @@ void aml_nand_dynamic_read_exit(struct mtd_info *mtd, int chipnr)
 	aml_chip->aml_nand_command(aml_chip, NAND_CMD_RESET, -1, -1, chipnr);
 	aml_chip->aml_nand_wait_devready(aml_chip, chipnr);	
 
+	memset(&aml_chip->new_nand_info.read_rety_info.cur_cnt[0], 0, MAX_CHIP_NUM);
 	return ;
 }
 
@@ -1318,20 +1258,19 @@ uint8_t aml_nand_set_featureReg_value_toshiba(struct aml_nand_chip *aml_chip,  u
 
 	aml_chip->aml_nand_wait_devready(aml_chip, chipnr);
 
-	udelay(1);
 	
 	chip->cmd_ctrl(mtd, NAND_CMD_SANDISK_SET_VALUE, NAND_CTRL_CHANGE | NAND_NCE | NAND_CLE);
 													
-	udelay(1);
+	NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 10);
+
 	chip->cmd_ctrl(mtd, addr, NAND_CTRL_CHANGE | NAND_NCE | NAND_ALE);
 	
 	for (j=0; j<cnt; j++){
-		ndelay(200);
+		NFC_SEND_CMD_IDLE(aml_chip->chip_selected, 10);
+
 		aml_chip->aml_nand_write_byte(aml_chip, buf[j]);			
-		printk("%s, REG(0x%x): 	value:0x%x\n", __func__, addr, buf[j]);
 	}
 
-	udelay(10);
 	aml_chip->aml_nand_wait_devready(aml_chip, chipnr);
 
 	return 0;
@@ -1375,7 +1314,7 @@ void aml_nand_set_toggle_mode_toshiba(struct mtd_info *mtd, int chipnr)
 void aml_nand_debug_toggle_flash(struct mtd_info *mtd, int chipnr)
 {
 	struct aml_nand_chip *aml_chip = mtd_to_nand_chip(mtd);
-	//struct aml_nand_platform *plat = aml_chip->platform;
+	struct aml_nand_platform *plat = aml_chip->platform;
 	
      if(aml_chip->mfr_type == NAND_MFR_TOSHIBA){
 
@@ -1543,7 +1482,7 @@ static void aml_platform_adjust_timing(struct aml_nand_chip *aml_chip)
 
 static int aml_nand_add_partition(struct aml_nand_chip *aml_chip)
 {
-	uint64_t adjust_offset = 0, mini_part_blk_num, start_blk = 0,key_block = 0;
+	uint64_t adjust_offset = 0, mini_part_blk_num, start_blk = 0,key_block;
 	struct mtd_info *mtd = &aml_chip->mtd;
 	struct aml_nand_platform *plat = aml_chip->platform;
 	struct platform_nand_chip *chip = &plat->platform_nand_data.chip;
@@ -1646,13 +1585,14 @@ static int aml_nand_add_partition(struct aml_nand_chip *aml_chip)
 							printk("Skipping bad block at 0x%08llx \n",aml_env_erase_info.addr);
 							continue;
 						}
-						
+						#if 0
 						error = mtd->erase(mtd, &aml_env_erase_info);
 						if (error) {
 							printk("nand erase failed %d\n", error);
 							mtd->block_markbad(mtd, temp_parts->offset);
 							continue;
 						}
+						#endif
 					}
 				file_system_part = 1;
 				aml_chip->update_env_flag = 0;
@@ -2695,7 +2635,7 @@ dma_retry_plane0:
 						 } 							 
 #endif						
 						memset(buf, 0xff, nand_page_size);
-						memset(oob_buf, 0xff, user_byte_num);	
+						memset(oob_buf, 0x22, user_byte_num);	
 
 				        	mtd->ecc_stats.failed++;  
 					    	printk("aml nand read data ecc plane0 failed at page %d chip %d \n", page_addr, i);
@@ -2752,7 +2692,7 @@ dma_retry_plane1:
 						 } 							 
 #endif						
 						memset(buf, 0xff, nand_page_size);
-						memset(oob_buf, 0xff, user_byte_num);
+						memset(oob_buf, 0x22, user_byte_num);
 
 				        	mtd->ecc_stats.failed++;  
 					    	printk("aml nand read data ecc plane1 failed at page %d chip %d \n", page_addr, i);
@@ -2809,7 +2749,7 @@ dma_retry_plane1:
 							page_temp = page_addr - pages_per_blk* (page_addr >> pages_per_blk_shift);
 							if(((page_temp % 2 == 0) && (page_temp !=0) )||(page_temp == (pages_per_blk -1))) {
 								if(readretry_failed_cnt++ < DYNAMIC_CNT_UPPER){
-							printk("aml nand read data ecc failed at page:%d  blk %d chip %d, readretry_failed_cnt:%d\n", 
+							aml_nand_debug("aml nand read data ecc failed at page:%d  blk %d chip %d, readretry_failed_cnt:%d\n", 
 															page_addr, (page_addr >> pages_per_blk_shift), i, readretry_failed_cnt);
 									aml_chip->new_nand_info.dynamic_read_info.dynamic_read_handle(mtd, page_temp, i);
 							aml_chip->aml_nand_command(aml_chip, NAND_CMD_READ0, 0, page_addr, i);
@@ -2818,7 +2758,7 @@ dma_retry_plane1:
 							}
 							else{
 								if(readretry_failed_cnt++ < DYNAMIC_CNT_LOWER){
-										printk("aml nand read data ecc failed at page:%d  blk %d chip %d, readretry_failed_cnt:%d\n", 
+										aml_nand_debug("aml nand read data ecc failed at page:%d  blk %d chip %d, readretry_failed_cnt:%d\n", 
 																		page_addr, (page_addr >> pages_per_blk_shift), i, readretry_failed_cnt);
 										aml_chip->new_nand_info.dynamic_read_info.dynamic_read_handle(mtd, page_temp, i);
 										aml_chip->aml_nand_command(aml_chip, NAND_CMD_READ0, 0, page_addr, i);
@@ -2828,7 +2768,7 @@ dma_retry_plane1:
 						}
 						else if(aml_chip->new_nand_info.type){
 								if(readretry_failed_cnt++ < retry_cnt){
-								printk("aml nand read data ecc failed at page:%d  blk %d chip %d, readretry_failed_cnt:%d\n", 
+								aml_nand_debug("aml nand read data ecc failed at page:%d  blk %d chip %d, readretry_failed_cnt:%d\n", 
 																page_addr, (page_addr >> pages_per_blk_shift), i, readretry_failed_cnt);
 								aml_chip->new_nand_info.read_rety_info.read_retry_handle(mtd, i);
 								aml_chip->aml_nand_command(aml_chip, NAND_CMD_READ0, 0, page_addr, i);
@@ -2837,7 +2777,7 @@ dma_retry_plane1:
 						}
 #endif
 						memset(buf, 0xff, nand_page_size);
-						memset(oob_buf, 0xff, user_byte_num);
+						memset(oob_buf, 0x22, user_byte_num);
 						printk("########%s %d read ecc failed here at at page:%d, blk:%d chip[%d]\n", __func__, __LINE__, page_addr, (page_addr >> pages_per_blk_shift), i);
 						mtd->ecc_stats.failed++;
 					}
@@ -3170,7 +3110,7 @@ dma_retry_plane0:
 							goto dma_retry_plane0;			    
 						 } 							 
 #endif						 
-						memset(oob_buffer, 0xff, user_byte_num);
+						memset(oob_buffer, 0x22, user_byte_num);
 
 				        	mtd->ecc_stats.failed++;  
 					    	printk("aml nand read oob plane0 failed at page %d chip %d \n", page_addr, i);
@@ -3231,7 +3171,7 @@ dma_retry_plane1:
 								goto dma_retry_plane1;			   
 							}			
 #endif							 
-							memset(oob_buffer, 0xff, user_byte_num);																
+							memset(oob_buffer, 0x22, user_byte_num);																
 							mtd->ecc_stats.failed++;  
 							printk("aml nand read oob plane1 failed at page %d chip %d \n", page_addr, i);
 						}
@@ -3288,7 +3228,7 @@ dma_retry_plane1:
 							page_temp = page_addr - pages_per_blk* (page_addr >> pages_per_blk_shift);
 							if(((page_temp % 2 == 0) && (page_temp !=0) )||(page_temp == (pages_per_blk -1))) {
 								if(readretry_failed_cnt++ < DYNAMIC_CNT_UPPER){
-							printk("aml nand read data ecc failed at page:%d  blk %d chip %d, readretry_failed_cnt:%d\n", 
+							aml_nand_debug("aml nand read data ecc failed at page:%d  blk %d chip %d, readretry_failed_cnt:%d\n", 
 															page_addr, (page_addr >> pages_per_blk_shift), i, readretry_failed_cnt);
 									aml_chip->new_nand_info.dynamic_read_info.dynamic_read_handle(mtd, page_temp, i);
 							aml_chip->aml_nand_command(aml_chip, NAND_CMD_READ0, 0, page_addr, i);
@@ -3297,7 +3237,7 @@ dma_retry_plane1:
 							}
 							else{
 								if(readretry_failed_cnt++ < DYNAMIC_CNT_LOWER){
-									printk("aml nand read data ecc failed at page:%d  blk %d chip %d, readretry_failed_cnt:%d\n", 
+									aml_nand_debug("aml nand read data ecc failed at page:%d  blk %d chip %d, readretry_failed_cnt:%d\n", 
 																	page_addr, (page_addr >> pages_per_blk_shift), i, readretry_failed_cnt);
 									aml_chip->new_nand_info.dynamic_read_info.dynamic_read_handle(mtd, page_temp, i);
 									aml_chip->aml_nand_command(aml_chip, NAND_CMD_READ0, 0, page_addr, i);
@@ -3307,7 +3247,7 @@ dma_retry_plane1:
 						}
 						else if(aml_chip->new_nand_info.type){
 								if(readretry_failed_cnt++ < retry_cnt){
-									printk("aml nand read data ecc failed at page:%d  blk %d chip %d, readretry_failed_cnt:%d\n", 
+									aml_nand_debug("aml nand read data ecc failed at page:%d  blk %d chip %d, readretry_failed_cnt:%d\n", 
 																	page_addr, (page_addr >> pages_per_blk_shift), i, readretry_failed_cnt);
 									aml_chip->new_nand_info.read_rety_info.read_retry_handle(mtd, i);
 									aml_chip->aml_nand_command(aml_chip, NAND_CMD_READ0, 0, page_addr, i);
@@ -3317,7 +3257,7 @@ dma_retry_plane1:
 #endif
 						printk("########%s %d read oob failed here at at page:%d, blk:%d chip[%d]\n", __func__, __LINE__, page_addr, (page_addr >> pages_per_blk_shift), i);
 						
-						memset(oob_buffer, 0xff, user_byte_num);
+						memset(oob_buffer, 0x22, user_byte_num);
 						mtd->ecc_stats.failed++;
 					}
 					else{
@@ -3630,6 +3570,7 @@ static struct aml_nand_flash_dev *aml_nand_get_flash_type(struct mtd_info *mtd,
 	u8 dev_id_samsung_2xnm_4g[MAX_ID_LEN] = {NAND_MFR_SAMSUNG, 0xD7, 0x94, 0x7e, 0x64, 0x44};		
 	u8 dev_id_sandisk_19nm_8g[MAX_ID_LEN] = {NAND_MFR_SANDISK, 0xDE, 0x94, 0x93, 0x76, 0x57};	
 	u8 dev_id_sandisk_19nm_4g[MAX_ID_LEN] =  {NAND_MFR_SANDISK, 0xD7, 0x84, 0x93, 0x72, 0x57};
+	u8 dev_id_sandisk_24nm_8g[MAX_ID_LEN] =  {NAND_MFR_SANDISK, 0xDE, 0xA4, 0x82, 0x76, 0x56};	
 	u8 dev_id_micron_20nm_8g[MAX_ID_LEN] = {NAND_MFR_MICRON, 0x64, 0x44, 0x4B, 0xA9};
 	u8 dev_id_micron_20nm_4g[MAX_ID_LEN] = {NAND_MFR_MICRON, 0x44, 0x44, 0x4B, 0xA9};	
 #endif
@@ -4152,6 +4093,55 @@ static struct aml_nand_flash_dev *aml_nand_get_flash_type(struct mtd_info *mtd,
 	aml_chip->new_nand_info.read_rety_info.read_retry_handle = aml_nand_read_retry_handle_samsung;
 	aml_chip->new_nand_info.read_rety_info.read_retry_exit = aml_nand_read_retry_exit_samsung;
 }
+else  if(!strncmp((char*)type->id, (char*)dev_id_sandisk_24nm_8g, strlen((const char*)aml_nand_flash_ids[i].id))) {
+		aml_chip->new_nand_info.type =  SANDISK_24NM;	
+		aml_chip->ran_mode = 1;	
+		aml_chip->new_nand_info.dynamic_read_info.dynamic_read_flag = 0; //DRF
+		aml_chip->new_nand_info.dynamic_read_info.reg_addr_init[0] = 0x04;
+		aml_chip->new_nand_info.dynamic_read_info.reg_addr_init[1] = 0x05;
+		aml_chip->new_nand_info.dynamic_read_info.reg_addr_init[2] = 0x06;
+		aml_chip->new_nand_info.dynamic_read_info.reg_addr_init[3] = 0x07;
+		aml_chip->new_nand_info.dynamic_read_info.reg_addr_init[4] = 0x08;
+		aml_chip->new_nand_info.dynamic_read_info.reg_addr_init[5] = 0x09;
+		aml_chip->new_nand_info.dynamic_read_info.reg_addr_init[6] = 0x0a;
+		aml_chip->new_nand_info.dynamic_read_info.reg_addr_init[7] = 0x0b;
+		aml_chip->new_nand_info.dynamic_read_info.reg_addr_init[8] = 0x0c;
+		aml_chip->new_nand_info.read_rety_info.reg_addr[0] = 0x04;		
+		aml_chip->new_nand_info.read_rety_info.reg_addr[1] = 0x05;
+		aml_chip->new_nand_info.read_rety_info.reg_addr[2] = 0x07;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][0][0] = 0;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][0][1] = 0xf0;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][0][2] = 0;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][1][0] = 0;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][1][1] = 0xe0;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][1][2] = 0;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][2][0] = 0xff;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][2][1] = 0xf0;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][2][2] = 0xf0;	
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][3][0] = 0xee;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][3][1] = 0xe0;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][3][2] = 0xe0;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][4][0] = 0xde;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][4][1] = 0xd0;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][4][2] = 0xd0;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][5][0] = 0xcd;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][5][1] = 0xc0;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][5][2] = 0xc0;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][6][0] = 0x01;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][6][1] = 0x00;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][6][2] = 0x00;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][7][0] = 0x02;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][7][1] = 0x00;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][7][2] = 0x00;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][8][0] = 0x03;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][8][1] = 0x00;
+		aml_chip->new_nand_info.read_rety_info.reg_offset_value[0][8][2] = 0x00;		
+		aml_chip->new_nand_info.read_rety_info.reg_cnt = 3;
+		aml_chip->new_nand_info.read_rety_info.retry_cnt = 9;
+		aml_chip->new_nand_info.dynamic_read_info.dynamic_read_init = aml_nand_dynamic_read_init;
+		aml_chip->new_nand_info.read_rety_info.read_retry_handle = aml_nand_read_retry_handle_sandisk;
+		aml_chip->new_nand_info.read_rety_info.read_retry_exit = aml_nand_dynamic_read_exit;
+	}
 	else  if((!strncmp((char*)type->id, (char*)dev_id_sandisk_19nm_8g, strlen((const char*)aml_nand_flash_ids[i].id))) ||
 		(!strncmp((char*)type->id, (char*)dev_id_sandisk_19nm_4g, strlen((const char*)aml_nand_flash_ids[i].id)))){
 		aml_chip->new_nand_info.type =  SANDISK_19NM;
@@ -4731,7 +4721,7 @@ static int aml_nand_read_env (struct mtd_info *mtd, size_t offset, u_char * buf)
 	size_t amount_loaded = 0;
 	size_t len;
 	//struct mtd_oob_ops aml_oob_ops;
-	struct mtd_oob_ops  * aml_oob_ops = NULL; 
+	struct mtd_oob_ops  * aml_oob_ops; 
 	unsigned char *data_buf;
 	unsigned char env_oob_buf[sizeof(struct env_oobinfo_t)];
 
@@ -4824,7 +4814,7 @@ static int aml_nand_write_env(struct mtd_info *mtd, loff_t offset, u_char *buf)
 	size_t len;
 	//struct mtd_oob_ops aml_oob_ops;
 	
-	struct mtd_oob_ops  * aml_oob_ops = NULL;
+	struct mtd_oob_ops  * aml_oob_ops;
 	unsigned char *data_buf;
 	unsigned char env_oob_buf[sizeof(struct env_oobinfo_t)];
 
@@ -4898,7 +4888,7 @@ exit:
 static int aml_nand_save_env(struct mtd_info *mtd, u_char *buf)
 {
 	struct aml_nand_bbt_info *nand_bbt_info;
-	struct env_free_node_t *env_free_node = NULL, *env_tmp_node;
+	struct env_free_node_t *env_free_node, *env_tmp_node;
 	int error = 0, pages_per_blk, i = 1;
 	loff_t addr = 0;
 	//struct erase_info aml_env_erase_info;
@@ -5014,7 +5004,7 @@ static int aml_nand_env_init(struct mtd_info *mtd)
 	struct env_free_node_t *env_free_node, *env_tmp_node, *env_prev_node;
 	int error = 0, err, start_blk, total_blk, env_blk, i, j, pages_per_blk, bad_blk_cnt = 0, max_env_blk, phys_erase_shift;
 	loff_t offset;
-	unsigned char *data_buf = NULL;
+	unsigned char *data_buf;
 	//struct mtd_oob_ops aml_oob_ops;
 	
 	struct mtd_oob_ops  *aml_oob_ops; 
@@ -6090,8 +6080,7 @@ int aml_nand_init(struct aml_nand_chip *aml_chip)
 	if (nand_scan(mtd, aml_chip->chip_num) == -ENODEV) {
 		chip->options = 0;
 		chip->options |=  NAND_SKIP_BBTSCAN;
-		chip->options |= NAND_NO_SUBPAGE_WRITE;
-		if (aml_nand_scan(mtd, aml_chip->chip_num)) {
+		chip->options |= NAND_NO_SUBPAGE_WRITE;		if (aml_nand_scan(mtd, aml_chip->chip_num)) {
 			err = -ENXIO;
 			goto exit_error;
 		}
@@ -6323,7 +6312,8 @@ int aml_nand_init(struct aml_nand_chip *aml_chip)
 		
 			aml_chip->new_nand_info.read_rety_info.get_default_value(mtd);
 		}
-		if((aml_chip->new_nand_info.type) && (aml_chip->new_nand_info.type == SANDISK_19NM)){
+		if((aml_chip->new_nand_info.type) 
+		&& ((aml_chip->new_nand_info.type == SANDISK_19NM)||(aml_chip->new_nand_info.type == SANDISK_24NM))){
 			aml_chip->new_nand_info.dynamic_read_info.dynamic_read_init(mtd);
 		}//for sandisk
 #endif
@@ -6378,6 +6368,12 @@ int aml_nand_init(struct aml_nand_chip *aml_chip)
 #ifdef CONFIG_AML_NAND_KEY
 		int aml_key_init(struct aml_nand_chip *aml_chip);
         aml_key_init(aml_chip);
+#endif
+#ifdef CONFIG_SECURE_NAND
+		int secure_device_init(struct mtd_info *mtd);
+		err = secure_device_init(mtd);
+		if(err)
+			printk("aml secure init error\n");
 #endif
           /*setup class*/
     	aml_chip->cls.name = kzalloc(strlen((const char*)NAND_MULTI_NAME)+1, GFP_KERNEL);

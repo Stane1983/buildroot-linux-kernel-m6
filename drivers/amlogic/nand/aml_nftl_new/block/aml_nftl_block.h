@@ -44,9 +44,12 @@ struct aml_nftl_blk_t{
 	struct scatterlist*     bounce_sg;
 	unsigned int		    bounce_sg_len;
 	unsigned long		    time;
+	unsigned long		    time_flush;
+	unsigned int		    reboot_flag;
 	struct task_struct*		nftl_thread;
 	struct aml_nftl_part_t* aml_nftl_part;
 	struct mutex*           aml_nftl_lock;
+	struct aml_nftl_blk_t*  nftl_blk_next;
 
 	struct notifier_block   nb;
 //	struct timespec      	ts_write_start;
@@ -59,6 +62,7 @@ struct aml_nftl_blk_t{
 	uint32 (*read_data)(struct aml_nftl_blk_t *aml_nftl_blk, unsigned long block, unsigned nblk, unsigned char *buf);
 	uint32 (*write_data)(struct aml_nftl_blk_t *aml_nftl_blk, unsigned long block, unsigned nblk, unsigned char *buf);
 	uint32 (*flush_write_cache)(struct aml_nftl_blk_t *aml_nftl_blk);
+	uint32 (*shutdown_op)(struct aml_nftl_blk_t *aml_nftl_blk);
 
 };
 

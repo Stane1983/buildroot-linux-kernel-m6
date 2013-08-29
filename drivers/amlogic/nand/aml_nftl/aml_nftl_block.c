@@ -233,7 +233,7 @@ static int aml_nftl_add_cache_list(struct aml_nftl_blk_t *aml_nftl_blk, uint32_t
 	memcpy(cache_node->buf + blk_pos * 512, buf, blk_num * 512);
 	list_add_tail(&cache_node->list, &aml_nftl_blk->cache_list);
 	aml_nftl_blk->cache_buf_cnt++;
-	if (aml_nftl_blk->cache_buf_status == NFTL_CACHE_STATUS_IDLE) {
+	if ((aml_nftl_blk->cache_buf_status == NFTL_CACHE_STATUS_IDLE) && (aml_nftl_blk->nftl_thread != NULL)) {
 		aml_nftl_blk->cache_buf_status = NFTL_CACHE_STATUS_READY;
 		wake_up_process(aml_nftl_blk->nftl_thread);
 	}

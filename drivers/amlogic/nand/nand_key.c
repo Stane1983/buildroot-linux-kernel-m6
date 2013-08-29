@@ -214,7 +214,6 @@ static int aml_nand_write_key(struct mtd_info *mtd, uint64_t offset, u_char *buf
 		error = mtd->write_oob(mtd, addr, &aml_oob_ops);
 		if (error) {
 			printk("blk check good but write failed: %llx, %d\n", (uint64_t)addr, error);
-			error = 1;
 			goto exit;
 		}
 
@@ -223,7 +222,6 @@ static int aml_nand_write_key(struct mtd_info *mtd, uint64_t offset, u_char *buf
 	}
 	if (amount_saved < CONFIG_KEYSIZE)
 	{
-		error = 1;
 		printk("amount_saved < CONFIG_KEYSIZE, %s\n",__func__);
 		goto exit;
 	}
@@ -243,7 +241,8 @@ static int aml_nand_save_key(struct mtd_info *mtd, u_char *buf)
 	struct erase_info aml_key_erase_info;
 	mesonkey_t *key_ptr = (mesonkey_t *)buf;
 	int group_block_count=0,group_max_block = NAND_MINIKEY_PART_BLOCKNUM;
-	struct env_valid_node_t *tmp_valid_node,*tail_valid_node;
+	struct env_valid_node_t *tmp_valid_node,*tail_valid_node,*del_valid_node;
+	int success_flag;
 
 	struct aml_nand_chip *aml_chip = mtd_to_nand_chip(mtd);
 	if (!aml_chip->aml_nandkey_info->env_init) 
@@ -361,6 +360,7 @@ static int aml_nand_save_key(struct mtd_info *mtd, u_char *buf)
 		}
 	}
 
+	success_flag = 0;
 	tail_valid_node = aml_chip->aml_nandkey_info->env_valid_node;
 	while(tail_valid_node != NULL)
 	{
@@ -380,7 +380,9 @@ static int aml_nand_save_key(struct mtd_info *mtd, u_char *buf)
 			if (error) {
 				printk("key free blk erase failed %d\n", error);
 				mtd->block_markbad(mtd, addr);
-				return error;
+				tail_valid_node = tail_valid_node->next;
+				continue;
+				//return error;
 			}
 			//aml_chip->key_protect = 0;  //use it in uboot
 			tail_valid_node->ec++;
@@ -392,13 +394,52 @@ static int aml_nand_save_key(struct mtd_info *mtd, u_char *buf)
 			key_ptr->crc = (crc32((0 ^ 0xffffffffL), key_ptr->data, KEYSIZE) ^ 0xffffffffL);
 		}
 
-		if (aml_nand_write_key(mtd, addr, (u_char *) key_ptr)) {
-			printk("update nand key FAILED!\n");
-			return 1;
+		error = aml_nand_write_key(mtd, addr, (u_char *) key_ptr);
+		if (error) {
+			printk("update nand key addr:llx FAILED! \n",addr);
+			if((error == -EIO)||(error == -EFAULT)){
+				memset(&aml_key_erase_info, 0, sizeof(struct erase_info));
+				addr = tail_valid_node->phy_blk_addr;
+				addr *= mtd->erasesize;
+				aml_key_erase_info.mtd = mtd;
+				aml_key_erase_info.addr = addr;
+				aml_key_erase_info.len = mtd->erasesize;
+				//aml_chip->key_protect = 1;  //use it in uboot
+
+				//error = mtd->erase(mtd, &aml_key_erase_info);
+				mtd->erase(mtd, &aml_key_erase_info);
+				//aml_chip->key_protect = 0;  //use it in uboot
+
+				mtd->block_markbad(mtd, addr);
+				/*delete current node (tail_valid_node)*/
+				if(tail_valid_node == aml_chip->aml_nandkey_info->env_valid_node){
+					del_valid_node = tail_valid_node;
+					aml_chip->aml_nandkey_info->env_valid_node = tail_valid_node->next;
+					tail_valid_node = aml_chip->aml_nandkey_info->env_valid_node;
+					kfree(del_valid_node);
+				}
+				else{
+					del_valid_node = tail_valid_node;
+					tmp_valid_node = aml_chip->aml_nandkey_info->env_valid_node;
+					while((tmp_valid_node->next)&&(tmp_valid_node->next != tail_valid_node)){
+						tmp_valid_node = tmp_valid_node->next;
+					}
+					tmp_valid_node->next = tail_valid_node->next;
+					tail_valid_node = tail_valid_node->next;
+					kfree(del_valid_node);
+				}
+				continue;
+			}
+			else{
+				break;
+			}
 		}
 		tail_valid_node = tail_valid_node->next;
+		success_flag++;
 	}
-	
+	if(success_flag > 0){
+		error = 0;  //at least a block wirte success
+	}
 	return error;
 }
 #else
@@ -482,9 +523,24 @@ static int aml_nand_save_key(struct mtd_info *mtd, u_char *buf)
 		key_ptr->crc = (crc32((0 ^ 0xffffffffL), key_ptr->data, KEYSIZE) ^ 0xffffffffL);
 	}
 
-	if (aml_nand_write_key(mtd, addr, (u_char *) key_ptr)) {
-		printk("update nand key FAILED!\n");
-		return 1;
+	error = aml_nand_write_key(mtd, addr, (u_char *) key_ptr);
+	if (error) {
+		if((error == -EIO)||(error == -EFAULT)){
+			memset(&aml_key_erase_info, 0, sizeof(struct erase_info));
+			addr = tail_valid_node->phy_blk_addr;
+			addr *= mtd->erasesize;
+			aml_key_erase_info.mtd = mtd;
+			aml_key_erase_info.addr = addr;
+			aml_key_erase_info.len = mtd->erasesize;
+			//aml_chip->key_protect = 1;  //use it in uboot
+
+			//error = mtd->erase(mtd, &aml_key_erase_info);
+			mtd->erase(mtd, &aml_key_erase_info);
+			//aml_chip->key_protect = 0;  //use it in uboot
+			mtd->block_markbad(mtd, addr);
+			printk("update nand key FAILED!\n");
+			return 1;
+		}
 	}
 	
 	return error;
@@ -564,7 +620,7 @@ static int aml_nand_key_init(struct mtd_info *mtd)
 	//if ((default_keyironment_size + sizeof(struct aml_nand_bbt_info)) > KEYSIZE)
 	//	total_blk = start_blk + max_key_blk;
 
-#define REMAIN_TAIL_BLOCK_NUM		8
+//#define REMAIN_TAIL_BLOCK_NUM		8
 	offset = mtd->size - mtd->erasesize;
 	int remain_block=0;
 	int remain_start_block;
@@ -578,7 +634,7 @@ static int aml_nand_key_init(struct mtd_info *mtd)
 		offset = mtd->erasesize;
 		offset *= remain_start_block;
 		error = mtd->block_isbad(mtd, offset);
-		if (error) {
+		if (error == FACTORY_BAD_BLOCK_ERROR) {
 			aml_chip->aml_nandkey_info->nand_bbt_info.nand_bbt[bad_blk_cnt++] = remain_start_block;
 			if(bad_blk_cnt >= MAX_BAD_BLK_NUM)
 			{
@@ -601,15 +657,24 @@ static int aml_nand_key_init(struct mtd_info *mtd)
 		offset = mtd->erasesize;
 		offset *= start_blk;
 		error = mtd->block_isbad(mtd, offset);
-		if (error) {
-			//aml_chip->aml_nandkey_info->nand_bbt_info.nand_bbt[bad_blk_cnt++] = start_blk;
-			//if(bad_blk_cnt >= MAX_BAD_BLK_NUM)
-			//{
-			//	printk("bad block too much,%s\n",__func__);
-			//	return -ENOMEM;
-			//}
-			start_blk++;
-			continue;
+		if(error){
+			if (error == FACTORY_BAD_BLOCK_ERROR) {
+				//aml_chip->aml_nandkey_info->nand_bbt_info.nand_bbt[bad_blk_cnt++] = start_blk;
+				//if(bad_blk_cnt >= MAX_BAD_BLK_NUM)
+				//{
+				//	printk("bad block too much,%s\n",__func__);
+				//	return -ENOMEM;
+				//}
+				//printk("%s: factory bad block  %d\n",__func__,start_blk);
+				start_blk++;
+				continue;
+			}
+			if (error == EFAULT) {
+				//printk("%s: bad block  %d,key_blk:%d\n",__func__,start_blk,key_blk);
+				start_blk++;
+				key_blk++;
+				continue;
+			}
 		}
 
 		aml_oob_ops.mode = MTD_OOB_AUTO;

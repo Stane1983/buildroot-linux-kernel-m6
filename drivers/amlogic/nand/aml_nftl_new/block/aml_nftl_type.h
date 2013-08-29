@@ -77,6 +77,7 @@ struct _nftl_cfg{
     uint16 nftl_use_cache;
     uint16 nftl_support_gc_read_reclaim;
     uint16 nftl_support_wear_leveling;
+    uint16 nftl_support_fill_block;
     uint16 nftl_need_erase;
     uint16 nftl_part_reserved_block_ratio;
     uint16 nftl_min_free_block_num;

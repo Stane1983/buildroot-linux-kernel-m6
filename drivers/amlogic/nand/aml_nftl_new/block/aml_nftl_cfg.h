@@ -8,6 +8,8 @@
 #define SUPPORT_WEAR_LEVELING                     1
 #define NFTL_ERASE                                0
 
+#define SUPPORT_FILL_BLOCK             0
+
 #define PART_RESERVED_BLOCK_RATIO                 8
 #define MIN_FREE_BLOCK_NUM                        6
 #define GC_THRESHOLD_FREE_BLOCK_NUM               4
@@ -17,7 +19,10 @@
 #define GC_THRESHOLD_RATIO_NUMERATOR              2
 #define GC_THRESHOLD_RATIO_DENOMINATOR            3
 
-#define MAX_CACHE_WRITE_NUM  				      16
+#define MAX_CACHE_WRITE_NUM  				      4
+
+//for req sync flag, writting into flash immediately
+#define NFTL_CACHE_FLUSH_SYNC                      1
 
 
 

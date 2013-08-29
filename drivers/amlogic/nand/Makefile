@@ -14,3 +14,7 @@ else
 	obj-$(CONFIG_AML_NFTL)		+= aml_nftl/      
 endif
 obj-$(CONFIG_AML_NAND_KEY)	+=nand_key.o  
+
+# obj-$(CONFIG_SECURE_NAND)	+=flash_secure.o flash_mutex.o 
+
+obj-$(CONFIG_SECURE_NAND)	+= secure_storage.o 

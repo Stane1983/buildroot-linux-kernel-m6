@@ -818,10 +818,11 @@ static void aml_nftl_add_block(struct aml_nftl_info_t *aml_nftl_info, addr_blk_t
 		else if (phy_blk_node_add->timestamp == phy_blk_node_curt->timestamp) {
 			aml_nftl_dbg("NFTL timestamp err logic blk: %d phy blk: %d %d\n", nftl_oob_info->vtblk, vt_blk_node_curt->phy_blk_addr, vt_blk_node_add->phy_blk_addr);
 			if (phy_blk_node_add->ec < phy_blk_node_curt->ec) {
-
-				vt_blk_node_prev->next = vt_blk_node_add;
+				//vt_blk_node_prev->next = vt_blk_node_add;
 				vt_blk_node_add->next = vt_blk_node_curt->next;
-				vt_blk_node_add = vt_blk_node_curt;
+				vt_blk_node_curt->next = vt_blk_node_add;
+				//	vt_blk_node_add = vt_blk_node_curt;
+				break;
 			}
 			vt_blk_node_curt = (struct vtblk_node_t *)(*(aml_nftl_info->vtpmt + nftl_oob_info->vtblk));
 			vt_blk_node_add->next = vt_blk_node_curt;

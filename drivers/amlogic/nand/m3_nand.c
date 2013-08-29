@@ -21,6 +21,11 @@
 #include <mach/nand.h>
 #include <mach/clock.h>
 #include "version.h"
+
+#if defined CONFIG_SPI_NAND_COMPATIBLE || defined CONFIG_SPI_NAND_EMMC_COMPATIBLE
+	#define BOOT_DEVICE_FLAG  READ_CBUS_REG(ASSIST_POR_CONFIG)
+#endif
+
 extern int nand_get_device(struct nand_chip *chip, struct mtd_info *mtd,  int new_state);
 extern void nand_release_device(struct mtd_info *mtd);
 static char *aml_nand_plane_string[]={
@@ -71,6 +76,31 @@ unsigned char pagelist_hynix256[128] = {
 	0xEE, 0xEF, 0xF2, 0xF3, 0xF6, 0xF7, 0xFA, 0xFB,
 };
 #endif
+
+static unsigned char mx_revd_flag = 0;
+static unsigned mx_nand_check_chiprevd(void)
+{
+    printk("checking ChiprevD :%d\n", mx_revd_flag);  
+    
+    return mx_revd_flag;       
+}
+
+static int __init check_chiprevd(char *str)
+{
+    printk("cheked chiprev : %s\n", str);
+
+    mx_revd_flag = 0;
+    if(str[0] == 'D'){
+        mx_revd_flag = 1;
+    }
+    
+    printk("checking ChiprevD :%d\n", mx_revd_flag);  
+    
+    return 0;    
+}
+
+early_param("chiprev", check_chiprevd);
+
 static struct aml_nand_device *to_nand_dev(struct platform_device *pdev)
 {
 	return pdev->dev.platform_data;
@@ -835,6 +865,17 @@ static int m3_nand_boot_write_page(struct mtd_info *mtd, struct nand_chip *chip,
 	int status, i, write_page, configure_data, pages_per_blk, write_page_tmp, ran_mode;
 	int new_nand_type = 0;
 	int en_slc = 0;
+
+#ifdef CONFIG_SECURE_NAND
+	extern struct mtd_info * nand_secure_mtd;
+	struct mtd_info *mtd_device1 = nand_secure_mtd;
+	struct aml_nand_chip *aml_chip_device1 ; 
+	int k,nand_read_info,secure_block,valid_chip_num =0;
+	unsigned char chip_num=0, plane_num=0,micron_nand=0;
+	
+	aml_chip_device1 = mtd_to_nand_chip(mtd_device1);
+#endif
+
 #ifdef MX_REVD
 	int magic = NAND_PAGELIST_MAGIC;
 	int page_list[6] = {0x01, 0x02, 0x03, 0x06, 0x07, 0x0A};
@@ -872,6 +913,32 @@ static int m3_nand_boot_write_page(struct mtd_info *mtd, struct nand_chip *chip,
 			memcpy(chip->buffers->databuf + sizeof(int), (unsigned char *)(&pages_per_blk), sizeof(int));
 			//add for new nand
 			memcpy(chip->buffers->databuf + sizeof(int) + sizeof(int), (unsigned char *)(&new_nand_type), sizeof(int));
+#ifdef CONFIG_SECURE_NAND
+			valid_chip_num = 0;
+			for (k=0; k<aml_chip_device1->chip_num; k++) {
+				if(aml_chip_device1->valid_chip[k]){
+					valid_chip_num++;
+				}
+			}
+			
+			chip_num = valid_chip_num;
+			if(aml_chip_device1->plane_num == 2)
+				plane_num = 1;
+			
+			ran_mode = aml_chip_device1->ran_mode;
+			
+			if((aml_chip_device1->mfr_type == NAND_MFR_MICRON) || (aml_chip_device1->mfr_type == NAND_MFR_INTEL))
+				micron_nand = 1;
+			
+			nand_read_info = chip_num | (plane_num << 2) |(ran_mode << 3) | (micron_nand << 4);
+			memcpy(chip->buffers->databuf +3* sizeof(int), (unsigned char *)(&nand_read_info), sizeof(int));
+			
+			secure_block = aml_chip_device1->aml_nandsecure_info->start_block;
+			memcpy(chip->buffers->databuf +4* sizeof(int), (unsigned char *)(&secure_block), sizeof(int));
+			
+			printk("chip_num %d,plane_num %d,ran_mode %d micron_nand %d ,secure_block %d\n",chip_num,\
+				plane_num,ran_mode,micron_nand,secure_block);
+#endif
 
 #ifdef MX_REVD
 			if(en_slc && (mtd->writesize<16384)){
@@ -881,14 +948,17 @@ static int m3_nand_boot_write_page(struct mtd_info *mtd, struct nand_chip *chip,
 #endif
 				
 			chip->cmdfunc(mtd, NAND_CMD_SEQIN, 0x00, write_page);
-#ifndef MX_REVD
+//#ifndef MX_REVD
+			if((mx_nand_check_chiprevd() != 1) && (en_slc == 0)){
 			ran_mode = aml_chip->ran_mode;
 			aml_chip->ran_mode = 0;
-#endif			
+			}
+//#endif			
 			chip->ecc.write_page(mtd, chip, chip->buffers->databuf);
-#ifndef MX_REVD
-			aml_chip->ran_mode = ran_mode;
-#endif
+//#ifndef MX_REVD
+			if((mx_nand_check_chiprevd() != 1) && (en_slc == 0))
+				aml_chip->ran_mode = ran_mode;
+//#endif
 			status = chip->waitfunc(mtd, chip);
 
 			if ((status & NAND_STATUS_FAIL) && (chip->errstat))
@@ -1090,6 +1160,8 @@ static int aml_nand_probe(struct aml_nand_platform *plat, struct device *dev)
 //    aml_chip->nand_early_suspend.suspend = m3_nand_early_suspend;
 //    aml_chip->nand_early_suspend.resume = m3_nand_late_resume;
 
+    printk("%s checked chiprev:%d\n", __func__, mx_nand_check_chiprevd());
+    
 	err = aml_nand_init(aml_chip);
 	if (err)
 		goto exit_error;
@@ -1175,13 +1247,29 @@ static int m3_nand_probe(struct platform_device *pdev)
 			printk("error for not platform data\n");
 			continue;
 		}
+#if defined CONFIG_SPI_NAND_COMPATIBLE || defined CONFIG_SPI_NAND_EMMC_COMPATIBLE
+		if( ((!strncmp((char*)plat->name, NAND_BOOT_NAME, strlen((const char*)NAND_BOOT_NAME)))) &&\
+			(i == 0) && (((BOOT_DEVICE_FLAG & 7) == 5) || ((BOOT_DEVICE_FLAG & 7) == 4))){
+			printk("SPI BOOT, %s continue i %d\n",__func__,i);
+			continue;
+		}	
+		if( (((BOOT_DEVICE_FLAG & 7) == 7) || ((BOOT_DEVICE_FLAG & 7) == 6))){
+			printk("NAND BOOT : %s %d \n",__func__,__LINE__);
+		}
+#endif
+
 		err = aml_nand_probe(plat, &pdev->dev);
 		if (err) {
 			printk("%s dev probe failed %d\n", plat->name, err);
 			continue;
 		}
 	}
-
+/*
+#ifdef CONFIG_SECURE_NAND
+extern int flash_secure_init(void);
+	flash_secure_init();
+#endif	
+*/	
 exit_error:
 	return err;
 }
@@ -1215,7 +1303,12 @@ static int m3_nand_remove(struct platform_device *pdev)
 			kfree(aml_chip);
 		}
 	}
-
+/*
+#ifdef CONFIG_SECURE_NAND
+extern int flash_secure_remove(void);
+	flash_secure_remove();
+#endif
+*/	
 	return 0;
 }
 
@@ -1252,7 +1345,12 @@ static void m3_nand_shutdown(struct platform_device *pdev)
 			}
 		}
 	}
-
+/*
+#ifdef CONFIG_SECURE_NAND
+extern int flash_secure_remove(void);
+	flash_secure_remove();
+#endif		
+*/
 	return;
 }
 
