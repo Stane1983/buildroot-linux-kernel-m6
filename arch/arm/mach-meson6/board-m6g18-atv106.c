@@ -605,8 +605,7 @@ static struct mtd_partition normal_partition_info[] = {
         .name = "cache",
         .offset = 640*SZ_1M+512*SZ_1M+40*SZ_1M,
         .size = 512*SZ_1M,
-    },
-#if 1    
+    },   
     {
     	  .name = "backup",
         .offset = 1152*SZ_1M+512*SZ_1M+40*SZ_1M,
@@ -616,20 +615,7 @@ static struct mtd_partition normal_partition_info[] = {
         .name = "data",
         .offset = MTDPART_OFS_APPEND,
         .size = MTDPART_SIZ_FULL,
-    },
-   
-#else    
-    {
-        .name = "userdata",
-        .offset = 1152*SZ_1M+512*SZ_1M+40*SZ_1M,
-        .size = 512*SZ_1M,
-    },
-    {
-        .name = "NFTL_Part",
-        .offset = MTDPART_OFS_APPEND,
-        .size = MTDPART_SIZ_FULL,
-    },
-#endif    
+    },  
 };
 
 
