@@ -536,9 +536,12 @@ static void option_instat_callback(struct urb *urb);
 #define MEDIATEK_VENDOR_ID			0x0e8d
 #define MEDIATEK_PRODUCT_DC_1COM		0x00a0
 #define MEDIATEK_PRODUCT_DC_4COM		0x00a5
+#define MEDIATEK_PRODUCT_DC_4COM2		0x00a7
 #define MEDIATEK_PRODUCT_DC_5COM		0x00a4
 #define MEDIATEK_PRODUCT_7208_1COM		0x7101
 #define MEDIATEK_PRODUCT_7208_2COM		0x7102
+#define MEDIATEK_PRODUCT_7103_2COM		0x7103
+#define MEDIATEK_PRODUCT_7106_2COM		0x7106
 #define MEDIATEK_PRODUCT_FP_1COM		0x0003
 #define MEDIATEK_PRODUCT_FP_2COM		0x0023
 #define MEDIATEK_PRODUCT_FPDC_1COM		0x0043
@@ -558,6 +561,10 @@ static void option_instat_callback(struct urb *urb);
 
 #define TENDA_VENDOR_ID                         0x15EB
 #define TENDA_PRODUCT_EVDO                      0x0001
+
+/* Hyundai Petatel Inc. products */
+#define PETATEL_VENDOR_ID			0x1ff4
+#define PETATEL_PRODUCT_NP10T			0x600e
 
 /* some devices interfaces need special handling due to a number of reasons */
 enum option_blacklist_reason {
@@ -1249,7 +1256,8 @@ static const struct usb_device_id option_ids[] = {
 	{ USB_DEVICE_AND_INTERFACE_INFO(ZTE_VENDOR_ID, 0x0257, 0xff, 0xff, 0xff), /* ZTE MF821 */
 	  .driver_info = (kernel_ulong_t)&net_intf3_blacklist },
 	{ USB_DEVICE_AND_INTERFACE_INFO(ZTE_VENDOR_ID, 0x0265, 0xff, 0xff, 0xff) },
-	{ USB_DEVICE_AND_INTERFACE_INFO(ZTE_VENDOR_ID, 0x0284, 0xff, 0xff, 0xff) },
+	{ USB_DEVICE_AND_INTERFACE_INFO(ZTE_VENDOR_ID, 0x0284, 0xff, 0xff, 0xff), /* ZTE MF880 */
+	  .driver_info = (kernel_ulong_t)&net_intf4_blacklist },
 	{ USB_DEVICE_AND_INTERFACE_INFO(ZTE_VENDOR_ID, 0x0317, 0xff, 0xff, 0xff) },
 	{ USB_DEVICE_AND_INTERFACE_INFO(ZTE_VENDOR_ID, 0x0326, 0xff, 0xff, 0xff),
 	  .driver_info = (kernel_ulong_t)&net_intf4_blacklist },
