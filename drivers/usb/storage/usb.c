@@ -131,6 +131,17 @@ MODULE_PARM_DESC(quirks, "supplemental list of device IDs and their quirks");
 		.initFunction = init_function,   \
 }
 
+#define UNUSUAL_VENDOR_INTF(idVendor, cl, sc, pr, \
+		vendor_name, product_name, use_protocol, use_transport, \
+		init_function, Flags) \
+{ \
+	.vendorName = vendor_name,	\
+	.productName = product_name,	\
+	.useProtocol = use_protocol,	\
+	.useTransport = use_transport,	\
+	.initFunction = init_function,	\
+}
+
 static struct us_unusual_dev us_unusual_dev_list[] = {
 #	include "unusual_devs.h" 
 	{ }		/* Terminating entry */
@@ -140,6 +151,7 @@ static struct us_unusual_dev us_unusual_dev_list[] = {
 #undef COMPLIANT_DEV
 #undef HW_UNUSUAL_DEV
 #undef USUAL_DEV
+#undef UNUSUAL_VENDOR_INTF
 
 
 #ifdef CONFIG_PM	/* Minimal support for suspend and resume */
