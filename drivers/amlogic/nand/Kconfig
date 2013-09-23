@@ -22,13 +22,6 @@ config SPI_NAND_COMPATIBLE
 	help
 	  Support SPI and NAND flash compatible
 
-config SPI_NAND_EMMC_COMPATIBLE
-	bool "Meson SPI NAND EMMC compatible"
-	depends on ARCH_MESON6
-	default n
-	help
-	  Support SPI NAND EMMC compatible
-
 config AM_NAND_RBPIN
 	bool "Meson NAND RB bit support"
 	depends on AM_NAND
@@ -61,14 +54,6 @@ config NAND_KEY_BLOCK_NUM
 	help
 		config nand key block number, the number must be even number
 
-config SECURE_NAND
-	bool "Meson secure data store in nand device(dev/nand_secure) support"
-	depends on AM_NAND
-	depends on ARCH_MESON3 || ARCH_MESON6
-	default n
-	help
-	  Support   secure store in NAND device
-	  
 config AML_NFTL
 	tristate "Meson NAND FTL support"
 	depends on AM_NAND

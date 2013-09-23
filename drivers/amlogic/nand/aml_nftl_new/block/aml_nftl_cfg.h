@@ -8,8 +8,6 @@
 #define SUPPORT_WEAR_LEVELING                     1
 #define NFTL_ERASE                                0
 
-#define SUPPORT_FILL_BLOCK             0
-
 #define PART_RESERVED_BLOCK_RATIO                 8
 #define MIN_FREE_BLOCK_NUM                        6
 #define GC_THRESHOLD_FREE_BLOCK_NUM               4

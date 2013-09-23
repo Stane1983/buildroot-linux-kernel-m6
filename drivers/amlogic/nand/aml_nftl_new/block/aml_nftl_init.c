@@ -27,14 +27,12 @@ extern uint32 get_vaild_blocks(struct aml_nftl_part_t * part,uint32 start_block,
 extern uint32 __nand_read(struct aml_nftl_part_t* part,uint32 start_sector,uint32 len,unsigned char *buf);
 extern uint32 __nand_write(struct aml_nftl_part_t* part,uint32 start_sector,uint32 len,unsigned char *buf);
 extern uint32 __nand_flush_write_cache(struct aml_nftl_part_t* part);
-extern uint32 __shutdown_op(struct aml_nftl_part_t* part);
 extern void print_free_list(struct aml_nftl_part_t* part);
 extern void print_block_invalid_list(struct aml_nftl_part_t* part);
 
 uint32 _nand_read(struct aml_nftl_blk_t *aml_nftl_blk,uint32 start_sector,uint32 len,unsigned char *buf);
 uint32 _nand_write(struct aml_nftl_blk_t *aml_nftl_blk,uint32 start_sector,uint32 len,unsigned char *buf);
 uint32 _nand_flush_write_cache(struct aml_nftl_blk_t *aml_nftl_blk);
-uint32 _shutdown_op(struct aml_nftl_blk_t *aml_nftl_blk);
 void *aml_nftl_malloc(uint32 size);
 void aml_nftl_free(const void *ptr);
 //int aml_nftl_dbg(const char * fmt,args...);
@@ -107,7 +105,6 @@ int aml_nftl_initialize(struct aml_nftl_blk_t *aml_nftl_blk,int no)
 	aml_nftl_blk->nftl_cfg.nftl_use_cache = NFTL_DONT_CACHE_DATA;
 	aml_nftl_blk->nftl_cfg.nftl_support_gc_read_reclaim = SUPPORT_GC_READ_RECLAIM;
 	aml_nftl_blk->nftl_cfg.nftl_support_wear_leveling = SUPPORT_WEAR_LEVELING;
-	aml_nftl_blk->nftl_cfg.nftl_support_fill_block = SUPPORT_FILL_BLOCK;
 	aml_nftl_blk->nftl_cfg.nftl_need_erase = NFTL_ERASE;
 	aml_nftl_blk->nftl_cfg.nftl_part_reserved_block_ratio = PART_RESERVED_BLOCK_RATIO;
 	aml_nftl_blk->nftl_cfg.nftl_min_free_block_num = MIN_FREE_BLOCK_NUM;
@@ -125,7 +122,6 @@ int aml_nftl_initialize(struct aml_nftl_blk_t *aml_nftl_blk,int no)
 	aml_nftl_blk->read_data = _nand_read;
 	aml_nftl_blk->write_data = _nand_write;
 	aml_nftl_blk->flush_write_cache = _nand_flush_write_cache;
-	aml_nftl_blk->shutdown_op = _shutdown_op;
 
     //setup class
     if(memcmp(mtd->name, "NFTL_Part", 9)==0)
@@ -191,10 +187,6 @@ uint32 _nand_flush_write_cache(struct aml_nftl_blk_t *aml_nftl_blk)
     return __nand_flush_write_cache(aml_nftl_blk->aml_nftl_part);
 }
 
-uint32 _shutdown_op(struct aml_nftl_blk_t *aml_nftl_blk)
-{
-    return __shutdown_op(aml_nftl_blk->aml_nftl_part);
-}
 /*****************************************************************************
 *Name         :
 *Description  :

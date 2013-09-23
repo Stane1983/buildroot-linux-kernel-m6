@@ -45,6 +45,8 @@
 
 #include "aml_nftl_block.h"
 
+//static struct mutex aml_nftl_lock;
+
 extern int aml_nftl_initialize(struct aml_nftl_blk_t *aml_nftl_blk,int no);
 extern uint32 nand_flush_write_cache(struct aml_nftl_blk_t* aml_nftl_blk);
 extern void aml_nftl_part_release(struct aml_nftl_part_t* part);
@@ -201,23 +203,18 @@ int aml_nftl_init_bounce_buf(struct mtd_blktrans_dev *dev, struct request_queue 
 }
 
 uint32 write_sync_flag(struct aml_nftl_blk_t *aml_nftl_blk)
-{    
-#if NFTL_CACHE_FLUSH_SYNC   	
-//for USB burning tool using cache/preloader.. as media partition, 
-//so just disable sync flag for usb burning case.
-#ifdef CONFIG_SUPPORT_USB_BURNING
-        return 0;
-#endif
+{
+	#ifdef NFTL_CACHE_FLUSH_SYNC
 	struct mtd_info *mtd = aml_nftl_blk->mbd.mtd;
-    	
-	if(memcmp(mtd->name, "NFTL_Part", 9)==0)
+	
+	if((memcmp(mtd->name, "NFTL_Part", 9)==0) || (memcmp(mtd->name, "cache", 5)==0))
 		return 0;
 	else
 		return (aml_nftl_blk->req->cmd_flags & REQ_SYNC);
-#else
+	#else
 	return 0;
 	
-#endif
+	#endif
 }
 
 /*****************************************************************************
@@ -248,10 +245,6 @@ static int do_nftltrans_request(struct mtd_blktrans_ops *tr,struct mtd_blktrans_
 	size_t buflen;
 	char *buf;
 
-	//when notifer coming,nftl didnot respond to request.
-	if(aml_nftl_blk->reboot_flag)
-		return 0;
-	
 	memset((unsigned char *)buf_addr, 0, (max_segm+1)*4);
 	memset((unsigned char *)offset_addr, 0, (max_segm+1)*4);
 	block = blk_rq_pos(req) << SHIFT_PER_SECTOR >> tr->blkshift;
@@ -419,27 +412,17 @@ static int aml_nftl_reboot_notifier(struct notifier_block *nb, unsigned long pri
 	struct aml_nftl_blk_t *aml_nftl_blk = nftl_notifier_to_blk(nb);
 	struct aml_nftl_part_t* aml_nftl_part = aml_nftl_blk->aml_nftl_part;
 
-    if(aml_nftl_blk->nftl_thread!=NULL){
-        kthread_stop(aml_nftl_blk->nftl_thread); //add stop thread to ensure nftl quit safely
-        aml_nftl_blk->nftl_thread=NULL;
-    }
-
 	mutex_lock(aml_nftl_blk->aml_nftl_lock);
 
-	if(aml_nftl_blk->reboot_flag == 0){
-	    error = aml_nftl_blk->flush_write_cache(aml_nftl_blk);
-	    error |= aml_nftl_blk->shutdown_op(aml_nftl_blk);
-        aml_nftl_blk->reboot_flag = 1;
-        aml_nftl_dbg("aml_nftl_reboot_notifier :%s %d\n",aml_nftl_blk->mbd.mtd->name,error);
-    }else{
-        int num = aml_nftl_get_part_write_cache_nums(aml_nftl_blk->aml_nftl_part);
-        if(num > 0)
-        {
-            aml_nftl_dbg("aml_nftl_reboot_notifier error! %s,cache:%d\n",aml_nftl_blk->mbd.mtd->name,num);
-        }
-    }
+//	aml_nftl_dbg("aml_nftl_reboot_notifier flush cache data: %d\n", aml_nftl_part->cache.cache_write_nums);
+	error = aml_nftl_blk->flush_write_cache(aml_nftl_blk);
 
 	mutex_unlock(aml_nftl_blk->aml_nftl_lock);
+
+	if(aml_nftl_blk->nftl_thread!=NULL){
+	    kthread_stop(aml_nftl_blk->nftl_thread); //add stop thread to ensure nftl quit safely
+	    aml_nftl_blk->nftl_thread=NULL;
+	}
 
 	return error;
 }
@@ -487,7 +470,6 @@ static void aml_nftl_add_mtd(struct mtd_blktrans_ops *tr, struct mtd_info *mtd)
 	aml_nftl_blk->mbd.devnum = mtd->index;
 	aml_nftl_blk->mbd.tr = tr;
 	aml_nftl_blk->nb.notifier_call = aml_nftl_reboot_notifier;
-    aml_nftl_blk->reboot_flag = 0;
 
 	register_reboot_notifier(&aml_nftl_blk->nb);
 
