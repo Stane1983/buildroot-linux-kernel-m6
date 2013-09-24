@@ -399,7 +399,7 @@ static int aml_key_decrypt(void *dst, size_t *dst_len, const void *src,
  */
 static int debug_mode = 1;//1:debug,0:normal
 static int postpone_write = 0; //1:postpone, 0:normal once write
-static int rewrite_nandkey=1;//1:disable,0:enable
+//static int rewrite_nandkey=1;//1:disable,0:enable
 
 static ssize_t mode_show(struct device *dev, struct device_attribute *attr,
                          char *buf)
@@ -503,9 +503,11 @@ static int aml_key_read_hash(aml_key_t * key, char * hash)
 #else
 static int aml_key_write_hash(aml_key_t * key, char * hash)
 {
+    return 0;
 }
 static int aml_key_read_hash(aml_key_t * key, char * hash)
 {
+    return 0;
 }
 #endif
 
@@ -625,7 +627,9 @@ static ssize_t aml_key_store(aml_key_t * key, const char *buf, size_t count)
     int i, j, err;
     char * data = NULL;
     char * enc_data = NULL;
+#if ENABLE_AML_KEY_DEBUG
     char * temp = NULL;
+#endif
     size_t in_key_len=0;
     uint16_t checksum=0;
     size_t readbuff_validlen;
@@ -769,6 +773,7 @@ store_error_return:
 #endif
     return err;
 }
+#ifdef KEY_NODE_CREATE
 static ssize_t key_core_store(struct device *dev, struct device_attribute *attr,
                               const char *buf, size_t count)
 {
@@ -782,16 +787,15 @@ static ssize_t key_core_store(struct device *dev, struct device_attribute *attr,
     //if( aml_key_store((aml_key_t*) attr, buf, count)>=0)
     if(err >= 0)
     {
-#ifdef KEY_NODE_CREATE
 		#ifndef TEST_NAND_KEY_WR
 		attr->attr.mode &= (~KEY_WRITE_ATTR);  
 		sysfs_chmod_file(&dev->kobj,attr,KEY_READ_ATTR);
 		#endif
-#endif
 		//printk("%s,attr WR change to RD\n",__func__);
     }
     return err;
 }
+
 #if 0
 static ssize_t key_core_control(struct device *class,
                                 struct device_attribute *attr, const char *buf,
@@ -818,12 +822,16 @@ static int key_check_inval(aml_key_t * key)
     }
     return 0;
 }
+#endif
 static ssize_t key_node_set(struct device *dev);
 int32_t aml_keys_set_version(struct device *dev, uint8_t version, int storer)
 {
     aml_key_t * keys;
     char **keyfile = (char**) dev->platform_data;
-    int i, ret;
+#ifdef KEY_NODE_CREATE
+    int i;
+#endif
+    int ret;
     int keyfile_index;
     if (keys_version > 0 && keys_version < 256) ///has been initial
         return -1;
@@ -1061,6 +1069,7 @@ static ssize_t key_list_show(struct device *dev, struct device_attribute *attr,
 static ssize_t key_list_store(struct device *dev, struct device_attribute *attr,
                              const char *buf, size_t count)
 {
+    return 0;
 }
 //DEVICE_ATTR(key_list, 0660, key_list_show, key_list_store);
 
@@ -1189,11 +1198,13 @@ static ssize_t key_name_store(struct device *dev, struct device_attribute *attr,
 	return count;
 }
 //DEVICE_ATTR(key_name, 0660, key_name_show, key_name_store);
-
+#if 0
 static ssize_t key_write_show(struct device *dev, struct device_attribute *attr,
                             char *buf)
 {
+    return 0;
 }
+#endif
 static ssize_t key_write_store(struct device *dev, struct device_attribute *attr,
                              const char *buf, size_t count)
 {
@@ -1219,10 +1230,13 @@ static ssize_t key_read_show(struct device *dev, struct device_attribute *attr,
 	err = key_core_show(dev, (struct device_attribute*)curkey,buf);
 	return err;
 }
+#if 0
 static ssize_t key_read_store(struct device *dev, struct device_attribute *attr,
                              const char *buf, size_t count)
 {
+    return 0;
 }
+#endif
 //DEVICE_ATTR(key_read, 0660, key_read_show, key_read_store);
 
 #define USID_KEY_NAME   "usid"
@@ -1291,12 +1305,13 @@ static ssize_t key_usid_show(struct device *dev, struct device_attribute *attr,
 	}
 	return err;
 }
+#if 0
 static ssize_t key_usid_store(struct device *dev, struct device_attribute *attr,
                              const char *buf, size_t count)
 {
 	return -EINVAL;
 }
-
+#endif
 
 struct key_new_node{
 	struct device_attribute  attr;
@@ -1537,7 +1552,7 @@ char asc_to_i(char para)
 int get_aml_key_kernel(const char* key_name, unsigned char* data, int ascii_flag)
 {
 	int ret;
-	int i, j;
+	int i=0, j=0;
 	char* buf = NULL;
 	if (!key_name) {
 		printk("error, keyname or is null\n");

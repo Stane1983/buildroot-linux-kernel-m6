@@ -387,7 +387,7 @@ static int cur_pd32_status = 0;
 static unsigned int last_small_frame_diff_num =0;
 static unsigned int pattern_match_count = 0;
 static unsigned int pd32_diff_num_0_count = 0;
-static unsigned int pd22_num = 0 ;
+//static unsigned int pd22_num = 0 ;
 void reset_pd32_status(void)
 {
     cur_pd22_status = 0;
@@ -405,8 +405,8 @@ int detect_pd32(void)
     int i, ii;
     int  pd_pd1field = 0;
     pd_his_t* phis;
-    pd_his_t* phis_22;
-    unsigned pd22_pattern_len = pd22_match_num*4;
+    //pd_his_t* phis_22;
+    //unsigned pd22_pattern_len = pd22_match_num*4;
     unsigned pd32_pattern_len = pd32_match_num*5;
     static int cur_pd1field_status;
 /*

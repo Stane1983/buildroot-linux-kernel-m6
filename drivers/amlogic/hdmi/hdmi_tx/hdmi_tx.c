@@ -231,7 +231,7 @@ return value: 1, vout; 2, vout2;
 {
     int vout_index = 1;
 #ifdef CONFIG_AM_TV_OUTPUT2
-    const vinfo_t *info;
+    //const vinfo_t *info;
     if(force_vout_index){
         vout_index = force_vout_index;
     }
@@ -672,7 +672,7 @@ static ssize_t show_disp_cap_3d(struct device * dev, struct device_attribute *at
     int i,pos=0;
     int j=0;
     char* disp_mode_t[]={"480i","480p","576i","576p","720p","1080i","1080p","720p50hz","1080i50hz","1080p50hz","1080p24hz",NULL};
-    char* native_disp_mode = hdmitx_edid_get_native_VIC(&hdmitx_device);
+    //char* native_disp_mode = hdmitx_edid_get_native_VIC(&hdmitx_device);
     HDMI_Video_Codes_t vic;
 
     for(i=0; disp_mode_t[i]; i++){

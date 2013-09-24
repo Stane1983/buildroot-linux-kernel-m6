@@ -120,7 +120,7 @@ static int32_t v3_key_update_status(aml_key_t * key)
 #ifdef KEY_NEW_METHOD
 static int32_t v3_key_write(aml_key_t * key, uint8_t *data)
 {
-    int32_t key_slot=AML_KEY_GETSLOT(key);
+    //int32_t key_slot=AML_KEY_GETSLOT(key);
     int i;
     struct v3_key_storage *key_storage=NULL;
 	//key_schem_print("#v3_key_write id=%d !!!\n",key_slot);
@@ -194,7 +194,7 @@ static int32_t v3_key_write(aml_key_t * key, uint8_t *data)
 }
 static int32_t v3_key_read(aml_key_t * key, uint8_t *data)
 {
-    int32_t key_slot = AML_KEY_GETSLOT(key);
+    //int32_t key_slot = AML_KEY_GETSLOT(key);
     struct v3_key_storage *key_storage=NULL;
     int i;
 	//key_schem_print("#key_read id=%d !!!\n",key_slot);
@@ -432,7 +432,7 @@ static int32_t key_installed(aml_key_t * key,uint32_t id, char * buf)
 #ifdef KEY_NEW_METHOD
 static int32_t key_item_parse(struct v3_key_storage_head *head)
 {
-	struct v3_key_storage *tmp_content_storage,*valid_node,*tmp_node,*pre_node,*free_node;
+	struct v3_key_storage *tmp_content_storage,*tmp_node; //,*valid_node,*pre_node,*free_node;
 	char *temp_content,*item_content;
 	aml_key_t *aml_key;
 	int i,item_cnt;
@@ -652,7 +652,7 @@ static int32_t version3_flush(aml_keys_schematic_t * schematic)
 {
 	aml_keybox_provider_t * prov = aml_keybox_provider_get(secure_device);
 	//int i, j;
-	int i, j,err=0;
+	int i,err=0;
 	uint16_t st=0;
 	uint32_t size=0;
 	char *room=NULL;

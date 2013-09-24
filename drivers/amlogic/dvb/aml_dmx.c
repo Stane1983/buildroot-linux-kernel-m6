@@ -947,6 +947,7 @@ int async_fifo_deinit(struct aml_asyncfifo *afifo)
 	return 0;
 }
 
+#if 0
 static void dmx_set_mux(struct aml_dvb *dvb)
 {
 #define PREG_PIN_MUX_REG3 PERIPHS_PIN_MUX_3
@@ -982,6 +983,7 @@ static void dmx_set_mux(struct aml_dvb *dvb)
 #endif
 
 }
+#endif
 
 /*Initalize the registers*/
 static int dmx_init(struct aml_dmx *dmx)
@@ -1158,7 +1160,7 @@ static int dmx_enable(struct aml_dmx *dmx)
 	struct aml_dvb *dvb = (struct aml_dvb*)dmx->demux.priv;
 	int fec_sel, hi_bsf, fec_clk, record;
 	int fec_core_sel;
-	int fec_s, invert_clk, set_stb=0;
+	int fec_s=0, invert_clk, set_stb=0;
 
 	record = dmx_get_record_flag(dmx);
 

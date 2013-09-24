@@ -656,7 +656,7 @@ AVL_uint32 AVL6211_GETSignalLevel(void)
 	struct AVL_DVBSx_Chip * pAVLChip = &g_stAvlDVBSxChip[HandIndex];
 	AVL_DVBSx_ErrorCode r = AVL_DVBSx_EC_OK;
 	AVL_uint16 uiRFSignalLevel;
-	AVL_int16  uiRFSignalDBM;
+	AVL_int16  uiRFSignalDBM=0;
 	//This function can be called to get the RF signal level after the channel locked.
 	   r = AVL_DVBSx_IRx_GetSignalLevel(&uiRFSignalLevel, pAVLChip);
 	   if (AVL_DVBSx_EC_OK != r)

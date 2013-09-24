@@ -128,10 +128,10 @@ void reset_di_para(void)
   	int nr_zone_0 = 4, nr_zone_1 = 8, nr_zone_2 = 12;
     //int nr_hfilt_en = 0;
     int nr_hfilt_mb_en = 0;
-    int mtn_modify_en = 1;
-    int post_mb_en = 0;
-    int blend_mtn_filt_en = 1;
-    int blend_data_filt_en = 1;
+    //int mtn_modify_en = 1;
+    //int post_mb_en = 0;
+    //int blend_mtn_filt_en = 1;
+    //int blend_data_filt_en = 1;
     unsigned int nr_strength = 0, nr_gain2 = 0, nr_gain1 = 0, nr_gain0 = 0;
 
     nr_strength = noise_reduction_level;

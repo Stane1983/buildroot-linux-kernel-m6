@@ -165,6 +165,9 @@ static struct nand_ecclayout aml_nand_oob_1280 = {
 #if  0
 #define aml_nand_debug(a...) {printk("%s()[%s,%d]",__func__,__FILE__,__LINE__); printk(a);}
 #else
+#ifdef aml_nand_debug
+#undef aml_nand_debug
+#endif
 #define aml_nand_debug(a...) 
 #endif
 static unsigned default_environment_size = (ENV_SIZE - sizeof(struct aml_nand_bbt_info));
@@ -698,10 +701,10 @@ void aml_nand_get_read_default_value_hynix(struct mtd_info *mtd)
 	struct aml_nand_chip *aml_chip = mtd_to_nand_chip(mtd);
 	struct nand_chip *chip = mtd->priv;
 	size_t addr;
-	unsigned char *data_buf;
+	unsigned char *data_buf=NULL;
 	char oob_buf[4];
 	unsigned char page_list[RETRY_NAND_COPY_NUM] = {0x07, 0x0B, 0x0F, 0x13};
-	int error = 0, err, i, j, k, nand_type, total_blk, phys_erase_shift = fls(mtd->erasesize) - 1;
+	int error = 0, err, i, nand_type, total_blk, phys_erase_shift = fls(mtd->erasesize) - 1; // , j, k
 
 	aml_oob_ops = kzalloc(sizeof(struct mtd_oob_ops), GFP_KERNEL);
 	if (aml_oob_ops == NULL){
