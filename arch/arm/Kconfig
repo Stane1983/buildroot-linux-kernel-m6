@@ -899,6 +899,14 @@ config PLAT_MESON
 	  Support for Amlogic Meson System-on-Chip.
 
 endchoice
+
+config XBMC_BUILD
+	bool "XBMC support"
+	depends on PLAT_MESON
+	default n
+	help
+	  Compile kernel with Linux XBMC support
+
 #
 # This is sorted alphabetically by mach-* pathname.  However, plat-*
 # Kconfigs may be included either alphabetically (according to the
